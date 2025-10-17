@@ -1,35 +1,38 @@
 # Flutter MorozTeam UI
 
-Универсальный UI kit для Flutter приложений с гибкой системой конфигурации цветов, типографики и spacing.
+Universal Flutter UI Kit with flexible theme configuration for colors, typography, and spacing.
 
-## Особенности
+## Features
 
-- 🎨 **Гибкая система тем** - настраиваемые цвета, типографика и spacing
-- 📱 **Адаптивный дизайн** - поддержка различных размеров экранов
-- 🎯 **Консистентность** - единообразные компоненты и стили
-- ⚡ **Производительность** - оптимизированные виджеты
-- 🔧 **Кастомизация** - легкая настройка под любой проект
+- 🎨 **Flexible Theme System** - Customizable colors, typography, and spacing
+- 📱 **Adaptive Design** - Support for different screen sizes
+- 🎯 **Consistency** - Uniform components and styles
+- ⚡ **Performance** - Optimized widgets
+- 🔧 **Customization** - Easy configuration for any project
 
-## Установка
+## Installation
 
-Добавьте в `pubspec.yaml`:
+Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_morozteam_ui: ^0.1.0
+  flutter_morozteam_ui:
+    git:
+      url: https://github.com/alxmoroz/flutter_morozteam_ui.git
+      ref: main
 ```
 
-Затем выполните:
+Then run:
 
 ```bash
 flutter pub get
 ```
 
-## Быстрый старт
+## Quick Start
 
-### 1. Настройка темы
+### 1. Theme Setup
 
-Оберните ваше приложение в `UIThemeProvider`:
+Wrap your app with `UIThemeProvider`:
 
 ```dart
 import 'package:flutter_morozteam_ui/flutter_morozteam_ui.dart';
@@ -47,27 +50,27 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-### 2. Создание конфигурации
+### 2. Create Configuration
 
 ```dart
 const myConfig = UIKitConfig(
-  // Цвета фона
+  // Background colors
   b0Color: Color(0xFF1A1A1A),
   b1Color: Color(0xFF2A2A2A),
   b2Color: Color(0xFF3A3A3A),
   b3Color: Color(0xFFF5F5F5),
   
-  // Цвета текста
+  // Text colors
   f1Color: Color(0xFF1A1A1A),
   f2Color: Color(0xFF666666),
   f3Color: Color(0xFF999999),
   
-  // Акцентные цвета
+  // Accent colors
   mainColor: Color(0xFF007AFF),
   dangerColor: Color(0xFFFF3B30),
   safeColor: Color(0xFF34C759),
   
-  // Типографика
+  // Typography
   fontFamily: 'SF Pro Text',
   fontFamilyNumbers: 'SF Mono',
   baseFontSize: 16.0,
@@ -75,124 +78,131 @@ const myConfig = UIKitConfig(
   // Spacing
   baseSpacing: 6.0,
   
-  // Размеры
+  // Sizes
   minButtonHeight: 48.0,
   defaultBorderRadius: 12.0,
 );
 ```
 
-### 3. Использование компонентов
+### 3. Use Components
 
 ```dart
-// Кнопки
+// Buttons
 MTButton.main(
-  titleText: 'Главная кнопка',
-  onTap: () => print('Нажата!'),
+  titleText: 'Main Button',
+  onTap: () => print('Pressed!'),
 )
 
 MTButton.secondary(
-  titleText: 'Вторичная кнопка',
-  onTap: () => print('Нажата!'),
+  titleText: 'Secondary Button',
+  onTap: () => print('Pressed!'),
 )
 
-// Текст
-H1('Заголовок 1')
-H2('Заголовок 2')
-BaseText('Обычный текст')
-BaseText.medium('Полужирный текст')
-SmallText('Мелкий текст')
+// Text
+H1('Heading 1')
+H2('Heading 2')
+BaseText('Regular text')
+BaseText.medium('Medium weight text')
+SmallText('Small text')
 
-// Адаптивные контейнеры
+// Adaptive containers
 MTAdaptive.xxs(
   child: Container(
-    child: Text('Узкий контейнер'),
+    child: Text('Narrow container'),
   ),
 )
 ```
 
-## Компоненты
+## Components
 
-### Кнопки и элементы списка
+### Buttons and List Items
 
-- `MTButton` - универсальная кнопка с 5 вариантами
-- `MTListTile` - элемент списка
-- `MTSectionTitle` - заголовок секции
-- `MTListText` - текстовый элемент списка
+- `MTButton` - Universal button with 7 variants (text, main, secondary, danger, safe, icon, card)
+- `MTListTile` - List item
+- `MTSectionTitle` - Section header
+- `MTListText` - Text list item
 
-### Контейнеры и карточки
+### Containers and Cards
 
-- `MTCard` - карточка с тенью
-- `MTCircle` - круглый элемент
-- `MTBackgroundWrapper` - обертка с градиентным фоном
+- `MTCard` - Card with shadow
+- `MTCircle` - Circular element
+- `MTBackgroundWrapper` - Wrapper with gradient background
 
-### Индикаторы
+### Indicators
 
-- `MTLoader` - загрузчик с полупрозрачным фоном
-- `MTCircularProgress` - круговой индикатор
-- `MTProgress` - прогресс бар
-- `MTDivider` - разделительная линия
+- `MTLoader` - Loader with semi-transparent background
+- `MTCircularProgress` - Circular progress indicator
+- `MTProgress` - Progress bar
+- `MTDivider` - Divider line
 
-### Иконки
+### Icons
 
-- `MTIcon` - базовый класс
-- `PlusIcon`, `CloseIcon`, `BackIcon` и другие
+- `MTIcon` - Base class
+- `PlusIcon`, `CloseIcon`, `BackIcon`, and more
 
-### Страницы и навигация
+### Pages and Navigation
 
-- `MTPage` - базовый виджет страницы
-- `MTTopBar` / `MTBottomBar` - панели навигации
-- `PageTitle` - заголовок страницы
+- `MTPage` - Base page widget
+- `MTTopBar` / `MTBottomBar` - Navigation bars
+- `PageTitle` - Page title
 
-### Скроллинг и тени
+### Scrolling and Shadows
 
-- `MTScrollable` - скроллируемый контейнер с тенями
-- `MTShadowed` - виджет с тенями
-- `MTRefresh` - pull-to-refresh
+- `MTScrollable` - Scrollable container with shadows
+- `MTShadowed` - Widget with shadows
+- `MTRefresh` - Pull-to-refresh
 
-### Типографика
+### Typography
 
-- `H1`, `H2`, `H3` - заголовки
-- `BaseText` - основной текст
-- `BaseText.medium()` - полужирный текст
-- `BaseText.bold()` - жирный текст
-- `SmallText` - мелкий текст
-- `NumbersText` - текст для цифр
-- `LinkText` - ссылки
+- `H1`, `H2`, `H3` - Headings
+- `BaseText` - Regular text
+- `BaseText.medium()` - Medium weight text
+- `BaseText.bold()` - Bold text
+- `SmallText` - Small text
+- `NumbersText` - Text for numbers
+- `LinkText` - Links
 
-### Утилиты
+### Form Components
 
-- `MTAdaptive` - адаптивные контейнеры
-- `GestureManaging` - миксин для управления жестами
-- `FocusDroppable` - убирает фокус при нажатии
+- `MTTextField` - Text input field with `.email()` and `.password()` variants
+- `MTCheckBoxTile` - Checkbox list tile
+- `MTDropdown<T>` - Generic dropdown
 
-## Система цветов
+### Utilities
 
-UI Kit использует семантическую систему цветов:
+- `MTAdaptive` - Adaptive containers
+- `GestureManaging` - Mixin for gesture management
+- `FocusDroppable` - Removes focus on tap
 
-- **B0-B3** - цвета фона (от темного к светлому)
-- **F1-F3** - цвета текста (от основного к светлому)
-- **mainColor** - основной акцентный цвет
-- **dangerColor** - цвет для опасных действий
-- **safeColor** - цвет для безопасных действий
+## Color System
 
-## Система spacing
+The UI Kit uses a semantic color system:
 
-Базовое значение `P = 6.0` (настраивается):
+- **B0-B3** - Background colors (from darkest to lightest)
+- **F1-F3** - Text colors (from primary to light)
+- **mainColor** - Primary accent color
+- **dangerColor** - Color for dangerous actions
+- **safeColor** - Color for safe actions
+- **warningColor** - Color for warnings
+
+## Spacing System
+
+Base value `P = 6.0` (configurable):
 
 - `P` = 6.0
 - `P2` = 12.0
 - `P3` = 18.0
 - `P4` = 24.0
-- и т.д.
+- etc.
 
-## Пример
+## Example
 
-Смотрите папку `example/` для полного примера использования.
+See the `example/` folder for a complete usage example.
 
-## Лицензия
+## License
 
-MIT License
+Proprietary - © 2025 MorozTeam
 
-## Автор
+## Author
 
 Alexandr Moroz - MorozTeam
