@@ -130,7 +130,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                                       align: titleTextAlign,
                                     ),
                               if (hasSubtitle) ...[
-                                if (hasMiddle) const SizedBox(height: 6), // P
+                                if (hasMiddle) SizedBox(height: constants.P),
                                 subtitle!,
                               ],
                             ],

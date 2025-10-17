@@ -276,7 +276,7 @@ class MTButton extends StatelessWidget with GestureManaging {
                       maxLines: 1,
                     ))
                 : const SizedBox()),
-        if (trailing != null) ...[const SizedBox(width: 6), trailing!], // P
+        if (trailing != null) ...[SizedBox(width: constants.P), trailing!],
       ],
     );
 
