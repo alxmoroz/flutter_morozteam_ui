@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+
 import '../config/ui_config.dart';
 
 /// Константы для spacing, размеров и других UI параметров
@@ -12,7 +13,7 @@ class UIConstants {
 
   /// Базовое значение для spacing (P)
   double get P => config.baseSpacing;
-  
+
   /// Производные значения spacing
   double get P2 => P * 2.0; // 12
   double get P3 => P * 3.0; // 18
@@ -62,7 +63,7 @@ class UIConstants {
   double get scrLWidth => config.lWidth;
   double get scrXLWidth => config.xlWidth;
   double get scrXXLWidth => config.xxlWidth;
-  
+
   // Avatar limits
   double get maxAvatarRadius => scrSWidth / 4;
 
@@ -87,7 +88,6 @@ UIConstants get constants {
   }
   return _globalConstants!;
 }
-
 
 /// Расширение для BuildContext для удобного доступа к константам
 extension UIConstantsExtension on BuildContext {

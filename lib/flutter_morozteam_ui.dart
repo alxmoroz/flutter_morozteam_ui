@@ -15,6 +15,7 @@ export 'src/components/card.dart';
 export 'src/components/checkbox.dart';
 export 'src/components/circle.dart';
 export 'src/components/circular_progress.dart';
+export 'src/components/dialog.dart';
 export 'src/components/divider.dart';
 export 'src/components/dropdown.dart';
 export 'src/components/field.dart';
@@ -47,5 +48,3 @@ export 'src/theme/text.dart';
 export 'src/utils/adaptive.dart';
 export 'src/utils/gesture.dart';
 export 'src/utils/material_wrapper.dart';
-
-export 'src/components/dialog.dart';
