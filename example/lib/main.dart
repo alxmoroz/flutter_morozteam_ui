@@ -632,7 +632,46 @@ class NewComponentsDemo extends StatefulWidget {
 
 class _NewComponentsDemoState extends State<NewComponentsDemo> {
   final _phoneController = TextEditingController();
-  PhoneCountry _selectedCountry = PhoneCountry.values.first;
+  
+  final List<PhoneCountry> _demoCountries = [
+    PhoneCountry(
+      code: '7',
+      name: 'Russia',
+      mask: '(###) ###-##-##',
+      icon: const Text('🇷🇺', style: TextStyle(fontSize: 24)),
+    ),
+    PhoneCountry(
+      code: '1',
+      name: 'United States',
+      mask: '(###) ###-####',
+      icon: const Text('🇺🇸', style: TextStyle(fontSize: 24)),
+    ),
+    PhoneCountry(
+      code: '44',
+      name: 'United Kingdom',
+      mask: '#### ### ####',
+      icon: const Text('🇬🇧', style: TextStyle(fontSize: 24)),
+    ),
+    PhoneCountry(
+      code: '49',
+      name: 'Germany',
+      mask: '### ########',
+      icon: const Text('🇩🇪', style: TextStyle(fontSize: 24)),
+    ),
+    PhoneCountry(
+      code: '33',
+      name: 'France',
+      mask: '# ## ## ## ##',
+      icon: const Text('🇫🇷', style: TextStyle(fontSize: 24)),
+    ),
+  ];
+  
+  PhoneCountry _selectedCountry = PhoneCountry(
+    code: '7',
+    name: 'Russia',
+    mask: '(###) ###-##-##',
+    icon: const Text('🇷🇺', style: TextStyle(fontSize: 24)),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -693,8 +732,10 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
           MTPhoneField(
             controller: _phoneController,
             country: _selectedCountry,
+            countries: _demoCountries,
             onChangeCountry: (country) => setState(() => _selectedCountry = country),
             label: 'Phone Number',
+            selectorTitle: 'Select Country',
           ),
         ],
       ),

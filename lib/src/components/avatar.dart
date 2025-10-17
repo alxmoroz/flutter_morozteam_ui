@@ -1,11 +1,12 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/text.dart';
 import 'circle.dart';
 
-const double MAX_AVATAR_RADIUS = 200.0; // constants.sWidth / 4
+const double MAX_AVATAR_RADIUS = 200.0; // TODO: constants.sWidth / 4
 
 class MTAvatar extends StatelessWidget {
   const MTAvatar(
@@ -27,7 +28,7 @@ class MTAvatar extends StatelessWidget {
   String get _salt => '${_user?.updatedOn?.millisecondsSinceEpoch ?? ''}';
   String? get _fileName => _user?.emailMD5;
   String get _gravatarUrl => 'https://www.gravatar.com/avatar/$_fileName?s=${radius * 6}&d=blank';
-  String get _avatarUrl => 'https://api.example.com/v1/avatars/download/$_fileName?$_salt';
+  String get _avatarUrl => 'https://api.example.com/v1/avatars/download/$_fileName?$_salt'; // TODO: хардкод
 
   static const _borderWidth = 2.0;
   Color get _noAvatarColor => _user != null ? colors.f2Color : colors.f3Color;
