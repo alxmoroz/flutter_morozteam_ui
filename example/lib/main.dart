@@ -671,7 +671,7 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
           SizedBox(height: constants.P2),
           MTImage('no_info', height: 100, width: 100),
           SizedBox(height: constants.P2),
-          MTNetworkImage('https://picsum.photos/200/200', height: 100, width: 100),
+          MTNetworkImage('https://picsum.photos/200/200', height: 100, width: 100, fallbackName: 'no_info'),
           SizedBox(height: constants.P3),
           const H2('Field Examples'),
           SizedBox(height: constants.P2),

@@ -5,11 +5,6 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
-String _assetPath(String name, BuildContext context) {
-  final dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
-  return 'assets/images/$name${dark ? '_dark' : ''}.png';
-}
-
 double _defaultImageHeight(BuildContext context) => min(200, max(120, MediaQuery.sizeOf(context).height / 3.5));
 
 class MTSvgImage extends StatelessWidget {
@@ -35,15 +30,36 @@ class MTImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final h = height ?? _defaultImageHeight(context);
     final w = width ?? h;
+    final dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+    final imageName = name ?? fallbackName ?? 'no_info';
 
     return SizedBox(
       width: w,
       height: h,
       child: Image.asset(
-        _assetPath(name ?? fallbackName ?? 'no_info', context),
-        errorBuilder: (_, __, ___) => Image.asset(
-          _assetPath(fallbackName ?? 'no_info', context),
-        ),
+        // Try dark version first if in dark mode
+        dark ? 'assets/images/${imageName}_dark.png' : 'assets/images/$imageName.png',
+        errorBuilder: (_, __, ___) {
+          // Fallback 1: If dark failed, try light version
+          if (dark) {
+            return Image.asset(
+              'assets/images/$imageName.png',
+              errorBuilder: (_, __, ___) {
+                // Fallback 2: If light also failed, try fallbackName
+                if (fallbackName != null && fallbackName != imageName) {
+                  return Image.asset('assets/images/$fallbackName.png');
+                }
+                // Fallback 3: Show placeholder or empty
+                return const SizedBox.shrink();
+              },
+            );
+          }
+          // If not dark or light failed, try fallbackName
+          if (fallbackName != null && fallbackName != imageName) {
+            return Image.asset('assets/images/$fallbackName.png');
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }
@@ -55,14 +71,14 @@ class MTNetworkImage extends StatelessWidget {
     super.key,
     this.height,
     this.width,
-    this.fallbackName = 'category-icon-placeholder',
+    this.fallbackName,
     this.color,
   });
 
   final String? url;
   final double? height;
   final double? width;
-  final String fallbackName;
+  final String? fallbackName;
   final Color? color;
 
   @override
@@ -80,7 +96,26 @@ class MTNetworkImage extends StatelessWidget {
   }
 
   Widget _buildFallbackImage(BuildContext context) {
-    return Image.asset(_assetPath(fallbackName, context), color: color);
+    if (fallbackName == null) {
+      return const SizedBox.shrink(); // No fallback = empty
+    }
+    
+    final dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+    return Image.asset(
+      dark ? 'assets/images/${fallbackName}_dark.png' : 'assets/images/$fallbackName.png',
+      color: color,
+      errorBuilder: (_, __, ___) {
+        // Try light version if dark fails
+        if (dark) {
+          return Image.asset(
+            'assets/images/$fallbackName.png',
+            color: color,
+            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+          );
+        }
+        return const SizedBox.shrink();
+      },
+    );
   }
 
   bool _isValidUrl(String? url) {
