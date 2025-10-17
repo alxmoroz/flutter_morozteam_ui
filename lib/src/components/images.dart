@@ -2,7 +2,7 @@
 
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter_svg/svg.dart'; // TODO: Add flutter_svg dependency
+import 'package:flutter_svg/svg.dart';
 
 enum ImageName {
   app_icon,
@@ -41,18 +41,17 @@ String _assetPath(String name, BuildContext context) {
 
 double _defaultImageHeight(BuildContext context) => min(200, max(120, MediaQuery.sizeOf(context).height / 3.5));
 
-// TODO: Add flutter_svg dependency to enable SVG support
-// class MTSvgImage extends StatelessWidget {
-//   const MTSvgImage(this.name, {this.width, this.height, super.key});
-//   final String name;
-//   final double? width;
-//   final double? height;
+class MTSvgImage extends StatelessWidget {
+  const MTSvgImage(this.name, {this.width, this.height, super.key});
+  final String name;
+  final double? width;
+  final double? height;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SvgPicture.asset('assets/images/$name.svg', width: width, height: height);
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset('assets/images/$name.svg', width: width, height: height);
+  }
+}
 
 class MTImage extends StatelessWidget {
   const MTImage(this.name, {super.key, this.height, this.width, this.fallbackName});

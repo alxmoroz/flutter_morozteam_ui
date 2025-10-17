@@ -25,6 +25,7 @@ export 'src/components/list_tile.dart';
 export 'src/components/loader.dart';
 export 'src/components/page.dart';
 export 'src/components/page_title.dart';
+export 'src/components/phone_field.dart';
 export 'src/components/progress.dart';
 export 'src/components/refresh.dart';
 export 'src/components/scrollable.dart';

@@ -658,8 +658,16 @@ class LayoutDemo extends StatelessWidget {
 
 // ==================== NEW COMPONENTS DEMO ====================
 
-class NewComponentsDemo extends StatelessWidget {
+class NewComponentsDemo extends StatefulWidget {
   const NewComponentsDemo({super.key});
+
+  @override
+  State<NewComponentsDemo> createState() => _NewComponentsDemoState();
+}
+
+class _NewComponentsDemoState extends State<NewComponentsDemo> {
+  final _phoneController = TextEditingController();
+  PhoneCountry _selectedCountry = PhoneCountry.values.first;
 
   @override
   Widget build(BuildContext context) {
@@ -724,6 +732,17 @@ class NewComponentsDemo extends StatelessWidget {
             _demoFieldDataEmpty,
             leading: const Icon(Icons.email),
             trailing: const Icon(Icons.arrow_forward_ios),
+          ),
+          SizedBox(height: constants.P3),
+          
+          const H2('Phone Field'),
+          SizedBox(height: constants.P2),
+          
+          MTPhoneField(
+            controller: _phoneController,
+            country: _selectedCountry,
+            onChangeCountry: (country) => setState(() => _selectedCountry = country),
+            label: 'Phone Number',
           ),
         ],
       ),

@@ -61,6 +61,9 @@ All notable changes to this project will be documented in this file.
   - `MTImage` - Image components with PNG, Network, and SVG support
   - `MTScrollableCentered` - Centered scrollable content container
 
+- **Input Components**
+  - `MTPhoneField` - Phone number input with country selection and formatting
+
 - **Utilities**
   - `MTAdaptive` - Adaptive containers with breakpoint support
   - `GestureManaging` - Mixin for gesture management with haptic feedback
