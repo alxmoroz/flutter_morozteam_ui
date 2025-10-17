@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../theme/colors.dart';
+import '../theme/constants.dart';
 import 'button.dart';
 import 'circular_progress.dart';
 import 'dialog.dart';
@@ -68,7 +69,7 @@ class MTWebViewDialog extends StatelessWidget {
         children: [
           Container(
             color: bgColor,
-            child: const Center(child: MTCircularProgress(size: 40.0)), // constants.P10
+            child: Center(child: MTCircularProgress(size: constants.P10))
           ),
           WebViewWidget(
             gestureRecognizers: const {Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new)},

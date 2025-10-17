@@ -1,38 +1,9 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
-
-enum ImageName {
-  app_icon,
-  delete,
-  empty_sources,
-  empty_tasks,
-  finance,
-  goal,
-  goal_done,
-  google_calendar,
-  hello,
-  import,
-  loading,
-  mail_icon,
-  no_info,
-  not_found,
-  notifications,
-  privacy,
-  purchase,
-  relations,
-  save,
-  server_error,
-  sync,
-  team,
-  telegram_icon,
-  transfer,
-  upgrade,
-  vk_icon,
-  web_icon,
-}
 
 String _assetPath(String name, BuildContext context) {
   final dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;

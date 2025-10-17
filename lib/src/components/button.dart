@@ -265,7 +265,7 @@ class MTButton extends StatelessWidget with GestureManaging {
       mainAxisAlignment: mainAxisAlignment,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (leading != null) ...[leading!, const SizedBox(width: 12)], // P2
+        if (leading != null) ...[leading!, SizedBox(width: constants.P2)],
         middle ??
             (titleText != null
                 ? Flexible(
@@ -329,7 +329,7 @@ class MTButton extends StatelessWidget with GestureManaging {
                         align: titleTextAlign ?? TextAlign.center,
                       )
                     : null),
-            padding: padding ?? const EdgeInsets.symmetric(vertical: 6), // P
+            padding: padding ?? EdgeInsets.symmetric(vertical: constants.P),
             margin: margin,
             trailing: trailing,
             onHover: onHover,

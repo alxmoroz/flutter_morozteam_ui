@@ -46,7 +46,7 @@ InputDecoration tfDecoration(
     errorText: error,
     errorStyle: SmallText('', color: colors.warningColor).style(context),
     errorMaxLines: 3,
-    contentPadding: contentPadding ?? const EdgeInsets.all(18), // P2 + P_2
+    contentPadding: contentPadding ?? EdgeInsets.all(constants.P2 + constants.P_2),
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: border,

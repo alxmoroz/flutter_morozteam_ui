@@ -115,7 +115,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                         SizedBox(height: minHeight ?? constants.defTappableIconSize),
                         if (leading != null) ...[
                           leading!,
-                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? 12), // P2
+                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? constants.P2)
                         ],
                         Expanded(
                           child: Column(

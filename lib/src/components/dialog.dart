@@ -180,14 +180,13 @@ class MTDialog extends StatelessWidget {
     });
   }
 
-  static const _radius = Radius.circular(12.0); // constants.defBorderRadius
-
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final mqPadding = mq.padding;
 
     final big = isBigScreen(context);
+    final radius = Radius.circular(constants.defBorderRadius);
 
     return FocusDroppable(
       Padding(
@@ -198,10 +197,10 @@ class MTDialog extends StatelessWidget {
             color: (bgColor ?? colors.b2Color).resolve(context),
             borderRadius: borderRadius ??
                 BorderRadius.only(
-                  topLeft: _radius,
-                  topRight: _radius,
-                  bottomLeft: big ? _radius : Radius.zero,
-                  bottomRight: big ? _radius : Radius.zero,
+                  topLeft: radius,
+                  topRight: radius,
+                  bottomLeft: big ? radius : Radius.zero,
+                  bottomRight: big ? radius : Radius.zero,
                 ),
             boxShadow: [
               BoxShadow(
