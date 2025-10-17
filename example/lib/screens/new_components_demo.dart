@@ -85,7 +85,7 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
             // Gravatar
             MTAvatar(20, gravatarEmail: 'john.doe@example.com'),
             // Custom URL
-            MTAvatar(20, avatarUrl: 'https://picsum.photos/40/40'),
+            MTAvatar(20, avatarUrl: 'https://via.placeholder.com/40'),
             // No data (icon fallback)
             MTAvatar(20),
             // Large with initials
@@ -99,7 +99,7 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
         SizedBox(height: constants.P2),
         const MTImage('no_info', height: 100, width: 100),
         SizedBox(height: constants.P2),
-        const MTNetworkImage('https://picsum.photos/200/200', height: 100, width: 100, fallbackName: 'no_info'),
+        const MTNetworkImage('https://via.placeholder.com/200', height: 100, width: 100, fallbackName: 'no_info'),
         SizedBox(height: constants.P3),
         const H2('Field Examples'),
         SizedBox(height: constants.P2),
