@@ -62,6 +62,9 @@ class UIConstants {
   double get scrLWidth => config.lWidth;
   double get scrXLWidth => config.xlWidth;
   double get scrXXLWidth => config.xxlWidth;
+  
+  // Avatar limits
+  double get maxAvatarRadius => scrSWidth / 4;
 
   /// Elevation
   double get cardElevation => config.cardElevation;

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
@@ -28,7 +29,7 @@ class PhoneCountry {
     final digits = text.replaceAll(RegExp(r'[^\d]'), '');
     final buffer = StringBuffer();
     int digitIndex = 0;
-    
+
     for (int i = 0; i < mask.length && digitIndex < digits.length; i++) {
       if (mask[i] == '#') {
         buffer.write(digits[digitIndex]);
@@ -37,7 +38,7 @@ class PhoneCountry {
         buffer.write(mask[i]);
       }
     }
-    
+
     return buffer.toString();
   }
 }
@@ -48,7 +49,7 @@ class _PhoneCountrySelectorDialog extends StatelessWidget {
     this._countries,
     this._title,
   );
-  
+
   final Function(PhoneCountry) _onChangeCountry;
   final List<PhoneCountry> _countries;
   final String _title;

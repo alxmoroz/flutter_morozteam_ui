@@ -57,7 +57,7 @@ class MTDropdown<T> extends StatelessWidget {
         icon: const Icon(Icons.keyboard_arrow_down),
         items: _ddItems,
         isExpanded: true,
-        value: value,
+        initialValue: value,
         onChanged: onChanged,
         borderRadius: BorderRadius.circular(constants.defBorderRadius),
       ),

@@ -74,8 +74,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
         endIndent: dividerEndIndent ?? padding?.right ?? constants.defHP,
       );
 
-  EdgeInsets get _defaultPadding =>
-      EdgeInsets.symmetric(horizontal: constants.defHP, vertical: verticalPadding ?? constants.defVP);
+  EdgeInsets get _defaultPadding => EdgeInsets.symmetric(horizontal: constants.defHP, vertical: verticalPadding ?? constants.defVP);
 
   @override
   Widget build(BuildContext context) {
@@ -113,10 +112,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                       crossAxisAlignment: crossAxisAlignment,
                       children: [
                         SizedBox(height: minHeight ?? constants.defTappableIconSize),
-                        if (leading != null) ...[
-                          leading!,
-                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? constants.P2)
-                        ],
+                        if (leading != null) ...[leading!, if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? constants.P2)],
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -172,7 +168,7 @@ class MTSectionTitle extends MTListTile {
           verticalPadding: verticalPadding ?? constants.defVP / 2,
           topMargin: topMargin ?? constants.defVP / 2,
           titleTextColor: titleTextColor ?? colors.f2Color,
-          leadingSpacing: leadingSpacing ?? 6, // P
+          leadingSpacing: leadingSpacing ?? constants.P,
           minHeight: minHeight ?? 0,
         );
 }
@@ -196,7 +192,7 @@ class MTListText extends MTListTile {
           titleText: text,
           verticalPadding: verticalPadding ?? 0,
           topMargin: topMargin ?? constants.defVP / 2,
-          leadingSpacing: leadingSpacing ?? 6, // P
+          leadingSpacing: leadingSpacing ?? constants.P,
           minHeight: minHeight ?? 0,
         );
 
@@ -222,7 +218,7 @@ class MTListText extends MTListTile {
           ),
           verticalPadding: verticalPadding ?? 0,
           topMargin: topMargin ?? constants.defVP / 2,
-          leadingSpacing: leadingSpacing ?? 6, // P
+          leadingSpacing: leadingSpacing ?? constants.P,
           minHeight: minHeight ?? 0,
         );
 
@@ -248,7 +244,7 @@ class MTListText extends MTListTile {
           ),
           topMargin: topMargin ?? constants.defVP,
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? 6, // P
+          leadingSpacing: leadingSpacing ?? constants.P,
           minHeight: minHeight ?? 0,
         );
 
@@ -274,7 +270,7 @@ class MTListText extends MTListTile {
           ),
           topMargin: topMargin ?? constants.defVP,
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? 6, // P
+          leadingSpacing: leadingSpacing ?? constants.P,
           minHeight: minHeight ?? 0,
         );
 
@@ -300,7 +296,7 @@ class MTListText extends MTListTile {
           ),
           topMargin: topMargin ?? constants.defVP / 2,
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? 6, // P
+          leadingSpacing: leadingSpacing ?? constants.P,
           minHeight: minHeight ?? 0,
         );
 }

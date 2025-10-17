@@ -2,9 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
-import '../theme/text.dart';
 import '../theme/constants.dart';
+import '../theme/text.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
@@ -244,9 +245,7 @@ class MTButton extends StatelessWidget with GestureManaging {
       disabledForegroundColor: btnColor,
       disabledBackgroundColor: btnColor,
       minimumSize: _minSize,
-      shape: RoundedRectangleBorder(
-        borderRadius: borderRadiusGeometry ?? BorderRadius.circular(_radius)
-      ),
+      shape: RoundedRectangleBorder(borderRadius: borderRadiusGeometry ?? BorderRadius.circular(_radius)),
       side: borderSide ?? (type.isSecondary ? BorderSide(color: titleColor, width: 1) : BorderSide.none),
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
@@ -256,9 +255,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     );
   }
 
-  Function()? get _onPressed => _enabled && onTap != null 
-      ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) 
-      : null;
+  Function()? get _onPressed => _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
 
   Widget _button(BuildContext context) {
     final child = Row(
@@ -270,11 +267,11 @@ class MTButton extends StatelessWidget with GestureManaging {
             (titleText != null
                 ? Flexible(
                     child: BaseText.medium(
-                      titleText!,
-                      align: titleTextAlign,
-                      color: _titleColor(context),
-                      maxLines: 1,
-                    ))
+                    titleText!,
+                    align: titleTextAlign,
+                    color: _titleColor(context),
+                    maxLines: 1,
+                  ))
                 : const SizedBox()),
         if (trailing != null) ...[SizedBox(width: constants.P), trailing!],
       ],
@@ -343,16 +340,16 @@ class MTButton extends StatelessWidget with GestureManaging {
               fit: StackFit.passthrough,
               children: [
                 _button(context),
-                if (loading == true) 
-                  Container(
-                    width: 20,
-                    height: 20,
+                if (loading == true)
+                  SizedBox(
+                    width: constants.P4,
+                    height: constants.P4,
                     child: const CupertinoActivityIndicator(),
                   ),
               ],
             ),
           );
-    
+
     return type == MTButtonType.icon || !constrained ? btn : MTAdaptive.xxs(child: btn);
   }
 }

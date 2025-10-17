@@ -7,7 +7,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../theme/colors.dart';
 import '../theme/constants.dart';
-import 'button.dart';
 import 'circular_progress.dart';
 import 'dialog.dart';
 import 'toolbar.dart';
@@ -57,20 +56,13 @@ class MTWebViewDialog extends StatelessWidget {
     );
 
     return MTDialog(
-      topBar: MTTopBar(
+      topBar: const MTTopBar(
         pageTitle: 'WebView',
-        leading: MTButton.icon(
-          Icon(Icons.close),
-          onTap: () => Navigator.of(context).pop(),
-        ),
       ),
       bgColor: bgColor,
       body: Stack(
         children: [
-          Container(
-            color: bgColor,
-            child: Center(child: MTCircularProgress(size: constants.P10))
-          ),
+          Container(color: bgColor, child: Center(child: MTCircularProgress(size: constants.P10))),
           WebViewWidget(
             gestureRecognizers: const {Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new)},
             controller: controller,

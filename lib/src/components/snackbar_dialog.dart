@@ -10,8 +10,7 @@ import '../theme/text.dart';
 import 'dialog.dart';
 import 'list_tile.dart';
 
-Future showMTSnackbar(String text,
-    {TextAlign? titleAlign = TextAlign.center, Widget? trailing, Function()? onTap}) async {
+Future showMTSnackbar(String text, {TextAlign? titleAlign = TextAlign.center, Widget? trailing, Function()? onTap}) async {
   await showMTDialog(
     _MTSnackbarDialog(text, titleAlign: titleAlign, trailing: trailing, onTap: onTap),
     forceBottomSheet: true,
@@ -27,10 +26,10 @@ class _MTSnackbarDialog extends StatefulWidget {
   final Function()? onTap;
 
   @override
-  State<_MTSnackbarDialog> createState() => _MyAppState();
+  State<_MTSnackbarDialog> createState() => _State();
 }
 
-class _MyAppState extends State<_MTSnackbarDialog> {
+class _State extends State<_MTSnackbarDialog> {
   late Timer _closingTimer;
 
   @override

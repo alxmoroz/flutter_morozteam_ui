@@ -3,10 +3,9 @@
 import 'package:flutter/material.dart';
 
 import '../theme/colors.dart';
+import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'circle.dart';
-
-const double MAX_AVATAR_RADIUS = 200.0; // TODO: constants.sWidth / 4
 
 class MTAvatar extends StatelessWidget {
   const MTAvatar(
@@ -25,21 +24,21 @@ class MTAvatar extends StatelessWidget {
   bool get _hasAvatar => _user?.hasAvatar == true;
   String get _initials => member?.initials ?? user?.initials ?? '';
 
-  String get _salt => '${_user?.updatedOn?.millisecondsSinceEpoch ?? ''}';
   String? get _fileName => _user?.emailMD5;
   String get _gravatarUrl => 'https://www.gravatar.com/avatar/$_fileName?s=${radius * 6}&d=blank';
-  String get _avatarUrl => 'https://api.example.com/v1/avatars/download/$_fileName?$_salt'; // TODO: хардкод
+  // Note: _avatarUrl removed as it was project-specific API
 
   static const _borderWidth = 2.0;
   Color get _noAvatarColor => _user != null ? colors.f2Color : colors.f3Color;
   bool get _hasBorder => borderColor != null;
 
   Widget _initialsCircle(BuildContext context) {
-    final fs = const BaseText('', maxLines: 1).style(context).fontSize ?? 17;
-    final sizeScale = radius / fs;
+    final fs = const BaseText('', maxLines: 1).style(context).fontSize ?? 17; // Fallback font size
+    final validRadius = radius > constants.maxAvatarRadius ? constants.maxAvatarRadius : radius;
+    final sizeScale = validRadius / fs;
     return MTCircle(
       color: Colors.transparent,
-      size: radius * 2,
+      size: validRadius * 2,
       border: !_hasBorder ? Border.all(color: _noAvatarColor.resolve(context)) : null,
       child: Center(
         child: BaseText(
@@ -55,22 +54,24 @@ class MTAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Validate radius against maximum
+    final validRadius = radius > constants.maxAvatarRadius ? constants.maxAvatarRadius : radius;
     final avatar = Stack(
       alignment: Alignment.center,
       children: [
         _initials.isNotEmpty
             ? _initialsCircle(context)
-            : Icon(Icons.person, size: radius * (_hasBorder ? 1.3 : 2), color: _noAvatarColor.resolve(context)),
+            : Icon(Icons.person, size: validRadius * (_hasBorder ? 1.3 : 2), color: _noAvatarColor.resolve(context)),
         CircleAvatar(
-          radius: radius - (_hasBorder ? _borderWidth : 0),
+          radius: validRadius - (_hasBorder ? _borderWidth : 0),
           backgroundColor: Colors.transparent,
           backgroundImage: !_hasAvatar && _user != null ? NetworkImage(_gravatarUrl) : null,
-          foregroundImage: _hasAvatar ? NetworkImage(_avatarUrl) : null,
+          foregroundImage: null, // Custom avatar loading removed - use project-specific implementation
         ),
       ],
     );
     return MTCircle(
-      size: radius * 2,
+      size: validRadius * 2,
       color: colors.b3Color,
       border: _hasBorder ? Border.all(width: _borderWidth, color: borderColor!.resolve(context)) : null,
       child: avatar,

@@ -369,7 +369,7 @@ class _FormsDemoState extends State<FormsDemo> {
             label: 'Password',
             hint: 'Enter password',
           ),
-          MTTextField(
+          const MTTextField(
             label: 'Message',
             hint: 'Enter your message',
             maxLines: 4,
@@ -590,10 +590,10 @@ class LayoutDemo extends StatelessWidget {
           SizedBox(height: constants.P3),
           const H2('Background Gradient'),
           SizedBox(height: constants.P2),
-          MTBackgroundWrapper(
-            Container(
+          const MTBackgroundWrapper(
+            SizedBox(
               height: 150,
-              child: const Center(
+              child: Center(
                 child: BaseText('Container with gradient background'),
               ),
             ),
@@ -632,45 +632,45 @@ class NewComponentsDemo extends StatefulWidget {
 
 class _NewComponentsDemoState extends State<NewComponentsDemo> {
   final _phoneController = TextEditingController();
-  
+
   final List<PhoneCountry> _demoCountries = [
-    PhoneCountry(
+    const PhoneCountry(
       code: '7',
       name: 'Russia',
       mask: '(###) ###-##-##',
-      icon: const Text('🇷🇺', style: TextStyle(fontSize: 24)),
+      icon: Text('🇷🇺', style: TextStyle(fontSize: 24)),
     ),
-    PhoneCountry(
+    const PhoneCountry(
       code: '1',
       name: 'United States',
       mask: '(###) ###-####',
-      icon: const Text('🇺🇸', style: TextStyle(fontSize: 24)),
+      icon: Text('🇺🇸', style: TextStyle(fontSize: 24)),
     ),
-    PhoneCountry(
+    const PhoneCountry(
       code: '44',
       name: 'United Kingdom',
       mask: '#### ### ####',
-      icon: const Text('🇬🇧', style: TextStyle(fontSize: 24)),
+      icon: Text('🇬🇧', style: TextStyle(fontSize: 24)),
     ),
-    PhoneCountry(
+    const PhoneCountry(
       code: '49',
       name: 'Germany',
       mask: '### ########',
-      icon: const Text('🇩🇪', style: TextStyle(fontSize: 24)),
+      icon: Text('🇩🇪', style: TextStyle(fontSize: 24)),
     ),
-    PhoneCountry(
+    const PhoneCountry(
       code: '33',
       name: 'France',
       mask: '# ## ## ## ##',
-      icon: const Text('🇫🇷', style: TextStyle(fontSize: 24)),
+      icon: Text('🇫🇷', style: TextStyle(fontSize: 24)),
     ),
   ];
-  
-  PhoneCountry _selectedCountry = PhoneCountry(
+
+  PhoneCountry _selectedCountry = const PhoneCountry(
     code: '7',
     name: 'Russia',
     mask: '(###) ###-##-##',
-    icon: const Text('🇷🇺', style: TextStyle(fontSize: 24)),
+    icon: Text('🇷🇺', style: TextStyle(fontSize: 24)),
   );
 
   @override
@@ -698,33 +698,33 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
           SizedBox(height: constants.P2),
           Row(
             children: [
-              MTAvatar(20, user: _demoUser),
+              const MTAvatar(20, user: _demoUser),
               SizedBox(width: constants.P2),
-              MTAvatar(30, user: _demoUser),
+              const MTAvatar(30, user: _demoUser),
               SizedBox(width: constants.P2),
-              MTAvatar(40, user: _demoUser),
+              const MTAvatar(40, user: _demoUser),
             ],
           ),
           SizedBox(height: constants.P3),
           const H2('Image Examples'),
           SizedBox(height: constants.P2),
-          MTImage('no_info', height: 100, width: 100),
+          const MTImage('no_info', height: 100, width: 100),
           SizedBox(height: constants.P2),
-          MTNetworkImage('https://picsum.photos/200/200', height: 100, width: 100, fallbackName: 'no_info'),
+          const MTNetworkImage('https://picsum.photos/200/200', height: 100, width: 100, fallbackName: 'no_info'),
           SizedBox(height: constants.P3),
           const H2('Field Examples'),
           SizedBox(height: constants.P2),
-          MTField(
+          const MTField(
             _demoFieldData,
-            leading: const Icon(Icons.person),
-            value: const BaseText('John Doe'),
-            trailing: const Icon(Icons.edit),
+            leading: Icon(Icons.person),
+            value: BaseText('John Doe'),
+            trailing: Icon(Icons.edit),
           ),
           SizedBox(height: constants.P2),
-          MTField(
+          const MTField(
             _demoFieldDataEmpty,
-            leading: const Icon(Icons.email),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            leading: Icon(Icons.email),
+            trailing: Icon(Icons.arrow_forward_ios),
           ),
           SizedBox(height: constants.P3),
           const H2('Phone Field'),

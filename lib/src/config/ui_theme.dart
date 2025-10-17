@@ -1,11 +1,12 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/widgets.dart';
+
 import 'ui_config.dart';
 
 /// InheritedWidget для доступа к UIKitConfig через контекст
 class UITheme extends InheritedWidget {
-  UITheme({
+  const UITheme({
     super.key,
     required this.config,
     required super.child,

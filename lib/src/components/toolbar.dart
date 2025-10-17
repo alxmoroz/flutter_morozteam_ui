@@ -1,8 +1,10 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 import '../utils/adaptive.dart';
@@ -45,10 +47,7 @@ abstract class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(
-        topPadding +
-            _innerHeight +
-            (bottomWidget?.preferredSize.height ?? 0) +
-            bottomPadding,
+        topPadding + _innerHeight + (bottomWidget?.preferredSize.height ?? 0) + bottomPadding,
       );
 
   Widget? _leading(BuildContext context) {
@@ -70,10 +69,7 @@ abstract class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
         Stack(
           alignment: Alignment.center,
           children: [
-            if (middle != null)
-              middle!
-            else if (pageTitle != null)
-              PageTitle(pageTitle!, parentPageTitle: parentPageTitle),
+            if (middle != null) middle! else if (pageTitle != null) PageTitle(pageTitle!, parentPageTitle: parentPageTitle),
             Row(
               children: [
                 if (_leading(context) != null) _leading(context)!,
