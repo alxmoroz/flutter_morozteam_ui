@@ -1,8 +1,10 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 import 'circle.dart';
@@ -28,15 +30,12 @@ class MTIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final rColor = (color ?? colors.mainColor).resolve(context);
     final iconSize = size ?? constants.P4;
-    
     return Stack(
       alignment: Alignment.center,
       children: [
         if (circled == true)
           MTCircle(
-            color: solid == true 
-                ? rColor.withValues(alpha: 0.12) 
-                : Colors.transparent,
+            color: solid == true ? rColor.withValues(alpha: 0.12) : Colors.transparent,
             size: iconSize,
             border: Border.all(
               color: rColor,

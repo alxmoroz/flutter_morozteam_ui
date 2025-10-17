@@ -1,9 +1,10 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
-import '../theme/text.dart';
 import '../theme/constants.dart';
+import '../theme/text.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
 import 'divider.dart';
@@ -73,10 +74,8 @@ class MTListTile extends StatelessWidget with GestureManaging {
         endIndent: dividerEndIndent ?? padding?.right ?? constants.defHP,
       );
 
-  EdgeInsets get _defaultPadding => EdgeInsets.symmetric(
-      horizontal: constants.defHP, 
-      vertical: verticalPadding ?? constants.defVP
-  );
+  EdgeInsets get _defaultPadding =>
+      EdgeInsets.symmetric(horizontal: constants.defHP, vertical: verticalPadding ?? constants.defVP);
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +85,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
     final hasMiddle = middle != null || titleText.isNotEmpty;
     final hasSubtitle = subtitle != null;
     final bgColor = color.resolve(context);
-    
+
     return Stack(
       alignment: Alignment.center,
       fit: StackFit.passthrough,
@@ -100,9 +99,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
               onHover: onHover,
               hoverColor: hoverColor,
               highlightColor: hoverColor,
-              splashColor: (splashColor ?? uiColors.mainColor)
-                  .resolve(context)
-                  .withValues(alpha: 0.06),
+              splashColor: (splashColor ?? uiColors.mainColor).resolve(context).withValues(alpha: 0.06),
               canRequestFocus: false,
               focusColor: Colors.transparent,
               child: Column(
@@ -118,8 +115,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                         SizedBox(height: minHeight ?? constants.defTappableIconSize),
                         if (leading != null) ...[
                           leading!,
-                          if (hasMiddle || hasSubtitle) 
-                            SizedBox(width: leadingSpacing ?? 12), // P2
+                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? 12), // P2
                         ],
                         Expanded(
                           child: Column(

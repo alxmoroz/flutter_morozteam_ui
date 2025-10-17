@@ -1,11 +1,16 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'dart:math';
+
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
+import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
+import 'background.dart';
+import 'scrollable.dart';
 
 /// Базовый виджет страницы
 class MTPage extends StatelessWidget {
@@ -14,68 +19,108 @@ class MTPage extends StatelessWidget {
     this.navBar,
     required this.body,
     this.bottomBar,
+    this.leftBar,
+    this.rightBar,
     this.scrollController,
-    this.backgroundColor,
+    this.scrollOffsetTop,
+    this.onScrolled,
+    this.bg1Color,
+    this.bg2Color,
   });
 
+  final PreferredSizeWidget? leftBar;
+  final PreferredSizeWidget? rightBar;
   final PreferredSizeWidget? navBar;
   final Widget body;
   final PreferredSizeWidget? bottomBar;
+  final Color? bg1Color;
+  final Color? bg2Color;
+
   final ScrollController? scrollController;
-  final Color? backgroundColor;
+  final double? scrollOffsetTop;
+  final Function(bool)? onScrolled;
+
+  Widget get _center {
+    return material(Builder(builder: (ctx) {
+      final mq = MediaQuery.of(ctx);
+      final mqPadding = mq.padding.copyWith(
+        top: max(mq.padding.top, constants.defPageTopPadding),
+        bottom: max(max(mq.viewPadding.bottom, mq.padding.bottom), constants.defPageBottomPadding),
+      );
+
+      final hasKB = mq.viewInsets.bottom > 0;
+      final big = isBigScreen(ctx);
+      final scrollable = scrollOffsetTop != null && scrollController != null;
+      final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
+
+      return MTBackgroundWrapper(
+        PrimaryScrollController(
+          controller: scrollController ?? ScrollController(),
+          child: MediaQuery(
+            data: mq.copyWith(padding: mqPadding),
+            child: Stack(
+              children: [
+                MediaQuery(
+                  data: mq.copyWith(
+                    padding: mqPadding.copyWith(
+                      top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (navBar?.preferredSize.height ?? 0)),
+                      bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + bottomBarHeight,
+                    ),
+                  ),
+                  child: SafeArea(
+                    top: false,
+                    bottom: false,
+                    child: scrollable
+                        ? MTScrollable(
+                            scrollController: scrollController!,
+                            scrollOffsetTop: scrollOffsetTop!,
+                            onScrolled: onScrolled,
+                            bottomShadow: bottomBarHeight > 0,
+                            topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
+                            child: body,
+                          )
+                        : body,
+                  ),
+                ),
+                if (navBar != null) navBar!,
+                if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
+              ],
+            ),
+          ),
+        ),
+        bg1Color: bg1Color,
+        bg2Color: bg2Color,
+      );
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    final mqPadding = mq.padding.copyWith(
-      top: max(mq.padding.top, constants.defPageTopPadding),
-      bottom: max(
-        max(mq.viewPadding.bottom, mq.padding.bottom),
-        constants.defPageBottomPadding,
-      ),
-    );
+    final mqPadding = mq.padding;
 
-    final hasKB = mq.viewInsets.bottom > 0;
-    final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
+    final hasLeftBar = leftBar != null;
+    final hasRightBar = rightBar != null;
 
     return FocusDroppable(
       Container(
-        decoration: BoxDecoration(
-          color: (backgroundColor ?? colors.b2Color).resolve(context),
-        ),
-        child: material(
-          PrimaryScrollController(
-            controller: scrollController ?? ScrollController(),
-            child: MediaQuery(
-              data: mq.copyWith(padding: mqPadding),
-              child: Stack(
-                children: [
-                  MediaQuery(
+        decoration: BoxDecoration(color: colors.b2Color.resolve(context)),
+        child: Stack(
+          children: [
+            hasLeftBar || hasRightBar
+                ? MediaQuery(
                     data: mq.copyWith(
                       padding: mqPadding.copyWith(
-                        top: mqPadding.top + 
-                            (navBar?.preferredSize.height ?? 0),
-                        bottom: (hasKB ? 0 : mqPadding.bottom) +
-                            mq.viewInsets.bottom +
-                            bottomBarHeight,
+                        left: mqPadding.left + (leftBar?.preferredSize.width ?? 0),
+                        right: mqPadding.right + (rightBar?.preferredSize.width ?? 0),
                       ),
                     ),
-                    child: SafeArea(
-                      top: false,
-                      bottom: false,
-                      child: body,
-                    ),
-                  ),
-                  if (navBar != null) navBar!,
-                  if (bottomBar != null)
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: bottomBar!,
-                    ),
-                ],
-              ),
-            ),
-          ),
+                    child: _center,
+                  )
+                : _center,
+            if (hasLeftBar) leftBar!,
+            if (hasRightBar) Align(alignment: Alignment.centerRight, child: rightBar!)
+          ],
         ),
       ),
     );
