@@ -57,7 +57,6 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(constants.P3),
       children: [
         const H2('Alert Dialog'),
         SizedBox(height: constants.P2),
@@ -75,10 +74,10 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
         SizedBox(height: constants.P3),
         const H2('Avatar Examples'),
         SizedBox(height: constants.P2),
-          Wrap(
-            spacing: constants.P2,
-            runSpacing: constants.P2,
-            children: const [
+        Wrap(
+          spacing: constants.P2,
+          runSpacing: constants.P2,
+          children: const [
             // Initials only
             MTAvatar(20, initials: 'JD'),
             // Initials with border

@@ -9,7 +9,6 @@ class TypographyDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(constants.P3),
       children: [
         const H2('Headings'),
         SizedBox(height: constants.P2),

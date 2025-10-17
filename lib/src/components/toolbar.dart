@@ -69,7 +69,10 @@ abstract class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
         Stack(
           alignment: Alignment.center,
           children: [
-            if (middle != null) middle! else if (pageTitle != null) PageTitle(pageTitle!, parentPageTitle: parentPageTitle),
+            if (middle != null)
+              middle!
+            else if (pageTitle != null)
+              PageTitle(pageTitle!, parentPageTitle: parentPageTitle),
             Row(
               children: [
                 if (_leading(context) != null) _leading(context)!,
@@ -101,12 +104,14 @@ class MTTopBar extends MTAppBar {
     super.innerHeight,
     super.bottomPadding,
     super.fullScreen,
-    Color? color,
+    this.barColor,
   }) : super(
           isBottom: false,
-          color: color ?? Colors.transparent,
+          color: Colors.transparent,
           ignoreBottomInsets: true,
         );
+
+  final Color? barColor;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +122,9 @@ class MTTopBar extends MTAppBar {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        decoration: BoxDecoration(color: color.resolve(context)),
+        decoration: BoxDecoration(
+          color: (barColor ?? Theme.of(context).colorScheme.surface).resolve(context),
+        ),
         padding: EdgeInsets.only(
           top: max(mqPadding.top, topPadding),
           left: big ? mqPadding.left : 0,
@@ -142,14 +149,16 @@ class MTBottomBar extends MTAppBar {
     super.innerHeight,
     super.topPadding,
     super.fullScreen,
-    Color? color,
+    this.barColor,
   }) : super(
           isBottom: true,
-          color: color ?? Colors.transparent,
+          color: Colors.transparent,
           pageTitle: null,
           parentPageTitle: null,
           ignoreBottomInsets: true,
         );
+
+  final Color? barColor;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +169,9 @@ class MTBottomBar extends MTAppBar {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        decoration: BoxDecoration(color: color.resolve(context)),
+        decoration: BoxDecoration(
+          color: (barColor ?? Theme.of(context).colorScheme.surface).resolve(context),
+        ),
         padding: EdgeInsets.only(
           top: topPadding,
           left: big ? mqPadding.left : 0,

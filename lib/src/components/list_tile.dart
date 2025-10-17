@@ -74,7 +74,8 @@ class MTListTile extends StatelessWidget with GestureManaging {
         endIndent: dividerEndIndent ?? padding?.right ?? constants.defHP,
       );
 
-  EdgeInsets get _defaultPadding => EdgeInsets.symmetric(horizontal: constants.defHP, vertical: verticalPadding ?? constants.defVP);
+  EdgeInsets get _defaultPadding =>
+      EdgeInsets.symmetric(horizontal: constants.defHP, vertical: verticalPadding ?? constants.defVP);
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +113,10 @@ class MTListTile extends StatelessWidget with GestureManaging {
                       crossAxisAlignment: crossAxisAlignment,
                       children: [
                         SizedBox(height: minHeight ?? constants.defTappableIconSize),
-                        if (leading != null) ...[leading!, if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? constants.P2)],
+                        if (leading != null) ...[
+                          leading!,
+                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? constants.P2)
+                        ],
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -293,6 +297,136 @@ class MTListText extends MTListTile {
             maxLines: titleTextMaxLines,
             align: titleTextAlign,
             color: titleTextColor ?? colors.f2Color,
+          ),
+          topMargin: topMargin ?? constants.defVP / 2,
+          verticalPadding: verticalPadding ?? 0,
+          leadingSpacing: leadingSpacing ?? constants.P,
+          minHeight: minHeight ?? 0,
+        );
+
+  MTListText.h1(
+    String text, {
+    super.key,
+    super.leading,
+    super.trailing,
+    double? topMargin,
+    double? verticalPadding,
+    Color? titleTextColor,
+    TextAlign? titleTextAlign,
+    int? titleTextMaxLines,
+    double? leadingSpacing,
+    double? minHeight,
+    super.onTap,
+  }) : super(
+          middle: H1(
+            text,
+            maxLines: titleTextMaxLines,
+            align: titleTextAlign,
+            color: titleTextColor,
+          ),
+          topMargin: topMargin ?? constants.defVP,
+          verticalPadding: verticalPadding ?? 0,
+          leadingSpacing: leadingSpacing ?? constants.P,
+          minHeight: minHeight ?? 0,
+        );
+
+  MTListText.h4(
+    String text, {
+    super.key,
+    super.leading,
+    super.trailing,
+    double? topMargin,
+    double? verticalPadding,
+    Color? titleTextColor,
+    TextAlign? titleTextAlign,
+    int? titleTextMaxLines,
+    double? leadingSpacing,
+    double? minHeight,
+    super.onTap,
+  }) : super(
+          middle: H4(
+            text,
+            maxLines: titleTextMaxLines,
+            align: titleTextAlign,
+            color: titleTextColor,
+          ),
+          topMargin: topMargin ?? constants.defVP,
+          verticalPadding: verticalPadding ?? 0,
+          leadingSpacing: leadingSpacing ?? constants.P,
+          minHeight: minHeight ?? 0,
+        );
+
+  MTListText.numbers(
+    String text, {
+    super.key,
+    super.leading,
+    super.trailing,
+    double? topMargin,
+    double? verticalPadding,
+    Color? titleTextColor,
+    TextAlign? titleTextAlign,
+    int? titleTextMaxLines,
+    double? leadingSpacing,
+    double? minHeight,
+    super.onTap,
+  }) : super(
+          middle: NumbersText(
+            text,
+            maxLines: titleTextMaxLines,
+            align: titleTextAlign,
+            color: titleTextColor,
+          ),
+          topMargin: topMargin ?? constants.defVP / 2,
+          verticalPadding: verticalPadding ?? 0,
+          leadingSpacing: leadingSpacing ?? constants.P,
+          minHeight: minHeight ?? 0,
+        );
+
+  MTListText.button(
+    String text, {
+    super.key,
+    super.leading,
+    super.trailing,
+    double? topMargin,
+    double? verticalPadding,
+    Color? titleTextColor,
+    TextAlign? titleTextAlign,
+    int? titleTextMaxLines,
+    double? leadingSpacing,
+    double? minHeight,
+    super.onTap,
+  }) : super(
+          middle: ButtonText(
+            text,
+            maxLines: titleTextMaxLines,
+            align: titleTextAlign,
+            color: titleTextColor,
+          ),
+          topMargin: topMargin ?? constants.defVP / 2,
+          verticalPadding: verticalPadding ?? 0,
+          leadingSpacing: leadingSpacing ?? constants.P,
+          minHeight: minHeight ?? 0,
+        );
+
+  MTListText.link(
+    String text, {
+    super.key,
+    super.leading,
+    super.trailing,
+    double? topMargin,
+    double? verticalPadding,
+    Color? titleTextColor,
+    TextAlign? titleTextAlign,
+    int? titleTextMaxLines,
+    double? leadingSpacing,
+    double? minHeight,
+    super.onTap,
+  }) : super(
+          middle: LinkText(
+            text,
+            maxLines: titleTextMaxLines,
+            align: titleTextAlign,
+            color: titleTextColor,
           ),
           topMargin: topMargin ?? constants.defVP / 2,
           verticalPadding: verticalPadding ?? 0,

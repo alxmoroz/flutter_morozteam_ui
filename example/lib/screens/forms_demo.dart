@@ -21,7 +21,6 @@ class _FormsDemoState extends State<FormsDemo> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(constants.P3),
       children: [
         const H2('Text Fields'),
         SizedBox(height: constants.P2),

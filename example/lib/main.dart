@@ -15,29 +15,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MorozTeam UI Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: _demoConfig.mainColor.resolve(context),
-          primary: _demoConfig.mainColor.resolve(context),
-          brightness: MediaQuery.platformBrightnessOf(context),
-          surface: _demoConfig.b2Color.resolve(context),
-          surfaceTint: _demoConfig.b2Color.resolve(context),
-        ),
-        fontFamily: 'Roboto',
-        useMaterial3: true,
-      ),
-      home: Builder(
-        builder: (context) {
-          // Set global context for dialogs
-          setGlobalContext(context);
-          return const UIThemeProvider(
-            config: _demoConfig,
-            child: DemoHomePage(),
-          );
-        },
-      ),
+    return Builder(
+      builder: (context) {
+        return MaterialApp(
+          title: 'MorozTeam UI Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: _demoConfig.mainColor.resolve(context),
+              primary: _demoConfig.mainColor.resolve(context),
+              brightness: MediaQuery.platformBrightnessOf(context),
+              surface: _demoConfig.b2Color.resolve(context),
+              surfaceTint: _demoConfig.b2Color.resolve(context),
+            ),
+            fontFamily: 'Roboto',
+            useMaterial3: true,
+          ),
+          home: Builder(
+            builder: (context) {
+              // Set global context for dialogs
+              setGlobalContext(context);
+              return const UIThemeProvider(
+                config: _demoConfig,
+                child: DemoHomePage(),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

@@ -9,7 +9,6 @@ class ComponentsDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(constants.P3),
       children: [
         const H2('Cards'),
         SizedBox(height: constants.P2),
