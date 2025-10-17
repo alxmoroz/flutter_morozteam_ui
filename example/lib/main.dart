@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: 'Flutter MorozTeam UI Demo',
-      theme: const CupertinoThemeData(
-        primaryColor: CupertinoColors.systemBlue,
+    return MaterialApp(
+      title: 'MorozTeam UI Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
         brightness: Brightness.light,
       ),
       home: Builder(
@@ -221,6 +221,7 @@ class TypographyDemo extends StatelessWidget {
           const H1('Heading 1'),
           const H2('Heading 2'),
           const H3('Heading 3'),
+          const H4('Heading 4'),
           SizedBox(height: constants.P3),
           const H2('Text Styles'),
           SizedBox(height: constants.P2),

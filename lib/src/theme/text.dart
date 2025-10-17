@@ -91,7 +91,11 @@ class BaseText extends StatelessWidget {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     // если указан явно межстрочный интервал, то оставляем его.
     final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.15, 4: 1.2}[maxLines] ?? 1.3;
-    final double fs = config.baseFontSize * (sizeScale ?? 1);
+    
+    // Use config values instead of baseFontSize * sizeScale
+    final double fs = sizeScale != null 
+        ? config.bodyFontSize * sizeScale! 
+        : config.bodyFontSize;
 
     // Определяем цвет текста
     Color textColor;
@@ -107,7 +111,7 @@ class BaseText extends StatelessWidget {
       fontFamily: config.fontFamily,
       color: rColor,
       decorationColor: rColor,
-      fontWeight: weight ?? FontWeight.w400,
+      fontWeight: weight ?? config.bodyFontWeight,
       fontSize: fs,
       height: h,
       inherit: true,
@@ -132,51 +136,114 @@ class BaseText extends StatelessWidget {
 
 /// Заголовок H1
 class H1 extends BaseText {
-  const H1(super.text, {super.key, super.color, super.maxLines = 2, super.height = 1.1, super.align, super.padding})
-      : super(weight: FontWeight.w400, sizeScale: 28 / 16); // Будет пересчитан в style()
+  const H1(super.text, {super.key, super.color, super.maxLines = 2, super.height = 1.1, super.align, super.padding});
+  
+  @override
+  TextStyle style(BuildContext context) {
+    final config = _getConfig();
+    final baseStyle = super.style(context);
+    return baseStyle.copyWith(
+      fontSize: config.h1FontSize,
+      fontWeight: config.h1FontWeight,
+    );
+  }
 }
 
 /// Заголовок H2
 class H2 extends BaseText {
-  const H2(super.text, {super.key, super.color, super.maxLines = 3, super.height = 1.1, super.align, super.padding})
-      : super(weight: FontWeight.w500, sizeScale: 24 / 16);
+  const H2(super.text, {super.key, super.color, super.maxLines = 3, super.height = 1.1, super.align, super.padding});
+  
+  @override
+  TextStyle style(BuildContext context) {
+    final config = _getConfig();
+    final baseStyle = super.style(context);
+    return baseStyle.copyWith(
+      fontSize: config.h2FontSize,
+      fontWeight: config.h2FontWeight,
+    );
+  }
 }
 
 /// Заголовок H3
 class H3 extends BaseText {
-  const H3(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.color, super.align, super.padding})
-      : super(weight: FontWeight.w700, sizeScale: 14 / 16);
-
+  const H3(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.color, super.align, super.padding});
+  
   const H3.f2(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.align, super.padding})
-      : super.f2(weight: FontWeight.w700, sizeScale: 14 / 16);
+      : super.f2();
+  
+  @override
+  TextStyle style(BuildContext context) {
+    final config = _getConfig();
+    final baseStyle = super.style(context);
+    return baseStyle.copyWith(
+      fontSize: config.h3FontSize,
+      fontWeight: config.h3FontWeight,
+    );
+  }
+}
+
+/// Заголовок H4
+class H4 extends BaseText {
+  const H4(super.text, {super.key, super.color, super.maxLines, super.height, super.align, super.padding});
+  
+  @override
+  TextStyle style(BuildContext context) {
+    final config = _getConfig();
+    final baseStyle = super.style(context);
+    return baseStyle.copyWith(
+      fontSize: config.h4FontSize,
+      fontWeight: config.h4FontWeight,
+    );
+  }
 }
 
 /// Текст для цифр
 class NumbersText extends BaseText {
-  const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding})
-      : super(sizeScale: 20 / 16);
+  const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
 
   @override
   TextStyle style(BuildContext context) {
     final config = _getConfig();
     final baseStyle = super.style(context);
-    return baseStyle.copyWith(fontFamily: config.fontFamilyNumbers);
+    return baseStyle.copyWith(
+      fontSize: config.numbersFontSize,
+      fontWeight: config.numbersFontWeight,
+      fontFamily: config.fontFamilyNumbers,
+    );
   }
 }
 
 /// Мелкий текст
 class SmallText extends BaseText {
-  const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding})
-      : super(sizeScale: 10 / 16);
+  const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
+  
+  @override
+  TextStyle style(BuildContext context) {
+    final config = _getConfig();
+    final baseStyle = super.style(context);
+    return baseStyle.copyWith(
+      fontSize: config.smallFontSize,
+      fontWeight: config.smallFontWeight,
+    );
+  }
 }
 
 /// Текст для кнопок
 class ButtonText extends BaseText {
-  const ButtonText(super.text, {super.key, super.maxLines, super.color, super.align = TextAlign.center, super.padding})
-      : super(sizeScale: 16 / 16, weight: FontWeight.w500);
+  const ButtonText(super.text, {super.key, super.maxLines, super.color, super.align = TextAlign.center, super.padding});
 
   const ButtonText.f2(super.text, {super.key, super.maxLines = 1, super.align = TextAlign.center, super.padding})
-      : super.f2(sizeScale: 16 / 16, weight: FontWeight.w500);
+      : super.f2();
+  
+  @override
+  TextStyle style(BuildContext context) {
+    final config = _getConfig();
+    final baseStyle = super.style(context);
+    return baseStyle.copyWith(
+      fontSize: config.buttonFontSize,
+      fontWeight: config.buttonFontWeight,
+    );
+  }
 }
 
 /// Текст-ссылка
@@ -189,12 +256,18 @@ class LinkText extends BaseText {
     super.align,
     super.padding,
     super.decoration = TextDecoration.underline,
-  }) : super(sizeScale: 14 / 16);
+  });
 
   @override
   TextStyle style(BuildContext context) {
+    final config = _getConfig();
     final uiColors = colors;
     final baseStyle = super.style(context);
-    return baseStyle.copyWith(color: color ?? uiColors.mainColor, decorationColor: color ?? uiColors.mainColor);
+    return baseStyle.copyWith(
+      fontSize: config.linkFontSize,
+      fontWeight: config.linkFontWeight,
+      color: color ?? uiColors.mainColor, 
+      decorationColor: color ?? uiColors.mainColor,
+    );
   }
 }

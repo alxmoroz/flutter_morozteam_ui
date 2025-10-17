@@ -17,7 +17,7 @@ class MTAvatar extends StatelessWidget {
     this.borderColor,
     super.key,
   });
-  
+
   final double radius;
   final String initials;
   final String? avatarUrl; // Direct avatar URL (if provided)
@@ -54,7 +54,7 @@ class MTAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     // Validate radius against maximum
     final validRadius = radius > constants.maxAvatarRadius ? constants.maxAvatarRadius : radius;
-    
+
     final avatar = Stack(
       alignment: Alignment.center,
       children: [
@@ -78,7 +78,7 @@ class MTAvatar extends StatelessWidget {
           ),
       ],
     );
-    
+
     return MTCircle(
       size: validRadius * 2,
       color: colors.b3Color,
