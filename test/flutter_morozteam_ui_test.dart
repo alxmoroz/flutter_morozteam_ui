@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_morozteam_ui/flutter_morozteam_ui.dart';
+import 'package:morozteam_ui/morozteam_ui.dart';
 
 void main() {
   test('UIKitConfig creates valid configuration', () {

@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_morozteam_ui:
+  morozteam_ui:
     git:
       url: https://github.com/alxmoroz/flutter_morozteam_ui.git
       ref: main
@@ -35,7 +35,7 @@ flutter pub get
 Wrap your app with `UIThemeProvider`:
 
 ```dart
-import 'package:flutter_morozteam_ui/flutter_morozteam_ui.dart';
+import 'package:morozteam_ui/morozteam_ui.dart';
 
 class MyApp extends StatelessWidget {
   @override

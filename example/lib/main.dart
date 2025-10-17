@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_morozteam_ui/flutter_morozteam_ui.dart';
+import 'package:morozteam_ui/morozteam_ui.dart';
 
 void main() {
   runApp(const MyApp());

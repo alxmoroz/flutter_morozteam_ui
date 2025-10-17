@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_morozteam_ui:
+  morozteam_ui:
     path: ../
 
 dev_dependencies:
