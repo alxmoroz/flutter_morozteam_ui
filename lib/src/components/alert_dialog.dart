@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'button.dart';
-// import 'dialog.dart'; // TODO: Add dialog component
+import 'dialog.dart';
 import 'images.dart';
 
 class MTDialogAction<T> {
@@ -27,8 +27,15 @@ Future<T?> showMTAlertDialog<T>({
   String description = '',
   required List<MTDialogAction<T>> actions,
 }) async {
-  // TODO: Implement showMTDialog
-  return null;
+  return await showMTDialog<T?>(
+    _MTAlertDialog(
+      title,
+      description: description,
+      imageName: imageName,
+      actions: actions,
+    ),
+    maxWidth: constants.scrXSWidth,
+  );
 }
 
 class _MTAlertDialog extends StatelessWidget {
@@ -53,10 +60,9 @@ class _MTAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(constants.P3),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+    return MTDialog(
+      body: ListView(
+        shrinkWrap: true,
         children: [
           if (imageName.isNotEmpty) MTImage(imageName),
           H2(title, padding: EdgeInsets.all(constants.P3), align: TextAlign.center),
@@ -72,6 +78,7 @@ class _MTAlertDialog extends StatelessWidget {
             ),
         ],
       ),
+      forceBottomPadding: actions.isNotEmpty,
     );
   }
 }

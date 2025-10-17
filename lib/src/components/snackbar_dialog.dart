@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
-// import 'dialog.dart'; // TODO: Add dialog component
+import 'dialog.dart';
 import 'list_tile.dart';
 
 Future showMTSnackbar(String text, {TextAlign? titleAlign = TextAlign.center, Widget? trailing, Function()? onTap}) async {
-  // TODO: Implement showMTDialog
-  return;
+  await showMTDialog(
+    _MTSnackbarDialog(text, titleAlign: titleAlign, trailing: trailing, onTap: onTap),
+    forceBottomSheet: true,
+    barrierColor: Colors.transparent,
+  );
 }
 
 class _MTSnackbarDialog extends StatefulWidget {
@@ -51,15 +54,14 @@ class _MyAppState extends State<_MTSnackbarDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: colors.b3Color.resolve(context),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(constants.defBorderRadius),
-          topRight: Radius.circular(constants.defBorderRadius),
-        ),
+    return MTDialog(
+      topBar: null,
+      bgColor: colors.b3Color,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(constants.defBorderRadius),
+        topRight: Radius.circular(constants.defBorderRadius),
       ),
-      child: SafeArea(
+      body: SafeArea(
         child: MTListTile(
           padding: EdgeInsets.all(constants.P3).copyWith(bottom: 0),
           color: Colors.transparent,
@@ -74,6 +76,7 @@ class _MyAppState extends State<_MTSnackbarDialog> {
           onTap: () => _onTap(context),
         ),
       ),
+      forceBottomPadding: true,
     );
   }
 }

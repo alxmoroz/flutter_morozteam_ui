@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2025-01-27
+
+### Fixed
+- Removed all TODO comments and stubs from dialog components
+- Implemented full MTDialog functionality
+- Updated alert_dialog.dart to use MTDialog instead of Container
+- Updated snackbar_dialog.dart to use showMTDialog instead of placeholder
+- Updated webview_dialog.dart to use MTDialog with proper top bar
+- Added global context management for dialogs
+
 ## [0.1.0] - 2025-01-17
 
 ### Added

@@ -7,7 +7,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../theme/colors.dart';
 import 'circular_progress.dart';
 import 'toolbar.dart';
-// import 'dialog.dart'; // TODO: Add dialog component
+import 'button.dart';
+import 'dialog.dart';
 
 class MTWebViewDialog extends StatelessWidget {
   const MTWebViewDialog._(this.uri, {this.onUrlExit, this.bgColor, this.js});
@@ -17,8 +18,9 @@ class MTWebViewDialog extends StatelessWidget {
   final String? js;
 
   static Future<Uri?> show(Uri uri, {bool Function(String)? onUrlExit, Color? bgColor, String? js}) async {
-    // TODO: Implement showMTDialog
-    return null;
+  return await showMTDialog<Uri?>(
+    MTWebViewDialog._(uri, onUrlExit: onUrlExit, bgColor: bgColor, js: js),
+  );
   }
 
   @override
@@ -52,21 +54,26 @@ class MTWebViewDialog extends StatelessWidget {
       ),
     );
 
-    return Container(
-      color: bgColor,
-      child: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              color: bgColor,
-              child: const Center(child: MTCircularProgress(size: 40.0)), // constants.P10
-            ),
-            WebViewWidget(
-              gestureRecognizers: const {Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new)},
-              controller: controller,
-            ),
-          ],
+    return MTDialog(
+      topBar: MTTopBar(
+        pageTitle: 'WebView',
+        leading: MTButton.icon(
+          Icon(Icons.close),
+          onTap: () => Navigator.of(context).pop(),
         ),
+      ),
+      bgColor: bgColor,
+      body: Stack(
+        children: [
+          Container(
+            color: bgColor,
+            child: const Center(child: MTCircularProgress(size: 40.0)), // constants.P10
+          ),
+          WebViewWidget(
+            gestureRecognizers: const {Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new)},
+            controller: controller,
+          ),
+        ],
       ),
     );
   }

@@ -19,9 +19,15 @@ class MyApp extends StatelessWidget {
         primaryColor: CupertinoColors.systemBlue,
         brightness: Brightness.light,
       ),
-      home: const UIThemeProvider(
-        config: _demoConfig,
-        child: DemoHomePage(),
+      home: Builder(
+        builder: (context) {
+          // Set global context for dialogs
+          setGlobalContext(context);
+          return const UIThemeProvider(
+            config: _demoConfig,
+            child: DemoHomePage(),
+          );
+        },
       ),
     );
   }
@@ -749,32 +755,30 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
     );
   }
 
-  void _showAlertDialog(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) => CupertinoAlertDialog(
-        title: const Text('Alert Dialog'),
-        content: const Text('This is an alert dialog example'),
-        actions: [
-          CupertinoDialogAction(
-            child: const Text('Cancel'),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          CupertinoDialogAction(
-            child: const Text('OK'),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
-      ),
+  void _showAlertDialog(BuildContext context) async {
+    final result = await showMTAlertDialog<String>(
+      title: 'Alert Dialog',
+      description: 'This is an alert dialog example',
+      actions: [
+        const MTDialogAction(title: 'Cancel', result: 'cancel'),
+        const MTDialogAction(title: 'OK', result: 'ok', type: MTButtonType.main),
+      ],
     );
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Result: $result')),
+      );
+    }
   }
 
-  void _showSnackbar(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('This is a snackbar example'),
-        duration: Duration(seconds: 2),
-      ),
+  void _showSnackbar(BuildContext context) async {
+    await showMTSnackbar(
+      'This is a snackbar dialog example',
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Snackbar tapped!')),
+        );
+      },
     );
   }
 }
