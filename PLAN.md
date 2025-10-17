@@ -46,17 +46,17 @@
 #### 2. Портирование компонентов
 
 **Утилиты (базовые зависимости для других компонентов):**
-- [ ] `lib/src/utils/adaptive.dart` - MTAdaptive, isBigScreen, screenSize
-- [ ] `lib/src/utils/gesture.dart` - GestureManaging mixin, FocusDroppable
-- [ ] `lib/src/utils/material_wrapper.dart` - обертка для Material виджетов
+- [x] `lib/src/utils/adaptive.dart` - MTAdaptive, isBigScreen, screenSize
+- [x] `lib/src/utils/gesture.dart` - GestureManaging mixin, FocusDroppable
+- [x] `lib/src/utils/material_wrapper.dart` - обертка для Material виджетов
 
 **Базовые UI компоненты:**
-- [ ] `lib/src/components/button.dart` - MTButton (main, secondary, danger, safe, icon, card)
-- [ ] `lib/src/components/card.dart` - MTCard
-- [ ] `lib/src/components/loader.dart` / `circular_progress.dart` - индикаторы загрузки
-- [ ] `lib/src/components/progress.dart` - прогресс бары
-- [ ] `lib/src/components/divider.dart` - разделители
-- [ ] `lib/src/components/circle.dart` - круглые элементы
+- [x] `lib/src/components/button.dart` - MTButton (main, secondary, danger, safe, icon)
+- [x] `lib/src/components/card.dart` - MTCard
+- [x] `lib/src/components/loader.dart` / `circular_progress.dart` - индикаторы загрузки
+- [x] `lib/src/components/progress.dart` - прогресс бары
+- [x] `lib/src/components/divider.dart` - разделители
+- [x] `lib/src/components/circle.dart` - круглые элементы
 
 **Компоненты форм:**
 - [ ] `lib/src/components/text_field.dart` - поля ввода текста
@@ -65,38 +65,38 @@
 - [ ] `lib/src/components/dropdown.dart` - выпадающие списки
 
 **Навигация и Layout:**
-- [ ] `lib/src/components/dialog.dart` - MTDialog, showMTDialog, MTDialogPage
-- [ ] `lib/src/components/page.dart` - MTPage
-- [ ] `lib/src/components/toolbar.dart` - MTToolbar, MTTopBar
-- [ ] `lib/src/components/page_title.dart` - заголовки страниц
-- [ ] `lib/src/components/list_tile.dart` - элементы списка
+- [x] `lib/src/components/page.dart` - MTPage
+- [x] `lib/src/components/toolbar.dart` - MTTopBar, MTBottomBar
+- [x] `lib/src/components/page_title.dart` - заголовки страниц
+- [x] `lib/src/components/list_tile.dart` - элементы списка (MTListTile, MTSectionTitle, MTListText)
+- [ ] `lib/src/components/dialog.dart` - MTDialog (требует интеграции роутера)
 
 **Дополнительные компоненты:**
-- [ ] `lib/src/components/icons.dart` - иконки
-- [ ] `lib/src/components/background.dart` - фоновые элементы
-- [ ] `lib/src/components/shadowed.dart` - элементы с тенью
-- [ ] `lib/src/components/scrollable.dart` / `scrollable_centered.dart` - скроллируемые контейнеры
-- [ ] `lib/src/components/refresh.dart` - pull-to-refresh
+- [x] `lib/src/components/icons.dart` - базовые иконки (MTIcon + 15 готовых иконок)
+- [x] `lib/src/components/background.dart` - фоновые элементы
+- [x] `lib/src/components/shadowed.dart` - элементы с тенью
+- [x] `lib/src/components/scrollable.dart` - скроллируемые контейнеры
+- [x] `lib/src/components/refresh.dart` - pull-to-refresh
 
 #### 3. Example приложение
 
-Создать `example/lib/main.dart` с демонстрацией:
-- Инициализация UIKitConfig с разными темами
-- Все варианты кнопок
-- Типографика (H1, H2, H3, BaseText, SmallText и т.д.)
-- Формы
-- Диалоги
-- Цветовая схема
+- [x] Создан `example/lib/main.dart` с демонстрацией:
+  - ✅ Инициализация UIKitConfig с разными темами
+  - ✅ Все варианты кнопок
+  - ✅ Типографика (H1, H2, H3, BaseText, SmallText и т.д.)
+  - ✅ Цветовая схема
+  - [ ] Формы (будут добавлены позже)
+  - [ ] Диалоги (будут добавлены позже)
 
 #### 4. Документация
 
-- [ ] `README.md` - описание, установка, быстрый старт, примеры
-- [ ] `CHANGELOG.md` - версия 0.1.0 с описанием функционала
-- [ ] API документация в комментариях к коду
+- [x] `README.md` - описание, установка, быстрый старт, примеры
+- [x] `CHANGELOG.md` - версия 0.1.0 с описанием функционала
+- [x] API документация в комментариях к коду
 
 #### 5. Публикация
 
-- [ ] Проверка через `dart pub publish --dry-run`
+- [x] Проверка через `dart pub publish --dry-run` - успешно ✅
 - [ ] Создание GitHub репозитория
 - [ ] Push в GitHub
 - [ ] Публикация на pub.dev
