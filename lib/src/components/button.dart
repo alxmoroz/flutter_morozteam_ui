@@ -8,6 +8,7 @@ import '../theme/constants.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
+import 'list_tile.dart';
 
 /// Типы кнопок
 enum MTButtonType {
@@ -316,26 +317,24 @@ class MTButton extends StatelessWidget with GestureManaging {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Добавить MTListTile когда будет портирован
     final btn = type == MTButtonType.text
-        ? Container(
+        ? MTListTile(
+            leading: leading,
+            middle: middle ??
+                (titleText != null
+                    ? BaseText(
+                        titleText!,
+                        color: _titleColor(context),
+                        maxLines: 1,
+                        align: titleTextAlign ?? TextAlign.center,
+                      )
+                    : null),
             padding: padding ?? const EdgeInsets.symmetric(vertical: 6), // P
-            child: Row(
-              mainAxisAlignment: mainAxisAlignment,
-              children: [
-                if (leading != null) ...[leading!, const SizedBox(width: 12)],
-                middle ??
-                    (titleText != null
-                        ? BaseText(
-                            titleText!,
-                            color: _titleColor(context),
-                            maxLines: 1,
-                            align: titleTextAlign ?? TextAlign.center,
-                          )
-                        : const SizedBox()),
-                if (trailing != null) ...[const SizedBox(width: 6), trailing!],
-              ],
-            ),
+            margin: margin,
+            trailing: trailing,
+            onHover: onHover,
+            loading: loading,
+            onTap: _onPressed,
           )
         : Padding(
             padding: margin ?? EdgeInsets.zero,

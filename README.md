@@ -112,13 +112,42 @@ MTAdaptive.xxs(
 
 ## Компоненты
 
-### Кнопки
+### Кнопки и элементы списка
 
-- `MTButton.main()` - основная кнопка
-- `MTButton.secondary()` - вторичная кнопка
-- `MTButton.danger()` - опасная кнопка
-- `MTButton.safe()` - безопасная кнопка
-- `MTButton.icon()` - кнопка с иконкой
+- `MTButton` - универсальная кнопка с 5 вариантами
+- `MTListTile` - элемент списка
+- `MTSectionTitle` - заголовок секции
+- `MTListText` - текстовый элемент списка
+
+### Контейнеры и карточки
+
+- `MTCard` - карточка с тенью
+- `MTCircle` - круглый элемент
+- `MTBackgroundWrapper` - обертка с градиентным фоном
+
+### Индикаторы
+
+- `MTLoader` - загрузчик с полупрозрачным фоном
+- `MTCircularProgress` - круговой индикатор
+- `MTProgress` - прогресс бар
+- `MTDivider` - разделительная линия
+
+### Иконки
+
+- `MTIcon` - базовый класс
+- `PlusIcon`, `CloseIcon`, `BackIcon` и другие
+
+### Страницы и навигация
+
+- `MTPage` - базовый виджет страницы
+- `MTTopBar` / `MTBottomBar` - панели навигации
+- `PageTitle` - заголовок страницы
+
+### Скроллинг и тени
+
+- `MTScrollable` - скроллируемый контейнер с тенями
+- `MTShadowed` - виджет с тенями
+- `MTRefresh` - pull-to-refresh
 
 ### Типографика
 
