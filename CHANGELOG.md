@@ -48,6 +48,18 @@ All notable changes to this project will be documented in this file.
   - `MTTextField` - Text input field with `.email()` and `.password()` variants
   - `MTCheckBoxTile` - Checkbox list tile
   - `MTDropdown<T>` - Generic dropdown (no domain dependencies)
+  - `MTField` - Generic field component with MTFieldData integration
+  - `MTFieldData` - Data class for form field state management
+
+- **Dialog Components**
+  - `MTAlertDialog` - Configurable alert dialogs with actions
+  - `MTSnackbarDialog` - Toast-style notifications with auto-dismiss
+  - `MTWebViewDialog` - WebView integration (requires webview_flutter dependency)
+
+- **Media Components**
+  - `MTAvatar` - User avatars with Gravatar support and initials fallback
+  - `MTImage` - Image components with PNG, Network, and SVG support
+  - `MTScrollableCentered` - Centered scrollable content container
 
 - **Utilities**
   - `MTAdaptive` - Adaptive containers with breakpoint support

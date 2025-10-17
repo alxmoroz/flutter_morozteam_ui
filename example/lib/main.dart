@@ -43,6 +43,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
     FormsDemo(),
     ComponentsDemo(),
     LayoutDemo(),
+    NewComponentsDemo(),
   ];
 
   final List<String> _tabTitles = const [
@@ -51,6 +52,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
     'Forms',
     'Components',
     'Layout',
+    'New',
   ];
 
   @override
@@ -87,6 +89,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
       case 2: return CupertinoIcons.doc_text;
       case 3: return CupertinoIcons.cube_box;
       case 4: return CupertinoIcons.rectangle_3_offgrid;
+      case 5: return CupertinoIcons.star;
       default: return CupertinoIcons.square;
     }
   }
@@ -652,6 +655,129 @@ class LayoutDemo extends StatelessWidget {
     );
   }
 }
+
+// ==================== NEW COMPONENTS DEMO ====================
+
+class NewComponentsDemo extends StatelessWidget {
+  const NewComponentsDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.all(constants.P3),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const H2('Alert Dialog'),
+          SizedBox(height: constants.P2),
+          
+          MTButton.main(
+            titleText: 'Show Alert Dialog',
+            onTap: () => _showAlertDialog(context),
+          ),
+          SizedBox(height: constants.P3),
+          
+          const H2('Snackbar'),
+          SizedBox(height: constants.P2),
+          
+          MTButton.secondary(
+            titleText: 'Show Snackbar',
+            onTap: () => _showSnackbar(context),
+          ),
+          SizedBox(height: constants.P3),
+          
+          const H2('Avatar Examples'),
+          SizedBox(height: constants.P2),
+          
+          Row(
+            children: [
+              MTAvatar(20, user: _demoUser),
+              SizedBox(width: constants.P2),
+              MTAvatar(30, user: _demoUser),
+              SizedBox(width: constants.P2),
+              MTAvatar(40, user: _demoUser),
+            ],
+          ),
+          SizedBox(height: constants.P3),
+          
+          const H2('Image Examples'),
+          SizedBox(height: constants.P2),
+          
+          MTImage('no_info', height: 100, width: 100),
+          SizedBox(height: constants.P2),
+          
+          MTNetworkImage('https://picsum.photos/200/200', height: 100, width: 100),
+          SizedBox(height: constants.P3),
+          
+          const H2('Field Examples'),
+          SizedBox(height: constants.P2),
+          
+          MTField(
+            _demoFieldData,
+            leading: const Icon(Icons.person),
+            value: const BaseText('John Doe'),
+            trailing: const Icon(Icons.edit),
+          ),
+          SizedBox(height: constants.P2),
+          
+          MTField(
+            _demoFieldDataEmpty,
+            leading: const Icon(Icons.email),
+            trailing: const Icon(Icons.arrow_forward_ios),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: const Text('Alert Dialog'),
+        content: const Text('This is an alert dialog example'),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          CupertinoDialogAction(
+            child: const Text('OK'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('This is a snackbar example'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+}
+
+// Demo data
+const _demoUser = User(
+  hasAvatar: false,
+  initials: 'JD',
+);
+
+const _demoFieldData = MTFieldData(
+  1,
+  label: 'Name',
+  placeholder: 'Enter your name',
+  text: 'John Doe',
+);
+
+const _demoFieldDataEmpty = MTFieldData(
+  2,
+  label: 'Email',
+  placeholder: 'Enter your email',
+);
 
 // ==================== CONFIG ====================
 
