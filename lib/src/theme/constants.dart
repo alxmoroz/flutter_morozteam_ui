@@ -70,10 +70,6 @@ class UIConstants {
   /// Elevation
   double get cardElevation => config.cardElevation;
   double get buttonElevation => config.buttonElevation;
-
-  /// Длительности анимаций
-  Duration get textSaveDelayDuration => const Duration(milliseconds: 500);
-  Duration get kbRelatedAnimationDuration => const Duration(milliseconds: 300);
 }
 
 /// Глобальный экземпляр констант (будет инициализирован при настройке темы)

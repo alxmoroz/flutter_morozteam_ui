@@ -696,13 +696,24 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
           SizedBox(height: constants.P3),
           const H2('Avatar Examples'),
           SizedBox(height: constants.P2),
-          Row(
+          Wrap(
+            spacing: constants.P2,
+            runSpacing: constants.P2,
             children: [
-              const MTAvatar(20, user: _demoUser),
-              SizedBox(width: constants.P2),
-              const MTAvatar(30, user: _demoUser),
-              SizedBox(width: constants.P2),
-              const MTAvatar(40, user: _demoUser),
+              // Initials only
+              const MTAvatar(20, initials: 'JD'),
+              // Initials with border
+              const MTAvatar(20, initials: 'AB', borderColor: CupertinoColors.systemBlue),
+              // Gravatar
+              const MTAvatar(20, gravatarEmail: 'john.doe@example.com'),
+              // Custom URL
+              const MTAvatar(20, avatarUrl: 'https://picsum.photos/40/40'),
+              // No data (icon fallback)
+              const MTAvatar(20),
+              // Large with initials
+              const MTAvatar(40, initials: 'JD'),
+              // Large with Gravatar and border
+              const MTAvatar(40, gravatarEmail: 'jane.smith@example.com', borderColor: CupertinoColors.systemGreen),
             ],
           ),
           SizedBox(height: constants.P3),
@@ -771,10 +782,6 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
 }
 
 // Demo data
-const _demoUser = User(
-  hasAvatar: false,
-  initials: 'JD',
-);
 
 const _demoFieldData = MTFieldData(
   1,

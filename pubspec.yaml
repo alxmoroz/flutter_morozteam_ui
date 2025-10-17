@@ -11,15 +11,16 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  crypto: any
   flutter:
     sdk: flutter
   flutter_svg: any
   webview_flutter: any
 
 dev_dependencies:
+  flutter_lints: any
   flutter_test:
     sdk: flutter
-  flutter_lints: any
 
 # The following section is specific to Flutter packages.
 flutter:

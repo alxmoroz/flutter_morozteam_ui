@@ -1,9 +1,10 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/widgets.dart';
-import 'ui_config.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
+import 'ui_config.dart';
 
 /// Provider for initializing global colors and constants
 class UIThemeProvider extends StatelessWidget {

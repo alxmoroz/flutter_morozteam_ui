@@ -1,6 +1,7 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+
 import '../config/ui_config.dart';
 import 'colors.dart';
 
@@ -152,7 +153,8 @@ class H3 extends BaseText {
 
 /// Текст для цифр
 class NumbersText extends BaseText {
-  const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding}) : super(sizeScale: 20 / 16);
+  const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding})
+      : super(sizeScale: 20 / 16);
 
   @override
   TextStyle style(BuildContext context) {
@@ -164,7 +166,8 @@ class NumbersText extends BaseText {
 
 /// Мелкий текст
 class SmallText extends BaseText {
-  const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding}) : super(sizeScale: 10 / 16);
+  const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding})
+      : super(sizeScale: 10 / 16);
 }
 
 /// Текст для кнопок

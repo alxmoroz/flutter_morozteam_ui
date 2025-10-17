@@ -5,48 +5,46 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
+import '../utils/md5.dart';
 import 'circle.dart';
 
 class MTAvatar extends StatelessWidget {
   const MTAvatar(
     this.radius, {
-    this.user,
-    this.member,
+    this.initials = '',
+    this.avatarUrl,
+    this.gravatarEmail,
     this.borderColor,
     super.key,
   });
+  
   final double radius;
+  final String initials;
+  final String? avatarUrl; // Direct avatar URL (if provided)
+  final String? gravatarEmail; // Email for Gravatar (fallback)
   final Color? borderColor;
-  final User? user;
-  final WSMember? member;
 
-  User? get _user => member?.user ?? user;
-  bool get _hasAvatar => _user?.hasAvatar == true;
-  String get _initials => member?.initials ?? user?.initials ?? '';
-
-  String? get _fileName => _user?.emailMD5;
-  String get _gravatarUrl => 'https://www.gravatar.com/avatar/$_fileName?s=${radius * 6}&d=blank';
-  // Note: _avatarUrl removed as it was project-specific API
+  String get _gravatarUrl => 'https://www.gravatar.com/avatar/${emailToMD5(gravatarEmail!)}?s=${radius * 6}&d=blank';
 
   static const _borderWidth = 2.0;
-  Color get _noAvatarColor => _user != null ? colors.f2Color : colors.f3Color;
+  Color get _noAvatarColor => colors.f3Color;
   bool get _hasBorder => borderColor != null;
 
   Widget _initialsCircle(BuildContext context) {
-    final fs = const BaseText('', maxLines: 1).style(context).fontSize ?? 17; // Fallback font size
+    final fs = const BaseText('', maxLines: 1).style(context).fontSize ?? 17;
     final validRadius = radius > constants.maxAvatarRadius ? constants.maxAvatarRadius : radius;
-    final sizeScale = validRadius / fs;
+    final sizeScale = 0.95 * validRadius / fs;
     return MTCircle(
       color: Colors.transparent,
       size: validRadius * 2,
-      border: !_hasBorder ? Border.all(color: _noAvatarColor.resolve(context)) : null,
+      border: !_hasBorder ? Border.all(width: 1, color: _noAvatarColor.resolve(context)) : null,
       child: Center(
         child: BaseText(
-          _initials,
+          initials,
           maxLines: 1,
           sizeScale: sizeScale,
           align: TextAlign.center,
-          color: borderColor ?? _noAvatarColor,
+          color: borderColor,
         ),
       ),
     );
@@ -56,20 +54,31 @@ class MTAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     // Validate radius against maximum
     final validRadius = radius > constants.maxAvatarRadius ? constants.maxAvatarRadius : radius;
+    
     final avatar = Stack(
       alignment: Alignment.center,
       children: [
-        _initials.isNotEmpty
+        // Layer 1: Initials or Icon fallback
+        initials.isNotEmpty
             ? _initialsCircle(context)
             : Icon(Icons.person, size: validRadius * (_hasBorder ? 1.3 : 2), color: _noAvatarColor.resolve(context)),
-        CircleAvatar(
-          radius: validRadius - (_hasBorder ? _borderWidth : 0),
-          backgroundColor: Colors.transparent,
-          backgroundImage: !_hasAvatar && _user != null ? NetworkImage(_gravatarUrl) : null,
-          foregroundImage: null, // Custom avatar loading removed - use project-specific implementation
-        ),
+        // Layer 2: Gravatar (if email provided)
+        if (gravatarEmail != null)
+          CircleAvatar(
+            radius: validRadius - (_hasBorder ? _borderWidth : 0),
+            backgroundColor: Colors.transparent,
+            backgroundImage: NetworkImage(_gravatarUrl),
+          ),
+        // Layer 3: Custom avatar (if URL provided)
+        if (avatarUrl != null && avatarUrl!.isNotEmpty)
+          CircleAvatar(
+            radius: validRadius - (_hasBorder ? _borderWidth : 0),
+            backgroundColor: Colors.transparent,
+            foregroundImage: NetworkImage(avatarUrl!),
+          ),
       ],
     );
+    
     return MTCircle(
       size: validRadius * 2,
       color: colors.b3Color,
@@ -77,29 +86,4 @@ class MTAvatar extends StatelessWidget {
       child: avatar,
     );
   }
-}
-
-// Placeholder classes for user data
-class User {
-  final bool hasAvatar;
-  final String? emailMD5;
-  final DateTime? updatedOn;
-  final String initials;
-
-  const User({
-    this.hasAvatar = false,
-    this.emailMD5,
-    this.updatedOn,
-    this.initials = '',
-  });
-}
-
-class WSMember {
-  final User? user;
-  final String initials;
-
-  const WSMember({
-    this.user,
-    this.initials = '',
-  });
 }

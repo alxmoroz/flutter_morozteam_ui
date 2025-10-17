@@ -48,3 +48,4 @@ export 'src/theme/text.dart';
 export 'src/utils/adaptive.dart';
 export 'src/utils/gesture.dart';
 export 'src/utils/material_wrapper.dart';
+export 'src/utils/md5.dart';

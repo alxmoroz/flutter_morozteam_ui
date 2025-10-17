@@ -1,6 +1,7 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+
 import '../config/ui_config.dart';
 
 /// Расширение для Color с поддержкой CupertinoDynamicColor
