@@ -3,5 +3,4 @@
 import 'package:flutter/material.dart';
 
 /// Обертка для Material виджетов
-Widget material(Widget child, {Color? color}) => 
-    Material(color: color ?? Colors.transparent, child: child);
+Widget material(Widget child, {Color? color}) => Material(color: color ?? Colors.transparent, child: child);

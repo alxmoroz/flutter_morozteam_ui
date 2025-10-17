@@ -7,7 +7,7 @@ import 'circular_progress.dart';
 /// Loader с полупрозрачным фоном
 class MTLoader extends StatelessWidget {
   const MTLoader({super.key, this.borderRadius});
-  
+
   final double? borderRadius;
 
   @override

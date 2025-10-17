@@ -99,7 +99,7 @@ class MTNetworkImage extends StatelessWidget {
     if (fallbackName == null) {
       return const SizedBox.shrink(); // No fallback = empty
     }
-    
+
     final dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
     return Image.asset(
       dark ? 'assets/images/${fallbackName}_dark.png' : 'assets/images/$fallbackName.png',

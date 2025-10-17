@@ -20,29 +20,29 @@ class UIKitConfig {
     this.mainBtnTitleColor,
     this.navbarColor,
     this.defaultBarrierColor,
-    
+
     // Типографика
     this.baseFontSize = 16.0,
     this.fontFamily = 'Roboto',
     this.fontFamilyNumbers = 'Montserrat',
     this.fontFamilyDecorative = 'Comfortaa',
-    
+
     // Spacing
     this.baseSpacing = 6.0,
-    
+
     // Border radius
     this.defaultBorderRadius = 12.0,
     this.buttonBorderRadius,
-    
+
     // Elevation
     this.cardElevation = 1.0,
     this.buttonElevation = 1.0,
-    
+
     // Размеры
     this.minButtonHeight = 48.0,
     this.defaultBarHeight = 48.0,
     this.tappableIconSize = 36.0,
-    
+
     // Breakpoints
     this.xxsWidth = 290.0,
     this.xsWidth = 364.0,
@@ -61,45 +61,45 @@ class UIKitConfig {
   final Color b1Color;
   final Color b2Color;
   final Color b3Color;
-  
+
   // Цвета текста (f1 - основной, f3 - самый светлый)
   final Color f1Color;
   final Color f2Color;
   final Color f3Color;
-  
+
   // Акцентные цвета
   final Color mainColor;
   final Color dangerColor;
   final Color? safeColor;
   final Color? warningColor;
-  
+
   // Специальные цвета
   final Color? mainBtnTitleColor;
   final Color? navbarColor;
   final Color? defaultBarrierColor;
-  
+
   // Типографика
   final double baseFontSize;
   final String fontFamily;
   final String fontFamilyNumbers;
   final String fontFamilyDecorative;
-  
+
   // Spacing (базовое значение для сетки)
   final double baseSpacing;
-  
+
   // Border radius
   final double defaultBorderRadius;
   final double? buttonBorderRadius;
-  
+
   // Elevation
   final double cardElevation;
   final double buttonElevation;
-  
+
   // Размеры
   final double minButtonHeight;
   final double defaultBarHeight;
   final double tappableIconSize;
-  
+
   // Breakpoints для адаптивности
   final double xxsWidth;
   final double xsWidth;

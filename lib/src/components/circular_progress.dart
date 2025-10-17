@@ -26,7 +26,7 @@ class MTCircularProgress extends StatelessWidget {
       strokeWidth: strokeWidth,
       strokeCap: StrokeCap.round,
     );
-    
+
     return unbound
         ? ci
         : SizedBox(

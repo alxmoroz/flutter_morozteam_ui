@@ -1,7 +1,7 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import '../config/ui_theme.dart';
+import '../config/ui_config.dart';
 import 'colors.dart';
 
 /// Базовый класс для текста с поддержкой конфигурации
@@ -77,8 +77,14 @@ class BaseText extends StatelessWidget {
   final double? height;
   final TextDecoration? decoration;
 
+  /// Get UIKitConfig from global state
+  UIKitConfig _getConfig() {
+    // Access config through global colors instance
+    return colors.config;
+  }
+
   TextStyle style(BuildContext context) {
-    final config = UITheme.of(context);
+    final config = _getConfig();
     final uiColors = colors;
 
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
@@ -123,36 +129,34 @@ class BaseText extends StatelessWidget {
   }
 }
 
-
 /// Заголовок H1
 class H1 extends BaseText {
   const H1(super.text, {super.key, super.color, super.maxLines = 2, super.height = 1.1, super.align, super.padding})
-    : super(weight: FontWeight.w400, sizeScale: 28 / 16); // Будет пересчитан в style()
+      : super(weight: FontWeight.w400, sizeScale: 28 / 16); // Будет пересчитан в style()
 }
 
 /// Заголовок H2
 class H2 extends BaseText {
   const H2(super.text, {super.key, super.color, super.maxLines = 3, super.height = 1.1, super.align, super.padding})
-    : super(weight: FontWeight.w500, sizeScale: 24 / 16);
+      : super(weight: FontWeight.w500, sizeScale: 24 / 16);
 }
 
 /// Заголовок H3
 class H3 extends BaseText {
   const H3(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.color, super.align, super.padding})
-    : super(weight: FontWeight.w700, sizeScale: 14 / 16);
+      : super(weight: FontWeight.w700, sizeScale: 14 / 16);
 
   const H3.f2(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.align, super.padding})
-    : super.f2(weight: FontWeight.w700, sizeScale: 14 / 16);
+      : super.f2(weight: FontWeight.w700, sizeScale: 14 / 16);
 }
 
 /// Текст для цифр
 class NumbersText extends BaseText {
-  const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding})
-    : super(sizeScale: 20 / 16);
+  const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding}) : super(sizeScale: 20 / 16);
 
   @override
   TextStyle style(BuildContext context) {
-    final config = UITheme.of(context);
+    final config = _getConfig();
     final baseStyle = super.style(context);
     return baseStyle.copyWith(fontFamily: config.fontFamilyNumbers);
   }
@@ -160,17 +164,16 @@ class NumbersText extends BaseText {
 
 /// Мелкий текст
 class SmallText extends BaseText {
-  const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding})
-    : super(sizeScale: 10 / 16);
+  const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding}) : super(sizeScale: 10 / 16);
 }
 
 /// Текст для кнопок
 class ButtonText extends BaseText {
   const ButtonText(super.text, {super.key, super.maxLines, super.color, super.align = TextAlign.center, super.padding})
-    : super(sizeScale: 16 / 16, weight: FontWeight.w500);
+      : super(sizeScale: 16 / 16, weight: FontWeight.w500);
 
   const ButtonText.f2(super.text, {super.key, super.maxLines = 1, super.align = TextAlign.center, super.padding})
-    : super.f2(sizeScale: 16 / 16, weight: FontWeight.w500);
+      : super.f2(sizeScale: 16 / 16, weight: FontWeight.w500);
 }
 
 /// Текст-ссылка

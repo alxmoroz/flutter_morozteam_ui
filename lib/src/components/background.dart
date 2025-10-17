@@ -14,8 +14,7 @@ Decoration? backgroundDecoration(
     gradient: LinearGradient(
       colors: [
         (bg1Color ?? colors.b2Color).resolve(context),
-        (bg2Color ?? (isBigScreen(context) ? colors.b1Color : colors.b2Color))
-            .resolve(context),
+        (bg2Color ?? (isBigScreen(context) ? colors.b1Color : colors.b2Color)).resolve(context),
       ],
     ),
   );

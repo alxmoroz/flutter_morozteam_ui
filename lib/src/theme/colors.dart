@@ -50,6 +50,11 @@ class UIColors {
 /// Глобальный экземпляр цветов (будет инициализирован при настройке темы)
 UIColors? _globalColors;
 
+/// Инициализировать глобальные цвета
+void initializeColors(UIKitConfig config) {
+  _globalColors = UIColors(config);
+}
+
 /// Получить глобальные цвета
 UIColors get colors {
   if (_globalColors == null) {

@@ -15,7 +15,7 @@ void main() {
       mainColor: Color(0xFF007AFF),
       dangerColor: Color(0xFFFF3B30),
     );
-    
+
     expect(config.baseSpacing, 6.0);
     expect(config.baseFontSize, 16.0);
     expect(config.minButtonHeight, 48.0);

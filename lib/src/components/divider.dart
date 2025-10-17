@@ -24,8 +24,7 @@ class MTDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: (color ?? colors.b1Color).resolve(context),
-      margin: EdgeInsets.symmetric(vertical: verticalIndent ?? 0)
-          .copyWith(left: indent ?? 0, right: endIndent ?? 0),
+      margin: EdgeInsets.symmetric(vertical: verticalIndent ?? 0).copyWith(left: indent ?? 0, right: endIndent ?? 0),
       height: height ?? 1,
     );
   }

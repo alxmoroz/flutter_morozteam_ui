@@ -79,6 +79,11 @@ class UIConstants {
 /// Глобальный экземпляр констант (будет инициализирован при настройке темы)
 UIConstants? _globalConstants;
 
+/// Инициализировать глобальные константы
+void initializeConstants(UIKitConfig config) {
+  _globalConstants = UIConstants(config);
+}
+
 /// Получить глобальные константы
 UIConstants get constants {
   if (_globalConstants == null) {

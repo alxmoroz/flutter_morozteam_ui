@@ -41,8 +41,7 @@ class _MTScrollableState extends State<MTScrollable> {
     final triggerOffset = widget.scrollOffsetTop;
     final offset = widget.scrollController.offset;
 
-    if ((!_hasScrolled && offset >= triggerOffset) ||
-        (_hasScrolled && offset <= triggerOffset)) {
+    if ((!_hasScrolled && offset >= triggerOffset) || (_hasScrolled && offset <= triggerOffset)) {
       setState(() {
         _hasScrolled = !_hasScrolled;
         _onScrolled();

@@ -11,7 +11,7 @@ class MTProgressMark {
     this.size,
     this.color,
   });
-  
+
   final Widget child;
   final Color? color;
   final Size? size;
@@ -37,7 +37,7 @@ class MTProgress extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, size) {
         final w = max(value * size.maxWidth, size.maxHeight);
-        
+
         return Stack(
           clipBehavior: Clip.none,
           children: [

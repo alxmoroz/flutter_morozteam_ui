@@ -50,6 +50,5 @@ class FocusDroppable extends StatelessWidget {
   final Widget? child;
 
   @override
-  Widget build(BuildContext context) => 
-      GestureDetector(onTap: unfocusAll, child: child);
+  Widget build(BuildContext context) => GestureDetector(onTap: unfocusAll, child: child);
 }
