@@ -1,6 +1,7 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+
 import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'button.dart';
@@ -67,7 +68,8 @@ class _MTAlertDialog extends StatelessWidget {
           if (imageName.isNotEmpty) MTImage(imageName),
           H2(title, padding: EdgeInsets.all(constants.P3), align: TextAlign.center),
           if (description.isNotEmpty)
-            BaseText(description, maxLines: 20, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: constants.P6)),
+            BaseText(description,
+                maxLines: 20, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: constants.P6)),
           for (final a in actions)
             MTButton(
               titleText: a.title,

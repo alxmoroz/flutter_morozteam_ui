@@ -4,11 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
 import '../theme/colors.dart';
-import 'circular_progress.dart';
-import 'toolbar.dart';
 import 'button.dart';
+import 'circular_progress.dart';
 import 'dialog.dart';
+import 'toolbar.dart';
 
 class MTWebViewDialog extends StatelessWidget {
   const MTWebViewDialog._(this.uri, {this.onUrlExit, this.bgColor, this.js});
@@ -18,9 +19,9 @@ class MTWebViewDialog extends StatelessWidget {
   final String? js;
 
   static Future<Uri?> show(Uri uri, {bool Function(String)? onUrlExit, Color? bgColor, String? js}) async {
-  return await showMTDialog<Uri?>(
-    MTWebViewDialog._(uri, onUrlExit: onUrlExit, bgColor: bgColor, js: js),
-  );
+    return await showMTDialog<Uri?>(
+      MTWebViewDialog._(uri, onUrlExit: onUrlExit, bgColor: bgColor, js: js),
+    );
   }
 
   @override

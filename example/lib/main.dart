@@ -90,13 +90,20 @@ class _DemoHomePageState extends State<DemoHomePage> {
 
   IconData _getIconForTab(int index) {
     switch (index) {
-      case 0: return CupertinoIcons.square_grid_2x2;
-      case 1: return CupertinoIcons.textformat;
-      case 2: return CupertinoIcons.doc_text;
-      case 3: return CupertinoIcons.cube_box;
-      case 4: return CupertinoIcons.rectangle_3_offgrid;
-      case 5: return CupertinoIcons.star;
-      default: return CupertinoIcons.square;
+      case 0:
+        return CupertinoIcons.square_grid_2x2;
+      case 1:
+        return CupertinoIcons.textformat;
+      case 2:
+        return CupertinoIcons.doc_text;
+      case 3:
+        return CupertinoIcons.cube_box;
+      case 4:
+        return CupertinoIcons.rectangle_3_offgrid;
+      case 5:
+        return CupertinoIcons.star;
+      default:
+        return CupertinoIcons.square;
     }
   }
 }
@@ -115,40 +122,33 @@ class ButtonsDemo extends StatelessWidget {
         children: [
           const H2('Button Types'),
           SizedBox(height: constants.P2),
-          
           MTButton.main(
             titleText: 'Main Button',
             onTap: () => _showMessage(context, 'Main button pressed'),
           ),
           SizedBox(height: constants.P2),
-          
           MTButton.secondary(
             titleText: 'Secondary Button',
             onTap: () => _showMessage(context, 'Secondary button pressed'),
           ),
           SizedBox(height: constants.P2),
-          
           MTButton.danger(
             titleText: 'Danger Button',
             onTap: () => _showMessage(context, 'Danger button pressed'),
           ),
           SizedBox(height: constants.P2),
-          
           MTButton.safe(
             titleText: 'Safe Button',
             onTap: () => _showMessage(context, 'Safe button pressed'),
           ),
           SizedBox(height: constants.P2),
-          
           MTButton(
             titleText: 'Text Button',
             onTap: () => _showMessage(context, 'Text button pressed'),
           ),
           SizedBox(height: constants.P3),
-          
           const H2('Icon Buttons'),
           SizedBox(height: constants.P2),
-          
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -175,10 +175,8 @@ class ButtonsDemo extends StatelessWidget {
             ],
           ),
           SizedBox(height: constants.P3),
-          
           const H2('Loading States'),
           SizedBox(height: constants.P2),
-          
           MTButton.main(
             titleText: 'Loading Button',
             loading: true,
@@ -220,15 +218,12 @@ class TypographyDemo extends StatelessWidget {
         children: [
           const H2('Headings'),
           SizedBox(height: constants.P2),
-          
           const H1('Heading 1'),
           const H2('Heading 2'),
           const H3('Heading 3'),
           SizedBox(height: constants.P3),
-          
           const H2('Text Styles'),
           SizedBox(height: constants.P2),
-          
           const BaseText('Base Text - Regular'),
           const BaseText.medium('Base Text - Medium'),
           const BaseText.bold('Base Text - Bold'),
@@ -236,18 +231,14 @@ class TypographyDemo extends StatelessWidget {
           const NumbersText('123,456.78'),
           const LinkText('Link Text'),
           SizedBox(height: constants.P3),
-          
           const H2('Text Colors'),
           SizedBox(height: constants.P2),
-          
           const BaseText('Default color (F1)'),
           const BaseText.f2('Secondary color (F2)'),
           const BaseText.f3('Tertiary color (F3)'),
           SizedBox(height: constants.P3),
-          
           const H2('Color Palette'),
           SizedBox(height: constants.P2),
-          
           _ColorPalette(),
         ],
       ),
@@ -259,7 +250,7 @@ class _ColorPalette extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final uiColors = colors;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -270,14 +261,12 @@ class _ColorPalette extends StatelessWidget {
           _ColorBox('B3', uiColors.b3Color),
         ]),
         SizedBox(height: constants.P2),
-        
         _ColorSection('Foreground', [
           _ColorBox('F1', uiColors.f1Color),
           _ColorBox('F2', uiColors.f2Color),
           _ColorBox('F3', uiColors.f3Color),
         ]),
         SizedBox(height: constants.P2),
-        
         _ColorSection('Accent', [
           _ColorBox('Main', uiColors.mainColor),
           _ColorBox('Danger', uiColors.dangerColor),
@@ -291,10 +280,10 @@ class _ColorPalette extends StatelessWidget {
 
 class _ColorSection extends StatelessWidget {
   const _ColorSection(this.title, this.colors);
-  
+
   final String title;
   final List<_ColorBox> colors;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -314,10 +303,10 @@ class _ColorSection extends StatelessWidget {
 
 class _ColorBox extends StatelessWidget {
   const _ColorBox(this.label, this.color);
-  
+
   final String label;
   final Color color;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -364,36 +353,30 @@ class _FormsDemoState extends State<FormsDemo> {
         children: [
           const H2('Text Fields'),
           SizedBox(height: constants.P2),
-          
           MTTextField(
             controller: _textController,
             label: 'Username',
             hint: 'Enter your username',
             helper: 'This is a helper text',
           ),
-          
           MTTextField.email(
             controller: _emailController,
             label: 'Email',
             hint: 'example@email.com',
           ),
-          
           MTTextField.password(
             controller: _passwordController,
             label: 'Password',
             hint: 'Enter password',
           ),
-          
           MTTextField(
             label: 'Message',
             hint: 'Enter your message',
             maxLines: 4,
           ),
-          
           SizedBox(height: constants.P3),
           const H2('Checkboxes'),
           SizedBox(height: constants.P2),
-          
           MTCard(
             child: Column(
               children: [
@@ -413,20 +396,16 @@ class _FormsDemoState extends State<FormsDemo> {
               ],
             ),
           ),
-          
           SizedBox(height: constants.P3),
           const H2('Dropdown'),
           SizedBox(height: constants.P2),
-          
           MTDropdown<String>(
             label: 'Select option',
             value: _dropdown,
             items: const ['Option 1', 'Option 2', 'Option 3'],
             onChanged: (value) => setState(() => _dropdown = value),
           ),
-          
           SizedBox(height: constants.P3),
-          
           MTButton.main(
             titleText: 'Submit Form',
             onTap: () => _showMessage(context, 'Form submitted!'),
@@ -466,7 +445,6 @@ class ComponentsDemo extends StatelessWidget {
         children: [
           const H2('Cards'),
           SizedBox(height: constants.P2),
-          
           MTCard(
             padding: EdgeInsets.all(constants.P3),
             child: const Column(
@@ -477,11 +455,9 @@ class ComponentsDemo extends StatelessWidget {
               ],
             ),
           ),
-          
           SizedBox(height: constants.P3),
           const H2('List Items'),
           SizedBox(height: constants.P2),
-          
           MTCard(
             child: Column(
               children: [
@@ -502,11 +478,9 @@ class ComponentsDemo extends StatelessWidget {
               ],
             ),
           ),
-          
           SizedBox(height: constants.P3),
           const H2('Progress Indicators'),
           SizedBox(height: constants.P2),
-          
           MTCard(
             padding: EdgeInsets.all(constants.P3),
             child: Column(
@@ -515,7 +489,6 @@ class ComponentsDemo extends StatelessWidget {
                 SizedBox(height: constants.P2),
                 const MTCircularProgress(),
                 SizedBox(height: constants.P3),
-                
                 const BaseText('Progress Bar'),
                 SizedBox(height: constants.P2),
                 SizedBox(
@@ -525,19 +498,15 @@ class ComponentsDemo extends StatelessWidget {
               ],
             ),
           ),
-          
           SizedBox(height: constants.P3),
           const H2('Dividers'),
           SizedBox(height: constants.P2),
-          
           const BaseText('Above divider'),
           const MTDivider(),
           const BaseText('Below divider'),
-          
           SizedBox(height: constants.P3),
           const H2('Icons'),
           SizedBox(height: constants.P2),
-          
           Wrap(
             spacing: constants.P2,
             runSpacing: constants.P2,
@@ -559,11 +528,9 @@ class ComponentsDemo extends StatelessWidget {
               ChevronLeftIcon(size: 32),
             ],
           ),
-          
           SizedBox(height: constants.P3),
           const H2('Circles'),
           SizedBox(height: constants.P2),
-          
           Row(
             children: [
               MTCircle(color: colors.mainColor, size: 40),
@@ -593,7 +560,6 @@ class LayoutDemo extends StatelessWidget {
         children: [
           const H2('Adaptive Containers'),
           SizedBox(height: constants.P2),
-          
           MTAdaptive.xxs(
             child: Container(
               padding: EdgeInsets.all(constants.P2),
@@ -602,7 +568,6 @@ class LayoutDemo extends StatelessWidget {
             ),
           ),
           SizedBox(height: constants.P2),
-          
           MTAdaptive.s(
             child: Container(
               padding: EdgeInsets.all(constants.P2),
@@ -610,11 +575,9 @@ class LayoutDemo extends StatelessWidget {
               child: const BaseText('S Container (max 480px)'),
             ),
           ),
-          
           SizedBox(height: constants.P3),
           const H2('Shadowed Container'),
           SizedBox(height: constants.P2),
-          
           MTShadowed(
             child: Container(
               height: 200,
@@ -624,11 +587,9 @@ class LayoutDemo extends StatelessWidget {
               ),
             ),
           ),
-          
           SizedBox(height: constants.P3),
           const H2('Background Gradient'),
           SizedBox(height: constants.P2),
-          
           MTBackgroundWrapper(
             Container(
               height: 150,
@@ -637,11 +598,9 @@ class LayoutDemo extends StatelessWidget {
               ),
             ),
           ),
-          
           SizedBox(height: constants.P3),
           const H2('Spacing System'),
           SizedBox(height: constants.P2),
-          
           MTCard(
             padding: EdgeInsets.all(constants.P2),
             child: Column(
@@ -684,25 +643,20 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
         children: [
           const H2('Alert Dialog'),
           SizedBox(height: constants.P2),
-          
           MTButton.main(
             titleText: 'Show Alert Dialog',
             onTap: () => _showAlertDialog(context),
           ),
           SizedBox(height: constants.P3),
-          
           const H2('Snackbar'),
           SizedBox(height: constants.P2),
-          
           MTButton.secondary(
             titleText: 'Show Snackbar',
             onTap: () => _showSnackbar(context),
           ),
           SizedBox(height: constants.P3),
-          
           const H2('Avatar Examples'),
           SizedBox(height: constants.P2),
-          
           Row(
             children: [
               MTAvatar(20, user: _demoUser),
@@ -713,19 +667,14 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
             ],
           ),
           SizedBox(height: constants.P3),
-          
           const H2('Image Examples'),
           SizedBox(height: constants.P2),
-          
           MTImage('no_info', height: 100, width: 100),
           SizedBox(height: constants.P2),
-          
           MTNetworkImage('https://picsum.photos/200/200', height: 100, width: 100),
           SizedBox(height: constants.P3),
-          
           const H2('Field Examples'),
           SizedBox(height: constants.P2),
-          
           MTField(
             _demoFieldData,
             leading: const Icon(Icons.person),
@@ -733,17 +682,14 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
             trailing: const Icon(Icons.edit),
           ),
           SizedBox(height: constants.P2),
-          
           MTField(
             _demoFieldDataEmpty,
             leading: const Icon(Icons.email),
             trailing: const Icon(Icons.arrow_forward_ios),
           ),
           SizedBox(height: constants.P3),
-          
           const H2('Phone Field'),
           SizedBox(height: constants.P2),
-          
           MTPhoneField(
             controller: _phoneController,
             country: _selectedCountry,
@@ -810,39 +756,39 @@ const _demoConfig = UIKitConfig(
   b1Color: Color(0xFF1C1C1E),
   b2Color: Color(0xFFFFFFFF),
   b3Color: Color(0xFFF2F2F7),
-  
+
   // Text colors
   f1Color: Color(0xFF000000),
   f2Color: Color(0xFF3C3C43),
   f3Color: Color(0xFF8E8E93),
-  
+
   // Accent colors
   mainColor: Color(0xFF007AFF),
   dangerColor: Color(0xFFFF3B30),
   safeColor: Color(0xFF34C759),
   warningColor: Color(0xFFFF9500),
-  
+
   // Special colors
   mainBtnTitleColor: Color(0xFFFFFFFF),
   navbarColor: Color(0xFFF9F9F9),
   defaultBarrierColor: Color(0x80000000),
-  
+
   // Typography
   baseFontSize: 16.0,
   fontFamily: '.SF Pro Text',
   fontFamilyNumbers: '.SF Mono',
   fontFamilyDecorative: '.SF Pro Display',
-  
+
   // Spacing
   baseSpacing: 6.0,
-  
+
   // Border radius
   defaultBorderRadius: 12.0,
-  
+
   // Elevation
   cardElevation: 1.0,
   buttonElevation: 1.0,
-  
+
   // Sizes
   minButtonHeight: 48.0,
   defaultBarHeight: 56.0,

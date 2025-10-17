@@ -1,7 +1,9 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'dart:math';
+
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 import '../utils/adaptive.dart';
@@ -31,7 +33,8 @@ BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final big = isBigScreen(context);
   return BoxConstraints(
     maxWidth: big ? min(mq.size.width - constants.P6, maxWidth ?? constants.scrSWidth) : double.infinity,
-    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - constants.P6 : double.infinity,
+    maxHeight:
+        big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - constants.P6 : double.infinity,
   );
 }
 
@@ -200,7 +203,12 @@ class MTDialog extends StatelessWidget {
                   bottomLeft: big ? _radius : Radius.zero,
                   bottomRight: big ? _radius : Radius.zero,
                 ),
-            boxShadow: [BoxShadow(blurRadius: constants.P, offset: Offset(0, big ? constants.P_2 : -constants.P_2), color: colors.b0Color.resolve(context).withValues(alpha: 0.42))],
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: constants.P,
+                  offset: Offset(0, big ? constants.P_2 : -constants.P_2),
+                  color: colors.b0Color.resolve(context).withValues(alpha: 0.42))
+            ],
           ),
           child: Stack(
             children: [

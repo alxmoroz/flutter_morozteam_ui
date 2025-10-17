@@ -12,6 +12,9 @@ All notable changes to this project will be documented in this file.
 - Updated webview_dialog.dart to use MTDialog with proper top bar
 - Added global context management for dialogs
 
+### Changed
+- Added MIT License to allow both commercial and non-commercial use
+
 ## [0.1.0] - 2025-01-17
 
 ### Added

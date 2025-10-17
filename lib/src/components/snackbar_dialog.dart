@@ -1,14 +1,17 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'dialog.dart';
 import 'list_tile.dart';
 
-Future showMTSnackbar(String text, {TextAlign? titleAlign = TextAlign.center, Widget? trailing, Function()? onTap}) async {
+Future showMTSnackbar(String text,
+    {TextAlign? titleAlign = TextAlign.center, Widget? trailing, Function()? onTap}) async {
   await showMTDialog(
     _MTSnackbarDialog(text, titleAlign: titleAlign, trailing: trailing, onTap: onTap),
     forceBottomSheet: true,
