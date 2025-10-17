@@ -2,10 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 
-/// Конфигурация UI Kit для настройки цветов, типографики и spacing
+/// UI Kit configuration for colors, typography and spacing
 class UIKitConfig {
   const UIKitConfig({
-    // Цветовая схема
+    // Color scheme
     required this.b0Color,
     required this.b1Color,
     required this.b2Color,
@@ -21,7 +21,7 @@ class UIKitConfig {
     this.navbarColor,
     this.defaultBarrierColor,
 
-    // Типографика
+    // Typography
     this.baseFontSize = 16.0,
     this.fontFamily = 'Roboto',
     this.fontFamilyNumbers = 'Montserrat',
@@ -62,7 +62,7 @@ class UIKitConfig {
     this.cardElevation = 1.0,
     this.buttonElevation = 1.0,
 
-    // Размеры
+    // Sizes
     this.minButtonHeight = 48.0,
     this.defaultBarHeight = 48.0,
     this.tappableIconSize = 36.0,
@@ -80,29 +80,29 @@ class UIKitConfig {
     this.xxlWidth = 1280.0,
   });
 
-  // Цвета фона (b0 - самый темный, b3 - самый светлый)
+  // Background colors (b0 - darkest, b3 - lightest)
   final Color b0Color;
   final Color b1Color;
   final Color b2Color;
   final Color b3Color;
 
-  // Цвета текста (f1 - основной, f3 - самый светлый)
+  // Text colors (f1 - primary, f3 - lightest)
   final Color f1Color;
   final Color f2Color;
   final Color f3Color;
 
-  // Акцентные цвета
+  // Accent colors
   final Color mainColor;
   final Color dangerColor;
   final Color? safeColor;
   final Color? warningColor;
 
-  // Специальные цвета
+  // Special colors
   final Color? mainBtnTitleColor;
   final Color? navbarColor;
   final Color? defaultBarrierColor;
 
-  // Типографика
+  // Typography
   final double baseFontSize;
   final String fontFamily;
   final String fontFamilyNumbers;
@@ -132,7 +132,7 @@ class UIKitConfig {
   final double numbersFontSize;
   final FontWeight numbersFontWeight;
 
-  // Spacing (базовое значение для сетки)
+  // Spacing (base value for grid)
   final double baseSpacing;
 
   // Border radius
@@ -143,12 +143,12 @@ class UIKitConfig {
   final double cardElevation;
   final double buttonElevation;
 
-  // Размеры
+  // Sizes
   final double minButtonHeight;
   final double defaultBarHeight;
   final double tappableIconSize;
 
-  // Breakpoints для адаптивности
+  // Breakpoints for responsiveness
   final double xxsWidth;
   final double xsWidth;
   final double xsHeight;
@@ -160,10 +160,10 @@ class UIKitConfig {
   final double xlWidth;
   final double xxlWidth;
 
-  /// Получить радиус для кнопок (по умолчанию половина высоты)
+  /// Get button radius (default half of height)
   double get buttonRadius => buttonBorderRadius ?? (minButtonHeight / 2);
 
-  /// Создать копию конфигурации с измененными параметрами
+  /// Create a copy of configuration with modified parameters
   UIKitConfig copyWith({
     Color? b0Color,
     Color? b1Color,

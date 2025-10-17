@@ -7,7 +7,7 @@ import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'text_field.dart';
 
-/// Выпадающий список
+/// Dropdown list
 class MTDropdown<T> extends StatelessWidget {
   const MTDropdown({
     super.key,

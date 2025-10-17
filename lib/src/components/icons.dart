@@ -4,12 +4,33 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 import 'circle.dart';
 
-/// Базовый класс для иконок
+/// SVG icon from assets
+class MTSvgIcon extends StatelessWidget {
+  const MTSvgIcon(this.name, {this.color, this.size, super.key});
+
+  final String name;
+  final double? size;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    final iconSize = size ?? constants.P5;
+    return SvgPicture.asset(
+      'assets/icons/$name.svg',
+      width: iconSize,
+      height: iconSize,
+      colorFilter: color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
+    );
+  }
+}
+
+/// Base class for icons
 class MTIcon extends StatelessWidget {
   const MTIcon(
     this.iconData, {
@@ -53,9 +74,9 @@ class MTIcon extends StatelessWidget {
   }
 }
 
-// Популярные иконки для быстрого доступа
+// Popular icons for quick access
 
-/// Иконка "Плюс"
+/// Plus icon
 class PlusIcon extends MTIcon {
   const PlusIcon({
     super.key,
@@ -65,7 +86,7 @@ class PlusIcon extends MTIcon {
   }) : super(CupertinoIcons.add);
 }
 
-/// Иконка "Закрыть"
+/// Close icon
 class CloseIcon extends MTIcon {
   const CloseIcon({
     super.key,
@@ -75,7 +96,7 @@ class CloseIcon extends MTIcon {
   }) : super(CupertinoIcons.xmark);
 }
 
-/// Иконка "Назад"
+/// Back icon
 class BackIcon extends MTIcon {
   const BackIcon({
     super.key,
@@ -85,7 +106,7 @@ class BackIcon extends MTIcon {
   }) : super(CupertinoIcons.back);
 }
 
-/// Иконка "Стрелка вниз"
+/// Down arrow icon
 class ChevronDownIcon extends MTIcon {
   const ChevronDownIcon({
     super.key,
@@ -95,7 +116,7 @@ class ChevronDownIcon extends MTIcon {
   }) : super(CupertinoIcons.chevron_down);
 }
 
-/// Иконка "Стрелка вверх"
+/// Up arrow icon
 class ChevronUpIcon extends MTIcon {
   const ChevronUpIcon({
     super.key,
@@ -105,7 +126,7 @@ class ChevronUpIcon extends MTIcon {
   }) : super(CupertinoIcons.chevron_up);
 }
 
-/// Иконка "Стрелка вправо"
+/// Right arrow icon
 class ChevronRightIcon extends MTIcon {
   const ChevronRightIcon({
     super.key,
@@ -115,7 +136,7 @@ class ChevronRightIcon extends MTIcon {
   }) : super(CupertinoIcons.chevron_right);
 }
 
-/// Иконка "Стрелка влево"
+/// Left arrow icon
 class ChevronLeftIcon extends MTIcon {
   const ChevronLeftIcon({
     super.key,
@@ -125,7 +146,7 @@ class ChevronLeftIcon extends MTIcon {
   }) : super(CupertinoIcons.chevron_left);
 }
 
-/// Иконка "Меню"
+/// Menu icon
 class MenuIcon extends MTIcon {
   const MenuIcon({
     super.key,
@@ -135,7 +156,7 @@ class MenuIcon extends MTIcon {
   }) : super(CupertinoIcons.bars);
 }
 
-/// Иконка "Поиск"
+/// Search icon
 class SearchIcon extends MTIcon {
   const SearchIcon({
     super.key,
@@ -145,7 +166,7 @@ class SearchIcon extends MTIcon {
   }) : super(CupertinoIcons.search);
 }
 
-/// Иконка "Настройки"
+/// Settings icon
 class SettingsIcon extends MTIcon {
   const SettingsIcon({
     super.key,
@@ -155,7 +176,7 @@ class SettingsIcon extends MTIcon {
   }) : super(CupertinoIcons.settings);
 }
 
-/// Иконка "Редактировать"
+/// Edit icon
 class EditIcon extends MTIcon {
   const EditIcon({
     super.key,
@@ -165,7 +186,7 @@ class EditIcon extends MTIcon {
   }) : super(CupertinoIcons.pencil);
 }
 
-/// Иконка "Удалить"
+/// Delete icon
 class DeleteIcon extends MTIcon {
   const DeleteIcon({
     super.key,
@@ -175,7 +196,7 @@ class DeleteIcon extends MTIcon {
   }) : super(CupertinoIcons.delete);
 }
 
-/// Иконка "Галочка"
+/// Check icon
 class CheckIcon extends MTIcon {
   const CheckIcon({
     super.key,
@@ -185,7 +206,7 @@ class CheckIcon extends MTIcon {
   }) : super(CupertinoIcons.check_mark);
 }
 
-/// Иконка "Информация"
+/// Info icon
 class InfoIcon extends MTIcon {
   const InfoIcon({
     super.key,
@@ -195,7 +216,7 @@ class InfoIcon extends MTIcon {
   }) : super(CupertinoIcons.info);
 }
 
-/// Иконка "Предупреждение"
+/// Warning icon
 class WarningIcon extends MTIcon {
   const WarningIcon({
     super.key,

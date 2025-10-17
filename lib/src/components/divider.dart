@@ -1,9 +1,10 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 
-/// Разделительная линия
+/// Divider line
 class MTDivider extends StatelessWidget {
   const MTDivider({
     super.key,

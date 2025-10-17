@@ -3,19 +3,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-/// Типы тактильной обратной связи
+/// Types of haptic feedback
 enum FeedbackType { light, medium, heavy, vibrate, selection }
 
-/// Убрать фокус со всех элементов
+/// Remove focus from all elements
 void unfocusAll() {
   final fm = FocusManager.instance;
   fm.applyFocusChangesIfNeeded();
   fm.primaryFocus?.unfocus();
 }
 
-/// Миксин для управления жестами и тактильной обратной связью
+/// Mixin for gesture management and haptic feedback
 mixin GestureManaging {
-  /// Выполнить действие с управлением фокусом и тактильной обратной связью
+  /// Execute action with focus management and haptic feedback
   Future tapAction(bool uf, Function action, {FeedbackType? fbType}) async {
     if (uf) unfocusAll();
 
@@ -44,7 +44,7 @@ mixin GestureManaging {
   }
 }
 
-/// Виджет, который убирает фокус при нажатии
+/// Widget that removes focus when tapped
 class FocusDroppable extends StatelessWidget {
   const FocusDroppable(this.child, {super.key});
   final Widget? child;

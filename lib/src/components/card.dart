@@ -1,10 +1,11 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 
-/// Карточка с тенью и закругленными углами
+/// Card with shadow and rounded corners
 class MTCard extends StatelessWidget {
   const MTCard({
     super.key,

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
 
-/// Заголовок страницы
+/// Page title
 class PageTitle extends StatelessWidget {
   const PageTitle(
     this.text, {

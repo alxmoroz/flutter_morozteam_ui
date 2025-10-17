@@ -11,7 +11,7 @@ import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
 import 'list_tile.dart';
 
-/// Типы кнопок
+/// Button types
 enum MTButtonType {
   text,
   main,
@@ -30,7 +30,7 @@ enum MTButtonType {
   bool get isSafe => this == safe;
 }
 
-/// Универсальная кнопка с различными стилями
+/// Universal button with various styles
 class MTButton extends StatelessWidget with GestureManaging {
   const MTButton({
     super.key,
@@ -57,7 +57,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.mainAxisAlignment = MainAxisAlignment.center,
   });
 
-  /// Основная кнопка
+  /// Primary button
   MTButton.main({
     super.key,
     this.titleText,
@@ -82,7 +82,7 @@ class MTButton extends StatelessWidget with GestureManaging {
         onHover = null,
         uf = true;
 
-  /// Вторичная кнопка
+  /// Secondary button
   MTButton.secondary({
     super.key,
     this.titleText,
@@ -107,7 +107,7 @@ class MTButton extends StatelessWidget with GestureManaging {
         onHover = null,
         uf = true;
 
-  /// Опасная кнопка
+  /// Danger button
   MTButton.danger({
     super.key,
     this.titleText,
@@ -132,7 +132,7 @@ class MTButton extends StatelessWidget with GestureManaging {
         onHover = null,
         uf = true;
 
-  /// Безопасная кнопка
+  /// Safe button
   MTButton.safe({
     super.key,
     this.titleText,
@@ -157,7 +157,7 @@ class MTButton extends StatelessWidget with GestureManaging {
         onHover = null,
         uf = true;
 
-  /// Иконка кнопка
+  /// Icon button
   const MTButton.icon(
     Widget icon, {
     super.key,

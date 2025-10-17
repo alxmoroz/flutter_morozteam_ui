@@ -1,10 +1,11 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 
-/// Круглый элемент
+/// Circular element
 class MTCircle extends StatelessWidget {
   const MTCircle({
     super.key,

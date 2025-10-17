@@ -1,10 +1,11 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 
-/// Виджет с тенями сверху и/или снизу
+/// Widget with shadows from top and/or bottom
 class MTShadowed extends StatelessWidget {
   const MTShadowed({
     super.key,

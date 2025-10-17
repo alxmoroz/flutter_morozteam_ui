@@ -12,7 +12,7 @@ import '../utils/material_wrapper.dart';
 import 'background.dart';
 import 'scrollable.dart';
 
-/// Базовый виджет страницы
+/// Base page widget
 class MTPage extends StatelessWidget {
   const MTPage({
     super.key,

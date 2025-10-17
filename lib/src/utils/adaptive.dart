@@ -6,26 +6,26 @@ import 'package:flutter/cupertino.dart';
 
 import '../theme/constants.dart';
 
-/// Получить размер экрана
+/// Get screen size
 Size screenSize(BuildContext context) => MediaQuery.sizeOf(context);
 
-/// Проверить, является ли экран маленьким в landscape режиме
+/// Check if screen is small in landscape mode
 bool _smallLandscape(BuildContext context) =>
     screenSize(context).height < constants.scrXSHeight && MediaQuery.orientationOf(context) == Orientation.landscape;
 
-/// Проверить, является ли экран большим
+/// Check if screen is large
 bool isBigScreen(BuildContext context) {
   final size = screenSize(context);
   return size.height > constants.scrSHeight && size.width > constants.scrMWidth;
 }
 
-/// Проверить, можно ли показывать вертикальные панели
+/// Check if vertical panels can be shown
 bool canShowVerticalBars(BuildContext context) => isBigScreen(context) || _smallLandscape(context);
 
-/// Размеры для адаптивности
+/// Sizes for responsiveness
 enum AdaptiveSize { xxs, xs, s, m, l }
 
-/// Адаптивный контейнер с ограничением ширины
+/// Responsive container with width constraints
 class MTAdaptive extends StatelessWidget {
   const MTAdaptive({super.key, required this.child, this.force = false, this.size = AdaptiveSize.m, this.padding});
 

@@ -12,63 +12,84 @@ import 'dialog.dart';
 import 'toolbar.dart';
 
 class MTWebViewDialog extends StatelessWidget {
-  const MTWebViewDialog._(this.uri, {this.onUrlExit, this.bgColor, this.js});
-  final Uri uri;
-  final bool Function(String)? onUrlExit;
-  final Color? bgColor;
-  final String? js;
+  const MTWebViewDialog._(
+    this._controller, {
+    required this.bgColor,
+    required this.safeArea,
+  });
 
-  static Future<Uri?> show(Uri uri, {bool Function(String)? onUrlExit, Color? bgColor, String? js}) async {
-    return await showMTDialog<Uri?>(
-      MTWebViewDialog._(uri, onUrlExit: onUrlExit, bgColor: bgColor, js: js),
-    );
-  }
+  final WebViewController _controller;
+  final Color bgColor;
+  final bool safeArea;
 
-  @override
-  Widget build(BuildContext context) {
-    final bgColor = (this.bgColor ?? colors.b2Color).resolve(context);
+  static Future<Uri?> show({
+    Uri? uri,
+    String? filePath,
+    String? js,
+    bool Function(String)? onUrlExit,
+    Color bgColor = const Color.fromARGB(0, 255, 255, 255),
+    bool safeArea = true,
+  }) async {
+    assert(uri != null || filePath != null);
 
     final controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setOnConsoleMessage((jsMsg) {
         if (kDebugMode) print(jsMsg.message);
       })
-      ..setBackgroundColor(bgColor)
-      ..loadRequest(uri);
+      ..clearCache()
+      ..clearLocalStorage()
+      ..setBackgroundColor(bgColor.resolve(globalContext));
 
-    controller.setNavigationDelegate(
-      NavigationDelegate(
-        onNavigationRequest: (request) {
-          if (onUrlExit != null) {
-            if (onUrlExit!(request.url)) {
-              Navigator.of(context).pop(Uri.parse(request.url));
-              return NavigationDecision.prevent;
+    if (uri != null) {
+      controller.loadRequest(uri);
+      controller.setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: (request) {
+            if (onUrlExit != null) {
+              if (onUrlExit(request.url)) {
+                Navigator.of(globalContext).pop(Uri.parse(request.url));
+                return NavigationDecision.prevent;
+              }
             }
-          }
-          return NavigationDecision.navigate;
-        },
-        onPageFinished: (_) {
-          if (js?.isNotEmpty == true) {
-            controller.runJavaScript(js!);
-          }
-        },
-      ),
-    );
+            return NavigationDecision.navigate;
+          },
+          onPageFinished: (_) {
+            if (js?.isNotEmpty == true) {
+              controller.runJavaScript(js!);
+            }
+          },
+        ),
+      );
+    } else if (filePath != null) {
+      controller.loadFile(filePath);
+    }
 
+    return await showMTDialog<Uri?>(MTWebViewDialog._(controller, bgColor: bgColor, safeArea: safeArea));
+  }
+
+  Widget _inner(WebViewController controller) {
+    return Stack(
+      children: [
+        Container(color: bgColor, child: Center(child: MTCircularProgress(size: constants.P10))),
+        WebViewWidget(
+          gestureRecognizers: const {
+            Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new),
+            Factory<HorizontalDragGestureRecognizer>(HorizontalDragGestureRecognizer.new),
+            Factory<PanGestureRecognizer>(PanGestureRecognizer.new),
+          },
+          controller: controller,
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MTDialog(
-      topBar: const MTTopBar(
-        pageTitle: 'WebView',
-      ),
+      topBar: MTTopBar(barColor: bgColor),
       bgColor: bgColor,
-      body: Stack(
-        children: [
-          Container(color: bgColor, child: Center(child: MTCircularProgress(size: constants.P10))),
-          WebViewWidget(
-            gestureRecognizers: const {Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new)},
-            controller: controller,
-          ),
-        ],
-      ),
+      body: safeArea ? SafeArea(child: _inner(_controller)) : _inner(_controller),
     );
   }
 }

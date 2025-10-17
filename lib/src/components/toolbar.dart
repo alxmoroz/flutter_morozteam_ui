@@ -10,7 +10,7 @@ import '../theme/constants.dart';
 import '../utils/adaptive.dart';
 import 'page_title.dart';
 
-/// Базовый класс для toolbar
+/// Base class for toolbar
 abstract class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MTAppBar({
     required this.isBottom,
@@ -91,7 +91,7 @@ abstract class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context);
 }
 
-/// Верхний toolbar
+/// Top toolbar
 class MTTopBar extends MTAppBar {
   const MTTopBar({
     super.key,
@@ -138,7 +138,23 @@ class MTTopBar extends MTAppBar {
   }
 }
 
-/// Нижний toolbar
+/// Navigation toolbar (fullscreen)
+class MTNavBar extends MTTopBar {
+  const MTNavBar({
+    super.pageTitle,
+    super.parentPageTitle,
+    super.leading,
+    super.middle,
+    super.trailing,
+    super.bottomPadding,
+    super.bottomWidget,
+    super.barColor,
+    super.innerHeight,
+    super.key,
+  }) : super(fullScreen: true);
+}
+
+/// Bottom toolbar
 class MTBottomBar extends MTAppBar {
   const MTBottomBar({
     super.key,

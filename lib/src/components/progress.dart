@@ -1,10 +1,12 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
+
 import '../theme/colors.dart';
 
-/// Метка прогресса
+/// Progress mark
 class MTProgressMark {
   const MTProgressMark(
     this.child, {
@@ -17,7 +19,7 @@ class MTProgressMark {
   final Size? size;
 }
 
-/// Прогресс бар
+/// Progress bar
 class MTProgress extends StatelessWidget {
   const MTProgress(
     this.value, {

@@ -6,7 +6,7 @@ import '../theme/colors.dart';
 import '../theme/text.dart';
 import 'list_tile.dart';
 
-/// Чекбокс в виде элемента списка
+/// Checkbox as list item
 class MTCheckBoxTile extends StatelessWidget {
   const MTCheckBoxTile({
     super.key,

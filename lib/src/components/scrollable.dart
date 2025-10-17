@@ -1,9 +1,10 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+
 import 'shadowed.dart';
 
-/// Скроллируемый контейнер с тенями
+/// Scrollable container with shadows
 class MTScrollable extends StatefulWidget {
   const MTScrollable({
     required this.scrollController,

@@ -58,6 +58,24 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        // MTNavBar Example
+        const H2('MTNavBar'),
+        SizedBox(height: constants.P2),
+        MTButton.main(
+          titleText: 'Show MTNavBar Dialog',
+          onTap: () => _showNavBarDialog(context),
+        ),
+        SizedBox(height: constants.P3),
+
+        // MTSvgIcon Example
+        const H2('MTSvgIcon'),
+        SizedBox(height: constants.P2),
+        MTButton.secondary(
+          titleText: 'Show MTSvgIcon Info',
+          onTap: () => _showSvgIconInfo(context),
+        ),
+        SizedBox(height: constants.P3),
+
         const H2('Alert Dialog'),
         SizedBox(height: constants.P2),
         MTButton.main(
@@ -84,22 +102,20 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
             MTAvatar(20, initials: 'AB', borderColor: CupertinoColors.systemBlue),
             // Gravatar
             MTAvatar(20, gravatarEmail: 'john.doe@example.com'),
-            // Custom URL
-            MTAvatar(20, avatarUrl: 'https://via.placeholder.com/40'),
             // No data (icon fallback)
             MTAvatar(20),
             // Large with initials
             MTAvatar(40, initials: 'JD'),
             // Large with Gravatar and border
             MTAvatar(40, gravatarEmail: 'jane.smith@example.com', borderColor: CupertinoColors.systemGreen),
+            // With both initials and Gravatar (Gravatar priority)
+            MTAvatar(40, initials: 'JS', gravatarEmail: 'test@example.com'),
           ],
         ),
         SizedBox(height: constants.P3),
         const H2('Image Examples'),
         SizedBox(height: constants.P2),
         const MTImage('no_info', height: 100, width: 100),
-        SizedBox(height: constants.P2),
-        const MTNetworkImage('https://via.placeholder.com/200', height: 100, width: 100, fallbackName: 'no_info'),
         SizedBox(height: constants.P3),
         const H2('Field Examples'),
         SizedBox(height: constants.P2),
@@ -140,9 +156,7 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
       ],
     );
     if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Result: $result')),
-      );
+      showMTSnackbar('Result: $result');
     }
   }
 
@@ -150,10 +164,37 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
     await showMTSnackbar(
       'This is a snackbar dialog example',
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Snackbar tapped!')),
-        );
+        showMTSnackbar('Snackbar tapped!');
       },
+    );
+  }
+
+  void _showNavBarDialog(BuildContext context) async {
+    await showMTDialog(
+      MTDialog(
+        topBar: const MTNavBar(
+          pageTitle: 'Navigation Bar',
+        ),
+        body: Container(
+          height: 300,
+          color: colors.b2Color.resolve(context),
+          child: const Center(
+            child: H3('Full screen navigation bar example'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showSvgIconInfo(BuildContext context) async {
+    await showMTAlertDialog(
+      title: 'SVG Icons',
+      description: 'MTSvgIcon loads SVG files from assets/icons/\n\n'
+          'Example: MTSvgIcon("icon_name")\n\n'
+          'Note: SVG assets need to be provided by the app',
+      actions: [
+        const MTDialogAction(title: 'OK', result: 'ok', type: MTButtonType.main),
+      ],
     );
   }
 }

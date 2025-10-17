@@ -1,10 +1,11 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import 'circular_progress.dart';
 
-/// Loader с полупрозрачным фоном
+/// Loader with semi-transparent background
 class MTLoader extends StatelessWidget {
   const MTLoader({super.key, this.borderRadius});
 

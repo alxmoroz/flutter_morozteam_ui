@@ -1,10 +1,11 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/colors.dart';
 import '../theme/constants.dart';
 
-/// Круговой индикатор прогресса
+/// Circular progress indicator
 class MTCircularProgress extends StatelessWidget {
   const MTCircularProgress({
     super.key,

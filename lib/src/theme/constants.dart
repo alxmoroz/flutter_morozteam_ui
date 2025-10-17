@@ -5,16 +5,16 @@ import 'package:flutter/foundation.dart';
 
 import '../config/ui_config.dart';
 
-/// Константы для spacing, размеров и других UI параметров
+/// Constants for spacing, sizes and other UI parameters
 class UIConstants {
   const UIConstants(this.config);
 
   final UIKitConfig config;
 
-  /// Базовое значение для spacing (P)
+  /// Base value for spacing (P)
   double get P => config.baseSpacing;
 
-  /// Производные значения spacing
+  /// Derived spacing values
   double get P2 => P * 2.0; // 12
   double get P3 => P * 3.0; // 18
   double get P4 => P * 4.0; // 24
@@ -27,16 +27,16 @@ class UIConstants {
   double get P11 => P * 11.0; // 66
   double get P12 => P * 12.0; // 72
 
-  /// Дробные значения
+  /// Fractional values
   double get P_2 => P / 2; // 3
   double get P_3 => P / 3; // 2
 
-  /// Стандартные отступы для страниц
+  /// Standard page padding
   double get defPageTopPadding => P3;
   double get defPageBottomPadding => P5;
   double get defDialogBottomPadding => P3;
 
-  /// Стандартные отступы
+  /// Standard padding
   double get defHP => P3;
   double get defVP => P2;
   EdgeInsets get defPadding => EdgeInsets.symmetric(horizontal: defHP, vertical: defVP);
@@ -47,12 +47,12 @@ class UIConstants {
   double get defBtnBorderRadius => config.buttonRadius;
   double get defBorderWidth => P_3;
 
-  /// Размеры
+  /// Sizes
   double get defBarHeight => config.defaultBarHeight;
   double get minBtnHeight => config.minButtonHeight;
   double get defTappableIconSize => kIsWeb ? P5 : P6;
 
-  /// Breakpoints для адаптивности
+  /// Breakpoints for responsiveness
   double get scrXXSWidth => config.xxsWidth;
   double get scrXSWidth => config.xsWidth;
   double get scrXSHeight => config.xsHeight;
@@ -72,15 +72,15 @@ class UIConstants {
   double get buttonElevation => config.buttonElevation;
 }
 
-/// Глобальный экземпляр констант (будет инициализирован при настройке темы)
+/// Global constants instance (will be initialized when setting up theme)
 UIConstants? _globalConstants;
 
-/// Инициализировать глобальные константы
+/// Initialize global constants
 void initializeConstants(UIKitConfig config) {
   _globalConstants = UIConstants(config);
 }
 
-/// Получить глобальные константы
+/// Get global constants
 UIConstants get constants {
   if (_globalConstants == null) {
     throw FlutterError(
@@ -90,7 +90,7 @@ UIConstants get constants {
   return _globalConstants!;
 }
 
-/// Расширение для BuildContext для удобного доступа к константам
+/// Extension for BuildContext for convenient access to constants
 extension UIConstantsExtension on BuildContext {
   UIConstants get ui => constants;
 }

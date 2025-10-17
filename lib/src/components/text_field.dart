@@ -7,7 +7,7 @@ import '../theme/colors.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
 
-/// Создает декорацию для текстового поля
+/// Creates decoration for text field
 InputDecoration tfDecoration(
   BuildContext context, {
   String? label,
@@ -62,7 +62,7 @@ InputDecoration tfDecoration(
   );
 }
 
-/// Поле ввода текста
+/// Text input field
 class MTTextField extends StatelessWidget {
   const MTTextField({
     super.key,

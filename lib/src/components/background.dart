@@ -1,10 +1,11 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+
 import '../theme/colors.dart';
 import '../utils/adaptive.dart';
 
-/// Создает градиентное оформление фона
+/// Creates gradient background decoration
 Decoration? backgroundDecoration(
   BuildContext context, {
   Color? bg1Color,
@@ -20,7 +21,7 @@ Decoration? backgroundDecoration(
   );
 }
 
-/// Обертка с градиентным фоном
+/// Wrapper with gradient background
 class MTBackgroundWrapper extends StatelessWidget {
   const MTBackgroundWrapper(
     this.child, {

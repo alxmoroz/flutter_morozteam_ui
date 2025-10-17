@@ -15,33 +15,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return MaterialApp(
-          title: 'MorozTeam UI Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: _demoConfig.mainColor.resolve(context),
-              primary: _demoConfig.mainColor.resolve(context),
-              brightness: MediaQuery.platformBrightnessOf(context),
-              surface: _demoConfig.b2Color.resolve(context),
-              surfaceTint: _demoConfig.b2Color.resolve(context),
-            ),
-            fontFamily: 'Roboto',
-            useMaterial3: true,
-          ),
-          home: Builder(
-            builder: (context) {
-              // Set global context for dialogs
-              setGlobalContext(context);
-              return const UIThemeProvider(
-                config: _demoConfig,
-                child: DemoHomePage(),
-              );
-            },
-          ),
-        );
-      },
+    return MaterialApp(
+      title: 'MorozTeam UI Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: _demoConfig.mainColor.resolve(context),
+          primary: _demoConfig.mainColor.resolve(context),
+          brightness: MediaQuery.platformBrightnessOf(context),
+          surface: _demoConfig.b2Color.resolve(context),
+          surfaceTint: _demoConfig.b2Color.resolve(context),
+        ),
+        fontFamily: 'Roboto',
+        useMaterial3: true,
+      ),
+      home: Builder(
+        builder: (context) {
+          // Set global context for dialogs
+          setGlobalContext(context);
+          return const UIThemeProvider(
+            config: _demoConfig,
+            child: DemoHomePage(),
+          );
+        },
+      ),
     );
   }
 }
@@ -77,7 +73,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: MTTopBar(pageTitle: _tabTitles[_selectedTab]),
+      navBar: MTNavBar(pageTitle: _tabTitles[_selectedTab]),
       body: _pages[_selectedTab],
       bottomBar: MTBottomBar(
         middle: Row(
@@ -123,17 +119,38 @@ class _DemoHomePageState extends State<DemoHomePage> {
 
 const _demoConfig = UIKitConfig(
   // Background colors
-  b0Color: Color(0xFF000000),
-  b1Color: Color(0xFF1C1C1E),
-  b2Color: Color(0xFFFFFFFF),
-  b3Color: Color(0xFFF2F2F7),
+  b0Color: CupertinoDynamicColor.withBrightness(
+    color: Color(0xFF000000), // Light: black
+    darkColor: Color(0xFF000000), // Dark: black
+  ),
+  b1Color: CupertinoDynamicColor.withBrightness(
+    color: Color(0xFFE5E5EA), // Light: light gray
+    darkColor: Color(0xFF1C1C1E), // Dark: dark gray
+  ),
+  b2Color: CupertinoDynamicColor.withBrightness(
+    color: Color(0xFFFFFFFF), // Light: white
+    darkColor: Color(0xFF2C2C2E), // Dark: darker gray
+  ),
+  b3Color: CupertinoDynamicColor.withBrightness(
+    color: Color(0xFFF2F2F7), // Light: lightest gray
+    darkColor: Color(0xFF3A3A3C), // Dark: medium gray
+  ),
 
   // Text colors
-  f1Color: Color(0xFF000000),
-  f2Color: Color(0xFF3C3C43),
-  f3Color: Color(0xFF8E8E93),
+  f1Color: CupertinoDynamicColor.withBrightness(
+    color: Color(0xFF000000), // Light: black
+    darkColor: Color(0xFFFFFFFF), // Dark: white
+  ),
+  f2Color: CupertinoDynamicColor.withBrightness(
+    color: Color(0xFF3C3C43), // Light: dark gray
+    darkColor: Color(0xFFE5E5EA), // Dark: light gray
+  ),
+  f3Color: CupertinoDynamicColor.withBrightness(
+    color: Color(0xFF8E8E93), // Light: medium gray
+    darkColor: Color(0xFF8E8E93), // Dark: medium gray
+  ),
 
-  // Accent colors
+  // Accent colors (keep static)
   mainColor: Color(0xFF007AFF),
   dangerColor: Color(0xFFFF3B30),
   safeColor: Color(0xFF34C759),
@@ -141,7 +158,10 @@ const _demoConfig = UIKitConfig(
 
   // Special colors
   mainBtnTitleColor: Color(0xFFFFFFFF),
-  navbarColor: Color(0xFFF9F9F9),
+  navbarColor: CupertinoDynamicColor.withBrightness(
+    color: Color(0xFFF9F9F9), // Light: very light gray
+    darkColor: Color(0xFF1C1C1E), // Dark: dark gray
+  ),
   defaultBarrierColor: Color(0x80000000),
 
   // Typography
@@ -163,5 +183,5 @@ const _demoConfig = UIKitConfig(
   // Sizes
   minButtonHeight: 48.0,
   defaultBarHeight: 56.0,
-  tappableIconSize: 44.0,
+  tappableIconSize: 36.0,
 );

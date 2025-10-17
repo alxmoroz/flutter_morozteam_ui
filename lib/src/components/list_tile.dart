@@ -10,7 +10,7 @@ import '../utils/material_wrapper.dart';
 import 'divider.dart';
 import 'loader.dart';
 
-/// Универсальный элемент списка
+/// Universal list item
 class MTListTile extends StatelessWidget with GestureManaging {
   const MTListTile({
     super.key,
@@ -152,7 +152,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
   }
 }
 
-/// Заголовок секции
+/// Section title
 class MTSectionTitle extends MTListTile {
   MTSectionTitle(
     String text, {
@@ -177,7 +177,7 @@ class MTSectionTitle extends MTListTile {
         );
 }
 
-/// Текстовый элемент списка
+/// Text list item
 class MTListText extends MTListTile {
   MTListText(
     String text, {

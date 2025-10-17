@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../config/ui_config.dart';
 import 'colors.dart';
 
-/// Базовый класс для текста с поддержкой конфигурации
+/// Base class for text with configuration support
 class BaseText extends StatelessWidget {
   const BaseText(
     this.text, {
@@ -30,7 +30,7 @@ class BaseText extends StatelessWidget {
     this.padding,
     this.height,
     this.decoration,
-  }) : color = null; // Будет использован f2Color из конфига
+  }) : color = null; // Will use f2Color from config
 
   const BaseText.f3(
     this.text, {
@@ -42,7 +42,7 @@ class BaseText extends StatelessWidget {
     this.padding,
     this.height,
     this.decoration,
-  }) : color = null; // Будет использован f3Color из конфига
+  }) : color = null; // Will use f3Color from config
 
   const BaseText.medium(
     this.text, {
@@ -89,13 +89,13 @@ class BaseText extends StatelessWidget {
     final uiColors = colors;
 
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
-    // если указан явно межстрочный интервал, то оставляем его.
+    // if line height is explicitly specified, keep it.
     final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.15, 4: 1.2}[maxLines] ?? 1.3;
 
     // Use config values instead of baseFontSize * sizeScale
     final double fs = sizeScale != null ? config.bodyFontSize * sizeScale! : config.bodyFontSize;
 
-    // Определяем цвет текста
+    // Determine text color
     Color textColor;
     if (color != null) {
       textColor = color!;
@@ -132,7 +132,7 @@ class BaseText extends StatelessWidget {
   }
 }
 
-/// Заголовок H1
+/// H1 heading
 class H1 extends BaseText {
   const H1(super.text, {super.key, super.color, super.maxLines = 2, super.height = 1.1, super.align, super.padding});
 
@@ -147,7 +147,7 @@ class H1 extends BaseText {
   }
 }
 
-/// Заголовок H2
+/// H2 heading
 class H2 extends BaseText {
   const H2(super.text, {super.key, super.color, super.maxLines = 3, super.height = 1.1, super.align, super.padding});
 
@@ -162,7 +162,7 @@ class H2 extends BaseText {
   }
 }
 
-/// Заголовок H3
+/// H3 heading
 class H3 extends BaseText {
   const H3(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.color, super.align, super.padding});
 
@@ -179,7 +179,7 @@ class H3 extends BaseText {
   }
 }
 
-/// Заголовок H4
+/// H4 heading
 class H4 extends BaseText {
   const H4(super.text, {super.key, super.color, super.maxLines, super.height, super.align, super.padding});
 
@@ -194,7 +194,7 @@ class H4 extends BaseText {
   }
 }
 
-/// Текст для цифр
+/// Text for numbers
 class NumbersText extends BaseText {
   const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
 
@@ -210,7 +210,7 @@ class NumbersText extends BaseText {
   }
 }
 
-/// Мелкий текст
+/// Small text
 class SmallText extends BaseText {
   const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
 
@@ -225,7 +225,7 @@ class SmallText extends BaseText {
   }
 }
 
-/// Текст для кнопок
+/// Text for buttons
 class ButtonText extends BaseText {
   const ButtonText(super.text, {super.key, super.maxLines, super.color, super.align = TextAlign.center, super.padding});
 
@@ -243,7 +243,7 @@ class ButtonText extends BaseText {
   }
 }
 
-/// Текст-ссылка
+/// Link text
 class LinkText extends BaseText {
   const LinkText(
     super.text, {
