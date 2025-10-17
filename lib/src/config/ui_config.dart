@@ -29,26 +29,26 @@ class UIKitConfig {
 
     // Typography - Headings (defaults from Avanplan)
     this.h1FontSize = 28.0,
-    this.h1FontWeight = FontWeight.w300,  // Light, like Avanplan
+    this.h1FontWeight = FontWeight.w300, // Light, like Avanplan
     this.h2FontSize = 25.0,
-    this.h2FontWeight = FontWeight.w400,  // Regular, like Avanplan
+    this.h2FontWeight = FontWeight.w400, // Regular, like Avanplan
     this.h3FontSize = 21.0,
-    this.h3FontWeight = FontWeight.w400,  // Regular, like Avanplan
+    this.h3FontWeight = FontWeight.w400, // Regular, like Avanplan
     this.h4FontSize = 18.0,
-    this.h4FontWeight = FontWeight.w500,  // Medium
-    
+    this.h4FontWeight = FontWeight.w500, // Medium
+
     // Typography - Body (defaults from Avanplan)
-    this.bodyFontSize = 18.0,  // Like Avanplan baseFontSize
+    this.bodyFontSize = 18.0, // Like Avanplan baseFontSize
     this.bodyFontWeight = FontWeight.w400,
-    this.smallFontSize = 15.0,  // Like Avanplan SmallText
+    this.smallFontSize = 15.0, // Like Avanplan SmallText
     this.smallFontWeight = FontWeight.w400,
-    
+
     // Typography - Special
     this.buttonFontSize = 16.0,
     this.buttonFontWeight = FontWeight.w500,
     this.linkFontSize = 14.0,
     this.linkFontWeight = FontWeight.w400,
-    this.numbersFontSize = 20.0,  // Like Avanplan DText
+    this.numbersFontSize = 20.0, // Like Avanplan DText
     this.numbersFontWeight = FontWeight.w400,
 
     // Spacing
@@ -117,13 +117,13 @@ class UIKitConfig {
   final FontWeight h3FontWeight;
   final double h4FontSize;
   final FontWeight h4FontWeight;
-  
+
   // Typography - Body
   final double bodyFontSize;
   final FontWeight bodyFontWeight;
   final double smallFontSize;
   final FontWeight smallFontWeight;
-  
+
   // Typography - Special
   final double buttonFontSize;
   final FontWeight buttonFontWeight;

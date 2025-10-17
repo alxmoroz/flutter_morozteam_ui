@@ -91,11 +91,9 @@ class BaseText extends StatelessWidget {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     // если указан явно межстрочный интервал, то оставляем его.
     final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.15, 4: 1.2}[maxLines] ?? 1.3;
-    
+
     // Use config values instead of baseFontSize * sizeScale
-    final double fs = sizeScale != null 
-        ? config.bodyFontSize * sizeScale! 
-        : config.bodyFontSize;
+    final double fs = sizeScale != null ? config.bodyFontSize * sizeScale! : config.bodyFontSize;
 
     // Определяем цвет текста
     Color textColor;
@@ -137,7 +135,7 @@ class BaseText extends StatelessWidget {
 /// Заголовок H1
 class H1 extends BaseText {
   const H1(super.text, {super.key, super.color, super.maxLines = 2, super.height = 1.1, super.align, super.padding});
-  
+
   @override
   TextStyle style(BuildContext context) {
     final config = _getConfig();
@@ -152,7 +150,7 @@ class H1 extends BaseText {
 /// Заголовок H2
 class H2 extends BaseText {
   const H2(super.text, {super.key, super.color, super.maxLines = 3, super.height = 1.1, super.align, super.padding});
-  
+
   @override
   TextStyle style(BuildContext context) {
     final config = _getConfig();
@@ -167,10 +165,9 @@ class H2 extends BaseText {
 /// Заголовок H3
 class H3 extends BaseText {
   const H3(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.color, super.align, super.padding});
-  
-  const H3.f2(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.align, super.padding})
-      : super.f2();
-  
+
+  const H3.f2(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.align, super.padding}) : super.f2();
+
   @override
   TextStyle style(BuildContext context) {
     final config = _getConfig();
@@ -185,7 +182,7 @@ class H3 extends BaseText {
 /// Заголовок H4
 class H4 extends BaseText {
   const H4(super.text, {super.key, super.color, super.maxLines, super.height, super.align, super.padding});
-  
+
   @override
   TextStyle style(BuildContext context) {
     final config = _getConfig();
@@ -216,7 +213,7 @@ class NumbersText extends BaseText {
 /// Мелкий текст
 class SmallText extends BaseText {
   const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
-  
+
   @override
   TextStyle style(BuildContext context) {
     final config = _getConfig();
@@ -234,7 +231,7 @@ class ButtonText extends BaseText {
 
   const ButtonText.f2(super.text, {super.key, super.maxLines = 1, super.align = TextAlign.center, super.padding})
       : super.f2();
-  
+
   @override
   TextStyle style(BuildContext context) {
     final config = _getConfig();
@@ -266,7 +263,7 @@ class LinkText extends BaseText {
     return baseStyle.copyWith(
       fontSize: config.linkFontSize,
       fontWeight: config.linkFontWeight,
-      color: color ?? uiColors.mainColor, 
+      color: color ?? uiColors.mainColor,
       decorationColor: color ?? uiColors.mainColor,
     );
   }

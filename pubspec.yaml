@@ -12,6 +12,7 @@ environment:
 
 dependencies:
   crypto: any
+  cupertino_icons: any
   flutter:
     sdk: flutter
   flutter_svg: any
