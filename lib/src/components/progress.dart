@@ -4,7 +4,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
+import '../theme/resolved_color.dart';
 
 /// Progress mark
 class MTProgressMark {
@@ -49,7 +50,7 @@ class MTProgress extends StatelessWidget {
               width: w,
               child: Container(
                 decoration: BoxDecoration(
-                  color: (color ?? colors.mainColor).resolve(context),
+                  color: (color ?? context.uiConfig.mainColor).resolve(context),
                   borderRadius: BorderRadius.circular(size.maxHeight / 2),
                 ),
               ),

@@ -18,7 +18,7 @@ class LayoutDemo extends StatelessWidget {
           MTAdaptive.xxs(
             child: Container(
               padding: EdgeInsets.all(constants.P2),
-              color: colors.mainColor.resolve(context).withValues(alpha: 0.1),
+              color: context.uiConfig.mainColor.resolve(context).withValues(alpha: 0.1),
               child: const BaseText('XXS Container (max 290px)'),
             ),
           ),
@@ -26,7 +26,7 @@ class LayoutDemo extends StatelessWidget {
           MTAdaptive.s(
             child: Container(
               padding: EdgeInsets.all(constants.P2),
-              color: colors.safeColor.resolve(context).withValues(alpha: 0.1),
+              color: context.uiConfig.safeColor.resolve(context).withValues(alpha: 0.1),
               child: const BaseText('S Container (max 480px)'),
             ),
           ),
@@ -36,7 +36,7 @@ class LayoutDemo extends StatelessWidget {
           MTShadowed(
             child: Container(
               height: 200,
-              color: colors.b3Color.resolve(context),
+              color: context.uiConfig.b3Color.resolve(context),
               child: const Center(
                 child: BaseText('Container with top shadow'),
               ),

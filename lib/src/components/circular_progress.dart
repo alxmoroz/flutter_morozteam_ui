@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 
 /// Circular progress indicator
 class MTCircularProgress extends StatelessWidget {
@@ -23,7 +24,7 @@ class MTCircularProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ci = CircularProgressIndicator(
-      color: (color ?? colors.mainColor).resolve(context),
+      color: (color ?? context.uiConfig.mainColor).resolve(context),
       strokeWidth: strokeWidth,
       strokeCap: StrokeCap.round,
     );

@@ -4,13 +4,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'dialog.dart';
 import 'list_tile.dart';
 
-Future showMTSnackbar(String text, {TextAlign? titleAlign = TextAlign.center, Widget? trailing, Function()? onTap}) async {
+Future showMTSnackbar(String text,
+    {TextAlign? titleAlign = TextAlign.center, Widget? trailing, Function()? onTap}) async {
   await showMTDialog(
     _MTSnackbarDialog(text, titleAlign: titleAlign, trailing: trailing, onTap: onTap),
     forceBottomSheet: true,
@@ -58,7 +59,7 @@ class _State extends State<_MTSnackbarDialog> {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: null,
-      bgColor: colors.b3Color,
+      bgColor: context.uiConfig.b3Color,
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(constants.defBorderRadius),
         topRight: Radius.circular(constants.defBorderRadius),
@@ -69,7 +70,7 @@ class _State extends State<_MTSnackbarDialog> {
           color: Colors.transparent,
           middle: H2(
             widget._text,
-            color: colors.f2Color,
+            color: context.uiConfig.f2Color,
             align: widget.titleAlign,
             maxLines: 3,
           ),

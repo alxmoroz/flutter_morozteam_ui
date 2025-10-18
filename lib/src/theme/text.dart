@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../config/ui_config.dart';
-import 'colors.dart';
+import '../config/ui_theme.dart';
 
 /// Base class for text with configuration support
 class BaseText extends StatelessWidget {
@@ -79,14 +79,13 @@ class BaseText extends StatelessWidget {
   final TextDecoration? decoration;
 
   /// Get UIKitConfig from global state
-  UIKitConfig _getConfig() {
+  UIKitConfig _getConfig(BuildContext context) {
     // Access config through global colors instance
-    return colors.config;
+    return UIThemeProvider.of(context);
   }
 
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
-    final uiColors = colors;
+    final config = _getConfig(context);
 
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     // if line height is explicitly specified, keep it.
@@ -100,7 +99,7 @@ class BaseText extends StatelessWidget {
     if (color != null) {
       textColor = color!;
     } else {
-      textColor = uiColors.f1Color;
+      textColor = context.uiConfig.f1Color;
     }
 
     final rColor = CupertinoDynamicColor.maybeResolve(textColor, context);
@@ -138,7 +137,7 @@ class H1 extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
+    final config = _getConfig(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
       fontSize: config.h1FontSize,
@@ -153,7 +152,7 @@ class H2 extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
+    final config = _getConfig(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
       fontSize: config.h2FontSize,
@@ -170,7 +169,7 @@ class H3 extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
+    final config = _getConfig(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
       fontSize: config.h3FontSize,
@@ -185,7 +184,7 @@ class H4 extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
+    final config = _getConfig(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
       fontSize: config.h4FontSize,
@@ -200,7 +199,7 @@ class NumbersText extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
+    final config = _getConfig(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
       fontSize: config.numbersFontSize,
@@ -216,7 +215,7 @@ class SmallText extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
+    final config = _getConfig(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
       fontSize: config.smallFontSize,
@@ -234,7 +233,7 @@ class ButtonText extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
+    final config = _getConfig(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
       fontSize: config.buttonFontSize,
@@ -257,14 +256,13 @@ class LinkText extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig();
-    final uiColors = colors;
+    final config = _getConfig(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
       fontSize: config.linkFontSize,
       fontWeight: config.linkFontWeight,
-      color: color ?? uiColors.mainColor,
-      decorationColor: color ?? uiColors.mainColor,
+      color: color ?? context.uiConfig.mainColor,
+      decorationColor: color ?? context.uiConfig.mainColor,
     );
   }
 }

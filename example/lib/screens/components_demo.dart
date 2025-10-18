@@ -60,7 +60,7 @@ class ComponentsDemo extends StatelessWidget {
               SizedBox(height: constants.P2),
               SizedBox(
                 height: constants.P,
-                child: MTProgress(0.7, color: colors.mainColor),
+                child: MTProgress(0.7, color: context.uiConfig.mainColor),
               ),
             ],
           ),
@@ -100,11 +100,11 @@ class ComponentsDemo extends StatelessWidget {
         SizedBox(height: constants.P2),
         Row(
           children: [
-            MTCircle(color: colors.mainColor, size: 40),
+            MTCircle(color: context.uiConfig.mainColor, size: 40),
             SizedBox(width: constants.P2),
-            MTCircle(color: colors.dangerColor, size: 40),
+            MTCircle(color: context.uiConfig.dangerColor, size: 40),
             SizedBox(width: constants.P2),
-            MTCircle(color: colors.safeColor, size: 40),
+            MTCircle(color: context.uiConfig.safeColor, size: 40),
           ],
         ),
       ],

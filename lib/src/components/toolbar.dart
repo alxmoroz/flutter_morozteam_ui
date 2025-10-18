@@ -5,8 +5,9 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import 'page_title.dart';
 
@@ -55,7 +56,7 @@ abstract class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
     return leading ??
         (navigator.canPop()
             ? CupertinoNavigationBarBackButton(
-                color: colors.mainColor.resolve(context),
+                color: context.uiConfig.mainColor.resolve(context),
                 onPressed: () => navigator.pop(),
               )
             : null);
@@ -123,7 +124,7 @@ class MTTopBar extends MTAppBar {
       alignment: Alignment.topCenter,
       child: Container(
         decoration: BoxDecoration(
-          color: (barColor ?? Theme.of(context).colorScheme.surface).resolve(context),
+          color: (barColor ?? context.uiConfig.barSurfaceColor).resolve(context),
         ),
         padding: EdgeInsets.only(
           top: max(mqPadding.top, topPadding),
@@ -186,7 +187,7 @@ class MTBottomBar extends MTAppBar {
       alignment: Alignment.bottomCenter,
       child: Container(
         decoration: BoxDecoration(
-          color: (barColor ?? Theme.of(context).colorScheme.surface).resolve(context),
+          color: (barColor ?? context.uiConfig.barSurfaceColor).resolve(context),
         ),
         padding: EdgeInsets.only(
           top: topPadding,

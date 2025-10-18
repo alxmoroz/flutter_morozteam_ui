@@ -4,8 +4,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
@@ -104,7 +105,7 @@ class MTPage extends StatelessWidget {
 
     return FocusDroppable(
       Container(
-        decoration: BoxDecoration(color: colors.b2Color.resolve(context)),
+        decoration: BoxDecoration(color: context.uiConfig.b2Color.resolve(context)),
         child: Stack(
           children: [
             hasLeftBar || hasRightBar

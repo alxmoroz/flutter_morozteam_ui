@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 
 /// Card with shadow and rounded corners
 class MTCard extends StatelessWidget {
@@ -28,10 +29,9 @@ class MTCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final uiColors = colors;
-    final cardColor = (color ?? uiColors.b3Color).resolve(context);
+    final cardColor = (color ?? context.uiConfig.b3Color).resolve(context);
     final borderRadius = radius ?? constants.defBorderRadius;
-    final shadowColor = uiColors.b1Color.resolve(context);
+    final shadowColor = context.uiConfig.b1Color.resolve(context);
 
     return Card(
       clipBehavior: Clip.antiAlias,

@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import '../utils/md5.dart';
 import 'circle.dart';
@@ -27,7 +28,7 @@ class MTAvatar extends StatelessWidget {
   String get _gravatarUrl => 'https://www.gravatar.com/avatar/${emailToMD5(gravatarEmail!)}?s=${radius * 6}&d=blank';
 
   static const _borderWidth = 2.0;
-  Color get _noAvatarColor => colors.f3Color;
+  Color _noAvatarColor(BuildContext context) => context.uiConfig.f3Color;
   bool get _hasBorder => borderColor != null;
 
   Widget _initialsCircle(BuildContext context) {
@@ -37,7 +38,7 @@ class MTAvatar extends StatelessWidget {
     return MTCircle(
       color: Colors.transparent,
       size: validRadius * 2,
-      border: !_hasBorder ? Border.all(width: 1, color: _noAvatarColor.resolve(context)) : null,
+      border: !_hasBorder ? Border.all(width: 1, color: _noAvatarColor(context).resolve(context)) : null,
       child: Center(
         child: BaseText(
           initials,
@@ -61,7 +62,8 @@ class MTAvatar extends StatelessWidget {
         // Layer 1: Initials or Icon fallback
         initials.isNotEmpty
             ? _initialsCircle(context)
-            : Icon(Icons.person, size: validRadius * (_hasBorder ? 1.3 : 2), color: _noAvatarColor.resolve(context)),
+            : Icon(Icons.person,
+                size: validRadius * (_hasBorder ? 1.3 : 2), color: _noAvatarColor(context).resolve(context)),
         // Layer 2: Gravatar (if email provided)
         if (gravatarEmail != null)
           CircleAvatar(
@@ -81,7 +83,7 @@ class MTAvatar extends StatelessWidget {
 
     return MTCircle(
       size: validRadius * 2,
-      color: colors.b3Color,
+      color: context.uiConfig.b3Color,
       border: _hasBorder ? Border.all(width: _borderWidth, color: borderColor!.resolve(context)) : null,
       child: avatar,
     );

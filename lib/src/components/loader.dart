@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
+import '../theme/resolved_color.dart';
 import 'circular_progress.dart';
 
 /// Loader with semi-transparent background
@@ -23,7 +24,7 @@ class MTLoader extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: colors.b2Color.resolve(context).withValues(alpha: 0.82),
+              color: context.uiConfig.b2Color.resolve(context).withValues(alpha: 0.82),
               borderRadius: BorderRadius.circular(borderRadius ?? 0),
             ),
           ),

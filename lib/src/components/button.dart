@@ -3,8 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
@@ -208,13 +209,12 @@ class MTButton extends StatelessWidget with GestureManaging {
   bool get _enabled => loading != true && onTap != null;
 
   Color _titleColor(BuildContext context) {
-    final uiColors = colors;
     Color tc = (titleColor ??
             (type.isMain
-                ? uiColors.mainBtnTitleColor
+                ? context.uiConfig.mainBtnTitleColor
                 : [MTButtonType.danger, MTButtonType.safe].contains(type)
-                    ? uiColors.b3Color
-                    : uiColors.mainColor))
+                    ? context.uiConfig.b3Color
+                    : context.uiConfig.mainColor))
         .resolve(context);
 
     return _enabled || type.isCustom ? tc : tc.withValues(alpha: 0.7);
@@ -224,15 +224,14 @@ class MTButton extends StatelessWidget with GestureManaging {
   double get _radius => borderRadius ?? (type.isCard ? constants.defBorderRadius : _minSize.height / 2);
 
   ButtonStyle _style(BuildContext context) {
-    final uiColors = colors;
     Color btnColor = (color ??
             (type.isMain
-                ? uiColors.mainColor
+                ? context.uiConfig.mainColor
                 : type.isDanger
-                    ? uiColors.dangerColor
+                    ? context.uiConfig.dangerColor
                     : type.isSafe
-                        ? uiColors.safeColor
-                        : uiColors.b3Color))
+                        ? context.uiConfig.safeColor
+                        : context.uiConfig.b3Color))
         .resolve(context);
     if (!(_enabled || type.isCustom)) btnColor = btnColor.withValues(alpha: 0.42);
 
@@ -249,13 +248,14 @@ class MTButton extends StatelessWidget with GestureManaging {
       side: borderSide ?? (type.isSecondary ? BorderSide(color: titleColor, width: 1) : BorderSide.none),
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
-      shadowColor: uiColors.b1Color.resolve(context),
+      shadowColor: context.uiConfig.b1Color.resolve(context),
       elevation: elevation ?? constants.buttonElevation,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 
-  Function()? get _onPressed => _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
+  Function()? get _onPressed =>
+      _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
 
   Widget _button(BuildContext context) {
     final child = Row(

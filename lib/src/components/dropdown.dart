@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import 'text_field.dart';
 
@@ -45,8 +46,8 @@ class MTDropdown<T> extends StatelessWidget {
       height: constants.P10,
       alignment: Alignment.centerLeft,
       child: DropdownButtonFormField<T>(
-        dropdownColor: colors.b3Color.resolve(context),
-        focusColor: colors.b3Color.resolve(context),
+        dropdownColor: context.uiConfig.b3Color.resolve(context),
+        focusColor: context.uiConfig.b3Color.resolve(context),
         isDense: true,
         decoration: tfDecoration(
           context,

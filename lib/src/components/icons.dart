@@ -6,8 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import 'circle.dart';
 
 /// SVG icon from assets
@@ -49,7 +50,7 @@ class MTIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rColor = (color ?? colors.mainColor).resolve(context);
+    final rColor = (color ?? context.uiConfig.mainColor).resolve(context);
     final iconSize = size ?? constants.P4;
     return Stack(
       alignment: Alignment.center,

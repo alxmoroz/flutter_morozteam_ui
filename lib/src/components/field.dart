@@ -1,7 +1,8 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
+
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'field_data.dart';
@@ -53,11 +54,13 @@ class MTField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: leading != null ? Container(width: constants.defTappableIconSize, alignment: Alignment.center, child: leading) : null,
+      leading: leading != null
+          ? Container(width: constants.defTappableIconSize, alignment: Alignment.center, child: leading)
+          : null,
       middle: compact
           ? null
           : _hasValue && showLabel && fd.label.isNotEmpty
-              ? SmallText(fd.label, color: colors.f3Color, maxLines: 1)
+              ? SmallText(fd.label, color: context.uiConfig.f3Color, maxLines: 1)
               : null,
       subtitle: compact
           ? null
@@ -73,7 +76,7 @@ class MTField extends StatelessWidget {
       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
       margin: margin,
       padding: padding,
-      color: color ?? colors.b3Color,
+      color: color ?? context.uiConfig.b3Color,
       minHeight: minHeight,
       loading: fd.loading || loading,
       onTap: onTap,

@@ -41,8 +41,8 @@ export 'src/components/webview_dialog.dart';
 export 'src/config/ui_config.dart';
 export 'src/config/ui_theme.dart';
 // Theme
-export 'src/theme/colors.dart';
 export 'src/theme/constants.dart';
+export 'src/theme/resolved_color.dart';
 export 'src/theme/text.dart';
 // Utils
 export 'src/utils/adaptive.dart';

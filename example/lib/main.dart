@@ -84,7 +84,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
               child: MTButton.icon(
                 Icon(
                   _getIconForTab(index),
-                  color: isSelected ? colors.mainColor : colors.f3Color,
+                  color: isSelected ? context.uiConfig.mainColor : context.uiConfig.f3Color,
                 ),
                 onTap: () => setState(() => _selectedTab = index),
               ),

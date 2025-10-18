@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'button.dart';
@@ -75,8 +75,8 @@ class _PhoneCountrySelectorDialog extends StatelessWidget {
               itemBuilder: (_, index) {
                 final country = _countries[index];
                 return MTListTile(
-                  color: colors.b3Color,
-                  leading: country.icon ?? Icon(Icons.flag, color: colors.mainColor),
+                  color: context.uiConfig.b3Color,
+                  leading: country.icon ?? Icon(Icons.flag, color: context.uiConfig.mainColor),
                   middle: BaseText('${country.name} ', maxLines: 1),
                   trailing: BaseText.f2('+${country.code}', maxLines: 1),
                   onTap: () => _selectCountry(context, country),
@@ -132,7 +132,7 @@ class MTPhoneField extends StatelessWidget {
         width: constants.P8 * 2,
         child: MTButton(
           type: MTButtonType.card,
-          middle: country.icon ?? Icon(Icons.flag, color: colors.mainColor),
+          middle: country.icon ?? Icon(Icons.flag, color: context.uiConfig.mainColor),
           trailing: const ChevronDownIcon(),
           padding: EdgeInsets.symmetric(horizontal: constants.P2),
           onTap: () => _showCountrySelector(context),

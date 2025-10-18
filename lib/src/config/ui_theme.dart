@@ -2,32 +2,42 @@
 
 import 'package:flutter/widgets.dart';
 
-import '../theme/colors.dart';
 import '../theme/constants.dart';
 import 'ui_config.dart';
 
-/// Provider for initializing global colors and constants
-class UIThemeProvider extends StatelessWidget {
+/// Provider for UI Kit configuration
+class UIThemeProvider extends InheritedWidget {
   const UIThemeProvider({
     super.key,
     required this.config,
-    required this.child,
+    required super.child,
   });
 
   final UIKitConfig config;
-  final Widget child;
 
   @override
-  Widget build(BuildContext context) {
-    // Initialize global colors and constants
-    initializeUIKit(config);
-    return child;
+  bool updateShouldNotify(UIThemeProvider oldWidget) {
+    return config != oldWidget.config;
+  }
+
+  static UIKitConfig of(BuildContext context) {
+    final provider = context.dependOnInheritedWidgetOfExactType<UIThemeProvider>();
+    if (provider == null) {
+      throw FlutterError(
+        'UIThemeProvider not found in widget tree. Make sure to wrap your app with UIThemeProvider.',
+      );
+    }
+    return provider.config;
   }
 }
 
 /// Initialize global UI kit configuration
 void initializeUIKit(UIKitConfig config) {
-  // Initialize global colors and constants
-  initializeColors(config);
+  // Initialize global constants
   initializeConstants(config);
+}
+
+/// Extension for BuildContext for convenient access to config
+extension UIConfigExtension on BuildContext {
+  UIKitConfig get uiConfig => UIThemeProvider.of(this);
 }

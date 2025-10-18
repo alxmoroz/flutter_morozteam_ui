@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 
 /// Creates decoration for text field
@@ -23,15 +24,15 @@ InputDecoration tfDecoration(
 }) {
   final bRadius = BorderRadius.circular(constants.defBorderRadius);
   final OutlineInputBorder warningBorder = OutlineInputBorder(
-    borderSide: BorderSide(color: colors.warningColor.resolve(context)),
+    borderSide: BorderSide(color: context.uiConfig.warningColor.resolve(context)),
     borderRadius: bRadius,
   );
   final OutlineInputBorder border = OutlineInputBorder(
-    borderSide: BorderSide(color: colors.f3Color.resolve(context)),
+    borderSide: BorderSide(color: context.uiConfig.f3Color.resolve(context)),
     borderRadius: bRadius,
   );
   final OutlineInputBorder focusedBorder = OutlineInputBorder(
-    borderSide: BorderSide(width: 2, color: colors.mainColor.resolve(context)),
+    borderSide: BorderSide(width: 2, color: context.uiConfig.mainColor.resolve(context)),
     borderRadius: bRadius,
   );
 
@@ -44,7 +45,7 @@ InputDecoration tfDecoration(
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 3,
     errorText: error,
-    errorStyle: SmallText('', color: colors.warningColor).style(context),
+    errorStyle: SmallText('', color: context.uiConfig.warningColor).style(context),
     errorMaxLines: 3,
     contentPadding: contentPadding ?? EdgeInsets.all(constants.P2 + constants.P_2),
     floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -58,7 +59,7 @@ InputDecoration tfDecoration(
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     filled: true,
-    fillColor: (fillColor ?? colors.b3Color).resolve(context),
+    fillColor: (fillColor ?? context.uiConfig.b3Color).resolve(context),
   );
 }
 
@@ -220,7 +221,7 @@ class MTTextField extends StatelessWidget {
                 contentPadding: contentPadding,
                 hintStyle: hintStyle,
               ),
-          cursorColor: (cursorColor ?? colors.mainColor).resolve(context),
+          cursorColor: (cursorColor ?? context.uiConfig.mainColor).resolve(context),
           autofocus: autofocus,
           autofillHints: autofillHints,
           minLines: maxLines != null ? (minLines ?? 1) : null,

@@ -43,7 +43,7 @@ class TypographyDemo extends StatelessWidget {
 class _ColorPalette extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final uiColors = colors;
+    final uiColors = context.uiConfig;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +111,7 @@ class _ColorBox extends StatelessWidget {
           decoration: BoxDecoration(
             color: color.resolve(context),
             borderRadius: BorderRadius.circular(constants.P),
-            border: Border.all(color: colors.f3Color.resolve(context)),
+            border: Border.all(color: context.uiConfig.f3Color.resolve(context)),
           ),
         ),
         SizedBox(height: constants.P_2),

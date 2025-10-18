@@ -2,7 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
+import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 
 /// Creates gradient background decoration
@@ -14,8 +15,8 @@ Decoration? backgroundDecoration(
   return BoxDecoration(
     gradient: LinearGradient(
       colors: [
-        (bg1Color ?? colors.b2Color).resolve(context),
-        (bg2Color ?? (isBigScreen(context) ? colors.b1Color : colors.b2Color)).resolve(context),
+        (bg1Color ?? context.uiConfig.b2Color).resolve(context),
+        (bg2Color ?? (isBigScreen(context) ? context.uiConfig.b1Color : context.uiConfig.b2Color)).resolve(context),
       ],
     ),
   );

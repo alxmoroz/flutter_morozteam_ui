@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 
 /// Widget with shadows from top and/or bottom
 class MTShadowed extends StatelessWidget {
@@ -28,7 +29,7 @@ class MTShadowed extends StatelessWidget {
 
   Widget _shadow(BuildContext context, bool top) {
     final mqPadding = MediaQuery.paddingOf(context);
-    final startColor = (shadowColor ?? colors.b1Color).resolve(context).withValues(alpha: 0.5);
+    final startColor = (shadowColor ?? context.uiConfig.b1Color).resolve(context).withValues(alpha: 0.5);
     final endColor = startColor.withValues(alpha: 0);
 
     return Positioned(

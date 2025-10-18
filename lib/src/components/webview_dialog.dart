@@ -5,8 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../theme/colors.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import 'circular_progress.dart';
 import 'dialog.dart';
 import 'toolbar.dart';
@@ -27,7 +27,7 @@ class MTWebViewDialog extends StatelessWidget {
     String? filePath,
     String? js,
     bool Function(String)? onUrlExit,
-    Color bgColor = const Color.fromARGB(0, 255, 255, 255),
+    Color bgColor = Colors.transparent,
     bool safeArea = true,
   }) async {
     assert(uri != null || filePath != null);

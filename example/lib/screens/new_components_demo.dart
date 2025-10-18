@@ -177,7 +177,7 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
         ),
         body: Container(
           height: 300,
-          color: colors.b2Color.resolve(context),
+          color: context.uiConfig.b2Color.resolve(context),
           child: const Center(
             child: H3('Full screen navigation bar example'),
           ),

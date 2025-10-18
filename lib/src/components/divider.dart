@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
+import '../theme/resolved_color.dart';
 
 /// Divider line
 class MTDivider extends StatelessWidget {
@@ -24,7 +25,7 @@ class MTDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: (color ?? colors.b1Color).resolve(context),
+      color: (color ?? context.uiConfig.b1Color).resolve(context),
       margin: EdgeInsets.symmetric(vertical: verticalIndent ?? 0).copyWith(left: indent ?? 0, right: endIndent ?? 0),
       height: height ?? 1,
     );

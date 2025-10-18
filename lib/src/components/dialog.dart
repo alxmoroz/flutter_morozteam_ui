@@ -4,8 +4,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../theme/colors.dart';
+import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
@@ -33,7 +34,8 @@ BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final big = isBigScreen(context);
   return BoxConstraints(
     maxWidth: big ? min(mq.size.width - constants.P6, maxWidth ?? constants.scrSWidth) : double.infinity,
-    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - constants.P6 : double.infinity,
+    maxHeight:
+        big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - constants.P6 : double.infinity,
   );
 }
 
@@ -60,14 +62,14 @@ class MTDialogPage<T> extends Page<T> {
       ? DialogRoute(
           context: context,
           useSafeArea: false,
-          barrierColor: colors.defaultBarrierColor.resolve(context),
+          barrierColor: UIThemeProvider.of(globalContext).defaultBarrierColor.resolve(context),
           settings: this,
           builder: (_) => _constrainedDialog(context, child, maxWidth: maxWidth),
         )
       : ModalBottomSheetRoute(
           useSafeArea: true,
           constraints: _dialogConstrains(context, maxWidth),
-          modalBarrierColor: colors.defaultBarrierColor.resolve(context),
+          modalBarrierColor: UIThemeProvider.of(globalContext).defaultBarrierColor.resolve(context),
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
           settings: this,
@@ -85,7 +87,7 @@ Future<T?> showMTDialog<T>(
   return !forceBottomSheet && isBigScreen(globalContext)
       ? await showDialog<T?>(
           context: globalContext,
-          barrierColor: (barrierColor ?? colors.defaultBarrierColor).resolve(globalContext),
+          barrierColor: (barrierColor ?? UIThemeProvider.of(globalContext).defaultBarrierColor).resolve(globalContext),
           barrierDismissible: isDismissible,
           useRootNavigator: false,
           useSafeArea: false,
@@ -93,7 +95,7 @@ Future<T?> showMTDialog<T>(
         )
       : await showModalBottomSheet<T?>(
           context: globalContext,
-          barrierColor: (barrierColor ?? colors.defaultBarrierColor).resolve(globalContext),
+          barrierColor: (barrierColor ?? UIThemeProvider.of(globalContext).defaultBarrierColor).resolve(globalContext),
           isDismissible: isDismissible,
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
@@ -193,7 +195,7 @@ class MTDialog extends StatelessWidget {
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: (bgColor ?? colors.b2Color).resolve(context),
+            color: (bgColor ?? context.uiConfig.b2Color).resolve(context),
             borderRadius: borderRadius ??
                 BorderRadius.only(
                   topLeft: radius,
@@ -205,7 +207,7 @@ class MTDialog extends StatelessWidget {
               BoxShadow(
                   blurRadius: constants.P,
                   offset: Offset(0, big ? constants.P_2 : -constants.P_2),
-                  color: colors.b0Color.resolve(context).withValues(alpha: 0.42))
+                  color: context.uiConfig.b0Color.resolve(context).withValues(alpha: 0.42))
             ],
           ),
           child: Stack(

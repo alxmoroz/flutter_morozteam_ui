@@ -15,11 +15,12 @@ class UIKitConfig {
     required this.f3Color,
     required this.mainColor,
     required this.dangerColor,
-    this.safeColor,
-    this.warningColor,
-    this.mainBtnTitleColor,
-    this.navbarColor,
-    this.defaultBarrierColor,
+    this.safeColor = defaultSafeColor,
+    this.warningColor = defaultWarningColor,
+    this.mainBtnTitleColor = defaultMainBtnTitleColor,
+    this.barSurfaceColor = defaultBarSurfaceColor,
+    this.navbarColor = defaultNavbarColor,
+    this.defaultBarrierColor = defaultDefaultBarrierColor,
 
     // Typography
     this.baseFontSize = 16.0,
@@ -94,13 +95,14 @@ class UIKitConfig {
   // Accent colors
   final Color mainColor;
   final Color dangerColor;
-  final Color? safeColor;
-  final Color? warningColor;
+  final Color safeColor;
+  final Color warningColor;
 
   // Special colors
-  final Color? mainBtnTitleColor;
-  final Color? navbarColor;
-  final Color? defaultBarrierColor;
+  final Color mainBtnTitleColor;
+  final Color barSurfaceColor;
+  final Color navbarColor;
+  final Color defaultBarrierColor;
 
   // Typography
   final double baseFontSize;
@@ -163,6 +165,37 @@ class UIKitConfig {
   /// Get button radius (default half of height)
   double get buttonRadius => buttonBorderRadius ?? (minButtonHeight / 2);
 
+  // Static const defaults for colors
+  static const defaultSafeColor = CupertinoDynamicColor.withBrightness(
+    color: Color(0xFF34C759), // iOS green
+    darkColor: Color(0xFF34C759),
+  );
+
+  static const defaultWarningColor = CupertinoDynamicColor.withBrightness(
+    color: Color(0xFFFF9500), // iOS orange
+    darkColor: Color(0xFFFF9500),
+  );
+
+  static const defaultMainBtnTitleColor = CupertinoDynamicColor.withBrightness(
+    color: Color(0xFFFFFFFF), // white
+    darkColor: Color(0xFFFFFFFF),
+  );
+
+  static const defaultBarSurfaceColor = CupertinoDynamicColor.withBrightness(
+    color: Color(0xFFFFFFFF), // Light: white
+    darkColor: Color(0xFF2C2C2E), // Dark: dark gray
+  );
+
+  static const defaultNavbarColor = CupertinoDynamicColor.withBrightness(
+    color: Color.fromARGB(0, 255, 255, 255), // transparent white for light theme
+    darkColor: Color.fromARGB(0, 0, 0, 0), // transparent black for dark theme
+  );
+
+  static const defaultDefaultBarrierColor = CupertinoDynamicColor.withBrightness(
+    color: Color.fromARGB(240, 229, 229, 234), // semi-transparent b1 light
+    darkColor: Color.fromARGB(240, 28, 28, 30), // semi-transparent b1 dark
+  );
+
   /// Create a copy of configuration with modified parameters
   UIKitConfig copyWith({
     Color? b0Color,
@@ -177,6 +210,7 @@ class UIKitConfig {
     Color? safeColor,
     Color? warningColor,
     Color? mainBtnTitleColor,
+    Color? barSurfaceColor,
     Color? navbarColor,
     Color? defaultBarrierColor,
     double? baseFontSize,
@@ -233,6 +267,7 @@ class UIKitConfig {
       safeColor: safeColor ?? this.safeColor,
       warningColor: warningColor ?? this.warningColor,
       mainBtnTitleColor: mainBtnTitleColor ?? this.mainBtnTitleColor,
+      barSurfaceColor: barSurfaceColor ?? this.barSurfaceColor,
       navbarColor: navbarColor ?? this.navbarColor,
       defaultBarrierColor: defaultBarrierColor ?? this.defaultBarrierColor,
       baseFontSize: baseFontSize ?? this.baseFontSize,
