@@ -42,6 +42,18 @@ class _DialogsDemoState extends State<DialogsDemo> {
         ),
         SizedBox(height: context.sizing.hPadding),
 
+        // MTWebViewDialog
+        MTListText.h3('MTWebViewDialog'),
+        MTButton.secondary(
+          titleText: 'Show WebView Dialog',
+          onTap: () => MTWebViewDialog.show(
+            context: context,
+            uri: Uri.parse('https://pub.dev/packages/morozteam_ui'),
+          ),
+          margin: context.sizing.defMargin,
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
         // MTLoader
         MTListText.h3('MTLoader'),
         MTButton.secondary(
@@ -84,7 +96,7 @@ class _DialogsDemoState extends State<DialogsDemo> {
                     itemBuilder: (context, index) {
                       return MTListTile(
                         titleText: 'Refresh Item ${index + 1}',
-                        middle: const SmallText('Pull down to refresh this list'),
+                        middle: MText.small('Pull down to refresh this list'),
                       );
                     },
                   ),

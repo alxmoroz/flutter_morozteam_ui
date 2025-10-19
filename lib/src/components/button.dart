@@ -297,7 +297,7 @@ class MTButton extends StatelessWidget with GestureManaging {
         middle ??
             (titleText != null
                 ? Flexible(
-                    child: BaseText.medium(
+                    child: MText.medium(
                       titleText!,
                       align: titleTextAlign,
                       color: _titleColor(context),

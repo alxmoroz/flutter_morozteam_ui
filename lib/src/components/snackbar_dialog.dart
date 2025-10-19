@@ -69,7 +69,7 @@ class _State extends State<_MTSnackbarDialog> {
         child: MTListTile(
           padding: EdgeInsets.all(context.sizing.hPadding).copyWith(bottom: 0),
           color: Colors.transparent,
-          middle: H2(
+          middle: MText.h2(
             widget._text,
             color: context.colorScheme.f2Color.resolve(context),
             align: widget.titleAlign,

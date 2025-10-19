@@ -37,14 +37,14 @@ InputDecoration tfDecoration(
 
   return InputDecoration(
     labelText: label,
-    labelStyle: BaseText.f2('').style(context),
+    labelStyle: MText.f2('').style(context),
     hintText: hint,
-    hintStyle: hintStyle ?? BaseText.f3('').style(context),
+    hintStyle: hintStyle ?? MText.f3('').style(context),
     helperText: helper,
-    helperStyle: const SmallText('').style(context),
+    helperStyle: MText.small('').style(context),
     helperMaxLines: 3,
     errorText: error,
-    errorStyle: SmallText('', color: context.colorScheme.warningColor.resolve(context)).style(context),
+    errorStyle: MText.small('', color: context.colorScheme.warningColor.resolve(context)).style(context),
     errorMaxLines: 3,
     contentPadding: contentPadding ?? context.sizing.defPadding,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -234,7 +234,7 @@ class MTTextField extends StatelessWidget {
         removeRight: true,
         removeLeft: true,
         child: TextField(
-          style: style ?? const BaseText('').style(context),
+          style: style ?? const MText('').style(context),
           decoration: decoration ??
               tfDecoration(
                 context,

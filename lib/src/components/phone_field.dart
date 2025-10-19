@@ -68,8 +68,8 @@ class MTPhoneField extends StatelessWidget {
               return MTListTile(
                 color: context.colorScheme.b3Color,
                 leading: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
-                middle: BaseText('${country.name} ', maxLines: 1),
-                trailing: BaseText.f2('+${country.code}', maxLines: 1),
+                middle: MText('${country.name} ', maxLines: 1),
+                trailing: MText.f2('+${country.code}', maxLines: 1),
                 onTap: () {
                   Navigator.of(context).pop();
                   onChangeCountry(country);

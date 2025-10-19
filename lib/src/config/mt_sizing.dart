@@ -3,6 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
+/// Default tappable icon size for web platform
+const double kWebTappableIconSize = 32.0; // 8 * 4
+/// Default tappable icon size for mobile platform
+const double kMobileTappableIconSize = 36.0; // 9 * 4
+
 /// Sizing configuration for MorozTeam UI Kit
 class MTSizing {
   const MTSizing({
@@ -41,7 +46,7 @@ class MTSizing {
   double get maxAvatarRadius => p * 16; // 64px
 
   // Tappable icon size with web fallback
-  double get effectiveTappableIconSize => tappableIconSize ?? (kIsWeb ? p * 8 : p * 9);
+  double get effectiveTappableIconSize => tappableIconSize ?? (kIsWeb ? kWebTappableIconSize : kMobileTappableIconSize);
 
   EdgeInsets get defPadding => EdgeInsets.symmetric(horizontal: hPadding, vertical: vPadding);
 

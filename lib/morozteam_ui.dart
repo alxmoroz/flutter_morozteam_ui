@@ -83,6 +83,8 @@ export 'src/components/webview_dialog.dart';
 export 'src/config/mt_breakpoints.dart';
 export 'src/config/mt_color_scheme.dart';
 export 'src/config/mt_sizing.dart';
+// ==================== CONFIG ENUMS ====================
+export 'src/config/mt_text_variant.dart';
 export 'src/config/mt_theme.dart';
 export 'src/config/mt_theme_data.dart';
 export 'src/config/mt_typography.dart';

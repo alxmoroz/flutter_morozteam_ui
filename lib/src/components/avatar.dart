@@ -32,7 +32,7 @@ class MTAvatar extends StatelessWidget {
   bool get _hasBorder => borderColor != null;
 
   Widget _initialsCircle(BuildContext context) {
-    final fs = const BaseText('', maxLines: 1).style(context).fontSize ?? 17;
+    final fs = const MText('', maxLines: 1).style(context).fontSize ?? 17;
     final validRadius = radius > context.sizing.maxAvatarRadius ? context.sizing.maxAvatarRadius : radius;
     final sizeScale = validRadius / fs;
     return MTCircle(
@@ -40,7 +40,7 @@ class MTAvatar extends StatelessWidget {
       size: validRadius * 2,
       border: !_hasBorder ? Border.all(color: _noAvatarColor(context).resolve(context)) : null,
       child: Center(
-        child: BaseText(
+        child: MText(
           initials,
           maxLines: 1,
           sizeScale: sizeScale,

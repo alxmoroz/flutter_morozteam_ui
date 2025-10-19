@@ -24,10 +24,10 @@ class PageTitle extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (parentPageTitle != null) ...[
-          SmallText(parentPageTitle!, color: color, maxLines: 1),
+          MText.small(parentPageTitle!, color: color, maxLines: 1),
           SizedBox(height: context.sizing.borderWidth),
         ],
-        H3(text, color: color, maxLines: 1),
+        MText.h3(text, color: color, maxLines: 1),
       ],
     );
   }

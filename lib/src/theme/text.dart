@@ -2,16 +2,41 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../config/mt_text_variant.dart';
 import '../config/mt_theme.dart';
-import '../config/mt_typography.dart';
 import 'resolved_color.dart';
 
-/// Base class for text with configuration support
-class BaseText extends StatelessWidget {
-  const BaseText(
+/// Line height coefficients for different maxLines
+const Map<int, double> kLineHeightMap = {
+  1: 1.0,
+  2: 1.1,
+  3: 1.15,
+  4: 1.2,
+};
+const double kDefaultLineHeight = 1.3;
+
+/// Universal text component with multiple variants
+///
+/// Provides consistent text styling across the UI kit with support for
+/// different text variants, colors, and typography customization.
+///
+/// ## Example
+///
+/// ```dart
+/// MText('Regular text')
+/// MText.h1('Heading 1')
+/// MText.f2('Secondary text')
+/// MText.medium('Medium weight text')
+/// ```
+///
+/// See also:
+/// * [MTTextVariant] for available text variants
+/// * [MTTypography] for typography customization
+class MText extends StatelessWidget {
+  const MText._(
     this.text, {
     super.key,
-    this.sizeScale,
+    this.variant = MTTextVariant.body,
     this.color,
     this.weight,
     this.maxLines,
@@ -19,10 +44,188 @@ class BaseText extends StatelessWidget {
     this.padding,
     this.height,
     this.decoration,
+    this.sizeScale,
   });
 
-  /// Creates text with f2 color (secondary text color)
-  const factory BaseText.f2(
+  /// Regular text
+  const factory MText(
+    String text, {
+    Key? key,
+    double? sizeScale,
+    Color? color,
+    FontWeight? weight,
+    int? maxLines,
+    TextAlign? align,
+    EdgeInsets? padding,
+    double? height,
+    TextDecoration? decoration,
+  }) = MText._;
+
+  /// Heading 1
+  factory MText.h1(
+    String text, {
+    Key? key,
+    Color? color,
+    int? maxLines,
+    double? height,
+    TextAlign? align,
+    EdgeInsets? padding,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        variant: MTTextVariant.h1,
+        color: color,
+        maxLines: maxLines ?? 2,
+        height: height ?? 1.1,
+        align: align,
+        padding: padding,
+      );
+
+  /// Heading 2
+  factory MText.h2(
+    String text, {
+    Key? key,
+    Color? color,
+    int? maxLines,
+    double? height,
+    TextAlign? align,
+    EdgeInsets? padding,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        variant: MTTextVariant.h2,
+        color: color,
+        maxLines: maxLines ?? 3,
+        height: height ?? 1.1,
+        align: align,
+        padding: padding,
+      );
+
+  /// Heading 3
+  factory MText.h3(
+    String text, {
+    Key? key,
+    Color? color,
+    int? maxLines,
+    double? height,
+    TextAlign? align,
+    EdgeInsets? padding,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        variant: MTTextVariant.h3,
+        color: color,
+        maxLines: maxLines ?? 5,
+        height: height ?? 1.2,
+        align: align,
+        padding: padding,
+      );
+
+  /// Heading 4
+  factory MText.h4(
+    String text, {
+    Key? key,
+    Color? color,
+    int? maxLines,
+    double? height,
+    TextAlign? align,
+    EdgeInsets? padding,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        variant: MTTextVariant.h4,
+        color: color,
+        maxLines: maxLines,
+        height: height,
+        align: align,
+        padding: padding,
+      );
+
+  /// Small text
+  factory MText.small(
+    String text, {
+    Key? key,
+    int? maxLines,
+    double? height,
+    Color? color,
+    TextAlign? align,
+    EdgeInsets? padding,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        variant: MTTextVariant.small,
+        maxLines: maxLines ?? 1,
+        height: height,
+        color: color,
+        align: align,
+        padding: padding,
+      );
+
+  /// Button text
+  factory MText.button(
+    String text, {
+    Key? key,
+    int? maxLines,
+    Color? color,
+    TextAlign? align,
+    EdgeInsets? padding,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        variant: MTTextVariant.button,
+        maxLines: maxLines,
+        color: color,
+        align: align ?? TextAlign.center,
+        padding: padding,
+      );
+
+  /// Link text
+  factory MText.link(
+    String text, {
+    Key? key,
+    TextAlign? align,
+    EdgeInsets? padding,
+    int? maxLines,
+    Color? color,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        variant: MTTextVariant.link,
+        align: align,
+        padding: padding,
+        maxLines: maxLines,
+        color: color,
+        decoration: TextDecoration.underline,
+      );
+
+  /// Numbers text
+  factory MText.numbers(
+    String text, {
+    Key? key,
+    int? maxLines,
+    Color? color,
+    TextAlign? align,
+    EdgeInsets? padding,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        variant: MTTextVariant.numbers,
+        maxLines: maxLines ?? 1,
+        color: color,
+        align: align ?? TextAlign.center,
+        padding: padding,
+      );
+
+  /// Text with f2 color (secondary text color)
+  factory MText.f2(
     String text, {
     Key? key,
     double? sizeScale,
@@ -32,10 +235,22 @@ class BaseText extends StatelessWidget {
     EdgeInsets? padding,
     double? height,
     TextDecoration? decoration,
-  }) = _F2Text;
+  }) =>
+      MText._(
+        text,
+        key: key,
+        sizeScale: sizeScale,
+        weight: weight,
+        maxLines: maxLines,
+        align: align,
+        padding: padding,
+        height: height,
+        decoration: decoration,
+        variant: MTTextVariant.f2,
+      );
 
-  /// Creates text with f3 color (tertiary text color)
-  const factory BaseText.f3(
+  /// Text with f3 color (tertiary text color)
+  factory MText.f3(
     String text, {
     Key? key,
     double? sizeScale,
@@ -45,33 +260,72 @@ class BaseText extends StatelessWidget {
     EdgeInsets? padding,
     double? height,
     TextDecoration? decoration,
-  }) = _F3Text;
+  }) =>
+      MText._(
+        text,
+        key: key,
+        sizeScale: sizeScale,
+        weight: weight,
+        maxLines: maxLines,
+        align: align,
+        padding: padding,
+        height: height,
+        decoration: decoration,
+        variant: MTTextVariant.f3,
+      );
 
-  const BaseText.medium(
-    this.text, {
-    super.key,
-    this.sizeScale,
-    this.maxLines,
-    this.align,
-    this.padding,
-    this.height,
-    this.color,
-    this.decoration,
-  }) : weight = FontWeight.w500;
+  /// Medium weight text
+  factory MText.medium(
+    String text, {
+    Key? key,
+    double? sizeScale,
+    int? maxLines,
+    TextAlign? align,
+    EdgeInsets? padding,
+    double? height,
+    Color? color,
+    TextDecoration? decoration,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        sizeScale: sizeScale,
+        maxLines: maxLines,
+        align: align,
+        padding: padding,
+        height: height,
+        color: color,
+        decoration: decoration,
+        weight: FontWeight.w500,
+      );
 
-  const BaseText.bold(
-    this.text, {
-    super.key,
-    this.sizeScale,
-    this.maxLines,
-    this.align,
-    this.padding,
-    this.height,
-    this.color,
-    this.decoration,
-  }) : weight = FontWeight.w700;
+  /// Bold weight text
+  factory MText.bold(
+    String text, {
+    Key? key,
+    double? sizeScale,
+    int? maxLines,
+    TextAlign? align,
+    EdgeInsets? padding,
+    double? height,
+    Color? color,
+    TextDecoration? decoration,
+  }) =>
+      MText._(
+        text,
+        key: key,
+        sizeScale: sizeScale,
+        maxLines: maxLines,
+        align: align,
+        padding: padding,
+        height: height,
+        color: color,
+        decoration: decoration,
+        weight: FontWeight.w700,
+      );
 
   final String text;
+  final MTTextVariant variant;
   final double? sizeScale;
   final Color? color;
   final FontWeight? weight;
@@ -81,43 +335,97 @@ class BaseText extends StatelessWidget {
   final double? height;
   final TextDecoration? decoration;
 
-  /// Get default color for this text type
-  /// Override in subclasses to provide custom default colors
-  Color getDefaultColor(BuildContext context) {
-    return context.colorScheme.f1Color;
+  /// Get default color for this text variant
+  Color _getDefaultColor(BuildContext context) {
+    switch (variant) {
+      case MTTextVariant.f2:
+        return context.colorScheme.f2Color;
+      case MTTextVariant.f3:
+        return context.colorScheme.f3Color;
+      case MTTextVariant.link:
+        return context.colorScheme.mainColor;
+      default:
+        return context.colorScheme.f1Color;
+    }
   }
 
-  /// Get font size for this text type
-  /// Override in subclasses to provide custom font sizes
-  double getFontSize(MTTypography typography) {
-    return sizeScale != null ? typography.bodyFontSize * sizeScale! : typography.bodyFontSize;
+  /// Get font size for this text variant
+  double _getFontSize(BuildContext context) {
+    final typography = context.typography;
+    final baseSize = sizeScale != null ? typography.bodyFontSize * sizeScale! : typography.bodyFontSize;
+
+    switch (variant) {
+      case MTTextVariant.h1:
+        return typography.h1FontSize;
+      case MTTextVariant.h2:
+        return typography.h2FontSize;
+      case MTTextVariant.h3:
+        return typography.h3FontSize;
+      case MTTextVariant.h4:
+        return typography.h4FontSize;
+      case MTTextVariant.small:
+        return typography.smallFontSize;
+      case MTTextVariant.button:
+        return typography.buttonFontSize;
+      case MTTextVariant.link:
+        return typography.linkFontSize;
+      case MTTextVariant.numbers:
+        return typography.numbersFontSize;
+      default:
+        return baseSize;
+    }
   }
 
-  /// Get font weight for this text type
-  /// Override in subclasses to provide custom font weights
-  FontWeight getFontWeight(MTTypography typography) {
-    return weight ?? typography.bodyFontWeight;
+  /// Get font weight for this text variant
+  FontWeight _getFontWeight(BuildContext context) {
+    final typography = context.typography;
+    if (weight != null) return weight!;
+
+    switch (variant) {
+      case MTTextVariant.h1:
+        return typography.h1FontWeight;
+      case MTTextVariant.h2:
+        return typography.h2FontWeight;
+      case MTTextVariant.h3:
+        return typography.h3FontWeight;
+      case MTTextVariant.h4:
+        return typography.h4FontWeight;
+      case MTTextVariant.small:
+        return typography.smallFontWeight;
+      case MTTextVariant.button:
+        return typography.buttonFontWeight;
+      case MTTextVariant.link:
+        return typography.linkFontWeight;
+      case MTTextVariant.numbers:
+        return typography.numbersFontWeight;
+      default:
+        return typography.bodyFontWeight;
+    }
   }
 
-  /// Get font family for this text type
-  /// Override in subclasses to provide custom font families
-  String? getFontFamily(MTTypography typography) {
-    return typography.fontFamily;
+  /// Get font family for this text variant
+  String? _getFontFamily(BuildContext context) {
+    final typography = context.typography;
+    switch (variant) {
+      case MTTextVariant.numbers:
+        return typography.fontFamilyNumbers ?? typography.fontFamily;
+      default:
+        return typography.fontFamily;
+    }
   }
 
   TextStyle style(BuildContext context) {
-    final typography = context.typography;
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
-    final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.15, 4: 1.2}[maxLines] ?? 1.3;
-    final double fs = getFontSize(typography);
-    final textColor = color ?? getDefaultColor(context).resolve(context);
-    final rColor = CupertinoDynamicColor.maybeResolve(textColor, context);
+    final double h = height ?? kLineHeightMap[maxLines] ?? kDefaultLineHeight;
+    final double fs = _getFontSize(context);
+    final textColor = color ?? _getDefaultColor(context);
+    final rColor = CupertinoDynamicColor.maybeResolve(textColor.resolve(context), context);
 
     return cupertinoTS.copyWith(
-      fontFamily: getFontFamily(typography),
+      fontFamily: _getFontFamily(context),
       color: rColor,
       decorationColor: rColor,
-      fontWeight: getFontWeight(typography),
+      fontWeight: _getFontWeight(context),
       fontSize: fs,
       height: h,
       inherit: true,
@@ -138,165 +446,4 @@ class BaseText extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Internal class for f2 colored text
-class _F2Text extends BaseText {
-  const _F2Text(
-    super.text, {
-    super.key,
-    super.sizeScale,
-    super.weight,
-    super.maxLines,
-    super.align,
-    super.padding,
-    super.height,
-    super.decoration,
-  }) : super(color: null);
-
-  @override
-  Color getDefaultColor(BuildContext context) => context.colorScheme.f2Color;
-}
-
-/// Internal class for f3 colored text
-class _F3Text extends BaseText {
-  const _F3Text(
-    super.text, {
-    super.key,
-    super.sizeScale,
-    super.weight,
-    super.maxLines,
-    super.align,
-    super.padding,
-    super.height,
-    super.decoration,
-  }) : super(color: null);
-
-  @override
-  Color getDefaultColor(BuildContext context) => context.colorScheme.f3Color;
-}
-
-/// H1 heading
-class H1 extends BaseText {
-  const H1(super.text, {super.key, super.color, super.maxLines = 2, super.height = 1.1, super.align, super.padding});
-
-  @override
-  double getFontSize(MTTypography typography) => typography.h1FontSize;
-
-  @override
-  FontWeight getFontWeight(MTTypography typography) => typography.h1FontWeight;
-}
-
-/// H2 heading
-class H2 extends BaseText {
-  const H2(super.text, {super.key, super.color, super.maxLines = 3, super.height = 1.1, super.align, super.padding});
-
-  @override
-  double getFontSize(MTTypography typography) => typography.h2FontSize;
-
-  @override
-  FontWeight getFontWeight(MTTypography typography) => typography.h2FontWeight;
-}
-
-/// H3 heading
-class H3 extends BaseText {
-  const H3(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.color, super.align, super.padding});
-
-  /// Creates H3 with f2 color
-  const factory H3.f2(String text, {Key? key, int? maxLines, double? height, TextAlign? align, EdgeInsets? padding}) = _H3F2;
-
-  @override
-  double getFontSize(MTTypography typography) => typography.h3FontSize;
-
-  @override
-  FontWeight getFontWeight(MTTypography typography) => typography.h3FontWeight;
-}
-
-/// Internal class for H3.f2
-class _H3F2 extends H3 {
-  const _H3F2(super.text, {super.key, super.maxLines, super.height, super.align, super.padding}) : super(color: null);
-
-  @override
-  Color getDefaultColor(BuildContext context) => context.colorScheme.f2Color;
-}
-
-/// H4 heading
-class H4 extends BaseText {
-  const H4(super.text, {super.key, super.color, super.maxLines, super.height, super.align, super.padding});
-
-  @override
-  double getFontSize(MTTypography typography) => typography.h4FontSize;
-
-  @override
-  FontWeight getFontWeight(MTTypography typography) => typography.h4FontWeight;
-}
-
-/// Text for numbers
-class NumbersText extends BaseText {
-  const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
-
-  @override
-  double getFontSize(MTTypography typography) => typography.numbersFontSize;
-
-  @override
-  FontWeight getFontWeight(MTTypography typography) => typography.numbersFontWeight;
-
-  @override
-  String? getFontFamily(MTTypography typography) => typography.fontFamilyNumbers ?? typography.fontFamily;
-}
-
-/// Small text
-class SmallText extends BaseText {
-  const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
-
-  @override
-  double getFontSize(MTTypography typography) => typography.smallFontSize;
-
-  @override
-  FontWeight getFontWeight(MTTypography typography) => typography.smallFontWeight;
-}
-
-/// Text for buttons
-class ButtonText extends BaseText {
-  const ButtonText(super.text, {super.key, super.maxLines, super.color, super.align = TextAlign.center, super.padding});
-
-  /// Creates ButtonText with f2 color
-  const factory ButtonText.f2(String text, {Key? key, int? maxLines, TextAlign? align, EdgeInsets? padding}) = _ButtonTextF2;
-
-  @override
-  double getFontSize(MTTypography typography) => typography.buttonFontSize;
-
-  @override
-  FontWeight getFontWeight(MTTypography typography) => typography.buttonFontWeight;
-}
-
-/// Internal class for ButtonText.f2
-class _ButtonTextF2 extends ButtonText {
-  const _ButtonTextF2(super.text, {super.key, super.maxLines, super.align, super.padding}) : super(color: null);
-
-  @override
-  Color getDefaultColor(BuildContext context) => context.colorScheme.f2Color;
-}
-
-/// Link text
-class LinkText extends BaseText {
-  const LinkText(
-    super.text, {
-    super.key,
-    super.align,
-    super.padding,
-    super.maxLines,
-    super.color,
-  }) : super(
-          decoration: TextDecoration.underline,
-        );
-
-  @override
-  Color getDefaultColor(BuildContext context) => context.colorScheme.mainColor;
-
-  @override
-  double getFontSize(MTTypography typography) => typography.linkFontSize;
-
-  @override
-  FontWeight getFontWeight(MTTypography typography) => typography.linkFontWeight;
 }

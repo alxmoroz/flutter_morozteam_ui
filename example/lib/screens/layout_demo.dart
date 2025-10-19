@@ -1,6 +1,8 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:morozteam_ui/morozteam_ui.dart';
 
 class LayoutDemo extends StatelessWidget {
@@ -43,7 +45,7 @@ class LayoutDemo extends StatelessWidget {
               MTListTile(
                 leading: const SettingsIcon(),
                 titleText: 'Settings',
-                subtitle: const SmallText('Configure app settings'),
+                subtitle: MText.small('Configure app settings'),
                 trailing: const ChevronRightIcon(),
                 onTap: () {},
               ),
@@ -167,7 +169,7 @@ class LayoutDemo extends StatelessWidget {
               height: 100,
               color: context.colorScheme.b3Color.resolve(context),
               child: const Center(
-                child: BaseText('Container with top shadow'),
+                child: MText('Container with top shadow'),
               ),
             ),
           ),
@@ -184,7 +186,7 @@ class LayoutDemo extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(context.sizing.smallSpacing),
                   color: context.colorScheme.mainColor.resolve(context).withValues(alpha: 0.1),
-                  child: const BaseText('XXS Container (max 290px)'),
+                  child: const MText('XXS Container (max 290px)'),
                 ),
               ),
               SizedBox(height: context.sizing.vPadding),
@@ -192,9 +194,82 @@ class LayoutDemo extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(context.sizing.smallSpacing),
                   color: context.colorScheme.safeColor.resolve(context).withValues(alpha: 0.1),
-                  child: const BaseText('S Container (max 480px)'),
+                  child: const MText('S Container (max 480px)'),
                 ),
               ),
+            ],
+          ),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
+        // MTToolbar / MTNavBar / MTBottomBar
+        MTListText.h3('MTToolbar (NavBar & BottomBar)'),
+        MTCard(
+          margin: context.sizing.defMargin,
+          child: Column(
+            children: [
+              const MTListText('Navigation bars are shown in the main app structure'),
+              SizedBox(height: context.sizing.vPadding),
+              MTButton.secondary(
+                titleText: 'See Navigation Example',
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const _ToolbarDemoPage(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
+        // MTScrollable standalone demo
+        MTListText.h3('MTScrollable'),
+        MTCard(
+          margin: context.sizing.defMargin,
+          child: SizedBox(
+            height: 300,
+            child: MTScrollable(
+              scrollController: ScrollController(),
+              scrollOffsetTop: 50.0,
+              onScrolled: (scrolled) {
+                if (kDebugMode) print('Scrolled: $scrolled');
+              },
+              child: ListView.builder(
+                itemCount: 50,
+                itemBuilder: (context, index) {
+                  return MTListTile(titleText: 'Item $index');
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
+        // MTPageTitle standalone
+        MTListText.h3('MTPageTitle'),
+        MTCard(
+          margin: context.sizing.defMargin,
+          child: Column(
+            children: [
+              const PageTitle('Main Title', parentPageTitle: 'Parent'),
+              SizedBox(height: context.sizing.vPadding),
+              const PageTitle('Simple Title'),
+            ],
+          ),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
+        // MTCloseDialogButton
+        MTListText.h3('MTCloseDialogButton'),
+        MTCard(
+          margin: context.sizing.defMargin,
+          child: Row(
+            children: [
+              const MTCloseDialogButton(),
+              SizedBox(width: context.sizing.vPadding),
+              const MTListText('Close button for dialogs'),
             ],
           ),
         ),
@@ -208,12 +283,78 @@ class LayoutDemo extends StatelessWidget {
             SizedBox(
               height: 100,
               child: Center(
-                child: BaseText('Container with gradient background'),
+                child: MText('Container with gradient background'),
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Demo page showing MTToolbar, MTNavBar, and MTBottomBar examples
+class _ToolbarDemoPage extends StatelessWidget {
+  const _ToolbarDemoPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return MTPage(
+      body: ListView(
+        children: [
+          MTListText.h2('MTNavBar Examples'),
+          SizedBox(height: context.sizing.vPadding),
+
+          // MTNavBar with pageTitle
+          MTCard(
+            margin: context.sizing.defMargin,
+            child: Column(
+              children: [
+                const MTListText('MTNavBar with pageTitle'),
+                SizedBox(height: context.sizing.vPadding),
+                const MTNavBar(
+                  pageTitle: 'Page Title',
+                ),
+              ],
+            ),
+          ),
+
+          // MTNavBar with custom middle
+          MTCard(
+            margin: context.sizing.defMargin,
+            child: Column(
+              children: [
+                const MTListText('MTNavBar with custom middle'),
+                SizedBox(height: context.sizing.vPadding),
+                const MTNavBar(
+                  middle: MText('Custom Middle'),
+                  trailing: MTSvgIcon('star'),
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(height: context.sizing.hPadding),
+
+          MTListText.h2('MTBottomBar Example'),
+          SizedBox(height: context.sizing.vPadding),
+
+          MTCard(
+            margin: context.sizing.defMargin,
+            child: Column(
+              children: [
+                const MTListText('MTBottomBar with navigation items'),
+                SizedBox(height: context.sizing.vPadding),
+                const MTBottomBar(
+                  leading: MTSvgIcon('home'),
+                  middle: MText('Bottom Bar'),
+                  trailing: MTSvgIcon('user'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -124,7 +124,7 @@ class _FormsDemoState extends State<FormsDemo> {
         MTListText.h3('MTField'),
         MTField(
           _demoFieldData,
-          value: const BaseText('John Doe'),
+          value: const MText('John Doe'),
           trailing: const EditIcon(),
           margin: context.sizing.defMargin,
         ),

@@ -40,13 +40,13 @@ class MTCheckBoxTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTListTile(
         leading: leading,
-        middle: BaseText(
+        middle: MText(
           title,
           color: _disabled ? context.colorScheme.f3Color : titleColor,
           maxLines: 2,
         ),
         subtitle: description != null && description!.isNotEmpty
-            ? SmallText(
+            ? MText.small(
                 description!,
                 color: _disabled ? context.colorScheme.f3Color : null,
                 maxLines: 1,

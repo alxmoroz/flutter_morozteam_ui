@@ -18,29 +18,13 @@ class BasicsDemo extends StatelessWidget {
         MTListText.h2('H2 - Heading 2'),
         MTListText.h3('H3 - Heading 3'),
         MTListText.h4('H4 - Heading 4'),
-        const MTListText('BaseText - Regular'),
-        MTListText.medium('BaseText.medium — Medium'),
-        MTListText.small('SmallText - Small text'),
-        MTListText.numbers('NumbersText: 123,456.78'),
-        MTListText.link('LinkText - Link'),
-        SizedBox(height: context.sizing.hPadding),
-
-        // Text Colors Section
-        MTListText.h3('Text Colors'),
-        MTCard(
-          margin: context.sizing.defMargin,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const MTListText('F1 - Default'),
-              SizedBox(height: context.sizing.smallSpacing),
-              MTListText('F2 - Secondary', titleTextColor: context.colorScheme.f2Color),
-              SizedBox(height: context.sizing.smallSpacing),
-              MTListText('F3 - Tertiary', titleTextColor: context.colorScheme.f3Color),
-              SizedBox(height: context.sizing.smallSpacing),
-            ],
-          ),
-        ),
+        const MTListText('MText - Regular'),
+        MTListText.medium('MText.medium — Medium'),
+        MTListText.small('MText.small - Small text'),
+        MTListText.numbers('MText.numbers: 123,456.78'),
+        MTListText.link('MText.link - Link'),
+        MTListTile(middle: MText.f2('MText.f2 - Secondary text color')),
+        MTListTile(middle: MText.f3('MText.f3 - Tertiary text color')),
         SizedBox(height: context.sizing.hPadding),
 
         // Color Palette Section
@@ -94,7 +78,7 @@ class BasicsDemo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const BaseText('SVG icons from assets/icons/ directory'),
+              const MText('SVG icons from assets/icons/ directory'),
               SizedBox(height: context.sizing.vPadding),
               Wrap(
                 spacing: context.sizing.vPadding,
@@ -112,7 +96,7 @@ class BasicsDemo extends StatelessWidget {
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
                   borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
                 ),
-                child: const BaseText('Usage: MTSvgIcon("icon_name")\n'
+                child: const MText('Usage: MTSvgIcon("icon_name")\n'
                     'SVG files are in assets/icons/\n'
                     'and declared in pubspec.yaml\n\n'
                     'Example:\n'
@@ -133,7 +117,7 @@ class BasicsDemo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const BaseText('SVG images from assets/images/ directory'),
+              const MText('SVG images from assets/images/ directory'),
               SizedBox(height: context.sizing.vPadding),
               Wrap(
                 spacing: context.sizing.vPadding,
@@ -151,7 +135,7 @@ class BasicsDemo extends StatelessWidget {
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
                   borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
                 ),
-                child: const BaseText('Usage: MTSvgImage("image_name")\n'
+                child: const MText('Usage: MTSvgImage("image_name")\n'
                     'SVG images are in assets/images/\n'
                     'for larger graphics and illustrations\n\n'
                     'Example:\n'
@@ -172,7 +156,7 @@ class BasicsDemo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const BaseText('Images from assets/ directory'),
+              const MText('Images from assets/ directory'),
               SizedBox(height: context.sizing.vPadding),
               const Center(
                 child: MTImage('no_info', height: 80, width: 80),
@@ -184,7 +168,7 @@ class BasicsDemo extends StatelessWidget {
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
                   borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
                 ),
-                child: const BaseText('Usage: MTImage("asset_name")\n'
+                child: const MText('Usage: MTImage("asset_name")\n'
                     'Images are in assets/images/\n'
                     'and declared in pubspec.yaml\n\n'
                     'Example:\n'
@@ -205,7 +189,7 @@ class BasicsDemo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const BaseText('Network images with fallback support'),
+              const MText('Network images with fallback support'),
               SizedBox(height: context.sizing.vPadding),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -238,7 +222,7 @@ class BasicsDemo extends StatelessWidget {
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
                   borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
                 ),
-                child: const BaseText('Usage: MTNetworkImage(url)\n'
+                child: const MText('Usage: MTNetworkImage(url)\n'
                     'Loads images from network URLs\n'
                     'with automatic fallback support\n\n'
                     'Example:\n'
@@ -296,7 +280,7 @@ class _ColorSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BaseText.medium(title),
+        MText.medium(title),
         SizedBox(height: context.sizing.smallSpacing),
         Wrap(
           spacing: context.sizing.smallSpacing,
@@ -328,7 +312,7 @@ class _ColorBox extends StatelessWidget {
           ),
         ),
         SizedBox(height: context.sizing.borderWidth),
-        SmallText(label),
+        MText.small(label),
       ],
     );
   }

@@ -6,10 +6,12 @@ import 'package:morozteam_ui/morozteam_ui.dart';
 
 import 'screens/basics_demo.dart';
 import 'screens/buttons_demo.dart';
+import 'screens/customization_demo.dart';
 import 'screens/dialogs_demo.dart';
 import 'screens/forms_demo.dart';
 import 'screens/layout_demo.dart';
 import 'screens/page_demo.dart';
+import 'screens/patterns_demo.dart';
 // ==================== CONFIG ====================
 
 // Using default configuration
@@ -56,6 +58,8 @@ class _DemoHomePageState extends State<DemoHomePage> {
     const LayoutDemo(), // Layout components
     const DialogsDemo(), // Dialogs & overlays
     const PageDemo(), // Page structure info
+    const CustomizationDemo(), // Live theme customization
+    const PatternsDemo(), // Common UI patterns
   ];
 
   final List<String> _tabTitles = const [
@@ -65,6 +69,8 @@ class _DemoHomePageState extends State<DemoHomePage> {
     'Layout',
     'Dialogs',
     'Page',
+    'Custom',
+    'Patterns',
   ];
 
   @override

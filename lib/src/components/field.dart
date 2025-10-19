@@ -59,14 +59,14 @@ class MTField extends StatelessWidget {
       middle: compact
           ? null
           : _hasValue && showLabel && fd.label.isNotEmpty
-              ? SmallText(fd.label, color: context.colorScheme.f3Color, maxLines: 1)
+              ? MText.small(fd.label, color: context.colorScheme.f3Color, maxLines: 1)
               : null,
       subtitle: compact
           ? null
           : _hasValue
               ? value
               : fd.placeholder.isNotEmpty
-                  ? BaseText.f3(fd.placeholder, maxLines: 1)
+                  ? MText.f3(fd.placeholder, maxLines: 1)
                   : null,
       trailing: trailing,
       bottomDivider: bottomDivider,

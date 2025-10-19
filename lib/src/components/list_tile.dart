@@ -119,7 +119,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                             children: [
                               if (hasMiddle)
                                 middle ??
-                                    BaseText(
+                                    MText(
                                       titleText,
                                       color: titleTextColor,
                                       maxLines: titleTextMaxLines,
@@ -202,7 +202,7 @@ class MTListText extends MTListTile {
     super.leadingSpacing = 6.0,
     super.minHeight = 0,
     super.onTap,
-  }) : super(middle: BaseText.medium(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
+  }) : super(middle: MText.medium(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.h2(
     String text, {
@@ -217,7 +217,7 @@ class MTListText extends MTListTile {
     super.leadingSpacing = 6.0,
     super.minHeight = 0,
     super.onTap,
-  }) : super(middle: H2(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
+  }) : super(middle: MText.h2(text, maxLines: titleTextMaxLines ?? 1000, align: titleTextAlign ?? TextAlign.start, color: titleTextColor));
 
   MTListText.h3(
     String text, {
@@ -232,7 +232,7 @@ class MTListText extends MTListTile {
     super.leadingSpacing = 6.0,
     super.minHeight = 0,
     super.onTap,
-  }) : super(middle: H3(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
+  }) : super(middle: MText.h3(text, maxLines: titleTextMaxLines ?? 1000, align: titleTextAlign ?? TextAlign.start, color: titleTextColor));
 
   MTListText.small(
     String text, {
@@ -247,7 +247,7 @@ class MTListText extends MTListTile {
     super.leadingSpacing = 6.0,
     super.minHeight = 0,
     super.onTap,
-  }) : super(middle: SmallText(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
+  }) : super(middle: MText.small(text, maxLines: titleTextMaxLines ?? 1000, align: titleTextAlign ?? TextAlign.start, color: titleTextColor));
 
   MTListText.h1(
     String text, {
@@ -262,7 +262,7 @@ class MTListText extends MTListTile {
     super.leadingSpacing = 6.0,
     super.minHeight = 0,
     super.onTap,
-  }) : super(middle: H1(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
+  }) : super(middle: MText.h1(text, maxLines: titleTextMaxLines ?? 1000, align: titleTextAlign ?? TextAlign.start, color: titleTextColor));
 
   MTListText.h4(
     String text, {
@@ -277,7 +277,7 @@ class MTListText extends MTListTile {
     super.leadingSpacing = 6.0,
     super.minHeight = 0,
     super.onTap,
-  }) : super(middle: H4(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
+  }) : super(middle: MText.h4(text, maxLines: titleTextMaxLines ?? 1000, align: titleTextAlign ?? TextAlign.start, color: titleTextColor));
 
   MTListText.numbers(
     String text, {
@@ -293,10 +293,10 @@ class MTListText extends MTListTile {
     double? minHeight,
     super.onTap,
   }) : super(
-          middle: NumbersText(
+          middle: MText.numbers(
             text,
-            maxLines: titleTextMaxLines,
-            align: titleTextAlign,
+            maxLines: titleTextMaxLines ?? 1000,
+            align: titleTextAlign ?? TextAlign.start,
             color: titleTextColor,
           ),
           topMargin: topMargin ?? 6.0, // DEF_VP / 2
@@ -319,10 +319,10 @@ class MTListText extends MTListTile {
     double? minHeight,
     super.onTap,
   }) : super(
-          middle: ButtonText(
+          middle: MText.button(
             text,
-            maxLines: titleTextMaxLines,
-            align: titleTextAlign,
+            maxLines: titleTextMaxLines ?? 1000,
+            align: titleTextAlign ?? TextAlign.start,
             color: titleTextColor,
           ),
           topMargin: topMargin ?? 6.0, // DEF_VP / 2
@@ -345,7 +345,7 @@ class MTListText extends MTListTile {
     double? minHeight,
     super.onTap,
   }) : super(
-          middle: LinkText(
+          middle: MText.link(
             text,
             maxLines: titleTextMaxLines,
             align: titleTextAlign,
