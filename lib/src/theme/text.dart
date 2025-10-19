@@ -6,22 +6,6 @@ import '../config/mt_theme.dart';
 import '../config/mt_typography.dart';
 import 'resolved_color.dart';
 
-// Const color constants for use in const constructors
-const _f2Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 114, 120, 158),
-  darkColor: Color.fromARGB(255, 150, 156, 170),
-);
-
-const _f3Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 172, 178, 216),
-  darkColor: Color.fromARGB(255, 92, 98, 112),
-);
-
-const _mainColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 90, 111, 228),
-  darkColor: Color.fromARGB(255, 100, 170, 255),
-);
-
 /// Base class for text with configuration support
 class BaseText extends StatelessWidget {
   const BaseText(
@@ -37,29 +21,31 @@ class BaseText extends StatelessWidget {
     this.decoration,
   });
 
-  const BaseText.f2(
-    this.text, {
-    super.key,
-    this.sizeScale,
-    this.weight,
-    this.maxLines,
-    this.align,
-    this.padding,
-    this.height,
-    this.decoration,
-  }) : color = _f2Color;
+  /// Creates text with f2 color (secondary text color)
+  const factory BaseText.f2(
+    String text, {
+    Key? key,
+    double? sizeScale,
+    FontWeight? weight,
+    int? maxLines,
+    TextAlign? align,
+    EdgeInsets? padding,
+    double? height,
+    TextDecoration? decoration,
+  }) = _F2Text;
 
-  const BaseText.f3(
-    this.text, {
-    super.key,
-    this.sizeScale,
-    this.weight,
-    this.maxLines,
-    this.align,
-    this.padding,
-    this.height,
-    this.decoration,
-  }) : color = _f3Color;
+  /// Creates text with f3 color (tertiary text color)
+  const factory BaseText.f3(
+    String text, {
+    Key? key,
+    double? sizeScale,
+    FontWeight? weight,
+    int? maxLines,
+    TextAlign? align,
+    EdgeInsets? padding,
+    double? height,
+    TextDecoration? decoration,
+  }) = _F3Text;
 
   const BaseText.medium(
     this.text, {
@@ -95,30 +81,43 @@ class BaseText extends StatelessWidget {
   final double? height;
   final TextDecoration? decoration;
 
-  /// Get MTTypography from global state
-  MTTypography _getTypography(BuildContext context) {
-    return context.typography;
+  /// Get default color for this text type
+  /// Override in subclasses to provide custom default colors
+  Color getDefaultColor(BuildContext context) {
+    return context.colorScheme.f1Color;
+  }
+
+  /// Get font size for this text type
+  /// Override in subclasses to provide custom font sizes
+  double getFontSize(MTTypography typography) {
+    return sizeScale != null ? typography.bodyFontSize * sizeScale! : typography.bodyFontSize;
+  }
+
+  /// Get font weight for this text type
+  /// Override in subclasses to provide custom font weights
+  FontWeight getFontWeight(MTTypography typography) {
+    return weight ?? typography.bodyFontWeight;
+  }
+
+  /// Get font family for this text type
+  /// Override in subclasses to provide custom font families
+  String? getFontFamily(MTTypography typography) {
+    return typography.fontFamily;
   }
 
   TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-
+    final typography = context.typography;
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
-    // if line height is explicitly specified, keep it.
     final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.15, 4: 1.2}[maxLines] ?? 1.3;
-
-    // Use typography values instead of baseFontSize * sizeScale
-    final double fs = sizeScale != null ? typography.bodyFontSize * sizeScale! : typography.bodyFontSize;
-
-    final textColor = color ?? context.colorScheme.f1Color.resolve(context);
-
+    final double fs = getFontSize(typography);
+    final textColor = color ?? getDefaultColor(context).resolve(context);
     final rColor = CupertinoDynamicColor.maybeResolve(textColor, context);
 
     return cupertinoTS.copyWith(
-      fontFamily: typography.fontFamily,
+      fontFamily: getFontFamily(typography),
       color: rColor,
       decorationColor: rColor,
-      fontWeight: weight ?? typography.bodyFontWeight,
+      fontWeight: getFontWeight(typography),
       fontSize: fs,
       height: h,
       inherit: true,
@@ -141,19 +140,51 @@ class BaseText extends StatelessWidget {
   }
 }
 
+/// Internal class for f2 colored text
+class _F2Text extends BaseText {
+  const _F2Text(
+    super.text, {
+    super.key,
+    super.sizeScale,
+    super.weight,
+    super.maxLines,
+    super.align,
+    super.padding,
+    super.height,
+    super.decoration,
+  }) : super(color: null);
+
+  @override
+  Color getDefaultColor(BuildContext context) => context.colorScheme.f2Color;
+}
+
+/// Internal class for f3 colored text
+class _F3Text extends BaseText {
+  const _F3Text(
+    super.text, {
+    super.key,
+    super.sizeScale,
+    super.weight,
+    super.maxLines,
+    super.align,
+    super.padding,
+    super.height,
+    super.decoration,
+  }) : super(color: null);
+
+  @override
+  Color getDefaultColor(BuildContext context) => context.colorScheme.f3Color;
+}
+
 /// H1 heading
 class H1 extends BaseText {
   const H1(super.text, {super.key, super.color, super.maxLines = 2, super.height = 1.1, super.align, super.padding});
 
   @override
-  TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-    final baseStyle = super.style(context);
-    return baseStyle.copyWith(
-      fontSize: typography.h1FontSize,
-      fontWeight: typography.h1FontWeight,
-    );
-  }
+  double getFontSize(MTTypography typography) => typography.h1FontSize;
+
+  @override
+  FontWeight getFontWeight(MTTypography typography) => typography.h1FontWeight;
 }
 
 /// H2 heading
@@ -161,31 +192,32 @@ class H2 extends BaseText {
   const H2(super.text, {super.key, super.color, super.maxLines = 3, super.height = 1.1, super.align, super.padding});
 
   @override
-  TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-    final baseStyle = super.style(context);
-    return baseStyle.copyWith(
-      fontSize: typography.h2FontSize,
-      fontWeight: typography.h2FontWeight,
-    );
-  }
+  double getFontSize(MTTypography typography) => typography.h2FontSize;
+
+  @override
+  FontWeight getFontWeight(MTTypography typography) => typography.h2FontWeight;
 }
 
 /// H3 heading
 class H3 extends BaseText {
   const H3(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.color, super.align, super.padding});
 
-  const H3.f2(super.text, {super.key, super.maxLines = 5, super.height = 1.2, super.align, super.padding}) : super.f2();
+  /// Creates H3 with f2 color
+  const factory H3.f2(String text, {Key? key, int? maxLines, double? height, TextAlign? align, EdgeInsets? padding}) = _H3F2;
 
   @override
-  TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-    final baseStyle = super.style(context);
-    return baseStyle.copyWith(
-      fontSize: typography.h3FontSize,
-      fontWeight: typography.h3FontWeight,
-    );
-  }
+  double getFontSize(MTTypography typography) => typography.h3FontSize;
+
+  @override
+  FontWeight getFontWeight(MTTypography typography) => typography.h3FontWeight;
+}
+
+/// Internal class for H3.f2
+class _H3F2 extends H3 {
+  const _H3F2(super.text, {super.key, super.maxLines, super.height, super.align, super.padding}) : super(color: null);
+
+  @override
+  Color getDefaultColor(BuildContext context) => context.colorScheme.f2Color;
 }
 
 /// H4 heading
@@ -193,14 +225,10 @@ class H4 extends BaseText {
   const H4(super.text, {super.key, super.color, super.maxLines, super.height, super.align, super.padding});
 
   @override
-  TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-    final baseStyle = super.style(context);
-    return baseStyle.copyWith(
-      fontSize: typography.h4FontSize,
-      fontWeight: typography.h4FontWeight,
-    );
-  }
+  double getFontSize(MTTypography typography) => typography.h4FontSize;
+
+  @override
+  FontWeight getFontWeight(MTTypography typography) => typography.h4FontWeight;
 }
 
 /// Text for numbers
@@ -208,15 +236,13 @@ class NumbersText extends BaseText {
   const NumbersText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
 
   @override
-  TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-    final baseStyle = super.style(context);
-    return baseStyle.copyWith(
-      fontSize: typography.numbersFontSize,
-      fontWeight: typography.numbersFontWeight,
-      fontFamily: typography.fontFamilyNumbers,
-    );
-  }
+  double getFontSize(MTTypography typography) => typography.numbersFontSize;
+
+  @override
+  FontWeight getFontWeight(MTTypography typography) => typography.numbersFontWeight;
+
+  @override
+  String? getFontFamily(MTTypography typography) => typography.fontFamilyNumbers ?? typography.fontFamily;
 }
 
 /// Small text
@@ -224,32 +250,32 @@ class SmallText extends BaseText {
   const SmallText(super.text, {super.key, super.maxLines = 1, super.color, super.align, super.padding});
 
   @override
-  TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-    final baseStyle = super.style(context);
-    return baseStyle.copyWith(
-      fontSize: typography.smallFontSize,
-      fontWeight: typography.smallFontWeight,
-    );
-  }
+  double getFontSize(MTTypography typography) => typography.smallFontSize;
+
+  @override
+  FontWeight getFontWeight(MTTypography typography) => typography.smallFontWeight;
 }
 
 /// Text for buttons
 class ButtonText extends BaseText {
   const ButtonText(super.text, {super.key, super.maxLines, super.color, super.align = TextAlign.center, super.padding});
 
-  const ButtonText.f2(super.text, {super.key, super.maxLines = 1, super.align = TextAlign.center, super.padding})
-      : super.f2();
+  /// Creates ButtonText with f2 color
+  const factory ButtonText.f2(String text, {Key? key, int? maxLines, TextAlign? align, EdgeInsets? padding}) = _ButtonTextF2;
 
   @override
-  TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-    final baseStyle = super.style(context);
-    return baseStyle.copyWith(
-      fontSize: typography.buttonFontSize,
-      fontWeight: typography.buttonFontWeight,
-    );
-  }
+  double getFontSize(MTTypography typography) => typography.buttonFontSize;
+
+  @override
+  FontWeight getFontWeight(MTTypography typography) => typography.buttonFontWeight;
+}
+
+/// Internal class for ButtonText.f2
+class _ButtonTextF2 extends ButtonText {
+  const _ButtonTextF2(super.text, {super.key, super.maxLines, super.align, super.padding}) : super(color: null);
+
+  @override
+  Color getDefaultColor(BuildContext context) => context.colorScheme.f2Color;
 }
 
 /// Link text
@@ -260,20 +286,17 @@ class LinkText extends BaseText {
     super.align,
     super.padding,
     super.maxLines,
-    Color? color,
+    super.color,
   }) : super(
-          color: color ?? _mainColor,
           decoration: TextDecoration.underline,
         );
 
   @override
-  TextStyle style(BuildContext context) {
-    final typography = _getTypography(context);
-    final baseStyle = super.style(context);
+  Color getDefaultColor(BuildContext context) => context.colorScheme.mainColor;
 
-    return baseStyle.copyWith(
-      fontSize: typography.linkFontSize,
-      fontWeight: typography.linkFontWeight,
-    );
-  }
+  @override
+  double getFontSize(MTTypography typography) => typography.linkFontSize;
+
+  @override
+  FontWeight getFontWeight(MTTypography typography) => typography.linkFontWeight;
 }

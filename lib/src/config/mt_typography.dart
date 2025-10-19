@@ -3,12 +3,35 @@
 import 'package:flutter/cupertino.dart';
 
 /// Typography configuration for MorozTeam UI Kit
+///
+/// Defines font families, sizes, and weights used throughout the UI Kit.
+/// All font families are nullable and default to system fonts if not specified.
+///
+/// ## Example
+///
+/// ```dart
+/// MTTypography(
+///   fontFamily: 'Roboto',
+///   fontFamilyNumbers: 'Montserrat',
+///   h1FontSize: 32.0,
+///   h1FontWeight: FontWeight.bold,
+///   bodyFontSize: 16.0,
+/// )
+/// ```
+///
+/// ## Font Families
+///
+/// - `fontFamily`: Main font for all text (nullable, defaults to system font)
+/// - `fontFamilyNumbers`: Font for numeric text (falls back to fontFamily)
+///
+/// See also:
+/// * [buildMTTheme] to apply this typography
+/// * [MTThemeData] for complete theme configuration
 class MTTypography {
   const MTTypography({
     this.baseFontSize = 16.0,
-    this.fontFamily = 'Roboto',
-    this.fontFamilyNumbers = 'Montserrat',
-    this.fontFamilyDecorative = 'Comfortaa',
+    this.fontFamily,
+    this.fontFamilyNumbers,
 
     // Headings
     this.h1FontSize = 28.0,
@@ -37,9 +60,8 @@ class MTTypography {
 
   // Base typography
   final double baseFontSize;
-  final String fontFamily;
-  final String fontFamilyNumbers;
-  final String fontFamilyDecorative;
+  final String? fontFamily;
+  final String? fontFamilyNumbers;
 
   // Headings
   final double h1FontSize;
@@ -70,7 +92,6 @@ class MTTypography {
     double? baseFontSize,
     String? fontFamily,
     String? fontFamilyNumbers,
-    String? fontFamilyDecorative,
     double? h1FontSize,
     FontWeight? h1FontWeight,
     double? h2FontSize,
@@ -94,7 +115,6 @@ class MTTypography {
       baseFontSize: baseFontSize ?? this.baseFontSize,
       fontFamily: fontFamily ?? this.fontFamily,
       fontFamilyNumbers: fontFamilyNumbers ?? this.fontFamilyNumbers,
-      fontFamilyDecorative: fontFamilyDecorative ?? this.fontFamilyDecorative,
       h1FontSize: h1FontSize ?? this.h1FontSize,
       h1FontWeight: h1FontWeight ?? this.h1FontWeight,
       h2FontSize: h2FontSize ?? this.h2FontSize,
@@ -123,7 +143,6 @@ class MTTypography {
         other.baseFontSize == baseFontSize &&
         other.fontFamily == fontFamily &&
         other.fontFamilyNumbers == fontFamilyNumbers &&
-        other.fontFamilyDecorative == fontFamilyDecorative &&
         other.h1FontSize == h1FontSize &&
         other.h1FontWeight == h1FontWeight &&
         other.h2FontSize == h2FontSize &&
@@ -151,7 +170,6 @@ class MTTypography {
         baseFontSize,
         fontFamily,
         fontFamilyNumbers,
-        fontFamilyDecorative,
         h1FontSize,
         h1FontWeight,
         h2FontSize,

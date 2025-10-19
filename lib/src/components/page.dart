@@ -12,7 +12,25 @@ import '../utils/material_wrapper.dart';
 import 'background.dart';
 import 'scrollable.dart';
 
-/// Base page widget
+/// Base page widget with navigation bars and scrolling support
+///
+/// Provides a consistent page structure with optional navigation bars,
+/// scrolling capabilities, and responsive layout.
+///
+/// ## Example
+///
+/// ```dart
+/// MTPage(
+///   navBar: MTNavBar(pageTitle: 'Home'),
+///   body: ListView(children: [...]),
+///   bottomBar: MTBottomBar(middle: NavigationWidget()),
+/// )
+/// ```
+///
+/// See also:
+/// * [MTNavBar] for top navigation
+/// * [MTBottomBar] for bottom navigation
+/// * [MTScrollable] for scrolling with shadows
 class MTPage extends StatelessWidget {
   const MTPage({
     super.key,

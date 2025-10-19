@@ -1,8 +1,41 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 /// MorozTeam UI Kit
+///
 /// Universal UI kit for Flutter applications with flexible configuration system
 /// for colors, typography and spacing.
+///
+/// ## Features
+///
+/// - 31 ready-to-use UI components
+/// - Flexible theme system with customizable colors, typography, and spacing
+/// - Built-in light/dark mode support
+/// - Responsive design utilities
+/// - Material Design 3 compliance
+///
+/// ## Quick Start
+///
+/// ```dart
+/// import 'package:morozteam_ui/morozteam_ui.dart';
+///
+/// class MyApp extends StatelessWidget {
+///   @override
+///   Widget build(BuildContext context) {
+///     return Builder(
+///       builder: (context) {
+///         return MaterialApp(
+///           theme: buildMTTheme(context),
+///           home: MyHomePage(),
+///         );
+///       },
+///     );
+///   }
+/// }
+/// ```
+///
+/// See also:
+/// * [buildMTTheme] for theme configuration
+/// * [MTThemeData] for theme customization
 library;
 
 // ==================== COMPONENTS ====================

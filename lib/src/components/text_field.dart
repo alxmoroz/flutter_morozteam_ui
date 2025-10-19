@@ -22,24 +22,24 @@ InputDecoration tfDecoration(
   bool readOnly = false,
 }) {
   final bRadius = BorderRadius.circular(context.sizing.defBorderRadius);
-  final OutlineInputBorder warningBorder = OutlineInputBorder(
+  final warningBorder = OutlineInputBorder(
     borderSide: BorderSide(color: context.colorScheme.warningColor.resolve(context)),
     borderRadius: bRadius,
   );
-  final OutlineInputBorder border = OutlineInputBorder(
+  final border = OutlineInputBorder(
     borderSide: BorderSide(color: context.colorScheme.f3Color.resolve(context)),
     borderRadius: bRadius,
   );
-  final OutlineInputBorder focusedBorder = OutlineInputBorder(
+  final focusedBorder = OutlineInputBorder(
     borderSide: BorderSide(width: 2, color: context.colorScheme.mainColor.resolve(context)),
     borderRadius: bRadius,
   );
 
   return InputDecoration(
     labelText: label,
-    labelStyle: const BaseText.f2('').style(context),
+    labelStyle: BaseText.f2('').style(context),
     hintText: hint,
-    hintStyle: hintStyle ?? const BaseText.f3('').style(context),
+    hintStyle: hintStyle ?? BaseText.f3('').style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 3,
@@ -63,6 +63,34 @@ InputDecoration tfDecoration(
 }
 
 /// Text input field
+///
+/// A customizable text input with built-in styling and validation support.
+/// Includes variants for email and password fields.
+///
+/// ## Example
+///
+/// ```dart
+/// MTTextField(
+///   label: 'Username',
+///   hint: 'Enter username',
+///   controller: _controller,
+///   error: _error,
+/// )
+///
+/// MTTextField.email(
+///   label: 'Email',
+///   controller: _emailController,
+/// )
+///
+/// MTTextField.password(
+///   label: 'Password',
+///   controller: _passwordController,
+/// )
+/// ```
+///
+/// See also:
+/// * [tfDecoration] for decoration customization
+/// * [MTPhoneField] for phone number input
 class MTTextField extends StatelessWidget {
   const MTTextField({
     super.key,

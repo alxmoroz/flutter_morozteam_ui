@@ -5,8 +5,33 @@ import 'package:flutter/cupertino.dart';
 /// Color scheme for MorozTeam UI Kit with light/dark theme support
 ///
 /// This class provides all colors used throughout the UI Kit.
-/// Colors are defined as CupertinoDynamicColor to support both light and dark themes.
+/// Colors are defined as [CupertinoDynamicColor] to support both light and dark themes.
 /// All colors can be overridden when creating a custom theme configuration.
+///
+/// ## Example
+///
+/// ```dart
+/// MTColorScheme(
+///   mainColor: CupertinoDynamicColor.withBrightness(
+///     color: Colors.purple,
+///     darkColor: Colors.purpleAccent,
+///   ),
+///   dangerColor: CupertinoDynamicColor.withBrightness(
+///     color: Colors.red,
+///     darkColor: Colors.redAccent,
+///   ),
+/// )
+/// ```
+///
+/// ## Color Naming Convention
+///
+/// - `b0-b3`: Background colors (b0 darkest, b3 lightest)
+/// - `f1-f3`: Foreground/text colors (f1 primary, f3 lightest)
+/// - Accent colors: mainColor, dangerColor, safeColor, warningColor
+///
+/// See also:
+/// * [buildMTTheme] to apply this color scheme
+/// * [MTThemeData] for complete theme configuration
 class MTColorScheme {
   const MTColorScheme({
     this.b0Color = const CupertinoDynamicColor.withBrightness(

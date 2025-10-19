@@ -93,6 +93,32 @@ Future<T?> showMTDialog<T>(
         );
 }
 
+/// Dialog component with responsive behavior
+///
+/// Displays as a dialog on large screens and as a bottom sheet on mobile devices.
+/// Supports scrollable content, custom bars, and keyboard-aware layout.
+///
+/// ## Example
+///
+/// ```dart
+/// showMTDialog(
+///   MTDialog(
+///     topBar: MTTopBar(title: 'Dialog Title'),
+///     body: ListView(children: [...]),
+///     bottomBar: MTBottomBar(
+///       middle: MTButton.main(
+///         titleText: 'Submit',
+///         onTap: () => Navigator.pop(context),
+///       ),
+///     ),
+///   ),
+///   context: context,
+/// )
+/// ```
+///
+/// See also:
+/// * [showMTDialog] to display this dialog
+/// * [MTAlertDialog] for simple alert dialogs
 class MTDialog extends StatelessWidget {
   const MTDialog({
     super.key,

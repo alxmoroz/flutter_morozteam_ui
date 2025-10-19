@@ -30,6 +30,32 @@ enum MTButtonType {
 }
 
 /// Universal button with various styles
+///
+/// Provides multiple button variants for different actions and contexts.
+/// Supports loading states, custom colors, icons, and responsive behavior.
+///
+/// ## Example
+///
+/// ```dart
+/// MTButton.main(
+///   titleText: 'Submit',
+///   onTap: () => print('Submitted'),
+/// )
+///
+/// MTButton.secondary(
+///   titleText: 'Cancel',
+///   onTap: () => Navigator.pop(context),
+/// )
+///
+/// MTButton.icon(
+///   Icon(Icons.add),
+///   onTap: () => showDialog(...),
+/// )
+/// ```
+///
+/// See also:
+/// * [MTButtonType] for available button styles
+/// * [buildMTTheme] to customize button appearance
 class MTButton extends StatelessWidget with GestureManaging {
   const MTButton({
     super.key,

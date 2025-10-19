@@ -13,6 +13,42 @@ import 'mt_typography.dart';
 ///
 /// This function creates a ThemeData with MTThemeData extension that can be
 /// passed directly to MaterialApp.theme parameter.
+///
+/// ## Example
+///
+/// ```dart
+/// MaterialApp(
+///   theme: buildMTTheme(context),
+///   home: MyHomePage(),
+/// )
+/// ```
+///
+/// ## Customization
+///
+/// ```dart
+/// MaterialApp(
+///   theme: buildMTTheme(
+///     context,
+///     colorScheme: MTColorScheme(
+///       mainColor: CupertinoDynamicColor.withBrightness(
+///         color: Colors.purple,
+///         darkColor: Colors.purpleAccent,
+///       ),
+///     ),
+///     typography: MTTypography(
+///       fontFamily: 'CustomFont',
+///       h1FontSize: 32.0,
+///     ),
+///   ),
+///   home: MyHomePage(),
+/// )
+/// ```
+///
+/// See also:
+/// * [MTThemeData] for theme data structure
+/// * [MTColorScheme] for color customization
+/// * [MTTypography] for typography customization
+/// * [MTSizing] for spacing and sizing customization
 ThemeData buildMTTheme(
   BuildContext context, {
   MTColorScheme colorScheme = const MTColorScheme(),
