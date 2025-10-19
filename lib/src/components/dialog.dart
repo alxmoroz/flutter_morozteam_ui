@@ -19,8 +19,8 @@ BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final mq = MediaQuery.of(context);
   final big = isBigScreen(context);
   return BoxConstraints(
-    maxWidth: big ? min(mq.size.width - context.sizing.horizontalPadding, maxWidth ?? context.breakpoints.sWidth) : double.infinity,
-    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - context.sizing.horizontalPadding : double.infinity,
+    maxWidth: big ? min(mq.size.width - context.sizing.hPadding, maxWidth ?? context.breakpoints.sWidth) : double.infinity,
+    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - context.sizing.hPadding : double.infinity,
   );
 }
 
@@ -174,7 +174,7 @@ class MTDialog extends StatelessWidget {
     final mqPadding = mq.padding;
 
     final big = isBigScreen(context);
-    final radius = Radius.circular(context.sizing.defaultBorderRadius);
+    final radius = Radius.circular(context.sizing.defBorderRadius);
 
     return FocusDroppable(
       Padding(

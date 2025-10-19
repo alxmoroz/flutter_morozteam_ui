@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return UIThemeProvider(
       sizing: const UISizing(
-        baseSpacingUnit: 4.0,
+        p: 4.0,
       ),
       child: MaterialApp(
         title: 'MorozTeam UI Demo',

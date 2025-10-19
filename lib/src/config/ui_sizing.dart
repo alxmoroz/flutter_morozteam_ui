@@ -6,54 +6,46 @@ import 'package:flutter/foundation.dart';
 /// Sizing configuration for UI Kit
 class UISizing {
   const UISizing({
-    this.baseSpacingUnit = 4.0,
+    this.p = 4.0,
     this.minButtonHeight = 48.0,
-    this.defaultBarHeight = 48.0,
+    this.defBarHeight = 48.0,
     this.tappableIconSize,
-    this.defaultBorderRadius = 12.0,
+    this.defBorderRadius = 12.0,
     this.buttonBorderRadius,
     this.cardElevation = 1.0,
     this.buttonElevation = 1.0,
   });
 
-  final double baseSpacingUnit;
+  final double p;
   final double minButtonHeight;
-  final double defaultBarHeight;
+  final double defBarHeight;
   final double? tappableIconSize;
-  final double defaultBorderRadius;
+  final double defBorderRadius;
   final double? buttonBorderRadius;
   final double cardElevation;
   final double buttonElevation;
 
   // Публичные семантические геттеры
-  double get horizontalPadding => baseSpacingUnit * 5; // 20px (было DEF_HP)
-  double get verticalPadding => baseSpacingUnit * 3; // 12px (было DEF_VP)
-  double get smallSpacing => baseSpacingUnit * 2; // 8px (было P)
-  double get mediumSpacing => baseSpacingUnit * 4; // 16px (было P4)
-  double get largeSpacing => baseSpacingUnit * 6; // 24px (было P6)
-  double get pageTopPadding => baseSpacingUnit * 5; // 20px (было DEF_PAGE_TOP_PADDING)
-  double get pageBottomPadding => baseSpacingUnit * 8; // 32px (было DEF_PAGE_BOTTOM_PADDING)
-  double get dialogBottomPadding => baseSpacingUnit * 5; // 20px (было DEF_DIALOG_BOTTOM_PADDING)
-  double get borderWidth => baseSpacingUnit * 0.5; // 2px (было P_2)
-  double get defaultIconSize => baseSpacingUnit * 6; // 24px (было DEF_ICON_SIZE)
-  double get loadingIconSize => baseSpacingUnit * 4; // 16px (было DEF_LOADING_ICON_SIZE)
-  double get progressSize => baseSpacingUnit * 9; // 36px (было DEF_PROGRESS_SIZE)
-  double get maxAvatarRadius => baseSpacingUnit * 16; // 64px (было MAX_AVATAR_RADIUS)
+  double get hPadding => p * 5; // 20px
+  double get vPadding => p * 3; // 12px
+  double get smallSpacing => p * 2; // 8px
+  double get mediumSpacing => p * 4; // 16px
+  double get largeSpacing => p * 6; // 24px
+  double get pageTopPadding => p * 5; // 20px
+  double get pageBottomPadding => p * 8; // 32px
+  double get dialogBottomPadding => p * 5; // 20px
+  double get borderWidth => p * 0.5; // 2px
+  double get defaultIconSize => p * 6; // 24px
+  double get loadingIconSize => p * 4; // 16px
+  double get progressSize => p * 9; // 36px
+  double get maxAvatarRadius => p * 16; // 64px
 
   // Tappable icon size with web fallback
-  double get effectiveTappableIconSize => tappableIconSize ?? (kIsWeb ? baseSpacingUnit * 8 : baseSpacingUnit * 9);
+  double get effectiveTappableIconSize => tappableIconSize ?? (kIsWeb ? p * 8 : p * 9);
 
-  EdgeInsets get defaultPadding => EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: verticalPadding,
-      );
+  EdgeInsets get defPadding => EdgeInsets.symmetric(horizontal: hPadding, vertical: vPadding);
 
-  EdgeInsets get defaultMargin => EdgeInsets.fromLTRB(
-        horizontalPadding,
-        verticalPadding,
-        horizontalPadding,
-        0,
-      );
+  EdgeInsets get defMargin => EdgeInsets.fromLTRB(hPadding, vPadding, hPadding, 0);
 
   EdgeInsets get smallPadding => EdgeInsets.all(smallSpacing);
 
@@ -71,11 +63,11 @@ class UISizing {
     double? buttonElevation,
   }) {
     return UISizing(
-      baseSpacingUnit: baseSpacingUnit ?? this.baseSpacingUnit,
+      p: baseSpacingUnit ?? p,
       minButtonHeight: minButtonHeight ?? this.minButtonHeight,
-      defaultBarHeight: defaultBarHeight ?? this.defaultBarHeight,
+      defBarHeight: defaultBarHeight ?? defBarHeight,
       tappableIconSize: tappableIconSize ?? this.tappableIconSize,
-      defaultBorderRadius: defaultBorderRadius ?? this.defaultBorderRadius,
+      defBorderRadius: defaultBorderRadius ?? defBorderRadius,
       buttonBorderRadius: buttonBorderRadius ?? this.buttonBorderRadius,
       cardElevation: cardElevation ?? this.cardElevation,
       buttonElevation: buttonElevation ?? this.buttonElevation,
@@ -86,11 +78,11 @@ class UISizing {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is UISizing &&
-        other.baseSpacingUnit == baseSpacingUnit &&
+        other.p == p &&
         other.minButtonHeight == minButtonHeight &&
-        other.defaultBarHeight == defaultBarHeight &&
+        other.defBarHeight == defBarHeight &&
         other.tappableIconSize == tappableIconSize &&
-        other.defaultBorderRadius == defaultBorderRadius &&
+        other.defBorderRadius == defBorderRadius &&
         other.buttonBorderRadius == buttonBorderRadius &&
         other.cardElevation == cardElevation &&
         other.buttonElevation == buttonElevation;
@@ -99,11 +91,11 @@ class UISizing {
   @override
   int get hashCode {
     return Object.hash(
-      baseSpacingUnit,
+      p,
       minButtonHeight,
-      defaultBarHeight,
+      defBarHeight,
       tappableIconSize,
-      defaultBorderRadius,
+      defBorderRadius,
       buttonBorderRadius,
       cardElevation,
       buttonElevation,

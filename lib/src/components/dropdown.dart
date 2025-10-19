@@ -43,7 +43,7 @@ class MTDropdown<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin ?? EdgeInsets.zero,
-      height: (context.sizing.baseSpacingUnit * 10),
+      height: (context.sizing.p * 20),
       alignment: Alignment.centerLeft,
       child: DropdownButtonFormField<T>(
         dropdownColor: context.colorScheme.b3Color.resolve(context),
@@ -60,7 +60,7 @@ class MTDropdown<T> extends StatelessWidget {
         isExpanded: true,
         initialValue: value,
         onChanged: onChanged,
-        borderRadius: BorderRadius.circular(context.sizing.defaultBorderRadius),
+        borderRadius: BorderRadius.circular(context.sizing.defBorderRadius),
       ),
     );
   }

@@ -20,7 +20,7 @@ class MTSvgIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconSize = size ?? context.sizing.horizontalPadding;
+    final iconSize = size ?? context.sizing.hPadding;
     return SvgPicture.asset(
       'assets/icons/$name.svg',
       width: iconSize,

@@ -75,7 +75,7 @@ class MTWebViewDialog extends StatelessWidget {
   Widget _inner(BuildContext context, WebViewController controller) {
     return Stack(
       children: [
-        Container(color: bgColor, child: Center(child: MTCircularProgress(size: context.sizing.baseSpacingUnit * 15))),
+        Container(color: bgColor, child: Center(child: MTCircularProgress(size: context.sizing.p * 15))),
         WebViewWidget(
           gestureRecognizers: const {
             Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new),

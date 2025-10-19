@@ -11,9 +11,9 @@ class LayoutDemo extends StatelessWidget {
     return ListView(
       children: [
         MTListText.h3('MTAdaptive'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         Padding(
-          padding: context.sizing.defaultMargin,
+          padding: context.sizing.defMargin,
           child: MTAdaptive.xxs(
             child: Container(
               padding: EdgeInsets.all(context.sizing.smallSpacing),
@@ -22,9 +22,9 @@ class LayoutDemo extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         Padding(
-          padding: context.sizing.defaultMargin,
+          padding: context.sizing.defMargin,
           child: MTAdaptive.s(
             child: Container(
               padding: EdgeInsets.all(context.sizing.smallSpacing),
@@ -33,11 +33,11 @@ class LayoutDemo extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTShadowed'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         Padding(
-          padding: context.sizing.defaultMargin,
+          padding: context.sizing.defMargin,
           child: MTShadowed(
             child: Container(
               height: 200,
@@ -48,12 +48,12 @@ class LayoutDemo extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTBackgroundWrapper'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         Padding(
-          padding: context.sizing.defaultMargin,
-          child: MTBackgroundWrapper(
+          padding: context.sizing.defMargin,
+          child: const MTBackgroundWrapper(
             SizedBox(
               height: 150,
               child: Center(
@@ -62,57 +62,54 @@ class LayoutDemo extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
-        MTListText.h3('Semantic Constants'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
+        MTListText.h3('Component Sizes'),
         MTCard(
-          padding: EdgeInsets.all(context.sizing.smallSpacing),
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BaseText('context.sizing.horizontalPadding = $context.sizing.horizontalPadding (horizontal padding)'),
-              BaseText('context.sizing.smallSpacing = $context.sizing.smallSpacing (vertical padding)'),
-              BaseText('context.sizing.minButtonHeight = $context.sizing.minButtonHeight'),
-              BaseText('context.sizing.defaultBorderRadius = $context.sizing.defaultBorderRadius'),
-              BaseText('context.sizing.defaultIconSize = $context.sizing.defaultIconSize'),
+              BaseText('minButtonHeight = ${context.sizing.minButtonHeight}'),
+              BaseText('defaultBorderRadius = ${context.sizing.defBorderRadius}'),
+              BaseText('defaultIconSize = ${context.sizing.defaultIconSize}'),
+              BaseText('progressSize = ${context.sizing.progressSize}'),
+              BaseText('loadingIconSize = ${context.sizing.loadingIconSize}'),
             ],
           ),
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
-        MTListText.h3('Default Margins & context.sizing.smallSpacing'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.hPadding),
+        MTListText.h3('Default Margins & Spacing'),
         MTCard(
-          padding: EdgeInsets.all(context.sizing.smallSpacing),
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BaseText(
-                  'horizontalPadding (Horizontal context.sizing.smallSpacing) = $context.sizing.horizontalPadding'),
-              BaseText('verticalPadding (Vertical context.sizing.smallSpacing) = $context.sizing.smallSpacing'),
+              BaseText('horizontalPadding (Horizontal padding) = ${context.sizing.hPadding}'),
+              BaseText('verticalPadding (Vertical padding) = ${context.sizing.smallSpacing}'),
               SizedBox(height: context.sizing.smallSpacing),
-              BaseText.medium('defaultPadding:'),
-              BaseText('  EdgeInsets.symmetric('),
-              BaseText('    horizontal: $context.sizing.horizontalPadding,'),
-              BaseText('    vertical: $context.sizing.smallSpacing'),
-              BaseText('  )'),
+              const BaseText.medium('defaultPadding:'),
+              const BaseText('  EdgeInsets.symmetric('),
+              BaseText('    horizontal: ${context.sizing.hPadding},'),
+              BaseText('    vertical: ${context.sizing.smallSpacing}'),
+              const BaseText('  )'),
               SizedBox(height: context.sizing.smallSpacing),
-              BaseText.medium('defMargin:'),
-              BaseText('  EdgeInsets.fromLTRB('),
-              BaseText('    $context.sizing.horizontalPadding, // left'),
-              BaseText('    $context.sizing.smallSpacing, // top'),
-              BaseText('    $context.sizing.horizontalPadding, // right'),
-              BaseText('    0       // bottom (no margin)'),
-              BaseText('  )'),
+              const BaseText.medium('defMargin:'),
+              const BaseText('  EdgeInsets.fromLTRB('),
+              BaseText('    ${context.sizing.hPadding}, // left'),
+              BaseText('    ${context.sizing.smallSpacing}, // top'),
+              BaseText('    ${context.sizing.hPadding}, // right'),
+              const BaseText('    0       // bottom (no margin)'),
+              const BaseText('  )'),
             ],
           ),
         ),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTCard(
-          padding: context.sizing.defaultPadding, // Demonstration of defaultPadding
-          margin: context.sizing.defaultMargin, // Demonstration of defMargin
-          child: Center(
+          padding: context.sizing.defPadding, // Demonstration of defaultPadding
+          margin: context.sizing.defMargin, // Demonstration of defMargin
+          child: const Center(
             child: BaseText('This card uses defaultPadding and defMargin'),
           ),
         ),

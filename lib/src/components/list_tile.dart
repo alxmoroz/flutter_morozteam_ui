@@ -70,11 +70,12 @@ class MTListTile extends StatelessWidget with GestureManaging {
   final double? leadingSpacing;
 
   Widget _divider(BuildContext context) => MTDivider(
-        indent: dividerIndent ?? padding?.left ?? context.sizing.horizontalPadding,
-        endIndent: dividerEndIndent ?? padding?.right ?? context.sizing.horizontalPadding,
+        indent: dividerIndent ?? padding?.left ?? context.sizing.hPadding,
+        endIndent: dividerEndIndent ?? padding?.right ?? context.sizing.hPadding,
       );
 
-  EdgeInsets _defaultPadding(BuildContext context) => EdgeInsets.symmetric(horizontal: context.sizing.horizontalPadding, vertical: verticalPadding ?? context.sizing.verticalPadding);
+  EdgeInsets _defaultPadding(BuildContext context) =>
+      EdgeInsets.symmetric(horizontal: context.sizing.hPadding, vertical: verticalPadding ?? context.sizing.vPadding);
 
   @override
   Widget build(BuildContext context) {
@@ -111,10 +112,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                       crossAxisAlignment: crossAxisAlignment,
                       children: [
                         SizedBox(height: minHeight ?? context.sizing.effectiveTappableIconSize),
-                        if (leading != null) ...[
-                          leading!,
-                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? context.sizing.verticalPadding)
-                        ],
+                        if (leading != null) ...[leading!, if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? context.sizing.vPadding)],
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -128,7 +126,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                                       align: titleTextAlign,
                                     ),
                               if (hasSubtitle) ...[
-                                if (hasMiddle) SizedBox(height: context.sizing.verticalPadding / 2),
+                                if (hasMiddle) SizedBox(height: context.sizing.vPadding / 2),
                                 subtitle!,
                               ],
                             ],
@@ -167,9 +165,9 @@ class MTSectionTitle extends MTListTile {
     super.onTap,
   }) : super(
           titleText: text,
-          verticalPadding: verticalPadding ?? 6.0,  // DEF_VP / 2
-          topMargin: topMargin ?? 6.0,  // DEF_VP / 2
-          leadingSpacing: leadingSpacing ?? 8.0,  // P
+          verticalPadding: verticalPadding ?? 6.0, // DEF_VP / 2
+          topMargin: topMargin ?? 6.0, // DEF_VP / 2
+          leadingSpacing: leadingSpacing ?? 8.0, // P
           minHeight: minHeight ?? 0,
         );
 }
@@ -301,9 +299,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? 6.0,  // DEF_VP / 2
+          topMargin: topMargin ?? 6.0, // DEF_VP / 2
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? 8.0,  // P
+          leadingSpacing: leadingSpacing ?? 8.0, // P
           minHeight: minHeight ?? 0,
         );
 
@@ -327,9 +325,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? 6.0,  // DEF_VP / 2
+          topMargin: topMargin ?? 6.0, // DEF_VP / 2
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? 8.0,  // P
+          leadingSpacing: leadingSpacing ?? 8.0, // P
           minHeight: minHeight ?? 0,
         );
 
@@ -353,9 +351,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? 6.0,  // DEF_VP / 2
+          topMargin: topMargin ?? 6.0, // DEF_VP / 2
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? 8.0,  // P
+          leadingSpacing: leadingSpacing ?? 8.0, // P
           minHeight: minHeight ?? 0,
         );
 }

@@ -219,10 +219,8 @@ class MTButton extends StatelessWidget with GestureManaging {
   }
 
   Size _minSize(BuildContext context) =>
-      minSize ??
-      (type.isText ? Size(0, context.sizing.horizontalPadding) : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
-  double _radius(BuildContext context) =>
-      borderRadius ?? (type.isCard ? context.sizing.defaultBorderRadius : _minSize(context).height / 2);
+      minSize ?? (type.isText ? Size(0, context.sizing.hPadding) : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
+  double _radius(BuildContext context) => borderRadius ?? (type.isCard ? context.sizing.defBorderRadius : _minSize(context).height / 2);
 
   ButtonStyle _style(BuildContext context) {
     Color btnColor = (color ??
@@ -257,15 +255,14 @@ class MTButton extends StatelessWidget with GestureManaging {
     );
   }
 
-  Function()? get _onPressed =>
-      _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
+  Function()? get _onPressed => _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
 
   Widget _button(BuildContext context) {
     final child = Row(
       mainAxisAlignment: mainAxisAlignment,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (leading != null) ...[leading!, SizedBox(width: context.sizing.verticalPadding)],
+        if (leading != null) ...[leading!, SizedBox(width: context.sizing.vPadding)],
         middle ??
             (titleText != null
                 ? Flexible(

@@ -19,30 +19,30 @@ class TypographyDemo extends StatelessWidget {
         MTListText.small('SmallText'),
         MTListText.numbers('NumbersText: 123,456.78'),
         MTListText.link('LinkText'),
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
 
         // Section: Text Colors
         MTListText.h3('Text Colors'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTListTile(
           middle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BaseText('F1 - Default'),
+              const BaseText('F1 - Default'),
               SizedBox(height: context.sizing.smallSpacing),
-              BaseText.f2('F2 - Secondary'),
+              const BaseText.f2('F2 - Secondary'),
               SizedBox(height: context.sizing.smallSpacing),
-              BaseText.f3('F3 - Tertiary'),
+              const BaseText.f3('F3 - Tertiary'),
             ],
           ),
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
 
         // Section: Color Palette
         MTListText.h3('Color Palette'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         Padding(
-          padding: context.sizing.defaultMargin,
+          padding: context.sizing.defMargin,
           child: _ColorPalette(),
         ),
       ],
@@ -64,13 +64,13 @@ class _ColorPalette extends StatelessWidget {
           _ColorBox('B2', c.b2Color),
           _ColorBox('B3', c.b3Color),
         ]),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         _ColorSection('Foreground', [
           _ColorBox('F1', c.f1Color),
           _ColorBox('F2', c.f2Color),
           _ColorBox('F3', c.f3Color),
         ]),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         _ColorSection('Accent', [
           _ColorBox('Main', c.mainColor),
           _ColorBox('Danger', c.dangerColor),

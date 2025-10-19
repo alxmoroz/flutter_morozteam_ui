@@ -21,7 +21,7 @@ class MTRefresh extends StatelessWidget with GestureManaging {
     return RefreshIndicator(
       onRefresh: () => tapAction(true, onRefresh, fbType: FeedbackType.light),
       edgeOffset: MediaQuery.of(context).padding.top,
-      displacement: context.sizing.verticalPadding,
+      displacement: context.sizing.vPadding,
       child: child,
     );
   }

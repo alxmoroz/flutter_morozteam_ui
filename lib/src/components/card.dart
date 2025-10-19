@@ -29,7 +29,7 @@ class MTCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardColor = (color ?? context.colorScheme.b3Color).resolve(context);
-    final borderRadius = radius ?? context.sizing.defaultBorderRadius;
+    final borderRadius = radius ?? context.sizing.defBorderRadius;
     final shadowColor = context.colorScheme.b1Color.resolve(context);
 
     return Card(

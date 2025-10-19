@@ -64,37 +64,37 @@ class _FormsDemoState extends State<FormsDemo> {
     return ListView(
       children: [
         MTListText.h3('MTTextField'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTTextField(
           controller: _textController,
           label: 'Username',
           hint: 'Enter your username',
           helper: 'This is a helper text',
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
         ),
         MTTextField.email(
           controller: _emailController,
           label: 'Email',
           hint: 'example@email.com',
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
         ),
         MTTextField.password(
           controller: _passwordController,
           label: 'Password',
           hint: 'Enter password',
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
         ),
         MTTextField(
           label: 'Message',
           hint: 'Enter your message',
           maxLines: 4,
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTCheckBoxTile'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTCard(
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
           child: Column(
             children: [
               MTCheckBoxTile(
@@ -113,40 +113,33 @@ class _FormsDemoState extends State<FormsDemo> {
             ],
           ),
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTDropdown'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTDropdown<String>(
           label: 'Select option',
           value: _dropdown,
           items: const ['Option 1', 'Option 2', 'Option 3'],
           onChanged: (value) => setState(() => _dropdown = value),
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
-        MTButton.main(
-          titleText: 'Submit Form',
-          onTap: () => _showMessage(context, 'Form submitted!'),
-          margin: context.sizing.defaultMargin,
-        ),
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTField'),
-        SizedBox(height: context.sizing.verticalPadding),
         MTField(
           _demoFieldData,
-          value: BaseText('John Doe'),
-          trailing: EditIcon(),
-          margin: context.sizing.defaultMargin,
+          value: const BaseText('John Doe'),
+          trailing: const EditIcon(),
+          margin: context.sizing.defMargin,
         ),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTField(
           _demoFieldDataEmpty,
-          trailing: ChevronRightIcon(),
-          margin: context.sizing.defaultMargin,
+          trailing: const ChevronRightIcon(),
+          margin: context.sizing.defMargin,
         ),
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTPhoneField'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTPhoneField(
           controller: _phoneController,
           country: _selectedCountry,
@@ -156,21 +149,6 @@ class _FormsDemoState extends State<FormsDemo> {
           selectorTitle: 'Select Country',
         ),
       ],
-    );
-  }
-
-  void _showMessage(BuildContext context, String message) {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) => CupertinoAlertDialog(
-        content: Text(message),
-        actions: [
-          CupertinoDialogAction(
-            child: const Text('OK'),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
-      ),
     );
   }
 }

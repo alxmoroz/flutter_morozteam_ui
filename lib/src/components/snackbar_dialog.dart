@@ -11,10 +11,7 @@ import 'dialog.dart';
 import 'list_tile.dart';
 
 Future showMTSnackbar(String text,
-    {required BuildContext context,
-    TextAlign? titleAlign = TextAlign.center,
-    Widget? trailing,
-    Function()? onTap}) async {
+    {required BuildContext context, TextAlign? titleAlign = TextAlign.center, Widget? trailing, Function()? onTap}) async {
   await showMTDialog(
     _MTSnackbarDialog(text, titleAlign: titleAlign, trailing: trailing, onTap: onTap),
     forceBottomSheet: true,
@@ -65,12 +62,12 @@ class _State extends State<_MTSnackbarDialog> {
       topBar: null,
       bgColor: context.colorScheme.b3Color.resolve(context),
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(context.sizing.defaultBorderRadius),
-        topRight: Radius.circular(context.sizing.defaultBorderRadius),
+        topLeft: Radius.circular(context.sizing.defBorderRadius),
+        topRight: Radius.circular(context.sizing.defBorderRadius),
       ),
       body: SafeArea(
         child: MTListTile(
-          padding: EdgeInsets.all(context.sizing.horizontalPadding).copyWith(bottom: 0),
+          padding: EdgeInsets.all(context.sizing.hPadding).copyWith(bottom: 0),
           color: Colors.transparent,
           middle: H2(
             widget._text,

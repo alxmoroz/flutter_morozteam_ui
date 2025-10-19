@@ -12,12 +12,12 @@ class IconsDemo extends StatelessWidget {
       children: [
         // MTIcon Components
         MTListText.h3('MTIcon Components'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTListTile(
           middle: Wrap(
-            spacing: context.sizing.verticalPadding,
-            runSpacing: context.sizing.verticalPadding,
-            children: [
+            spacing: context.sizing.vPadding,
+            runSpacing: context.sizing.vPadding,
+            children: const [
               PlusIcon(size: 32),
               CloseIcon(size: 32),
               BackIcon(size: 32),
@@ -37,28 +37,28 @@ class IconsDemo extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
 
         // MTSvgIcon
         MTListText.h3('MTSvgIcon'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         const MTListText('SVG icons from assets/icons/ directory'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTListTile(
           middle: Column(
             children: [
               Wrap(
-                spacing: context.sizing.verticalPadding,
-                runSpacing: context.sizing.verticalPadding,
+                spacing: context.sizing.vPadding,
+                runSpacing: context.sizing.vPadding,
                 children: [
                   MTSvgIcon('home', size: 32, color: context.colorScheme.mainColor),
                   MTSvgIcon('user', size: 32, color: context.colorScheme.dangerColor),
                   MTSvgIcon('star', size: 32, color: context.colorScheme.warningColor),
                 ],
               ),
-              SizedBox(height: context.sizing.verticalPadding),
+              SizedBox(height: context.sizing.vPadding),
               Container(
-                padding: EdgeInsets.all(context.sizing.verticalPadding),
+                padding: EdgeInsets.all(context.sizing.vPadding),
                 decoration: BoxDecoration(
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
                   borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
@@ -74,28 +74,28 @@ class IconsDemo extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
 
         // MTSvgImage
         MTListText.h3('MTSvgImage'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         const MTListText('SVG images from assets/images/ directory'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTListTile(
           middle: Column(
             children: [
               Wrap(
-                spacing: context.sizing.verticalPadding,
-                runSpacing: context.sizing.verticalPadding,
-                children: [
+                spacing: context.sizing.vPadding,
+                runSpacing: context.sizing.vPadding,
+                children: const [
                   MTSvgImage('home', width: 60, height: 60),
                   MTSvgImage('user', width: 60, height: 60),
                   MTSvgImage('star', width: 60, height: 60),
                 ],
               ),
-              SizedBox(height: context.sizing.verticalPadding),
+              SizedBox(height: context.sizing.vPadding),
               Container(
-                padding: EdgeInsets.all(context.sizing.verticalPadding),
+                padding: EdgeInsets.all(context.sizing.vPadding),
                 decoration: BoxDecoration(
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
                   borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
@@ -111,22 +111,22 @@ class IconsDemo extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
 
         // MTImage
         MTListText.h3('MTImage'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         const MTListText('Images from assets/ directory'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTListTile(
           middle: Column(
             children: [
               const Center(
                 child: MTImage('no_info', height: 80, width: 80),
               ),
-              SizedBox(height: context.sizing.verticalPadding),
+              SizedBox(height: context.sizing.vPadding),
               Container(
-                padding: EdgeInsets.all(context.sizing.verticalPadding),
+                padding: EdgeInsets.all(context.sizing.vPadding),
                 decoration: BoxDecoration(
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
                   borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
@@ -142,13 +142,13 @@ class IconsDemo extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: context.sizing.horizontalPadding),
+        SizedBox(height: context.sizing.hPadding),
 
         // MTNetworkImage
         MTListText.h3('MTNetworkImage'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         const MTListText('Network images with fallback support'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTListTile(
           middle: Column(
             children: [
@@ -176,9 +176,9 @@ class IconsDemo extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: context.sizing.verticalPadding),
+              SizedBox(height: context.sizing.vPadding),
               Container(
-                padding: EdgeInsets.all(context.sizing.verticalPadding),
+                padding: EdgeInsets.all(context.sizing.vPadding),
                 decoration: BoxDecoration(
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
                   borderRadius: BorderRadius.circular(context.sizing.smallSpacing),

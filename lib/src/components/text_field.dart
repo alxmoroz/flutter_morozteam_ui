@@ -21,7 +21,7 @@ InputDecoration tfDecoration(
   Color? fillColor,
   bool readOnly = false,
 }) {
-  final bRadius = BorderRadius.circular(context.sizing.defaultBorderRadius);
+  final bRadius = BorderRadius.circular(context.sizing.defBorderRadius);
   final OutlineInputBorder warningBorder = OutlineInputBorder(
     borderSide: BorderSide(color: context.colorScheme.warningColor.resolve(context)),
     borderRadius: bRadius,
@@ -46,7 +46,7 @@ InputDecoration tfDecoration(
     errorText: error,
     errorStyle: SmallText('', color: context.colorScheme.warningColor.resolve(context)).style(context),
     errorMaxLines: 3,
-    contentPadding: contentPadding ?? context.sizing.defaultPadding,
+    contentPadding: contentPadding ?? context.sizing.defPadding,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: border,
@@ -198,7 +198,7 @@ class MTTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? context.sizing.defaultMargin,
+      padding: margin ?? context.sizing.defMargin,
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,

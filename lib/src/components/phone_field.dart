@@ -62,12 +62,12 @@ class _PhoneCountrySelectorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(context.sizing.verticalPadding),
+      padding: EdgeInsets.all(context.sizing.vPadding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           H2(_title),
-          SizedBox(height: context.sizing.verticalPadding),
+          SizedBox(height: context.sizing.vPadding),
           Flexible(
             child: ListView.builder(
               shrinkWrap: true,

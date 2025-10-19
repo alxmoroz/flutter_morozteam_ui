@@ -18,25 +18,25 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
         MTButton.secondary(
           titleText: 'Show MTDialog',
           onTap: () => _showCustomDialog(context),
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
         ),
         MTButton.secondary(
           titleText: 'Show MTAlertDialog',
           onTap: () => _showAlertDialog(context),
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
         ),
         MTButton.secondary(
           titleText: 'Show MTSnackbar',
           onTap: () => _showSnackbar(context),
-          margin: context.sizing.defaultMargin,
+          margin: context.sizing.defMargin,
         ),
         MTListText.h3('MTAvatar'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTListTile(
           middle: Wrap(
-            spacing: context.sizing.verticalPadding,
-            runSpacing: context.sizing.verticalPadding,
-            children: [
+            spacing: context.sizing.vPadding,
+            runSpacing: context.sizing.vPadding,
+            children: const [
               // Initials only
               MTAvatar(20, initials: 'JD'),
               // Initials with border
@@ -51,14 +51,14 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
           ),
         ),
         MTListText.h3('MTCircle'),
-        SizedBox(height: context.sizing.verticalPadding),
+        SizedBox(height: context.sizing.vPadding),
         MTListTile(
           middle: Row(
             children: [
               MTCircle(color: context.colorScheme.mainColor, size: 40),
-              SizedBox(width: context.sizing.verticalPadding),
+              SizedBox(width: context.sizing.vPadding),
               MTCircle(color: context.colorScheme.dangerColor, size: 40),
-              SizedBox(width: context.sizing.verticalPadding),
+              SizedBox(width: context.sizing.vPadding),
               MTCircle(color: context.colorScheme.safeColor, size: 40),
             ],
           ),
@@ -96,14 +96,14 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
   void _showCustomDialog(BuildContext context) async {
     await showMTDialog(
       MTCard(
-        padding: EdgeInsets.all(context.sizing.horizontalPadding),
+        padding: EdgeInsets.all(context.sizing.hPadding),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             MTListText.h3('Custom Dialog'),
-            SizedBox(height: context.sizing.verticalPadding),
+            SizedBox(height: context.sizing.vPadding),
             const MTListText('This is a custom MTDialog with any content'),
-            SizedBox(height: context.sizing.horizontalPadding),
+            SizedBox(height: context.sizing.hPadding),
             MTButton.main(
               titleText: 'Close',
               onTap: () => Navigator.of(context).pop(),

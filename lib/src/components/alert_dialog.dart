@@ -70,10 +70,7 @@ class _MTAlertDialog extends StatelessWidget {
             MTButton(
               titleText: a.title,
               type: a.type,
-              margin: EdgeInsets.only(
-                  top: a.type != MTButtonType.text
-                      ? context.sizing.horizontalPadding
-                      : context.sizing.verticalPadding / 2),
+              margin: EdgeInsets.only(top: a.type != MTButtonType.text ? context.sizing.hPadding : context.sizing.vPadding / 2),
               constrained: true,
               onTap: () => _tap(context, a),
             ),
