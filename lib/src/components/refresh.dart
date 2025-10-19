@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../theme/constants.dart';
+import '../config/ui_theme.dart';
 import '../utils/gesture.dart';
 
 /// Pull-to-refresh wrapper
@@ -21,7 +21,7 @@ class MTRefresh extends StatelessWidget with GestureManaging {
     return RefreshIndicator(
       onRefresh: () => tapAction(true, onRefresh, fbType: FeedbackType.light),
       edgeOffset: MediaQuery.of(context).padding.top,
-      displacement: DEF_VP,
+      displacement: context.sizing.verticalPadding,
       child: child,
     );
   }

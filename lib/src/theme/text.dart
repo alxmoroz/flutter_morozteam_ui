@@ -8,8 +8,8 @@ import 'resolved_color.dart';
 
 // Const color constants for use in const constructors
 const _f2Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 172, 178, 194),
-  darkColor: Color.fromARGB(255, 172, 176, 194),
+  color: Color.fromARGB(255, 114, 120, 158),
+  darkColor: Color.fromARGB(255, 150, 156, 170),
 );
 
 const _f3Color = CupertinoDynamicColor.withBrightness(

@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
@@ -20,8 +19,8 @@ BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final mq = MediaQuery.of(context);
   final big = isBigScreen(context);
   return BoxConstraints(
-    maxWidth: big ? min(mq.size.width - DEF_HP, maxWidth ?? SCR_S_WIDTH) : double.infinity,
-    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - DEF_HP : double.infinity,
+    maxWidth: big ? min(mq.size.width - context.sizing.horizontalPadding, maxWidth ?? context.breakpoints.sWidth) : double.infinity,
+    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - context.sizing.horizontalPadding : double.infinity,
   );
 }
 
@@ -134,7 +133,7 @@ class MTDialog extends StatelessWidget {
       final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
       final hasBottomBar = bottomBar != null;
       final needBottomPadding = forceBottomPadding || bottomBarHeight > 0 || (mqPaddingBottom == 0 && !big);
-      final minBottomPadding = needBottomPadding ? DEF_DIALOG_BOTTOM_PADDING : 0.0;
+      final minBottomPadding = needBottomPadding ? context.sizing.dialogBottomPadding : 0.0;
       final mqPadding = mq.padding.copyWith(bottom: max(mqPaddingBottom, minBottomPadding));
 
       return MediaQuery(
@@ -175,7 +174,7 @@ class MTDialog extends StatelessWidget {
     final mqPadding = mq.padding;
 
     final big = isBigScreen(context);
-    const radius = Radius.circular(DEF_BORDER_RADIUS);
+    final radius = Radius.circular(context.sizing.defaultBorderRadius);
 
     return FocusDroppable(
       Padding(
@@ -193,8 +192,8 @@ class MTDialog extends StatelessWidget {
                 ),
             boxShadow: [
               BoxShadow(
-                  blurRadius: P,
-                  offset: Offset(0, big ? P_2 : -P_2),
+                  blurRadius: context.sizing.smallSpacing,
+                  offset: Offset(0, big ? context.sizing.borderWidth : -context.sizing.borderWidth),
                   color: context.colorScheme.b0Color.resolve(context).withValues(alpha: 0.42))
             ],
           ),

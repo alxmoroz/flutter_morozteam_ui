@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 
 /// Circular progress indicator
@@ -32,8 +31,8 @@ class MTCircularProgress extends StatelessWidget {
     return unbound
         ? ci
         : SizedBox(
-            height: size ?? DEF_PROGRESS_SIZE,
-            width: size ?? DEF_PROGRESS_SIZE,
+            height: size ?? context.sizing.progressSize,
+            width: size ?? context.sizing.progressSize,
             child: ci,
           );
   }

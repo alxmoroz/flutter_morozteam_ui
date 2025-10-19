@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
@@ -45,8 +44,8 @@ class MTPage extends StatelessWidget {
     return material(Builder(builder: (ctx) {
       final mq = MediaQuery.of(ctx);
       final mqPadding = mq.padding.copyWith(
-        top: max(mq.padding.top, DEF_PAGE_TOP_PADDING),
-        bottom: max(max(mq.viewPadding.bottom, mq.padding.bottom), DEF_PAGE_BOTTOM_PADDING),
+        top: max(mq.padding.top, ctx.sizing.pageTopPadding),
+        bottom: max(max(mq.viewPadding.bottom, mq.padding.bottom), ctx.sizing.pageBottomPadding),
       );
 
       final hasKB = mq.viewInsets.bottom > 0;

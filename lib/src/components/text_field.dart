@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 
@@ -22,7 +21,7 @@ InputDecoration tfDecoration(
   Color? fillColor,
   bool readOnly = false,
 }) {
-  final bRadius = BorderRadius.circular(DEF_BORDER_RADIUS);
+  final bRadius = BorderRadius.circular(context.sizing.defaultBorderRadius);
   final OutlineInputBorder warningBorder = OutlineInputBorder(
     borderSide: BorderSide(color: context.colorScheme.warningColor.resolve(context)),
     borderRadius: bRadius,
@@ -47,7 +46,7 @@ InputDecoration tfDecoration(
     errorText: error,
     errorStyle: SmallText('', color: context.colorScheme.warningColor.resolve(context)).style(context),
     errorMaxLines: 3,
-    contentPadding: contentPadding ?? DEF_PADDING,
+    contentPadding: contentPadding ?? context.sizing.defaultPadding,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: border,
@@ -199,7 +198,7 @@ class MTTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? DEF_MARGIN,
+      padding: margin ?? context.sizing.defaultMargin,
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,

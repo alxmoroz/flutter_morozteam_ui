@@ -65,24 +65,24 @@ class _PageDemoState extends State<PageDemo> {
     return ListView(
       children: [
         MTListText.h2('MTPage Demo'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('This demonstrates the MTPage component with:'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('• MTNavBar with title and action buttons'),
         const MTListText('• MTBottomBar with tab navigation'),
         const MTListText('• Responsive body content'),
         const MTListText('• Proper scrolling and shadows'),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
 
         MTListText.h3('Navigation Bar Features'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTCard(
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const MTListText('MTNavBar includes:'),
-              const SizedBox(height: P),
+              SizedBox(height: context.sizing.smallSpacing),
               const MTListText('• Page title'),
               const MTListText('• Leading button (Back)'),
               const MTListText('• Trailing button (Settings)'),
@@ -91,16 +91,16 @@ class _PageDemoState extends State<PageDemo> {
           ),
         ),
 
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('Bottom Bar Features'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTCard(
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const MTListText('MTBottomBar includes:'),
-              const SizedBox(height: P),
+              SizedBox(height: context.sizing.smallSpacing),
               const MTListText('• Tab navigation'),
               const MTListText('• Icon buttons with selection state'),
               const MTListText('• Automatic color changes'),
@@ -109,16 +109,16 @@ class _PageDemoState extends State<PageDemo> {
           ),
         ),
 
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('Page Layout'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTCard(
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const MTListText('MTPage provides:'),
-              const SizedBox(height: P),
+              SizedBox(height: context.sizing.smallSpacing),
               const MTListText('• Safe area handling'),
               const MTListText('• Keyboard avoidance'),
               const MTListText('• Scroll shadows'),
@@ -129,13 +129,13 @@ class _PageDemoState extends State<PageDemo> {
         ),
 
         // Add some content to demonstrate scrolling
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('Scroll Demo'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         ...List.generate(
           10,
           (index) => MTCard(
-            margin: DEF_MARGIN,
+            margin: context.sizing.defaultMargin,
             child: MTListText('Scroll item ${index + 1}'),
           ),
         ),
@@ -147,32 +147,32 @@ class _PageDemoState extends State<PageDemo> {
     return ListView(
       children: [
         MTListText.h2('Profile Tab'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('This is the Profile tab content.'),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTCard(
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             children: [
               const MTAvatar(60, initials: 'JD'),
-              const SizedBox(height: DEF_VP),
+              SizedBox(height: context.sizing.verticalPadding),
               const MTListText('John Doe'),
               const BaseText.f2('john.doe@example.com'),
             ],
           ),
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('Profile Actions'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTButton.main(
           titleText: 'Edit Profile',
           onTap: () => _showMessage(context, 'Edit Profile tapped'),
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
         MTButton.secondary(
           titleText: 'Change Password',
           onTap: () => _showMessage(context, 'Change Password tapped'),
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
       ],
     );
@@ -182,11 +182,11 @@ class _PageDemoState extends State<PageDemo> {
     return ListView(
       children: [
         MTListText.h2('Settings Tab'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('This is the Settings tab content.'),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTCard(
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             children: [
               MTListTile(
@@ -205,11 +205,11 @@ class _PageDemoState extends State<PageDemo> {
             ],
           ),
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('Appearance'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTCard(
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             children: [
               MTListTile(
@@ -248,14 +248,14 @@ class _PageDemoState extends State<PageDemo> {
   void _showSettings(BuildContext context) {
     showMTDialog(
       MTCard(
-        padding: const EdgeInsets.all(DEF_HP),
+        padding: EdgeInsets.all(context.sizing.horizontalPadding),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             MTListText.h3('Quick Settings'),
-            const SizedBox(height: DEF_VP),
+            SizedBox(height: context.sizing.verticalPadding),
             const MTListText('This is a quick settings dialog.'),
-            const SizedBox(height: DEF_HP),
+            SizedBox(height: context.sizing.horizontalPadding),
             MTButton.main(
               titleText: 'Close',
               onTap: () => Navigator.of(context).pop(),

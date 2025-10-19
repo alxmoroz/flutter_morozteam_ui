@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import '../utils/adaptive.dart';
@@ -221,7 +220,7 @@ class MTButton extends StatelessWidget with GestureManaging {
 
   Size _minSize(BuildContext context) =>
       minSize ??
-      (type.isText ? const Size(0, DEF_HP) : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
+      (type.isText ? Size(0, context.sizing.horizontalPadding) : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
   double _radius(BuildContext context) =>
       borderRadius ?? (type.isCard ? context.sizing.defaultBorderRadius : _minSize(context).height / 2);
 
@@ -266,7 +265,7 @@ class MTButton extends StatelessWidget with GestureManaging {
       mainAxisAlignment: mainAxisAlignment,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (leading != null) ...[leading!, const SizedBox(width: DEF_VP)],
+        if (leading != null) ...[leading!, SizedBox(width: context.sizing.verticalPadding)],
         middle ??
             (titleText != null
                 ? Flexible(
@@ -277,7 +276,7 @@ class MTButton extends StatelessWidget with GestureManaging {
                     maxLines: 1,
                   ))
                 : const SizedBox()),
-        if (trailing != null) ...[const SizedBox(width: P), trailing!],
+        if (trailing != null) ...[SizedBox(width: context.sizing.smallSpacing), trailing!],
       ],
     );
 
@@ -326,10 +325,10 @@ class MTButton extends StatelessWidget with GestureManaging {
         children: [
           _button(context),
           if (loading == true)
-            const SizedBox(
-              width: DEF_LOADING_ICON_SIZE,
-              height: DEF_LOADING_ICON_SIZE,
-              child: CupertinoActivityIndicator(),
+            SizedBox(
+              width: context.sizing.loadingIconSize,
+              height: context.sizing.loadingIconSize,
+              child: const CupertinoActivityIndicator(),
             ),
         ],
       ),

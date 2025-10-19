@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/text.dart';
 import 'field_data.dart';
 import 'list_tile.dart';
@@ -55,7 +54,7 @@ class MTField extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       leading: leading != null
-          ? Container(width: DEF_TAPPABLE_ICON_SIZE, alignment: Alignment.center, child: leading)
+          ? Container(width: context.sizing.effectiveTappableIconSize, alignment: Alignment.center, child: leading)
           : null,
       middle: compact
           ? null

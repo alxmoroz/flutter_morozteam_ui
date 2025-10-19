@@ -1,10 +1,11 @@
 // Copyright (c) 2025. Alexandr Moroz
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'ui_breakpoints.dart';
 import 'ui_color_scheme.dart';
 import 'ui_sizing.dart';
+import 'ui_theme_builder.dart';
 import 'ui_typography.dart';
 
 /// Provider for UI Kit configuration
@@ -15,6 +16,7 @@ class UIThemeProvider extends StatelessWidget {
     this.typography = const UITypography(),
     this.sizing = const UISizing(),
     this.breakpoints = const UIBreakpoints(),
+    this.theme,
     required this.child,
   });
 
@@ -22,16 +24,29 @@ class UIThemeProvider extends StatelessWidget {
   final UITypography typography;
   final UISizing sizing;
   final UIBreakpoints breakpoints;
+  final ThemeData? theme;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedUITheme(
-      colorScheme: colorScheme,
-      typography: typography,
-      sizing: sizing,
-      breakpoints: breakpoints,
-      child: child,
+    final themeData = theme ??
+        UIThemeBuilder.build(
+          context,
+          colorScheme: colorScheme,
+          typography: typography,
+          sizing: sizing,
+          breakpoints: breakpoints,
+        );
+
+    return Theme(
+      data: themeData,
+      child: _InheritedUITheme(
+        colorScheme: colorScheme,
+        typography: typography,
+        sizing: sizing,
+        breakpoints: breakpoints,
+        child: child,
+      ),
     );
   }
 }
@@ -71,8 +86,9 @@ class _InheritedUITheme extends InheritedWidget {
 
 /// Extension for BuildContext for convenient access to configuration
 extension UIThemeExtension on BuildContext {
+  // Backward compatible геттеры
   UIColorScheme get colorScheme => _InheritedUITheme.of(this).colorScheme;
-  UITypography get typography => _InheritedUITheme.of(this).typography;
   UISizing get sizing => _InheritedUITheme.of(this).sizing;
   UIBreakpoints get breakpoints => _InheritedUITheme.of(this).breakpoints;
+  UITypography get typography => _InheritedUITheme.of(this).typography;
 }

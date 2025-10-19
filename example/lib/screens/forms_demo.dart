@@ -64,37 +64,37 @@ class _FormsDemoState extends State<FormsDemo> {
     return ListView(
       children: [
         MTListText.h3('MTTextField'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTTextField(
           controller: _textController,
           label: 'Username',
           hint: 'Enter your username',
           helper: 'This is a helper text',
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
         MTTextField.email(
           controller: _emailController,
           label: 'Email',
           hint: 'example@email.com',
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
         MTTextField.password(
           controller: _passwordController,
           label: 'Password',
           hint: 'Enter password',
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
-        const MTTextField(
+        MTTextField(
           label: 'Message',
           hint: 'Enter your message',
           maxLines: 4,
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('MTCheckBoxTile'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTCard(
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             children: [
               MTCheckBoxTile(
@@ -113,40 +113,40 @@ class _FormsDemoState extends State<FormsDemo> {
             ],
           ),
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('MTDropdown'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTDropdown<String>(
           label: 'Select option',
           value: _dropdown,
           items: const ['Option 1', 'Option 2', 'Option 3'],
           onChanged: (value) => setState(() => _dropdown = value),
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTButton.main(
           titleText: 'Submit Form',
           onTap: () => _showMessage(context, 'Form submitted!'),
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('MTField'),
-        const SizedBox(height: DEF_VP),
-        const MTField(
+        SizedBox(height: context.sizing.verticalPadding),
+        MTField(
           _demoFieldData,
           value: BaseText('John Doe'),
           trailing: EditIcon(),
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
-        const SizedBox(height: DEF_VP),
-        const MTField(
+        SizedBox(height: context.sizing.verticalPadding),
+        MTField(
           _demoFieldDataEmpty,
           trailing: ChevronRightIcon(),
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('MTPhoneField'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTPhoneField(
           controller: _phoneController,
           country: _selectedCountry,

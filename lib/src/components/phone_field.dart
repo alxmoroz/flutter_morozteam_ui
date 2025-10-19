@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import 'button.dart';
@@ -63,12 +62,12 @@ class _PhoneCountrySelectorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(DEF_VP),
+      padding: EdgeInsets.all(context.sizing.verticalPadding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           H2(_title),
-          const SizedBox(height: DEF_VP),
+          SizedBox(height: context.sizing.verticalPadding),
           Flexible(
             child: ListView.builder(
               shrinkWrap: true,
@@ -130,12 +129,12 @@ class MTPhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       leading: SizedBox(
-        width: DEF_TAPPABLE_ICON_SIZE * 2,
+        width: context.sizing.effectiveTappableIconSize * 2,
         child: MTButton(
           type: MTButtonType.card,
           middle: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
           trailing: const ChevronDownIcon(),
-          padding: const EdgeInsets.symmetric(horizontal: DEF_SMALL_PADDING),
+          padding: EdgeInsets.symmetric(horizontal: context.sizing.smallSpacing),
           onTap: () => _showCountrySelector(context),
         ),
       ),

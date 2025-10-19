@@ -26,19 +26,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UIThemeProvider(
+      sizing: const UISizing(
+        baseSpacingUnit: 4.0,
+      ),
       child: MaterialApp(
         title: 'MorozTeam UI Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const UIColorScheme().mainColor,
-            primary: const UIColorScheme().mainColor,
-            brightness: MediaQuery.platformBrightnessOf(context),
-            surface: const UIColorScheme().b2Color,
-            surfaceTint: const UIColorScheme().b2Color,
-          ),
-          fontFamily: 'Roboto',
-          useMaterial3: true,
-        ),
         builder: (context, child) {
           return child!;
         },

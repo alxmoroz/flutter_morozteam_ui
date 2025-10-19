@@ -4,19 +4,20 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-import '../theme/constants.dart';
+import '../config/ui_theme.dart';
 
 /// Get screen size
 Size screenSize(BuildContext context) => MediaQuery.sizeOf(context);
 
 /// Check if screen is small in landscape mode
 bool _smallLandscape(BuildContext context) =>
-    screenSize(context).height < SCR_XS_HEIGHT && MediaQuery.orientationOf(context) == Orientation.landscape;
+    screenSize(context).height < context.breakpoints.xsHeight &&
+    MediaQuery.orientationOf(context) == Orientation.landscape;
 
 /// Check if screen is large
 bool isBigScreen(BuildContext context) {
   final size = screenSize(context);
-  return size.height > SCR_S_HEIGHT && size.width > SCR_M_WIDTH;
+  return size.height > context.breakpoints.sHeight && size.width > context.breakpoints.mWidth;
 }
 
 /// Check if vertical panels can be shown
@@ -43,22 +44,22 @@ class MTAdaptive extends StatelessWidget {
   final EdgeInsets? padding;
 
   Widget _constrained(BuildContext context) {
-    double W = SCR_XXS_WIDTH;
+    double W = context.breakpoints.xxsWidth;
 
     switch (size) {
       case AdaptiveSize.xxs:
         break;
       case AdaptiveSize.xs:
-        W = SCR_XS_WIDTH;
+        W = context.breakpoints.xsWidth;
         break;
       case AdaptiveSize.s:
-        W = SCR_S_WIDTH;
+        W = context.breakpoints.sWidth;
         break;
       case AdaptiveSize.m:
-        W = SCR_M_WIDTH;
+        W = context.breakpoints.mWidth;
         break;
       case AdaptiveSize.l:
-        W = SCR_L_WIDTH;
+        W = context.breakpoints.lWidth;
         break;
     }
 

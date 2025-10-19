@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../theme/constants.dart';
+import '../config/ui_theme.dart';
 import '../theme/text.dart';
 
 /// Page title
@@ -25,7 +25,7 @@ class PageTitle extends StatelessWidget {
       children: [
         if (parentPageTitle != null) ...[
           SmallText(parentPageTitle!, color: color, maxLines: 1),
-          const SizedBox(height: P_2),
+          SizedBox(height: context.sizing.borderWidth),
         ],
         H3(text, color: color, maxLines: 1),
       ],

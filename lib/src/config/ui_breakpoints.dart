@@ -1,20 +1,18 @@
 // Copyright (c) 2025. Alexandr Moroz
 
-import '../theme/constants.dart';
-
 /// Breakpoints configuration for UI Kit
 class UIBreakpoints {
   const UIBreakpoints({
-    this.xxsWidth = SCR_XXS_WIDTH,
-    this.xsWidth = SCR_XS_WIDTH,
-    this.xsHeight = SCR_XS_HEIGHT,
-    this.sWidth = SCR_S_WIDTH,
-    this.sHeight = SCR_S_HEIGHT,
-    this.mWidth = SCR_M_WIDTH,
-    this.mHeight = SCR_M_HEIGHT,
-    this.lWidth = SCR_L_WIDTH,
-    this.xlWidth = SCR_XL_WIDTH,
-    this.xxlWidth = SCR_XXL_WIDTH,
+    this.xxsWidth = 290.0,
+    this.xsWidth = 364.0,
+    this.xsHeight = 480.0,
+    this.sWidth = 480.0,
+    this.sHeight = 640.0,
+    this.mWidth = 640.0,
+    this.mHeight = 860.0,
+    this.lWidth = 760.0,
+    this.xlWidth = 960.0,
+    this.xxlWidth = 1280.0,
   });
 
   // Breakpoints for responsiveness

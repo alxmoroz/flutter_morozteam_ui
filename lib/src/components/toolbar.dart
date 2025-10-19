@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import 'close_dialog_button.dart';
@@ -98,12 +97,11 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
   final bool fullScreen;
   final MTToolbarController? toolbarController;
 
-  double get _innerHeight => innerHeight ?? DEF_BAR_HEIGHT;
 
   @override
   Size get preferredSize => Size.fromHeight(toolbarController != null
       ? toolbarController!.height ?? 0
-      : (topPadding + _innerHeight + (bottomWidget?.preferredSize.height ?? 0) + bottomPadding));
+      : (topPadding + (innerHeight ?? 48.0) + (bottomWidget?.preferredSize.height ?? 0) + bottomPadding));
 
   Widget? _leading(BuildContext context) {
     final navigator = Navigator.of(context);

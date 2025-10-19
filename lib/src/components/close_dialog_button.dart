@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import 'button.dart';
 import 'icons.dart';
 
@@ -15,6 +14,6 @@ class MTCloseDialogButton extends StatelessWidget {
   Widget build(BuildContext context) => MTButton.icon(
         CloseIcon(color: context.colorScheme.f2Color),
         onTap: onTap ?? () => Navigator.of(context).pop(),
-        padding: const EdgeInsets.all(DEF_VP),
+        padding: EdgeInsets.all(context.sizing.verticalPadding),
       );
 }

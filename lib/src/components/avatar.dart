@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import '../utils/md5.dart';
@@ -34,7 +33,7 @@ class MTAvatar extends StatelessWidget {
 
   Widget _initialsCircle(BuildContext context) {
     final fs = const BaseText('', maxLines: 1).style(context).fontSize ?? 17;
-    final validRadius = radius > MAX_AVATAR_RADIUS ? MAX_AVATAR_RADIUS : radius;
+    final validRadius = radius > context.sizing.maxAvatarRadius ? context.sizing.maxAvatarRadius : radius;
     final sizeScale = validRadius / fs;
     return MTCircle(
       color: Colors.transparent,
@@ -55,7 +54,7 @@ class MTAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Validate radius against maximum
-    final validRadius = radius > MAX_AVATAR_RADIUS ? MAX_AVATAR_RADIUS : radius;
+    final validRadius = radius > context.sizing.maxAvatarRadius ? context.sizing.maxAvatarRadius : radius;
 
     final avatar = Stack(
       alignment: Alignment.center,

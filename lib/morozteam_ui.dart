@@ -43,9 +43,10 @@ export 'src/config/ui_breakpoints.dart';
 export 'src/config/ui_color_scheme.dart';
 export 'src/config/ui_sizing.dart';
 export 'src/config/ui_theme.dart';
+export 'src/config/ui_theme_builder.dart';
+export 'src/config/ui_theme_extension.dart';
 export 'src/config/ui_typography.dart';
 // Theme
-export 'src/theme/constants.dart';
 export 'src/theme/resolved_color.dart';
 export 'src/theme/text.dart';
 // Utils

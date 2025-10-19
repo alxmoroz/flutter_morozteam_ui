@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import 'dialog.dart';
@@ -65,13 +64,13 @@ class _State extends State<_MTSnackbarDialog> {
     return MTDialog(
       topBar: null,
       bgColor: context.colorScheme.b3Color.resolve(context),
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(DEF_BORDER_RADIUS),
-        topRight: Radius.circular(DEF_BORDER_RADIUS),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(context.sizing.defaultBorderRadius),
+        topRight: Radius.circular(context.sizing.defaultBorderRadius),
       ),
       body: SafeArea(
         child: MTListTile(
-          padding: const EdgeInsets.all(DEF_HP).copyWith(bottom: 0),
+          padding: EdgeInsets.all(context.sizing.horizontalPadding).copyWith(bottom: 0),
           color: Colors.transparent,
           middle: H2(
             widget._text,

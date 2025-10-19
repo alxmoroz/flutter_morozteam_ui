@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 
 /// Circular element
@@ -24,8 +23,8 @@ class MTCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size ?? DEF_VP,
-      height: size ?? DEF_VP,
+      width: size ?? 12.0,
+      height: size ?? 12.0,
       decoration: BoxDecoration(
         color: (color ?? context.colorScheme.f2Color).resolve(context),
         shape: BoxShape.circle,

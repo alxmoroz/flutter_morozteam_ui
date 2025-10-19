@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import 'circle.dart';
 
@@ -21,7 +20,7 @@ class MTSvgIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconSize = size ?? DEF_HP;
+    final iconSize = size ?? context.sizing.horizontalPadding;
     return SvgPicture.asset(
       'assets/icons/$name.svg',
       width: iconSize,
@@ -51,7 +50,7 @@ class MTIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rColor = (color ?? context.colorScheme.mainColor).resolve(context);
-    final iconSize = size ?? DEF_ICON_SIZE;
+    final iconSize = size ?? context.sizing.defaultIconSize;
     return Stack(
       alignment: Alignment.center,
       children: [

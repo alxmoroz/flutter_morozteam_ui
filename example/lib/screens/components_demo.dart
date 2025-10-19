@@ -11,24 +11,24 @@ class ComponentsDemo extends StatelessWidget {
     return ListView(
       children: [
         MTListText.h3('MTCard'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTCard(
           // padding: DEF_PADDING,
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               MTListText.h3('Card Title'),
-              const SizedBox(height: P),
+              SizedBox(height: context.sizing.smallSpacing),
               const MTListText('This is a card with shadow and rounded corners.'),
             ],
           ),
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('MTListTile'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTCard(
-          margin: DEF_MARGIN,
+          margin: context.sizing.defaultMargin,
           child: Column(
             children: [
               MTListTile(
@@ -48,30 +48,30 @@ class ComponentsDemo extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('MTCircularProgress / MTProgress'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTCard(
-          padding: const EdgeInsets.all(DEF_HP),
-          margin: DEF_MARGIN,
+          padding: EdgeInsets.all(context.sizing.horizontalPadding),
+          margin: context.sizing.defaultMargin,
           child: Column(
             children: [
               const MTListText('Circular Progress'),
-              const SizedBox(height: DEF_VP),
+              SizedBox(height: context.sizing.verticalPadding),
               const MTCircularProgress(),
-              const SizedBox(height: DEF_HP),
+              SizedBox(height: context.sizing.horizontalPadding),
               const MTListText('Progress Bar'),
-              const SizedBox(height: DEF_VP),
+              SizedBox(height: context.sizing.verticalPadding),
               SizedBox(
-                height: P,
+                height: context.sizing.smallSpacing,
                 child: MTProgress(0.7, color: context.colorScheme.mainColor),
               ),
             ],
           ),
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
         MTListText.h3('MTDivider'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('Above divider'),
         const MTDivider(),
         const MTListText('Below divider'),

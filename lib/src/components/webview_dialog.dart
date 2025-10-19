@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../theme/constants.dart';
+import '../config/ui_theme.dart';
 import '../theme/resolved_color.dart';
 import 'circular_progress.dart';
 import 'dialog.dart';
@@ -72,10 +72,10 @@ class MTWebViewDialog extends StatelessWidget {
     );
   }
 
-  Widget _inner(WebViewController controller) {
+  Widget _inner(BuildContext context, WebViewController controller) {
     return Stack(
       children: [
-        Container(color: bgColor, child: const Center(child: MTCircularProgress(size: P15))),
+        Container(color: bgColor, child: Center(child: MTCircularProgress(size: context.sizing.baseSpacingUnit * 15))),
         WebViewWidget(
           gestureRecognizers: const {
             Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new),
@@ -93,7 +93,7 @@ class MTWebViewDialog extends StatelessWidget {
     return MTDialog(
       topBar: MTTopBar(color: bgColor),
       bgColor: bgColor,
-      body: safeArea ? SafeArea(child: _inner(_controller)) : _inner(_controller),
+      body: safeArea ? SafeArea(child: _inner(context, _controller)) : _inner(context, _controller),
     );
   }
 }

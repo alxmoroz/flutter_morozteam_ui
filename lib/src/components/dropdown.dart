@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import 'icons.dart';
@@ -44,7 +43,7 @@ class MTDropdown<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin ?? EdgeInsets.zero,
-      height: P10,
+      height: (context.sizing.baseSpacingUnit * 10),
       alignment: Alignment.centerLeft,
       child: DropdownButtonFormField<T>(
         dropdownColor: context.colorScheme.b3Color.resolve(context),
@@ -61,7 +60,7 @@ class MTDropdown<T> extends StatelessWidget {
         isExpanded: true,
         initialValue: value,
         onChanged: onChanged,
-        borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
+        borderRadius: BorderRadius.circular(context.sizing.defaultBorderRadius),
       ),
     );
   }

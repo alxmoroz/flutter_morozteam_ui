@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 /// Color scheme for UI Kit with light/dark theme support
-/// 
+///
 /// This class provides all colors used throughout the UI Kit.
 /// Colors are defined as CupertinoDynamicColor to support both light and dark themes.
 /// All colors can be overridden when creating a custom UIKitConfig.
@@ -26,12 +26,12 @@ class UIColorScheme {
       darkColor: Color.fromARGB(255, 54, 60, 86),
     ),
     this.f1Color = const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(255, 114, 120, 172),
-      darkColor: Color.fromARGB(255, 130, 134, 168),
+      color: Color.fromARGB(255, 56, 62, 100),
+      darkColor: Color.fromARGB(255, 208, 214, 228),
     ),
     this.f2Color = const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(255, 172, 178, 194),
-      darkColor: Color.fromARGB(255, 172, 176, 194),
+      color: Color.fromARGB(255, 114, 120, 158),
+      darkColor: Color.fromARGB(255, 150, 156, 170),
     ),
     this.f3Color = const CupertinoDynamicColor.withBrightness(
       color: Color.fromARGB(255, 172, 178, 216),

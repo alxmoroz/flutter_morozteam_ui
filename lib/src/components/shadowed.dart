@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 
 /// Widget with shadows from top and/or bottom
@@ -61,7 +60,7 @@ class MTShadowed extends StatelessWidget {
           data: mq.copyWith(
             padding: mqPadding.copyWith(
               top: mqPadding.top + (topIndent ?? 0),
-              bottom: mqPadding.bottom + (bottomIndent ?? (bottomShadow ? DEF_HP : 0)),
+              bottom: mqPadding.bottom + (bottomIndent ?? (bottomShadow ? context.sizing.horizontalPadding : 0)),
             ),
           ),
           child: child,

@@ -12,11 +12,11 @@ class IconsDemo extends StatelessWidget {
       children: [
         // MTIcon Components
         MTListText.h3('MTIcon Components'),
-        const SizedBox(height: DEF_VP),
-        const MTListTile(
+        SizedBox(height: context.sizing.verticalPadding),
+        MTListTile(
           middle: Wrap(
-            spacing: DEF_VP,
-            runSpacing: DEF_VP,
+            spacing: context.sizing.verticalPadding,
+            runSpacing: context.sizing.verticalPadding,
             children: [
               PlusIcon(size: 32),
               CloseIcon(size: 32),
@@ -37,31 +37,31 @@ class IconsDemo extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
 
         // MTSvgIcon
         MTListText.h3('MTSvgIcon'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('SVG icons from assets/icons/ directory'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTListTile(
           middle: Column(
             children: [
               Wrap(
-                spacing: DEF_VP,
-                runSpacing: DEF_VP,
+                spacing: context.sizing.verticalPadding,
+                runSpacing: context.sizing.verticalPadding,
                 children: [
                   MTSvgIcon('home', size: 32, color: context.colorScheme.mainColor),
                   MTSvgIcon('user', size: 32, color: context.colorScheme.dangerColor),
                   MTSvgIcon('star', size: 32, color: context.colorScheme.warningColor),
                 ],
               ),
-              const SizedBox(height: DEF_VP),
+              SizedBox(height: context.sizing.verticalPadding),
               Container(
-                padding: const EdgeInsets.all(DEF_VP),
+                padding: EdgeInsets.all(context.sizing.verticalPadding),
                 decoration: BoxDecoration(
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
-                  borderRadius: BorderRadius.circular(P),
+                  borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
                 ),
                 child: const BaseText('Usage: MTSvgIcon("icon_name")\n'
                     'SVG files are in assets/icons/\n'
@@ -74,31 +74,31 @@ class IconsDemo extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
 
         // MTSvgImage
         MTListText.h3('MTSvgImage'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('SVG images from assets/images/ directory'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTListTile(
           middle: Column(
             children: [
-              const Wrap(
-                spacing: DEF_VP,
-                runSpacing: DEF_VP,
+              Wrap(
+                spacing: context.sizing.verticalPadding,
+                runSpacing: context.sizing.verticalPadding,
                 children: [
                   MTSvgImage('home', width: 60, height: 60),
                   MTSvgImage('user', width: 60, height: 60),
                   MTSvgImage('star', width: 60, height: 60),
                 ],
               ),
-              const SizedBox(height: DEF_VP),
+              SizedBox(height: context.sizing.verticalPadding),
               Container(
-                padding: const EdgeInsets.all(DEF_VP),
+                padding: EdgeInsets.all(context.sizing.verticalPadding),
                 decoration: BoxDecoration(
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
-                  borderRadius: BorderRadius.circular(P),
+                  borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
                 ),
                 child: const BaseText('Usage: MTSvgImage("image_name")\n'
                     'SVG images are in assets/images/\n'
@@ -111,25 +111,25 @@ class IconsDemo extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
 
         // MTImage
         MTListText.h3('MTImage'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('Images from assets/ directory'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTListTile(
           middle: Column(
             children: [
               const Center(
                 child: MTImage('no_info', height: 80, width: 80),
               ),
-              const SizedBox(height: DEF_VP),
+              SizedBox(height: context.sizing.verticalPadding),
               Container(
-                padding: const EdgeInsets.all(DEF_VP),
+                padding: EdgeInsets.all(context.sizing.verticalPadding),
                 decoration: BoxDecoration(
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
-                  borderRadius: BorderRadius.circular(P),
+                  borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
                 ),
                 child: const BaseText('Usage: MTImage("asset_name")\n'
                     'Images are in assets/images/\n'
@@ -142,13 +142,13 @@ class IconsDemo extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
 
         // MTNetworkImage
         MTListText.h3('MTNetworkImage'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         const MTListText('Network images with fallback support'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         MTListTile(
           middle: Column(
             children: [
@@ -176,12 +176,12 @@ class IconsDemo extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: DEF_VP),
+              SizedBox(height: context.sizing.verticalPadding),
               Container(
-                padding: const EdgeInsets.all(DEF_VP),
+                padding: EdgeInsets.all(context.sizing.verticalPadding),
                 decoration: BoxDecoration(
                   border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
-                  borderRadius: BorderRadius.circular(P),
+                  borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
                 ),
                 child: const BaseText('Usage: MTNetworkImage(url)\n'
                     'Loads images from network URLs\n'

@@ -19,30 +19,30 @@ class TypographyDemo extends StatelessWidget {
         MTListText.small('SmallText'),
         MTListText.numbers('NumbersText: 123,456.78'),
         MTListText.link('LinkText'),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
 
         // Section: Text Colors
         MTListText.h3('Text Colors'),
-        const SizedBox(height: DEF_VP),
-        const MTListTile(
+        SizedBox(height: context.sizing.verticalPadding),
+        MTListTile(
           middle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BaseText('F1 - Default'),
-              SizedBox(height: P),
+              SizedBox(height: context.sizing.smallSpacing),
               BaseText.f2('F2 - Secondary'),
-              SizedBox(height: P),
+              SizedBox(height: context.sizing.smallSpacing),
               BaseText.f3('F3 - Tertiary'),
             ],
           ),
         ),
-        const SizedBox(height: DEF_HP),
+        SizedBox(height: context.sizing.horizontalPadding),
 
         // Section: Color Palette
         MTListText.h3('Color Palette'),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         Padding(
-          padding: DEF_MARGIN,
+          padding: context.sizing.defaultMargin,
           child: _ColorPalette(),
         ),
       ],
@@ -64,13 +64,13 @@ class _ColorPalette extends StatelessWidget {
           _ColorBox('B2', c.b2Color),
           _ColorBox('B3', c.b3Color),
         ]),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         _ColorSection('Foreground', [
           _ColorBox('F1', c.f1Color),
           _ColorBox('F2', c.f2Color),
           _ColorBox('F3', c.f3Color),
         ]),
-        const SizedBox(height: DEF_VP),
+        SizedBox(height: context.sizing.verticalPadding),
         _ColorSection('Accent', [
           _ColorBox('Main', c.mainColor),
           _ColorBox('Danger', c.dangerColor),
@@ -94,10 +94,10 @@ class _ColorSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BaseText.medium(title),
-        const SizedBox(height: P),
+        SizedBox(height: context.sizing.smallSpacing),
         Wrap(
-          spacing: P,
-          runSpacing: P,
+          spacing: context.sizing.smallSpacing,
+          runSpacing: context.sizing.smallSpacing,
           children: colors,
         ),
       ],
@@ -120,11 +120,11 @@ class _ColorBox extends StatelessWidget {
           height: 50,
           decoration: BoxDecoration(
             color: color.resolve(context),
-            borderRadius: BorderRadius.circular(P),
+            borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
             border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
           ),
         ),
-        const SizedBox(height: P_2),
+        SizedBox(height: context.sizing.borderWidth),
         SmallText(label),
       ],
     );

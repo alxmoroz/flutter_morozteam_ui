@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../config/ui_theme.dart';
-import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import '../utils/gesture.dart';
@@ -70,12 +69,12 @@ class MTListTile extends StatelessWidget with GestureManaging {
   final BoxDecoration? decoration;
   final double? leadingSpacing;
 
-  Widget get _divider => MTDivider(
-        indent: dividerIndent ?? padding?.left ?? DEF_HP,
-        endIndent: dividerEndIndent ?? padding?.right ?? DEF_HP,
+  Widget _divider(BuildContext context) => MTDivider(
+        indent: dividerIndent ?? padding?.left ?? context.sizing.horizontalPadding,
+        endIndent: dividerEndIndent ?? padding?.right ?? context.sizing.horizontalPadding,
       );
 
-  EdgeInsets get _defaultPadding => EdgeInsets.symmetric(horizontal: DEF_HP, vertical: verticalPadding ?? DEF_VP);
+  EdgeInsets _defaultPadding(BuildContext context) => EdgeInsets.symmetric(horizontal: context.sizing.horizontalPadding, vertical: verticalPadding ?? context.sizing.verticalPadding);
 
   @override
   Widget build(BuildContext context) {
@@ -105,16 +104,16 @@ class MTListTile extends StatelessWidget with GestureManaging {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (topDivider) _divider,
+                  if (topDivider) _divider(context),
                   Padding(
-                    padding: padding ?? _defaultPadding,
+                    padding: padding ?? _defaultPadding(context),
                     child: Row(
                       crossAxisAlignment: crossAxisAlignment,
                       children: [
-                        SizedBox(height: minHeight ?? DEF_TAPPABLE_ICON_SIZE),
+                        SizedBox(height: minHeight ?? context.sizing.effectiveTappableIconSize),
                         if (leading != null) ...[
                           leading!,
-                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? DEF_VP)
+                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? context.sizing.verticalPadding)
                         ],
                         Expanded(
                           child: Column(
@@ -129,7 +128,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                                       align: titleTextAlign,
                                     ),
                               if (hasSubtitle) ...[
-                                if (hasMiddle) const SizedBox(height: DEF_VP / 2),
+                                if (hasMiddle) SizedBox(height: context.sizing.verticalPadding / 2),
                                 subtitle!,
                               ],
                             ],
@@ -139,7 +138,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                       ],
                     ),
                   ),
-                  if (bottomDivider) _divider,
+                  if (bottomDivider) _divider(context),
                 ],
               ),
             ),
@@ -168,9 +167,9 @@ class MTSectionTitle extends MTListTile {
     super.onTap,
   }) : super(
           titleText: text,
-          verticalPadding: verticalPadding ?? DEF_VP / 2,
-          topMargin: topMargin ?? DEF_VP / 2,
-          leadingSpacing: leadingSpacing ?? P,
+          verticalPadding: verticalPadding ?? 6.0,  // DEF_VP / 2
+          topMargin: topMargin ?? 6.0,  // DEF_VP / 2
+          leadingSpacing: leadingSpacing ?? 8.0,  // P
           minHeight: minHeight ?? 0,
         );
 }
@@ -302,9 +301,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? DEF_VP / 2,
+          topMargin: topMargin ?? 6.0,  // DEF_VP / 2
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? P,
+          leadingSpacing: leadingSpacing ?? 8.0,  // P
           minHeight: minHeight ?? 0,
         );
 
@@ -328,9 +327,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? DEF_VP / 2,
+          topMargin: topMargin ?? 6.0,  // DEF_VP / 2
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? P,
+          leadingSpacing: leadingSpacing ?? 8.0,  // P
           minHeight: minHeight ?? 0,
         );
 
@@ -354,9 +353,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? DEF_VP / 2,
+          topMargin: topMargin ?? 6.0,  // DEF_VP / 2
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? P,
+          leadingSpacing: leadingSpacing ?? 8.0,  // P
           minHeight: minHeight ?? 0,
         );
 }
