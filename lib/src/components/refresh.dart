@@ -19,6 +19,7 @@ class MTRefresh extends StatelessWidget with GestureManaging {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      color: context.colorScheme.mainColor,
       onRefresh: () => tapAction(true, onRefresh, fbType: FeedbackType.light),
       edgeOffset: MediaQuery.of(context).padding.top,
       displacement: context.sizing.vPadding,

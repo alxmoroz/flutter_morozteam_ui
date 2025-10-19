@@ -1,7 +1,5 @@
 // Copyright (c) 2025. Alexandr Moroz
 
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 
 import '../config/mt_theme.dart';
@@ -37,31 +35,33 @@ class MTProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, size) {
-        final w = max(value * size.maxWidth, size.maxHeight);
+    final height = context.sizing.smallSpacing; // Default progress bar height
 
-        return Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Positioned(
-              top: 0,
-              bottom: 0,
-              width: w,
-              child: Container(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final w = value * constraints.maxWidth;
+
+        return SizedBox(
+          height: height,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                height: height,
+                width: w,
                 decoration: BoxDecoration(
                   color: (color ?? context.colorScheme.mainColor).resolve(context),
-                  borderRadius: BorderRadius.circular(size.maxHeight / 2),
+                  borderRadius: BorderRadius.circular(height / 2),
                 ),
               ),
-            ),
-            if (mark != null)
-              Positioned(
-                left: w - (mark!.size?.width ?? 0) / 2,
-                top: (mark!.size?.height ?? 0) - (borderWidth ?? 0),
-                child: mark!.child,
-              ),
-          ],
+              if (mark != null)
+                Positioned(
+                  left: w - (mark!.size?.width ?? 0) / 2,
+                  top: -(mark!.size?.height ?? 0) + (borderWidth ?? 0),
+                  child: mark!.child,
+                ),
+            ],
+          ),
         );
       },
     );

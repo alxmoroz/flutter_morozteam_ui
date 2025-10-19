@@ -62,22 +62,21 @@ class MTPhoneField extends StatelessWidget {
     showMTDialog(
       MTDialog(
         topBar: const MTTopBar(pageTitle: 'Select Country'),
-        body: ListView.builder(
-          shrinkWrap: true,
-          itemCount: countries.length,
-          itemBuilder: (_, index) {
-            final country = countries[index];
-            return MTListTile(
-              color: context.colorScheme.b3Color,
-              leading: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
-              middle: BaseText('${country.name} ', maxLines: 1),
-              trailing: BaseText.f2('+${country.code}', maxLines: 1),
-              onTap: () {
-                Navigator.of(context).pop();
-                onChangeCountry(country);
-              },
-            );
-          },
+        body: SingleChildScrollView(
+          child: Column(
+            children: countries.map((country) {
+              return MTListTile(
+                color: context.colorScheme.b3Color,
+                leading: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
+                middle: BaseText('${country.name} ', maxLines: 1),
+                trailing: BaseText.f2('+${country.code}', maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  onChangeCountry(country);
+                },
+              );
+            }).toList(),
+          ),
         ),
       ),
       context: context,

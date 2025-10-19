@@ -3,78 +3,56 @@
 import 'package:flutter/cupertino.dart';
 import 'package:morozteam_ui/morozteam_ui.dart';
 
-class PageDemo extends StatefulWidget {
+class PageDemo extends StatelessWidget {
   const PageDemo({super.key});
 
   @override
-  State<PageDemo> createState() => _PageDemoState();
-}
-
-class _PageDemoState extends State<PageDemo> {
-  int _selectedTab = 0;
-
-  final List<String> _tabTitles = const [
-    'Home',
-    'Profile',
-    'Settings',
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return MTPage(
-      navBar: MTNavBar(
-        pageTitle: _tabTitles[_selectedTab],
-        trailing: MTButton.icon(
-          const SettingsIcon(),
-          onTap: () => _showSettings(context),
-        ),
-      ),
-      body: _buildBody(),
-      bottomBar: MTBottomBar(
-        middle: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(_tabTitles.length, (index) {
-            final isSelected = index == _selectedTab;
-            return Expanded(
-              child: MTButton.icon(
-                Icon(_getIconForTab(index)),
-                color: isSelected ? context.colorScheme.mainColor : context.colorScheme.f3Color,
-                onTap: () => setState(() => _selectedTab = index),
-              ),
-            );
-          }),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBody() {
-    switch (_selectedTab) {
-      case 0:
-        return _buildHomeTab();
-      case 1:
-        return _buildProfileTab();
-      case 2:
-        return _buildSettingsTab();
-      default:
-        return _buildHomeTab();
-    }
-  }
-
-  Widget _buildHomeTab() {
     return ListView(
       children: [
-        MTListText.h2('MTPage Demo'),
+        MTListText.h2('MTPage Component'),
         SizedBox(height: context.sizing.vPadding),
-        const MTListText('This demonstrates the MTPage component with:'),
+        const MTListText('The MTPage component you\'re currently viewing includes:'),
         SizedBox(height: context.sizing.vPadding),
-        const MTListText('• MTNavBar with title and action buttons'),
+        const MTListText('• MTNavBar with title and actions'),
         const MTListText('• MTBottomBar with tab navigation'),
-        const MTListText('• Responsive body content'),
-        const MTListText('• Proper scrolling and shadows'),
+        const MTListText('• Scrollable body with shadow effects'),
+        const MTListText('• Safe area and keyboard handling'),
+        const MTListText('• Responsive breakpoints'),
+        const MTListText('• Background wrapper'),
         SizedBox(height: context.sizing.hPadding),
-
-        MTListText.h3('Navigation Bar Features'),
+        MTListText.h3('Example Usage'),
+        SizedBox(height: context.sizing.vPadding),
+        MTCard(
+          margin: context.sizing.defMargin,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const MTListText('Basic MTPage structure:'),
+              SizedBox(height: context.sizing.vPadding),
+              Container(
+                padding: EdgeInsets.all(context.sizing.vPadding),
+                decoration: BoxDecoration(
+                  color: context.colorScheme.b3Color.resolve(context),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text(
+                  '''MTPage(
+  navBar: MTNavBar(pageTitle: 'Demo'),
+  body: YourContent(),
+  bottomBar: MTBottomBar(...),
+)''',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+        MTListText.h3('Features'),
         SizedBox(height: context.sizing.vPadding),
         MTCard(
           margin: context.sizing.defMargin,
@@ -90,10 +68,7 @@ class _PageDemoState extends State<PageDemo> {
             ],
           ),
         ),
-
         SizedBox(height: context.sizing.hPadding),
-        MTListText.h3('Bottom Bar Features'),
-        SizedBox(height: context.sizing.vPadding),
         MTCard(
           margin: context.sizing.defMargin,
           child: Column(
@@ -108,10 +83,7 @@ class _PageDemoState extends State<PageDemo> {
             ],
           ),
         ),
-
         SizedBox(height: context.sizing.hPadding),
-        MTListText.h3('Page Layout'),
-        SizedBox(height: context.sizing.vPadding),
         MTCard(
           margin: context.sizing.defMargin,
           child: Column(
@@ -127,150 +99,7 @@ class _PageDemoState extends State<PageDemo> {
             ],
           ),
         ),
-
-        // Add some content to demonstrate scrolling
-        SizedBox(height: context.sizing.hPadding),
-        MTListText.h3('Scroll Demo'),
-        SizedBox(height: context.sizing.vPadding),
-        ...List.generate(
-          10,
-          (index) => MTCard(
-            margin: context.sizing.defMargin,
-            child: MTListText('Scroll item ${index + 1}'),
-          ),
-        ),
       ],
-    );
-  }
-
-  Widget _buildProfileTab() {
-    return ListView(
-      children: [
-        MTListText.h2('Profile Tab'),
-        SizedBox(height: context.sizing.vPadding),
-        const MTListText('This is the Profile tab content.'),
-        SizedBox(height: context.sizing.hPadding),
-        MTCard(
-          margin: context.sizing.defMargin,
-          child: Column(
-            children: [
-              const MTAvatar(60, initials: 'JD'),
-              SizedBox(height: context.sizing.vPadding),
-              const MTListText('John Doe'),
-              const BaseText.f2('john.doe@example.com'),
-            ],
-          ),
-        ),
-        SizedBox(height: context.sizing.hPadding),
-        MTListText.h3('Profile Actions'),
-        SizedBox(height: context.sizing.vPadding),
-        MTButton.main(
-          titleText: 'Edit Profile',
-          onTap: () => _showMessage(context, 'Edit Profile tapped'),
-          margin: context.sizing.defMargin,
-        ),
-        MTButton.secondary(
-          titleText: 'Change Password',
-          onTap: () => _showMessage(context, 'Change Password tapped'),
-          margin: context.sizing.defMargin,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSettingsTab() {
-    return ListView(
-      children: [
-        MTListText.h2('Settings Tab'),
-        SizedBox(height: context.sizing.vPadding),
-        const MTListText('This is the Settings tab content.'),
-        SizedBox(height: context.sizing.hPadding),
-        MTCard(
-          margin: context.sizing.defMargin,
-          child: Column(
-            children: [
-              MTListTile(
-                leading: const SettingsIcon(),
-                titleText: 'General Settings',
-                trailing: const ChevronRightIcon(),
-                onTap: () => _showMessage(context, 'General Settings tapped'),
-              ),
-              MTListTile(
-                leading: const InfoIcon(),
-                titleText: 'About',
-                trailing: const ChevronRightIcon(),
-                bottomDivider: true,
-                onTap: () => _showMessage(context, 'About tapped'),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: context.sizing.hPadding),
-        MTListText.h3('Appearance'),
-        SizedBox(height: context.sizing.vPadding),
-        MTCard(
-          margin: context.sizing.defMargin,
-          child: Column(
-            children: [
-              MTListTile(
-                leading: const MTCircle(color: CupertinoColors.systemBlue, size: 20),
-                titleText: 'Theme',
-                trailing: const ChevronRightIcon(),
-                onTap: () => _showMessage(context, 'Theme tapped'),
-              ),
-              MTListTile(
-                leading: const MTCircle(color: CupertinoColors.systemGreen, size: 20),
-                titleText: 'Language',
-                trailing: const ChevronRightIcon(),
-                bottomDivider: true,
-                onTap: () => _showMessage(context, 'Language tapped'),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  IconData _getIconForTab(int index) {
-    switch (index) {
-      case 0:
-        return CupertinoIcons.home;
-      case 1:
-        return CupertinoIcons.person;
-      case 2:
-        return CupertinoIcons.settings;
-      default:
-        return CupertinoIcons.home;
-    }
-  }
-
-  void _showSettings(BuildContext context) {
-    showMTDialog(
-      MTCard(
-        padding: EdgeInsets.all(context.sizing.hPadding),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MTListText.h3('Quick Settings'),
-            SizedBox(height: context.sizing.vPadding),
-            const MTListText('This is a quick settings dialog.'),
-            SizedBox(height: context.sizing.hPadding),
-            MTButton.main(
-              titleText: 'Close',
-              onTap: () => Navigator.of(context).pop(),
-            ),
-          ],
-        ),
-      ),
-      context: context,
-    );
-  }
-
-  void _showMessage(BuildContext context, String message) {
-    showMTSnackbar(
-      message,
-      context: context,
     );
   }
 }

@@ -4,15 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:morozteam_ui/morozteam_ui.dart';
 
+import 'screens/basics_demo.dart';
 import 'screens/buttons_demo.dart';
-import 'screens/components_demo.dart';
+import 'screens/dialogs_demo.dart';
 import 'screens/forms_demo.dart';
-import 'screens/icons_demo.dart';
 import 'screens/layout_demo.dart';
-import 'screens/more_components_demo.dart';
-import 'screens/new_components_demo.dart';
 import 'screens/page_demo.dart';
-import 'screens/typography_demo.dart';
 // ==================== CONFIG ====================
 
 // Using default configuration
@@ -53,27 +50,21 @@ class _DemoHomePageState extends State<DemoHomePage> {
   final _scrollController = ScrollController();
 
   final List<Widget> _pages = [
-    const ButtonsDemo(),
-    const TypographyDemo(),
-    const FormsDemo(),
-    const ComponentsDemo(),
-    const IconsDemo(),
-    const LayoutDemo(),
-    const PageDemo(),
-    const NewComponentsDemo(),
-    const MoreComponentsDemo(),
+    const BasicsDemo(), // Typography, Colors, Icons
+    const ButtonsDemo(), // All buttons
+    const FormsDemo(), // All form components
+    const LayoutDemo(), // Layout components
+    const DialogsDemo(), // Dialogs & overlays
+    const PageDemo(), // Page structure info
   ];
 
   final List<String> _tabTitles = const [
+    'Basics',
     'Buttons',
-    'Typography',
     'Forms',
-    'Components',
-    'Icons',
     'Layout',
+    'Dialogs',
     'Page',
-    'Media',
-    'More',
   ];
 
   @override
@@ -112,23 +103,17 @@ class _DemoHomePageState extends State<DemoHomePage> {
   IconData _getIconForTab(int index) {
     switch (index) {
       case 0:
-        return CupertinoIcons.square_grid_2x2;
+        return CupertinoIcons.textformat; // Basics
       case 1:
-        return CupertinoIcons.textformat;
+        return CupertinoIcons.square_grid_2x2; // Buttons
       case 2:
-        return CupertinoIcons.doc_text;
+        return CupertinoIcons.doc_text; // Forms
       case 3:
-        return CupertinoIcons.cube_box;
+        return CupertinoIcons.cube_box; // Layout
       case 4:
-        return CupertinoIcons.rectangle_3_offgrid;
+        return CupertinoIcons.chat_bubble; // Dialogs
       case 5:
-        return CupertinoIcons.star;
-      case 6:
-        return CupertinoIcons.doc_on_doc;
-      case 7:
-        return CupertinoIcons.square;
-      case 8:
-        return CupertinoIcons.ellipsis_circle;
+        return CupertinoIcons.doc_on_doc; // Page
       default:
         return CupertinoIcons.square;
     }

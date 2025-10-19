@@ -1,20 +1,67 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:morozteam_ui/morozteam_ui.dart';
 
-class IconsDemo extends StatelessWidget {
-  const IconsDemo({super.key});
+class BasicsDemo extends StatelessWidget {
+  const BasicsDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        // Typography Section
+        MTListText.h2('Typography'),
+        SizedBox(height: context.sizing.vPadding),
+        MTListText.h1('H1 - Heading 1'),
+        MTListText.h2('H2 - Heading 2'),
+        MTListText.h3('H3 - Heading 3'),
+        MTListText.h4('H4 - Heading 4'),
+        const MTListText('BaseText - Regular'),
+        MTListText.medium('BaseText.medium — Medium'),
+        MTListText.small('SmallText - Small text'),
+        MTListText.numbers('NumbersText: 123,456.78'),
+        MTListText.link('LinkText - Link'),
+        SizedBox(height: context.sizing.hPadding),
+
+        // Text Colors Section
+        MTListText.h3('Text Colors'),
+        MTCard(
+          margin: context.sizing.defMargin,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const MTListText('F1 - Default'),
+              SizedBox(height: context.sizing.smallSpacing),
+              MTListText('F2 - Secondary', titleTextColor: context.colorScheme.f2Color),
+              SizedBox(height: context.sizing.smallSpacing),
+              MTListText('F3 - Tertiary', titleTextColor: context.colorScheme.f3Color),
+              SizedBox(height: context.sizing.smallSpacing),
+            ],
+          ),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
+        // Color Palette Section
+        MTListText.h3('Color Palette'),
+        MTCard(
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
+          child: _ColorPalette(),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
+        // Icons Section
+        MTListText.h2('Icons'),
+        SizedBox(height: context.sizing.vPadding),
+
         // MTIcon Components
         MTListText.h3('MTIcon Components'),
-        SizedBox(height: context.sizing.vPadding),
-        MTListTile(
-          middle: Wrap(
+        MTCard(
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
+          child: Wrap(
             spacing: context.sizing.vPadding,
             runSpacing: context.sizing.vPadding,
             children: const [
@@ -41,12 +88,14 @@ class IconsDemo extends StatelessWidget {
 
         // MTSvgIcon
         MTListText.h3('MTSvgIcon'),
-        SizedBox(height: context.sizing.vPadding),
-        const MTListText('SVG icons from assets/icons/ directory'),
-        SizedBox(height: context.sizing.vPadding),
-        MTListTile(
-          middle: Column(
+        MTCard(
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const BaseText('SVG icons from assets/icons/ directory'),
+              SizedBox(height: context.sizing.vPadding),
               Wrap(
                 spacing: context.sizing.vPadding,
                 runSpacing: context.sizing.vPadding,
@@ -78,12 +127,14 @@ class IconsDemo extends StatelessWidget {
 
         // MTSvgImage
         MTListText.h3('MTSvgImage'),
-        SizedBox(height: context.sizing.vPadding),
-        const MTListText('SVG images from assets/images/ directory'),
-        SizedBox(height: context.sizing.vPadding),
-        MTListTile(
-          middle: Column(
+        MTCard(
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const BaseText('SVG images from assets/images/ directory'),
+              SizedBox(height: context.sizing.vPadding),
               Wrap(
                 spacing: context.sizing.vPadding,
                 runSpacing: context.sizing.vPadding,
@@ -115,12 +166,14 @@ class IconsDemo extends StatelessWidget {
 
         // MTImage
         MTListText.h3('MTImage'),
-        SizedBox(height: context.sizing.vPadding),
-        const MTListText('Images from assets/ directory'),
-        SizedBox(height: context.sizing.vPadding),
-        MTListTile(
-          middle: Column(
+        MTCard(
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const BaseText('Images from assets/ directory'),
+              SizedBox(height: context.sizing.vPadding),
               const Center(
                 child: MTImage('no_info', height: 80, width: 80),
               ),
@@ -146,12 +199,14 @@ class IconsDemo extends StatelessWidget {
 
         // MTNetworkImage
         MTListText.h3('MTNetworkImage'),
-        SizedBox(height: context.sizing.vPadding),
-        const MTListText('Network images with fallback support'),
-        SizedBox(height: context.sizing.vPadding),
-        MTListTile(
-          middle: Column(
+        MTCard(
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const BaseText('Network images with fallback support'),
+              SizedBox(height: context.sizing.vPadding),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -193,6 +248,87 @@ class IconsDemo extends StatelessWidget {
             ],
           ),
         ),
+      ],
+    );
+  }
+}
+
+class _ColorPalette extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _ColorSection('Background', [
+          _ColorBox('B0', c.b0Color),
+          _ColorBox('B1', c.b1Color),
+          _ColorBox('B2', c.b2Color),
+          _ColorBox('B3', c.b3Color),
+        ]),
+        SizedBox(height: context.sizing.vPadding),
+        _ColorSection('Foreground', [
+          _ColorBox('F1', c.f1Color),
+          _ColorBox('F2', c.f2Color),
+          _ColorBox('F3', c.f3Color),
+        ]),
+        SizedBox(height: context.sizing.vPadding),
+        _ColorSection('Accent', [
+          _ColorBox('Main', c.mainColor),
+          _ColorBox('Danger', c.dangerColor),
+          _ColorBox('Safe', c.safeColor),
+          _ColorBox('Warning', c.warningColor),
+        ]),
+      ],
+    );
+  }
+}
+
+class _ColorSection extends StatelessWidget {
+  const _ColorSection(this.title, this.colors);
+
+  final String title;
+  final List<_ColorBox> colors;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BaseText.medium(title),
+        SizedBox(height: context.sizing.smallSpacing),
+        Wrap(
+          spacing: context.sizing.smallSpacing,
+          runSpacing: context.sizing.smallSpacing,
+          children: colors,
+        ),
+      ],
+    );
+  }
+}
+
+class _ColorBox extends StatelessWidget {
+  const _ColorBox(this.label, this.color);
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: color.resolve(context),
+            borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
+            border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
+          ),
+        ),
+        SizedBox(height: context.sizing.borderWidth),
+        SmallText(label),
       ],
     );
   }

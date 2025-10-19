@@ -270,11 +270,13 @@ class MTButton extends StatelessWidget with GestureManaging {
         if (leading != null) ...[leading!, SizedBox(width: context.sizing.vPadding)],
         middle ??
             (titleText != null
-                ? BaseText.medium(
-                    titleText!,
-                    align: titleTextAlign,
-                    color: _titleColor(context),
-                    maxLines: 1,
+                ? Flexible(
+                    child: BaseText.medium(
+                      titleText!,
+                      align: titleTextAlign,
+                      color: _titleColor(context),
+                      maxLines: 1,
+                    ),
                   )
                 : const SizedBox()),
         if (trailing != null) ...[SizedBox(width: context.sizing.smallSpacing), trailing!],
