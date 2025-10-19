@@ -54,55 +54,28 @@ class _DialogsDemoState extends State<DialogsDemo> {
         ),
         SizedBox(height: context.sizing.hPadding),
 
-        // MTLoader
-        MTListText.h3('MTLoader'),
-        MTButton.secondary(
-          titleText: 'Show Loader',
-          margin: context.sizing.defMargin,
-          onTap: () {
-            final navigator = Navigator.of(context);
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => const MTLoader(),
-            );
-            // Auto hide after 2 seconds
-            Future.delayed(const Duration(seconds: 2), () {
-              if (mounted) {
-                navigator.pop();
-              }
-            });
-          },
-        ),
-        SizedBox(height: context.sizing.hPadding),
-
-        // MTRefresh
+        /// MTRefresh
         MTListText.h3('MTRefresh'),
         MTCard(
           margin: context.sizing.defMargin,
-          child: Column(
-            children: [
-              const MTListText('Pull to refresh example'),
-              SizedBox(height: context.sizing.vPadding),
-              SizedBox(
-                height: 200,
-                child: MTRefresh(
-                  onRefresh: () async {
-                    // Simulate network delay
-                    await Future.delayed(const Duration(seconds: 2));
-                  },
-                  child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return MTListTile(
-                        titleText: 'Refresh Item ${index + 1}',
-                        middle: MText.small('Pull down to refresh this list'),
-                      );
-                    },
-                  ),
-                ),
+          child: SizedBox(
+            height: 200,
+            child: MTRefresh(
+              onRefresh: () async {
+                // Simulate network delay
+                await Future.delayed(const Duration(seconds: 2));
+              },
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (_, index) {
+                  return MTListTile(
+                    titleText: 'Refresh Item ${index + 1}',
+                    verticalPadding: 4,
+                    middle: MText.small('Pull down to refresh this list'),
+                  );
+                },
               ),
-            ],
+            ),
           ),
         ),
       ],

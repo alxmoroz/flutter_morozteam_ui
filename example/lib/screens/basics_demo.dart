@@ -20,11 +20,12 @@ class BasicsDemo extends StatelessWidget {
         MTListText.h4('H4 - Heading 4'),
         const MTListText('MText - Regular'),
         MTListText.medium('MText.medium — Medium'),
+        MTListText('MText.f2 - Secondary text color', titleTextColor: context.colorScheme.f2Color),
+        MTListText('MText.f3 - Tertiary text color', titleTextColor: context.colorScheme.f3Color),
         MTListText.small('MText.small - Small text'),
         MTListText.numbers('MText.numbers: 123,456.78'),
         MTListText.link('MText.link - Link'),
-        MTListTile(middle: MText.f2('MText.f2 - Secondary text color')),
-        MTListTile(middle: MText.f3('MText.f3 - Tertiary text color')),
+
         SizedBox(height: context.sizing.hPadding),
 
         // Color Palette Section

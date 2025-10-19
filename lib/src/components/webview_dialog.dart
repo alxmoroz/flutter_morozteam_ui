@@ -28,9 +28,10 @@ class MTWebViewDialog extends StatelessWidget {
     String? filePath,
     String? js,
     bool Function(String)? onUrlExit,
-    Color bgColor = Colors.transparent,
+    Color? bgColor,
     bool safeArea = true,
   }) async {
+    final color = (bgColor ?? context.colorScheme.barColor).resolve(context);
     assert(uri != null || filePath != null);
 
     final controller = WebViewController()
@@ -40,7 +41,7 @@ class MTWebViewDialog extends StatelessWidget {
       })
       ..clearCache()
       ..clearLocalStorage()
-      ..setBackgroundColor(bgColor.resolve(context));
+      ..setBackgroundColor(color);
 
     if (uri != null) {
       controller.loadRequest(uri);
@@ -67,7 +68,7 @@ class MTWebViewDialog extends StatelessWidget {
     }
 
     return await showMTDialog<Uri?>(
-      MTWebViewDialog._(controller, bgColor: bgColor, safeArea: safeArea),
+      MTWebViewDialog._(controller, bgColor: color, safeArea: safeArea),
       context: context,
     );
   }

@@ -129,10 +129,7 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
           MTListText.h3('Live Preview'),
           SizedBox(height: context.sizing.vPadding),
 
-          MTCard(
-            margin: context.sizing.defMargin,
-            child: _buildPreview(),
-          ),
+          _buildPreview(),
 
           SizedBox(height: context.sizing.hPadding),
 
@@ -142,16 +139,10 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
 
           MTCard(
             margin: context.sizing.defMargin,
-            child: Container(
-              padding: EdgeInsets.all(context.sizing.smallSpacing),
-              decoration: BoxDecoration(
-                color: context.colorScheme.b2Color.resolve(context),
-                borderRadius: BorderRadius.circular(context.sizing.smallSpacing),
-              ),
-              child: MText(
-                _generateCodeExample(),
-                maxLines: 20,
-              ),
+            padding: context.sizing.defPadding,
+            child: MText.small(
+              _generateCodeExample(),
+              maxLines: 30,
             ),
           ),
         ],
@@ -162,10 +153,11 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
   Widget _buildColorPicker(String label, Color color, ValueChanged<Color> onChanged) {
     return MTCard(
       margin: context.sizing.defMargin,
+      padding: context.sizing.defPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MTListText.h4(label),
+          MText.h4(label),
           SizedBox(height: context.sizing.vPadding),
           Row(
             children: [
@@ -205,18 +197,20 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
   ) {
     return MTCard(
       margin: context.sizing.defMargin,
+      padding: context.sizing.defPadding,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MTListText.h4(label),
+              MText.h4(label),
+              SizedBox(width: context.sizing.smallSpacing),
               MText(value.toStringAsFixed(1)),
             ],
           ),
           SizedBox(height: context.sizing.vPadding),
           Slider(
+            padding: EdgeInsets.zero,
             value: value,
             min: min,
             max: max,
@@ -253,12 +247,8 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
     return Theme(
       data: customTheme,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const MTListText('Preview with custom theme:'),
-          SizedBox(height: context.sizing.vPadding),
-
-          // Typography preview
           MText.h1('Heading 1'),
           MText.h2('Heading 2'),
           MText.h3('Heading 3'),
@@ -270,19 +260,19 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
           SizedBox(height: context.sizing.vPadding),
 
           // Button preview
-          Row(
-            children: [
-              MTButton.main(titleText: 'Main', onTap: () {}),
-              SizedBox(width: context.sizing.vPadding),
-              MTButton.secondary(titleText: 'Secondary', onTap: () {}),
-            ],
-          ),
-
+          MTButton.main(titleText: 'Main', onTap: () {}),
+          SizedBox(height: context.sizing.vPadding),
+          MTButton.secondary(titleText: 'Secondary', onTap: () {}),
+          SizedBox(height: context.sizing.vPadding),
+          MTButton.safe(titleText: 'Safe', onTap: () {}),
+          SizedBox(height: context.sizing.vPadding),
+          MTButton.danger(titleText: 'Danger', onTap: () {}),
           SizedBox(height: context.sizing.vPadding),
 
           // Card preview
-          const MTCard(
-            child: MText('Card with custom border radius'),
+          MTCard(
+            padding: context.sizing.defPadding,
+            child: MText.h4('Card with custom border radius', padding: EdgeInsets.symmetric(vertical: 40)),
           ),
         ],
       ),

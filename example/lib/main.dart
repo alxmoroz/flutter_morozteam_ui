@@ -11,7 +11,6 @@ import 'screens/dialogs_demo.dart';
 import 'screens/forms_demo.dart';
 import 'screens/layout_demo.dart';
 import 'screens/page_demo.dart';
-import 'screens/patterns_demo.dart';
 // ==================== CONFIG ====================
 
 // Using default configuration
@@ -59,7 +58,6 @@ class _DemoHomePageState extends State<DemoHomePage> {
     const DialogsDemo(), // Dialogs & overlays
     const PageDemo(), // Page structure info
     const CustomizationDemo(), // Live theme customization
-    const PatternsDemo(), // Common UI patterns
   ];
 
   final List<String> _tabTitles = const [
@@ -70,7 +68,6 @@ class _DemoHomePageState extends State<DemoHomePage> {
     'Dialogs',
     'Page',
     'Custom',
-    'Patterns',
   ];
 
   @override
@@ -82,7 +79,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: MTNavBar(pageTitle: _tabTitles[_selectedTab]),
+      navBar: MTNavBar(leading: SizedBox(), pageTitle: _tabTitles[_selectedTab]),
       scrollController: _scrollController,
       scrollOffsetTop: 50.0, // Shadow trigger threshold
       body: _pages[_selectedTab],
@@ -121,7 +118,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
       case 5:
         return CupertinoIcons.doc_on_doc; // Page
       default:
-        return CupertinoIcons.square;
+        return CupertinoIcons.settings;
     }
   }
 }

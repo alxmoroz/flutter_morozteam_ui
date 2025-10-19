@@ -42,10 +42,7 @@ class _ToolbarContent extends StatelessWidget {
         Stack(
           alignment: Alignment.center,
           children: [
-            if (middle != null)
-              middle!
-            else if (pageTitle != null)
-              PageTitle(pageTitle!, parentPageTitle: parentPageTitle),
+            if (middle != null) middle! else if (pageTitle != null) PageTitle(pageTitle!, parentPageTitle: parentPageTitle),
             Row(children: [
               if (leading != null) leading!,
               const Spacer(),
@@ -96,7 +93,6 @@ abstract class _MTAppBar extends StatelessWidget implements PreferredSizeWidget 
   final bool ignoreBottomInsets;
   final bool fullScreen;
   final MTToolbarController? toolbarController;
-
 
   @override
   Size get preferredSize => Size.fromHeight(toolbarController != null
@@ -184,6 +180,7 @@ class MTTopBar extends _MTAppBar {
 
 class MTNavBar extends MTTopBar {
   const MTNavBar({
+    super.leading,
     super.pageTitle,
     super.parentPageTitle,
     super.middle,

@@ -229,7 +229,7 @@ class LayoutDemo extends StatelessWidget {
         MTCard(
           margin: context.sizing.defMargin,
           child: SizedBox(
-            height: 300,
+            height: 200,
             child: MTScrollable(
               scrollController: ScrollController(),
               scrollOffsetTop: 50.0,
@@ -237,9 +237,9 @@ class LayoutDemo extends StatelessWidget {
                 if (kDebugMode) print('Scrolled: $scrolled');
               },
               child: ListView.builder(
-                itemCount: 50,
+                itemCount: 20,
                 itemBuilder: (context, index) {
-                  return MTListTile(titleText: 'Item $index');
+                  return MTListTile(titleText: 'Item $index', verticalPadding: 4);
                 },
               ),
             ),
@@ -247,45 +247,30 @@ class LayoutDemo extends StatelessWidget {
         ),
         SizedBox(height: context.sizing.hPadding),
 
-        // MTPageTitle standalone
+        /// MTPageTitle standalone
         MTListText.h3('MTPageTitle'),
         MTCard(
           margin: context.sizing.defMargin,
-          child: Column(
-            children: [
-              const PageTitle('Main Title', parentPageTitle: 'Parent'),
-              SizedBox(height: context.sizing.vPadding),
-              const PageTitle('Simple Title'),
-            ],
-          ),
+          padding: context.sizing.defPadding,
+          child: PageTitle('Main Title', parentPageTitle: 'Parent'),
+        ),
+        MTCard(
+          margin: context.sizing.defMargin,
+          padding: context.sizing.defPadding,
+          child: PageTitle('Simple Title'),
         ),
         SizedBox(height: context.sizing.hPadding),
 
-        // MTCloseDialogButton
+        /// MTCloseDialogButton
         MTListText.h3('MTCloseDialogButton'),
         MTCard(
           margin: context.sizing.defMargin,
-          child: Row(
-            children: [
-              const MTCloseDialogButton(),
-              SizedBox(width: context.sizing.vPadding),
-              const MTListText('Close button for dialogs'),
-            ],
-          ),
-        ),
-        SizedBox(height: context.sizing.hPadding),
-
-        // MTBackgroundWrapper
-        MTListText.h3('MTBackgroundWrapper'),
-        MTCard(
-          margin: context.sizing.defMargin,
-          child: const MTBackgroundWrapper(
-            SizedBox(
-              height: 100,
-              child: Center(
-                child: MText('Container with gradient background'),
-              ),
-            ),
+          child: MTTopBar(
+            leading: MTCloseDialogButton(onTap: () {}),
+            pageTitle: 'Close button for dialogs',
+            color: context.colorScheme.b3Color,
+            // SizedBox(width: context.sizing.vPadding),
+            // const MText(),
           ),
         ),
       ],
