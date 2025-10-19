@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../config/ui_theme.dart';
+import '../config/mt_theme.dart';
 import '../theme/resolved_color.dart';
 
 /// Widget with shadows from top and/or bottom

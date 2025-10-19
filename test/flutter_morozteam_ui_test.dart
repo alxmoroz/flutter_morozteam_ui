@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:morozteam_ui/morozteam_ui.dart';
 
 void main() {
-  test('UIColorScheme creates valid configuration', () {
-    const colorScheme = UIColorScheme(
+  test('MTColorScheme creates valid configuration', () {
+    const colorScheme = MTColorScheme(
       b0Color: Color(0xFF1A1A1A),
       b1Color: Color(0xFF2A2A2A),
       b2Color: Color(0xFF3A3A3A),

@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../config/ui_theme.dart';
+import '../config/mt_theme.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import '../utils/adaptive.dart';
@@ -219,8 +219,12 @@ class MTButton extends StatelessWidget with GestureManaging {
   }
 
   Size _minSize(BuildContext context) =>
-      minSize ?? (type.isText ? Size(0, context.sizing.hPadding) : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
-  double _radius(BuildContext context) => borderRadius ?? (type.isCard ? context.sizing.defBorderRadius : _minSize(context).height / 2);
+      minSize ??
+      (type.isText
+          ? Size(0, context.sizing.hPadding)
+          : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
+  double _radius(BuildContext context) =>
+      borderRadius ?? (type.isCard ? context.sizing.defBorderRadius : _minSize(context).height / 2);
 
   ButtonStyle _style(BuildContext context) {
     Color btnColor = (color ??
@@ -255,7 +259,8 @@ class MTButton extends StatelessWidget with GestureManaging {
     );
   }
 
-  Function()? get _onPressed => _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
+  Function()? get _onPressed =>
+      _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
 
   Widget _button(BuildContext context) {
     final child = Row(
@@ -265,13 +270,12 @@ class MTButton extends StatelessWidget with GestureManaging {
         if (leading != null) ...[leading!, SizedBox(width: context.sizing.vPadding)],
         middle ??
             (titleText != null
-                ? Flexible(
-                    child: BaseText.medium(
+                ? BaseText.medium(
                     titleText!,
                     align: titleTextAlign,
                     color: _titleColor(context),
                     maxLines: 1,
-                  ))
+                  )
                 : const SizedBox()),
         if (trailing != null) ...[SizedBox(width: context.sizing.smallSpacing), trailing!],
       ],

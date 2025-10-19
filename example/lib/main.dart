@@ -9,6 +9,7 @@ import 'screens/components_demo.dart';
 import 'screens/forms_demo.dart';
 import 'screens/icons_demo.dart';
 import 'screens/layout_demo.dart';
+import 'screens/more_components_demo.dart';
 import 'screens/new_components_demo.dart';
 import 'screens/page_demo.dart';
 import 'screens/typography_demo.dart';
@@ -25,17 +26,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UIThemeProvider(
-      sizing: const UISizing(
-        p: 4.0,
-      ),
-      child: MaterialApp(
-        title: 'MorozTeam UI Demo',
-        builder: (context, child) {
-          return child!;
-        },
-        home: const DemoHomePage(),
-      ),
+    return Builder(
+      builder: (context) {
+        return MaterialApp(
+          title: 'MorozTeam UI Demo',
+          theme: buildMTTheme(
+            context,
+            sizing: const MTSizing(p: 4.0),
+          ),
+          home: const DemoHomePage(),
+        );
+      },
     );
   }
 }
@@ -60,6 +61,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
     const LayoutDemo(),
     const PageDemo(),
     const NewComponentsDemo(),
+    const MoreComponentsDemo(),
   ];
 
   final List<String> _tabTitles = const [
@@ -71,6 +73,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
     'Layout',
     'Page',
     'Media',
+    'More',
   ];
 
   @override
@@ -124,6 +127,8 @@ class _DemoHomePageState extends State<DemoHomePage> {
         return CupertinoIcons.doc_on_doc;
       case 7:
         return CupertinoIcons.square;
+      case 8:
+        return CupertinoIcons.ellipsis_circle;
       default:
         return CupertinoIcons.square;
     }

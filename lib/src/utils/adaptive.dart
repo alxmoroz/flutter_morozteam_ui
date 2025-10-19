@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-import '../config/ui_theme.dart';
+import '../config/mt_theme.dart';
 
 /// Get screen size
 Size screenSize(BuildContext context) => MediaQuery.sizeOf(context);

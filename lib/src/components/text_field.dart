@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../config/ui_theme.dart';
+import '../config/mt_theme.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 

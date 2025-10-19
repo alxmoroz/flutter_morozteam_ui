@@ -2,8 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../config/ui_theme.dart';
-import '../config/ui_typography.dart';
+import '../config/mt_theme.dart';
+import '../config/mt_typography.dart';
 import 'resolved_color.dart';
 
 // Const color constants for use in const constructors
@@ -95,8 +95,8 @@ class BaseText extends StatelessWidget {
   final double? height;
   final TextDecoration? decoration;
 
-  /// Get UITypography from global state
-  UITypography _getTypography(BuildContext context) {
+  /// Get MTTypography from global state
+  MTTypography _getTypography(BuildContext context) {
     return context.typography;
   }
 

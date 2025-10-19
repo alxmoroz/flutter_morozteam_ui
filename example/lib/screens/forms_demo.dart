@@ -92,7 +92,6 @@ class _FormsDemoState extends State<FormsDemo> {
         ),
         SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTCheckBoxTile'),
-        SizedBox(height: context.sizing.vPadding),
         MTCard(
           margin: context.sizing.defMargin,
           child: Column(
@@ -115,7 +114,6 @@ class _FormsDemoState extends State<FormsDemo> {
         ),
         SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTDropdown'),
-        SizedBox(height: context.sizing.vPadding),
         MTDropdown<String>(
           label: 'Select option',
           value: _dropdown,
@@ -123,7 +121,6 @@ class _FormsDemoState extends State<FormsDemo> {
           onChanged: (value) => setState(() => _dropdown = value),
           margin: context.sizing.defMargin,
         ),
-        SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTField'),
         MTField(
           _demoFieldData,
@@ -131,7 +128,6 @@ class _FormsDemoState extends State<FormsDemo> {
           trailing: const EditIcon(),
           margin: context.sizing.defMargin,
         ),
-        SizedBox(height: context.sizing.vPadding),
         MTField(
           _demoFieldDataEmpty,
           trailing: const ChevronRightIcon(),
@@ -139,7 +135,6 @@ class _FormsDemoState extends State<FormsDemo> {
         ),
         SizedBox(height: context.sizing.hPadding),
         MTListText.h3('MTPhoneField'),
-        SizedBox(height: context.sizing.vPadding),
         MTPhoneField(
           controller: _phoneController,
           country: _selectedCountry,

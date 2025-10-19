@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../config/ui_theme.dart';
+import '../config/mt_theme.dart';
 import 'button.dart';
 import 'icons.dart';
 

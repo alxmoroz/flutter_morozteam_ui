@@ -2,14 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../config/ui_theme.dart';
-import '../theme/resolved_color.dart';
-import '../theme/text.dart';
-import 'button.dart';
-import 'icons.dart';
-import 'list_tile.dart';
-import 'text_field.dart';
+import 'package:morozteam_ui/morozteam_ui.dart';
 
 // Phone country data structure
 class PhoneCountry {
@@ -43,53 +36,6 @@ class PhoneCountry {
   }
 }
 
-class _PhoneCountrySelectorDialog extends StatelessWidget {
-  const _PhoneCountrySelectorDialog(
-    this._onChangeCountry,
-    this._countries,
-    this._title,
-  );
-
-  final Function(PhoneCountry) _onChangeCountry;
-  final List<PhoneCountry> _countries;
-  final String _title;
-
-  void _selectCountry(BuildContext context, PhoneCountry country) {
-    Navigator.of(context).pop();
-    _onChangeCountry(country);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(context.sizing.vPadding),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          H2(_title),
-          SizedBox(height: context.sizing.vPadding),
-          Flexible(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: _countries.length,
-              itemBuilder: (_, index) {
-                final country = _countries[index];
-                return MTListTile(
-                  color: context.colorScheme.b3Color,
-                  leading: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
-                  middle: BaseText('${country.name} ', maxLines: 1),
-                  trailing: BaseText.f2('+${country.code}', maxLines: 1),
-                  onTap: () => _selectCountry(context, country),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class MTPhoneField extends StatelessWidget {
   const MTPhoneField({
     required this.controller,
@@ -113,30 +59,40 @@ class MTPhoneField extends StatelessWidget {
   final String? selectorTitle;
 
   void _showCountrySelector(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: _PhoneCountrySelectorDialog(
-          onChangeCountry,
-          countries,
-          selectorTitle ?? 'Select Country',
+    showMTDialog(
+      MTDialog(
+        topBar: const MTTopBar(pageTitle: 'Select Country'),
+        body: ListView.builder(
+          shrinkWrap: true,
+          itemCount: countries.length,
+          itemBuilder: (_, index) {
+            final country = countries[index];
+            return MTListTile(
+              color: context.colorScheme.b3Color,
+              leading: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
+              middle: BaseText('${country.name} ', maxLines: 1),
+              trailing: BaseText.f2('+${country.code}', maxLines: 1),
+              onTap: () {
+                Navigator.of(context).pop();
+                onChangeCountry(country);
+              },
+            );
+          },
         ),
       ),
+      context: context,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: SizedBox(
-        width: context.sizing.effectiveTappableIconSize * 2,
-        child: MTButton(
-          type: MTButtonType.card,
-          middle: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
-          trailing: const ChevronDownIcon(),
-          padding: EdgeInsets.symmetric(horizontal: context.sizing.smallSpacing),
-          onTap: () => _showCountrySelector(context),
-        ),
+      leading: MTButton(
+        type: MTButtonType.card,
+        middle: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
+        trailing: const ChevronDownIcon(),
+        padding: EdgeInsets.symmetric(horizontal: context.sizing.smallSpacing),
+        onTap: () => _showCountrySelector(context),
       ),
       middle: MTTextField(
         controller: controller,

@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-/// Sizing configuration for UI Kit
-class UISizing {
-  const UISizing({
+/// Sizing configuration for MorozTeam UI Kit
+class MTSizing {
+  const MTSizing({
     this.p = 4.0,
     this.minButtonHeight = 48.0,
     this.defBarHeight = 48.0,
@@ -25,7 +25,7 @@ class UISizing {
   final double cardElevation;
   final double buttonElevation;
 
-  // Публичные семантические геттеры
+  // Public semantic getters
   double get hPadding => p * 5; // 20px
   double get vPadding => p * 3; // 12px
   double get smallSpacing => p * 2; // 8px
@@ -52,7 +52,7 @@ class UISizing {
   double get buttonRadius => buttonBorderRadius ?? (minButtonHeight / 2);
 
   /// Create a copy of sizing configuration with modified parameters
-  UISizing copyWith({
+  MTSizing copyWith({
     double? baseSpacingUnit,
     double? minButtonHeight,
     double? defaultBarHeight,
@@ -62,7 +62,7 @@ class UISizing {
     double? cardElevation,
     double? buttonElevation,
   }) {
-    return UISizing(
+    return MTSizing(
       p: baseSpacingUnit ?? p,
       minButtonHeight: minButtonHeight ?? this.minButtonHeight,
       defBarHeight: defaultBarHeight ?? defBarHeight,
@@ -77,7 +77,7 @@ class UISizing {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is UISizing &&
+    return other is MTSizing &&
         other.p == p &&
         other.minButtonHeight == minButtonHeight &&
         other.defBarHeight == defBarHeight &&

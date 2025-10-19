@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../config/ui_theme.dart';
+import '../config/mt_theme.dart';
 import '../theme/text.dart';
 
 /// Page title

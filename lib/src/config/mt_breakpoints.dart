@@ -1,8 +1,8 @@
 // Copyright (c) 2025. Alexandr Moroz
 
-/// Breakpoints configuration for UI Kit
-class UIBreakpoints {
-  const UIBreakpoints({
+/// Breakpoints configuration for MorozTeam UI Kit
+class MTBreakpoints {
+  const MTBreakpoints({
     this.xxsWidth = 290.0,
     this.xsWidth = 364.0,
     this.xsHeight = 480.0,
@@ -28,7 +28,7 @@ class UIBreakpoints {
   final double xxlWidth;
 
   /// Create a copy of breakpoints configuration with modified parameters
-  UIBreakpoints copyWith({
+  MTBreakpoints copyWith({
     double? xxsWidth,
     double? xsWidth,
     double? xsHeight,
@@ -40,7 +40,7 @@ class UIBreakpoints {
     double? xlWidth,
     double? xxlWidth,
   }) {
-    return UIBreakpoints(
+    return MTBreakpoints(
       xxsWidth: xxsWidth ?? this.xxsWidth,
       xsWidth: xsWidth ?? this.xsWidth,
       xsHeight: xsHeight ?? this.xsHeight,
@@ -57,7 +57,7 @@ class UIBreakpoints {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is UIBreakpoints &&
+    return other is MTBreakpoints &&
         other.xxsWidth == xxsWidth &&
         other.xsWidth == xsWidth &&
         other.xsHeight == xsHeight &&

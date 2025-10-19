@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 
-/// Typography configuration for UI Kit
-class UITypography {
-  const UITypography({
+/// Typography configuration for MorozTeam UI Kit
+class MTTypography {
+  const MTTypography({
     this.baseFontSize = 16.0,
     this.fontFamily = 'Roboto',
     this.fontFamilyNumbers = 'Montserrat',
@@ -16,7 +16,7 @@ class UITypography {
     this.h2FontSize = 25.0,
     this.h2FontWeight = FontWeight.w400,
     this.h3FontSize = 21.0,
-    this.h3FontWeight = FontWeight.w400,
+    this.h3FontWeight = FontWeight.w500,
     this.h4FontSize = 18.0,
     this.h4FontWeight = FontWeight.w500,
 
@@ -66,7 +66,7 @@ class UITypography {
   final FontWeight numbersFontWeight;
 
   /// Create a copy of typography configuration with modified parameters
-  UITypography copyWith({
+  MTTypography copyWith({
     double? baseFontSize,
     String? fontFamily,
     String? fontFamilyNumbers,
@@ -90,7 +90,7 @@ class UITypography {
     double? numbersFontSize,
     FontWeight? numbersFontWeight,
   }) {
-    return UITypography(
+    return MTTypography(
       baseFontSize: baseFontSize ?? this.baseFontSize,
       fontFamily: fontFamily ?? this.fontFamily,
       fontFamilyNumbers: fontFamilyNumbers ?? this.fontFamilyNumbers,
@@ -119,7 +119,7 @@ class UITypography {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is UITypography &&
+    return other is MTTypography &&
         other.baseFontSize == baseFontSize &&
         other.fontFamily == fontFamily &&
         other.fontFamilyNumbers == fontFamilyNumbers &&

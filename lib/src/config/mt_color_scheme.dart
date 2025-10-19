@@ -2,13 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 
-/// Color scheme for UI Kit with light/dark theme support
+/// Color scheme for MorozTeam UI Kit with light/dark theme support
 ///
 /// This class provides all colors used throughout the UI Kit.
 /// Colors are defined as CupertinoDynamicColor to support both light and dark themes.
-/// All colors can be overridden when creating a custom UIKitConfig.
-class UIColorScheme {
-  const UIColorScheme({
+/// All colors can be overridden when creating a custom theme configuration.
+class MTColorScheme {
+  const MTColorScheme({
     this.b0Color = const CupertinoDynamicColor.withBrightness(
       color: Color.fromARGB(255, 130, 140, 190),
       darkColor: Color.fromARGB(255, 2, 6, 24),
@@ -95,7 +95,7 @@ class UIColorScheme {
   final Color defaultBarrierColor;
 
   /// Create a copy of color scheme with modified parameters
-  UIColorScheme copyWith({
+  MTColorScheme copyWith({
     Color? b0Color,
     Color? b1Color,
     Color? b2Color,
@@ -112,7 +112,7 @@ class UIColorScheme {
     Color? navbarColor,
     Color? defaultBarrierColor,
   }) {
-    return UIColorScheme(
+    return MTColorScheme(
       b0Color: b0Color ?? this.b0Color,
       b1Color: b1Color ?? this.b1Color,
       b2Color: b2Color ?? this.b2Color,
@@ -134,7 +134,7 @@ class UIColorScheme {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is UIColorScheme &&
+    return other is MTColorScheme &&
         other.b0Color == b0Color &&
         other.b1Color == b1Color &&
         other.b2Color == b2Color &&

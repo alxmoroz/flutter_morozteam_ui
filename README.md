@@ -1,14 +1,15 @@
-# Flutter MorozTeam UI
+# MorozTeam UI Kit
 
 Universal Flutter UI Kit with flexible theme configuration for colors, typography, and spacing.
 
 ## Features
 
-- 🎨 **Flexible Theme System** - Customizable colors, typography, and spacing
-- 📱 **Adaptive Design** - Support for different screen sizes
-- 🎯 **Consistency** - Uniform components and styles
-- ⚡ **Performance** - Optimized widgets
-- 🔧 **Customization** - Easy configuration for any project
+- 🎨 **Flexible Theme System** - Customizable colors, typography, and spacing using Flutter's ThemeExtension
+- 📱 **Adaptive Design** - Support for different screen sizes and responsive layouts
+- 🎯 **Consistency** - Uniform components and styles across all MorozTeam projects
+- ⚡ **Performance** - Optimized widgets with efficient rendering
+- 🔧 **Customization** - Easy configuration for any project needs
+- 🌙 **Dark Mode** - Built-in support for light and dark themes
 
 ## Installation
 
@@ -18,7 +19,7 @@ Add to your `pubspec.yaml`:
 dependencies:
   morozteam_ui:
     git:
-      url: https://github.com/alxmoroz/flutter_morozteam_ui.git
+      url: https://github.com/MorozTeam/flutter_morozteam_ui.git
       ref: main
 ```
 
@@ -30,9 +31,9 @@ flutter pub get
 
 ## Quick Start
 
-### 1. Theme Setup
+### 1. Basic Setup
 
-Wrap your app with `UIThemeProvider`:
+Use `buildMTTheme()` with `Builder` to create theme for MaterialApp:
 
 ```dart
 import 'package:morozteam_ui/morozteam_ui.dart';
@@ -40,70 +41,105 @@ import 'package:morozteam_ui/morozteam_ui.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      home: UIThemeProvider(
-        config: myConfig,
-        child: MyHomePage(),
-      ),
+    return Builder(
+      builder: (context) {
+        return MaterialApp(
+          theme: buildMTTheme(context),
+          home: MyHomePage(),
+        );
+      },
     );
   }
 }
 ```
 
-### 2. Create Configuration
+### 2. Custom Theme Configuration
 
 ```dart
-const myConfig = UIKitConfig(
-  // Color scheme
-  colorScheme: UIColorScheme(
-    // Background colors
-    b0Color: Color(0xFF1A1A1A),
-    b1Color: Color(0xFF2A2A2A),
-    b2Color: Color(0xFF3A3A3A),
-    b3Color: Color(0xFFF5F5F5),
-    
-    // Text colors
-    f1Color: Color(0xFF1A1A1A),
-    f2Color: Color(0xFF666666),
-    f3Color: Color(0xFF999999),
-    
-    // Accent colors
-    mainColor: Color(0xFF007AFF),
-    dangerColor: Color(0xFFFF3B30),
-    safeColor: Color(0xFF34C759),
-  ),
-  
-  // Typography
-  fontFamily: 'SF Pro Text',
-  fontFamilyNumbers: 'SF Mono',
-  baseFontSize: 16.0,
-  
-  // Sizes
-  minButtonHeight: 48.0,
-  defaultBorderRadius: 12.0,
-);
+Builder(
+  builder: (context) {
+    return MaterialApp(
+      theme: buildMTTheme(
+        context,
+        colorScheme: MTColorScheme(
+          // Background colors (b0 - darkest, b3 - lightest)
+          b0Color: Color(0xFF1A1A1A),
+          b1Color: Color(0xFF2A2A2A),
+          b2Color: Color(0xFF3A3A3A),
+          b3Color: Color(0xFFF5F5F5),
+          
+          // Text colors (f1 - primary, f3 - lightest)
+          f1Color: Color(0xFF1A1A1A),
+          f2Color: Color(0xFF666666),
+          f3Color: Color(0xFF999999),
+          
+          // Accent colors
+          mainColor: Color(0xFF007AFF),
+          dangerColor: Color(0xFFFF3B30),
+          safeColor: Color(0xFF34C759),
+        ),
+        typography: MTTypography(
+          fontFamily: 'Roboto',
+          fontFamilyNumbers: 'Montserrat',
+          baseFontSize: 16.0,
+        ),
+        sizing: MTSizing(
+          p: 4.0, // Base spacing unit
+          minButtonHeight: 48.0,
+          defBorderRadius: 12.0,
+        ),
+      ),
+      home: MyHomePage(),
+    );
+  },
+)
 ```
 
-### 3. Customization Guide
+### 3. Project-Specific Configuration
 
-You can customize colors, typography, and spacing for your project:
+For existing MorozTeam projects, use project-specific fonts and colors:
 
 ```dart
-// Custom color scheme
-const customColorScheme = UIColorScheme(
-  mainColor: Color(0xFF6B46C1), // Purple theme
-  dangerColor: Color(0xFFDC2626),
-  safeColor: Color(0xFF059669),
-  // ... other colors
-);
+// For Avanplan project
+Builder(
+  builder: (context) {
+    return MaterialApp(
+      theme: buildMTTheme(
+        context,
+        typography: MTTypography(
+          fontFamily: 'RobotoAvanplan',
+          fontFamilyNumbers: 'MontserratAvanplan',
+          fontFamilyDecorative: 'ComfortaaAvanplan',
+        ),
+        // Standard color scheme works for Avanplan
+      ),
+      home: MyHomePage(),
+    );
+  },
+)
 
-// Custom configuration
-const customConfig = UIKitConfig(
-  colorScheme: customColorScheme,
-  fontFamily: 'Inter', // Custom font
-  baseFontSize: 18.0,  // Larger text
-  minButtonHeight: 52.0, // Taller buttons
-);
+// For CAST project
+Builder(
+  builder: (context) {
+    return MaterialApp(
+      theme: buildMTTheme(
+        context,
+        typography: MTTypography(
+          fontFamily: 'GeistMono500na700',
+          baseFontSize: 14.0,
+        ),
+        colorScheme: MTColorScheme(
+          // Simplified B/W scheme for CAST
+          b3Color: Color(0xFFFFFFFF),
+          b2Color: Color(0xFFEEEEEE),
+          f1Color: Color(0xFF000000),
+          f2Color: Color(0xFF666666),
+        ),
+      ),
+      home: MyHomePage(),
+    );
+  },
+)
 ```
 
 ### 4. Use Components
@@ -133,6 +169,21 @@ MTAdaptive.xxs(
     child: Text('Narrow container'),
   ),
 )
+
+// Access theme values
+Widget build(BuildContext context) {
+  return Container(
+    color: context.colorScheme.mainColor.resolve(context),
+    padding: context.sizing.defPadding,
+    child: BaseText(
+      'Styled text',
+      style: TextStyle(
+        fontSize: context.typography.bodyFontSize,
+        fontFamily: context.typography.fontFamily,
+      ),
+    ),
+  );
+}
 ```
 
 ## Components
@@ -219,46 +270,38 @@ Base value `P = 4.0` (fixed):
 - `P6` = 24.0
 - etc.
 
-## Migration from Old Projects
+## Architecture
 
-If you're migrating from existing MorozTeam projects (Avanplan, Mamagochi), here's what changed:
+The UI Kit uses Flutter's standard `ThemeExtension` approach for theming:
 
-### Color Configuration
+- **MTThemeData** - Main theme data class extending `ThemeExtension<MTThemeData>`
+- **MTThemeProvider** - Widget that provides theme configuration to the widget tree
+- **MTColorScheme** - Color configuration with light/dark theme support
+- **MTTypography** - Typography configuration (fonts, sizes, weights)
+- **MTSizing** - Spacing and sizing configuration
+- **MTBreakpoints** - Responsive design breakpoints
+
+### Theme Access
+
+Components access theme data through the `BuildContext` extension:
+
 ```dart
-// Old way (direct colors in UIKitConfig)
-const config = UIKitConfig(
-  b0Color: Color(0xFF1A1A1A),
-  mainColor: Color(0xFF007AFF),
-  // ...
-);
-
-// New way (UIColorScheme)
-const config = UIKitConfig(
-  colorScheme: UIColorScheme(
-    b0Color: Color(0xFF1A1A1A),
-    mainColor: Color(0xFF007AFF),
-    // ...
-  ),
-);
+// Access theme data
+final theme = context.mtTheme;
+final colors = context.colorScheme;
+final typography = context.typography;
+final sizing = context.sizing;
+final breakpoints = context.breakpoints;
 ```
 
-### Dialog Methods
+### Color Resolution
+
+Colors are resolved using the `ResolvedColor` extension:
+
 ```dart
-// Old way (global context)
-showMTDialog(child);
-showMTAlertDialog(title: 'Title', actions: actions);
-
-// New way (explicit context)
-showMTDialog(child, context: context);
-showMTAlertDialog(
-  context: context,
-  title: 'Title', 
-  actions: actions,
-);
+// Resolve dynamic colors for current theme
+final resolvedColor = context.colorScheme.mainColor.resolve(context);
 ```
-
-### Backward Compatibility
-All existing component APIs remain the same. Only configuration and dialog methods changed.
 
 ## Example
 
