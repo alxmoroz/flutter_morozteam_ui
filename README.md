@@ -54,29 +54,29 @@ class MyApp extends StatelessWidget {
 
 ```dart
 const myConfig = UIKitConfig(
-  // Background colors
-  b0Color: Color(0xFF1A1A1A),
-  b1Color: Color(0xFF2A2A2A),
-  b2Color: Color(0xFF3A3A3A),
-  b3Color: Color(0xFFF5F5F5),
-  
-  // Text colors
-  f1Color: Color(0xFF1A1A1A),
-  f2Color: Color(0xFF666666),
-  f3Color: Color(0xFF999999),
-  
-  // Accent colors
-  mainColor: Color(0xFF007AFF),
-  dangerColor: Color(0xFFFF3B30),
-  safeColor: Color(0xFF34C759),
+  // Color scheme
+  colorScheme: UIColorScheme(
+    // Background colors
+    b0Color: Color(0xFF1A1A1A),
+    b1Color: Color(0xFF2A2A2A),
+    b2Color: Color(0xFF3A3A3A),
+    b3Color: Color(0xFFF5F5F5),
+    
+    // Text colors
+    f1Color: Color(0xFF1A1A1A),
+    f2Color: Color(0xFF666666),
+    f3Color: Color(0xFF999999),
+    
+    // Accent colors
+    mainColor: Color(0xFF007AFF),
+    dangerColor: Color(0xFFFF3B30),
+    safeColor: Color(0xFF34C759),
+  ),
   
   // Typography
   fontFamily: 'SF Pro Text',
   fontFamilyNumbers: 'SF Mono',
   baseFontSize: 16.0,
-  
-  // Spacing
-  baseSpacing: 6.0,
   
   // Sizes
   minButtonHeight: 48.0,
@@ -84,7 +84,29 @@ const myConfig = UIKitConfig(
 );
 ```
 
-### 3. Use Components
+### 3. Customization Guide
+
+You can customize colors, typography, and spacing for your project:
+
+```dart
+// Custom color scheme
+const customColorScheme = UIColorScheme(
+  mainColor: Color(0xFF6B46C1), // Purple theme
+  dangerColor: Color(0xFFDC2626),
+  safeColor: Color(0xFF059669),
+  // ... other colors
+);
+
+// Custom configuration
+const customConfig = UIKitConfig(
+  colorScheme: customColorScheme,
+  fontFamily: 'Inter', // Custom font
+  baseFontSize: 18.0,  // Larger text
+  minButtonHeight: 52.0, // Taller buttons
+);
+```
+
+### 4. Use Components
 
 ```dart
 // Buttons
@@ -187,13 +209,56 @@ The UI Kit uses a semantic color system:
 
 ## Spacing System
 
-Base value `P = 6.0` (configurable):
+Base value `P = 4.0` (fixed):
 
-- `P` = 6.0
-- `P2` = 12.0
-- `P3` = 18.0
-- `P4` = 24.0
+- `P` = 4.0
+- `P2` = 8.0
+- `P3` = 12.0
+- `P4` = 16.0
+- `P5` = 20.0
+- `P6` = 24.0
 - etc.
+
+## Migration from Old Projects
+
+If you're migrating from existing MorozTeam projects (Avanplan, Mamagochi), here's what changed:
+
+### Color Configuration
+```dart
+// Old way (direct colors in UIKitConfig)
+const config = UIKitConfig(
+  b0Color: Color(0xFF1A1A1A),
+  mainColor: Color(0xFF007AFF),
+  // ...
+);
+
+// New way (UIColorScheme)
+const config = UIKitConfig(
+  colorScheme: UIColorScheme(
+    b0Color: Color(0xFF1A1A1A),
+    mainColor: Color(0xFF007AFF),
+    // ...
+  ),
+);
+```
+
+### Dialog Methods
+```dart
+// Old way (global context)
+showMTDialog(child);
+showMTAlertDialog(title: 'Title', actions: actions);
+
+// New way (explicit context)
+showMTDialog(child, context: context);
+showMTAlertDialog(
+  context: context,
+  title: 'Title', 
+  actions: actions,
+);
+```
+
+### Backward Compatibility
+All existing component APIs remain the same. Only configuration and dialog methods changed.
 
 ## Example
 

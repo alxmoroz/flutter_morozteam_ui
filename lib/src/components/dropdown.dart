@@ -6,6 +6,7 @@ import '../config/ui_theme.dart';
 import '../theme/constants.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
+import 'icons.dart';
 import 'text_field.dart';
 
 /// Dropdown list
@@ -43,11 +44,11 @@ class MTDropdown<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin ?? EdgeInsets.zero,
-      height: constants.P10,
+      height: P10,
       alignment: Alignment.centerLeft,
       child: DropdownButtonFormField<T>(
-        dropdownColor: context.uiConfig.b3Color.resolve(context),
-        focusColor: context.uiConfig.b3Color.resolve(context),
+        dropdownColor: context.colorScheme.b3Color.resolve(context),
+        focusColor: context.colorScheme.b3Color.resolve(context),
         isDense: true,
         decoration: tfDecoration(
           context,
@@ -55,12 +56,12 @@ class MTDropdown<T> extends StatelessWidget {
           helper: helper,
           readOnly: true,
         ),
-        icon: const Icon(Icons.keyboard_arrow_down),
+        icon: const ChevronDownIcon(),
         items: _ddItems,
         isExpanded: true,
         initialValue: value,
         onChanged: onChanged,
-        borderRadius: BorderRadius.circular(constants.defBorderRadius),
+        borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
       ),
     );
   }

@@ -24,10 +24,10 @@ class MTCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size ?? constants.P2,
-      height: size ?? constants.P2,
+      width: size ?? DEF_VP,
+      height: size ?? DEF_VP,
       decoration: BoxDecoration(
-        color: (color ?? context.uiConfig.f2Color).resolve(context),
+        color: (color ?? context.colorScheme.f2Color).resolve(context),
         shape: BoxShape.circle,
         border: border ?? const Border(),
       ),

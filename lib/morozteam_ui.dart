@@ -1,10 +1,9 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 /// Flutter MorozTeam UI Kit
-///
-/// Универсальный UI kit для Flutter приложений с гибкой системой конфигурации
-/// цветов, типографики и spacing.
-library flutter_morozteam_ui;
+/// Universal UI kit for Flutter applications with flexible configuration system
+/// for colors, typography and spacing.
+library;
 
 export 'src/components/alert_dialog.dart';
 export 'src/components/avatar.dart';
@@ -15,6 +14,7 @@ export 'src/components/card.dart';
 export 'src/components/checkbox.dart';
 export 'src/components/circle.dart';
 export 'src/components/circular_progress.dart';
+export 'src/components/close_dialog_button.dart';
 export 'src/components/dialog.dart';
 export 'src/components/divider.dart';
 export 'src/components/dropdown.dart';
@@ -36,10 +36,14 @@ export 'src/components/snackbar_dialog.dart';
 // Form components
 export 'src/components/text_field.dart';
 export 'src/components/toolbar.dart';
+export 'src/components/toolbar_controller.dart';
 export 'src/components/webview_dialog.dart';
+export 'src/config/ui_breakpoints.dart';
 // Config
-export 'src/config/ui_config.dart';
+export 'src/config/ui_color_scheme.dart';
+export 'src/config/ui_sizing.dart';
 export 'src/config/ui_theme.dart';
+export 'src/config/ui_typography.dart';
 // Theme
 export 'src/theme/constants.dart';
 export 'src/theme/resolved_color.dart';

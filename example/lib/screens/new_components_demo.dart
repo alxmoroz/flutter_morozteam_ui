@@ -1,7 +1,6 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:morozteam_ui/morozteam_ui.dart';
 
 class NewComponentsDemo extends StatefulWidget {
@@ -12,135 +11,57 @@ class NewComponentsDemo extends StatefulWidget {
 }
 
 class _NewComponentsDemoState extends State<NewComponentsDemo> {
-  final _phoneController = TextEditingController();
-
-  final List<PhoneCountry> _demoCountries = [
-    const PhoneCountry(
-      code: '7',
-      name: 'Russia',
-      mask: '(###) ###-##-##',
-      icon: Text('🇷🇺', style: TextStyle(fontSize: 24)),
-    ),
-    const PhoneCountry(
-      code: '1',
-      name: 'United States',
-      mask: '(###) ###-####',
-      icon: Text('🇺🇸', style: TextStyle(fontSize: 24)),
-    ),
-    const PhoneCountry(
-      code: '44',
-      name: 'United Kingdom',
-      mask: '#### ### ####',
-      icon: Text('🇬🇧', style: TextStyle(fontSize: 24)),
-    ),
-    const PhoneCountry(
-      code: '49',
-      name: 'Germany',
-      mask: '### ########',
-      icon: Text('🇩🇪', style: TextStyle(fontSize: 24)),
-    ),
-    const PhoneCountry(
-      code: '33',
-      name: 'France',
-      mask: '# ## ## ## ##',
-      icon: Text('🇫🇷', style: TextStyle(fontSize: 24)),
-    ),
-  ];
-
-  PhoneCountry _selectedCountry = const PhoneCountry(
-    code: '7',
-    name: 'Russia',
-    mask: '(###) ###-##-##',
-    icon: Text('🇷🇺', style: TextStyle(fontSize: 24)),
-  );
-
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        // MTNavBar Example
-        const H2('MTNavBar'),
-        SizedBox(height: constants.P2),
-        MTButton.main(
-          titleText: 'Show MTNavBar Dialog',
-          onTap: () => _showNavBarDialog(context),
-        ),
-        SizedBox(height: constants.P3),
-
-        // MTSvgIcon Example
-        const H2('MTSvgIcon'),
-        SizedBox(height: constants.P2),
         MTButton.secondary(
-          titleText: 'Show MTSvgIcon Info',
-          onTap: () => _showSvgIconInfo(context),
+          titleText: 'Show MTDialog',
+          onTap: () => _showCustomDialog(context),
+          margin: DEF_MARGIN,
         ),
-        SizedBox(height: constants.P3),
-
-        const H2('Alert Dialog'),
-        SizedBox(height: constants.P2),
-        MTButton.main(
-          titleText: 'Show Alert Dialog',
+        MTButton.secondary(
+          titleText: 'Show MTAlertDialog',
           onTap: () => _showAlertDialog(context),
+          margin: DEF_MARGIN,
         ),
-        SizedBox(height: constants.P3),
-        const H2('Snackbar'),
-        SizedBox(height: constants.P2),
         MTButton.secondary(
-          titleText: 'Show Snackbar',
+          titleText: 'Show MTSnackbar',
           onTap: () => _showSnackbar(context),
+          margin: DEF_MARGIN,
         ),
-        SizedBox(height: constants.P3),
-        const H2('Avatar Examples'),
-        SizedBox(height: constants.P2),
-        Wrap(
-          spacing: constants.P2,
-          runSpacing: constants.P2,
-          children: const [
-            // Initials only
-            MTAvatar(20, initials: 'JD'),
-            // Initials with border
-            MTAvatar(20, initials: 'AB', borderColor: CupertinoColors.systemBlue),
-            // Gravatar
-            MTAvatar(20, gravatarEmail: 'john.doe@example.com'),
-            // No data (icon fallback)
-            MTAvatar(20),
-            // Large with initials
-            MTAvatar(40, initials: 'JD'),
-            // Large with Gravatar and border
-            MTAvatar(40, gravatarEmail: 'jane.smith@example.com', borderColor: CupertinoColors.systemGreen),
-            // With both initials and Gravatar (Gravatar priority)
-            MTAvatar(40, initials: 'JS', gravatarEmail: 'test@example.com'),
-          ],
+        MTListText.h3('MTAvatar'),
+        const SizedBox(height: DEF_VP),
+        const MTListTile(
+          middle: Wrap(
+            spacing: DEF_VP,
+            runSpacing: DEF_VP,
+            children: [
+              // Initials only
+              MTAvatar(20, initials: 'JD'),
+              // Initials with border
+              MTAvatar(20, initials: 'AB', borderColor: CupertinoColors.systemBlue),
+              // Gravatar
+              MTAvatar(20, gravatarEmail: 'john.doe@example.com'),
+              // No data (icon fallback)
+              MTAvatar(20),
+              // Large with initials
+              MTAvatar(40, initials: 'JD'),
+            ],
+          ),
         ),
-        SizedBox(height: constants.P3),
-        const H2('Image Examples'),
-        SizedBox(height: constants.P2),
-        const MTImage('no_info', height: 100, width: 100),
-        SizedBox(height: constants.P3),
-        const H2('Field Examples'),
-        SizedBox(height: constants.P2),
-        const MTField(
-          _demoFieldData,
-          leading: Icon(Icons.person),
-          value: BaseText('John Doe'),
-          trailing: Icon(Icons.edit),
-        ),
-        SizedBox(height: constants.P2),
-        const MTField(
-          _demoFieldDataEmpty,
-          leading: Icon(Icons.email),
-          trailing: Icon(Icons.arrow_forward_ios),
-        ),
-        SizedBox(height: constants.P3),
-        const H2('Phone Field'),
-        SizedBox(height: constants.P2),
-        MTPhoneField(
-          controller: _phoneController,
-          country: _selectedCountry,
-          countries: _demoCountries,
-          onChangeCountry: (country) => setState(() => _selectedCountry = country),
-          label: 'Phone Number',
-          selectorTitle: 'Select Country',
+        MTListText.h3('MTCircle'),
+        const SizedBox(height: DEF_VP),
+        MTListTile(
+          middle: Row(
+            children: [
+              MTCircle(color: context.colorScheme.mainColor, size: 40),
+              const SizedBox(width: DEF_VP),
+              MTCircle(color: context.colorScheme.dangerColor, size: 40),
+              const SizedBox(width: DEF_VP),
+              MTCircle(color: context.colorScheme.safeColor, size: 40),
+            ],
+          ),
         ),
       ],
     );
@@ -148,68 +69,49 @@ class _NewComponentsDemoState extends State<NewComponentsDemo> {
 
   void _showAlertDialog(BuildContext context) async {
     final result = await showMTAlertDialog<String>(
+      context: context,
       title: 'Alert Dialog',
-      description: 'This is an alert dialog example',
+      description: 'This is an alert dialog example with three button types',
       actions: [
-        const MTDialogAction(title: 'Cancel', result: 'cancel'),
         const MTDialogAction(title: 'OK', result: 'ok', type: MTButtonType.main),
+        const MTDialogAction(title: 'Secondary', result: 'secondary', type: MTButtonType.secondary),
+        const MTDialogAction(title: 'Cancel', result: 'cancel', type: MTButtonType.text),
       ],
     );
     if (context.mounted) {
-      showMTSnackbar('Result: $result');
+      showMTSnackbar('Result: $result', context: context);
     }
   }
 
   void _showSnackbar(BuildContext context) async {
     await showMTSnackbar(
       'This is a snackbar dialog example',
+      context: context,
       onTap: () {
-        showMTSnackbar('Snackbar tapped!');
+        showMTSnackbar('Snackbar tapped!', context: context);
       },
     );
   }
 
-  void _showNavBarDialog(BuildContext context) async {
+  void _showCustomDialog(BuildContext context) async {
     await showMTDialog(
-      MTDialog(
-        topBar: const MTNavBar(
-          pageTitle: 'Navigation Bar',
-        ),
-        body: Container(
-          height: 300,
-          color: context.uiConfig.b2Color.resolve(context),
-          child: const Center(
-            child: H3('Full screen navigation bar example'),
-          ),
+      MTCard(
+        padding: const EdgeInsets.all(DEF_HP),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MTListText.h3('Custom Dialog'),
+            const SizedBox(height: DEF_VP),
+            const MTListText('This is a custom MTDialog with any content'),
+            const SizedBox(height: DEF_HP),
+            MTButton.main(
+              titleText: 'Close',
+              onTap: () => Navigator.of(context).pop(),
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  void _showSvgIconInfo(BuildContext context) async {
-    await showMTAlertDialog(
-      title: 'SVG Icons',
-      description: 'MTSvgIcon loads SVG files from assets/icons/\n\n'
-          'Example: MTSvgIcon("icon_name")\n\n'
-          'Note: SVG assets need to be provided by the app',
-      actions: [
-        const MTDialogAction(title: 'OK', result: 'ok', type: MTButtonType.main),
-      ],
+      context: context,
     );
   }
 }
-
-// Demo data
-
-const _demoFieldData = MTFieldData(
-  1,
-  label: 'Name',
-  placeholder: 'Enter your name',
-  text: 'John Doe',
-);
-
-const _demoFieldDataEmpty = MTFieldData(
-  2,
-  label: 'Email',
-  placeholder: 'Enter your email',
-);

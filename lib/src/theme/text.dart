@@ -2,8 +2,25 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../config/ui_config.dart';
 import '../config/ui_theme.dart';
+import '../config/ui_typography.dart';
+import 'resolved_color.dart';
+
+// Const color constants for use in const constructors
+const _f2Color = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 172, 178, 194),
+  darkColor: Color.fromARGB(255, 172, 176, 194),
+);
+
+const _f3Color = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 172, 178, 216),
+  darkColor: Color.fromARGB(255, 92, 98, 112),
+);
+
+const _mainColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 90, 111, 228),
+  darkColor: Color.fromARGB(255, 100, 170, 255),
+);
 
 /// Base class for text with configuration support
 class BaseText extends StatelessWidget {
@@ -30,7 +47,7 @@ class BaseText extends StatelessWidget {
     this.padding,
     this.height,
     this.decoration,
-  }) : color = null; // Will use f2Color from config
+  }) : color = _f2Color;
 
   const BaseText.f3(
     this.text, {
@@ -42,7 +59,7 @@ class BaseText extends StatelessWidget {
     this.padding,
     this.height,
     this.decoration,
-  }) : color = null; // Will use f3Color from config
+  }) : color = _f3Color;
 
   const BaseText.medium(
     this.text, {
@@ -78,37 +95,30 @@ class BaseText extends StatelessWidget {
   final double? height;
   final TextDecoration? decoration;
 
-  /// Get UIKitConfig from global state
-  UIKitConfig _getConfig(BuildContext context) {
-    // Access config through global colors instance
-    return UIThemeProvider.of(context);
+  /// Get UITypography from global state
+  UITypography _getTypography(BuildContext context) {
+    return context.typography;
   }
 
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
 
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     // if line height is explicitly specified, keep it.
     final double h = height ?? {1: 1.0, 2: 1.1, 3: 1.15, 4: 1.2}[maxLines] ?? 1.3;
 
-    // Use config values instead of baseFontSize * sizeScale
-    final double fs = sizeScale != null ? config.bodyFontSize * sizeScale! : config.bodyFontSize;
+    // Use typography values instead of baseFontSize * sizeScale
+    final double fs = sizeScale != null ? typography.bodyFontSize * sizeScale! : typography.bodyFontSize;
 
-    // Determine text color
-    Color textColor;
-    if (color != null) {
-      textColor = color!;
-    } else {
-      textColor = context.uiConfig.f1Color;
-    }
+    final textColor = color ?? context.colorScheme.f1Color.resolve(context);
 
     final rColor = CupertinoDynamicColor.maybeResolve(textColor, context);
 
     return cupertinoTS.copyWith(
-      fontFamily: config.fontFamily,
+      fontFamily: typography.fontFamily,
       color: rColor,
       decorationColor: rColor,
-      fontWeight: weight ?? config.bodyFontWeight,
+      fontWeight: weight ?? typography.bodyFontWeight,
       fontSize: fs,
       height: h,
       inherit: true,
@@ -137,11 +147,11 @@ class H1 extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
-      fontSize: config.h1FontSize,
-      fontWeight: config.h1FontWeight,
+      fontSize: typography.h1FontSize,
+      fontWeight: typography.h1FontWeight,
     );
   }
 }
@@ -152,11 +162,11 @@ class H2 extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
-      fontSize: config.h2FontSize,
-      fontWeight: config.h2FontWeight,
+      fontSize: typography.h2FontSize,
+      fontWeight: typography.h2FontWeight,
     );
   }
 }
@@ -169,11 +179,11 @@ class H3 extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
-      fontSize: config.h3FontSize,
-      fontWeight: config.h3FontWeight,
+      fontSize: typography.h3FontSize,
+      fontWeight: typography.h3FontWeight,
     );
   }
 }
@@ -184,11 +194,11 @@ class H4 extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
-      fontSize: config.h4FontSize,
-      fontWeight: config.h4FontWeight,
+      fontSize: typography.h4FontSize,
+      fontWeight: typography.h4FontWeight,
     );
   }
 }
@@ -199,12 +209,12 @@ class NumbersText extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
-      fontSize: config.numbersFontSize,
-      fontWeight: config.numbersFontWeight,
-      fontFamily: config.fontFamilyNumbers,
+      fontSize: typography.numbersFontSize,
+      fontWeight: typography.numbersFontWeight,
+      fontFamily: typography.fontFamilyNumbers,
     );
   }
 }
@@ -215,11 +225,11 @@ class SmallText extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
-      fontSize: config.smallFontSize,
-      fontWeight: config.smallFontWeight,
+      fontSize: typography.smallFontSize,
+      fontWeight: typography.smallFontWeight,
     );
   }
 }
@@ -233,11 +243,11 @@ class ButtonText extends BaseText {
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
     final baseStyle = super.style(context);
     return baseStyle.copyWith(
-      fontSize: config.buttonFontSize,
-      fontWeight: config.buttonFontWeight,
+      fontSize: typography.buttonFontSize,
+      fontWeight: typography.buttonFontWeight,
     );
   }
 }
@@ -247,22 +257,23 @@ class LinkText extends BaseText {
   const LinkText(
     super.text, {
     super.key,
-    super.maxLines = 1,
-    super.color,
     super.align,
     super.padding,
-    super.decoration = TextDecoration.underline,
-  });
+    super.maxLines,
+    Color? color,
+  }) : super(
+          color: color ?? _mainColor,
+          decoration: TextDecoration.underline,
+        );
 
   @override
   TextStyle style(BuildContext context) {
-    final config = _getConfig(context);
+    final typography = _getTypography(context);
     final baseStyle = super.style(context);
+
     return baseStyle.copyWith(
-      fontSize: config.linkFontSize,
-      fontWeight: config.linkFontWeight,
-      color: color ?? context.uiConfig.mainColor,
-      decorationColor: color ?? context.uiConfig.mainColor,
+      fontSize: typography.linkFontSize,
+      fontWeight: typography.linkFontWeight,
     );
   }
 }

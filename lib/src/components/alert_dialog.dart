@@ -2,11 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../theme/constants.dart';
-import '../theme/text.dart';
-import 'button.dart';
-import 'dialog.dart';
-import 'images.dart';
+import '../../morozteam_ui.dart';
 
 class MTDialogAction<T> {
   const MTDialogAction({
@@ -23,6 +19,7 @@ class MTDialogAction<T> {
 }
 
 Future<T?> showMTAlertDialog<T>({
+  required BuildContext context,
   String imageName = '',
   required String title,
   String description = '',
@@ -35,7 +32,8 @@ Future<T?> showMTAlertDialog<T>({
       imageName: imageName,
       actions: actions,
     ),
-    maxWidth: constants.scrXSWidth,
+    maxWidth: SCR_XS_WIDTH,
+    context: context,
   );
 }
 
@@ -66,14 +64,13 @@ class _MTAlertDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           if (imageName.isNotEmpty) MTImage(imageName),
-          H2(title, padding: EdgeInsets.all(constants.P3), align: TextAlign.center),
-          if (description.isNotEmpty)
-            BaseText(description, maxLines: 20, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: constants.P6)),
+          MTListText.h2(title, titleTextAlign: TextAlign.center),
+          if (description.isNotEmpty) MTListText(description, titleTextMaxLines: 20, titleTextAlign: TextAlign.center),
           for (final a in actions)
             MTButton(
               titleText: a.title,
               type: a.type,
-              margin: EdgeInsets.only(top: constants.P3),
+              margin: EdgeInsets.only(top: a.type != MTButtonType.text ? DEF_HP : DEF_VP / 2),
               constrained: true,
               onTap: () => _tap(context, a),
             ),

@@ -8,6 +8,7 @@ import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import '../utils/md5.dart';
 import 'circle.dart';
+import 'icons.dart';
 
 class MTAvatar extends StatelessWidget {
   const MTAvatar(
@@ -28,24 +29,24 @@ class MTAvatar extends StatelessWidget {
   String get _gravatarUrl => 'https://www.gravatar.com/avatar/${emailToMD5(gravatarEmail!)}?s=${radius * 6}&d=blank';
 
   static const _borderWidth = 2.0;
-  Color _noAvatarColor(BuildContext context) => context.uiConfig.f3Color;
+  Color _noAvatarColor(BuildContext context) => context.colorScheme.f3Color;
   bool get _hasBorder => borderColor != null;
 
   Widget _initialsCircle(BuildContext context) {
     final fs = const BaseText('', maxLines: 1).style(context).fontSize ?? 17;
-    final validRadius = radius > constants.maxAvatarRadius ? constants.maxAvatarRadius : radius;
-    final sizeScale = 0.95 * validRadius / fs;
+    final validRadius = radius > MAX_AVATAR_RADIUS ? MAX_AVATAR_RADIUS : radius;
+    final sizeScale = validRadius / fs;
     return MTCircle(
       color: Colors.transparent,
       size: validRadius * 2,
-      border: !_hasBorder ? Border.all(width: 1, color: _noAvatarColor(context).resolve(context)) : null,
+      border: !_hasBorder ? Border.all(color: _noAvatarColor(context).resolve(context)) : null,
       child: Center(
         child: BaseText(
           initials,
           maxLines: 1,
           sizeScale: sizeScale,
           align: TextAlign.center,
-          color: borderColor,
+          color: borderColor ?? _noAvatarColor(context),
         ),
       ),
     );
@@ -54,7 +55,7 @@ class MTAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Validate radius against maximum
-    final validRadius = radius > constants.maxAvatarRadius ? constants.maxAvatarRadius : radius;
+    final validRadius = radius > MAX_AVATAR_RADIUS ? MAX_AVATAR_RADIUS : radius;
 
     final avatar = Stack(
       alignment: Alignment.center,
@@ -62,8 +63,8 @@ class MTAvatar extends StatelessWidget {
         // Layer 1: Initials or Icon fallback
         initials.isNotEmpty
             ? _initialsCircle(context)
-            : Icon(Icons.person,
-                size: validRadius * (_hasBorder ? 1.3 : 2), color: _noAvatarColor(context).resolve(context)),
+            : PersonNoAvatarIcon(
+                size: validRadius * (_hasBorder ? 1.3 : 2), color: _noAvatarColor(context), circled: !_hasBorder),
         // Layer 2: Gravatar (if email provided)
         if (gravatarEmail != null)
           CircleAvatar(
@@ -83,7 +84,7 @@ class MTAvatar extends StatelessWidget {
 
     return MTCircle(
       size: validRadius * 2,
-      color: context.uiConfig.b3Color,
+      color: context.colorScheme.b3Color,
       border: _hasBorder ? Border.all(width: _borderWidth, color: borderColor!.resolve(context)) : null,
       child: avatar,
     );

@@ -24,7 +24,7 @@ class MTLoader extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: context.uiConfig.b2Color.resolve(context).withValues(alpha: 0.82),
+              color: context.colorScheme.b2Color.resolve(context).withValues(alpha: 0.82),
               borderRadius: BorderRadius.circular(borderRadius ?? 0),
             ),
           ),

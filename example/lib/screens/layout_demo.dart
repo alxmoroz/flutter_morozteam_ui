@@ -8,44 +8,52 @@ class LayoutDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(constants.P3),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const H2('Adaptive Containers'),
-          SizedBox(height: constants.P2),
-          MTAdaptive.xxs(
+    return ListView(
+      children: [
+        MTListText.h3('MTAdaptive'),
+        const SizedBox(height: DEF_VP),
+        Padding(
+          padding: DEF_MARGIN,
+          child: MTAdaptive.xxs(
             child: Container(
-              padding: EdgeInsets.all(constants.P2),
-              color: context.uiConfig.mainColor.resolve(context).withValues(alpha: 0.1),
+              padding: const EdgeInsets.all(DEF_VP),
+              color: context.colorScheme.mainColor.resolve(context).withValues(alpha: 0.1),
               child: const BaseText('XXS Container (max 290px)'),
             ),
           ),
-          SizedBox(height: constants.P2),
-          MTAdaptive.s(
+        ),
+        const SizedBox(height: DEF_VP),
+        Padding(
+          padding: DEF_MARGIN,
+          child: MTAdaptive.s(
             child: Container(
-              padding: EdgeInsets.all(constants.P2),
-              color: context.uiConfig.safeColor.resolve(context).withValues(alpha: 0.1),
+              padding: const EdgeInsets.all(DEF_VP),
+              color: context.colorScheme.safeColor.resolve(context).withValues(alpha: 0.1),
               child: const BaseText('S Container (max 480px)'),
             ),
           ),
-          SizedBox(height: constants.P3),
-          const H2('Shadowed Container'),
-          SizedBox(height: constants.P2),
-          MTShadowed(
+        ),
+        const SizedBox(height: DEF_HP),
+        MTListText.h3('MTShadowed'),
+        const SizedBox(height: DEF_VP),
+        Padding(
+          padding: DEF_MARGIN,
+          child: MTShadowed(
             child: Container(
               height: 200,
-              color: context.uiConfig.b3Color.resolve(context),
+              color: context.colorScheme.b3Color.resolve(context),
               child: const Center(
                 child: BaseText('Container with top shadow'),
               ),
             ),
           ),
-          SizedBox(height: constants.P3),
-          const H2('Background Gradient'),
-          SizedBox(height: constants.P2),
-          const MTBackgroundWrapper(
+        ),
+        const SizedBox(height: DEF_HP),
+        MTListText.h3('MTBackgroundWrapper'),
+        const SizedBox(height: DEF_VP),
+        const Padding(
+          padding: DEF_MARGIN,
+          child: MTBackgroundWrapper(
             SizedBox(
               height: 150,
               child: Center(
@@ -53,25 +61,61 @@ class LayoutDemo extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: constants.P3),
-          const H2('Spacing System'),
-          SizedBox(height: constants.P2),
-          MTCard(
-            padding: EdgeInsets.all(constants.P2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BaseText('P = ${constants.P}'),
-                BaseText('P2 = ${constants.P2}'),
-                BaseText('P3 = ${constants.P3}'),
-                BaseText('P4 = ${constants.P4}'),
-                BaseText('P6 = ${constants.P6}'),
-                BaseText('P8 = ${constants.P8}'),
-              ],
-            ),
+        ),
+        const SizedBox(height: DEF_HP),
+        MTListText.h3('Semantic Constants'),
+        const SizedBox(height: DEF_VP),
+        const MTCard(
+          padding: EdgeInsets.all(DEF_VP),
+          margin: DEF_MARGIN,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BaseText('DEF_HP = $DEF_HP (horizontal padding)'),
+              BaseText('DEF_VP = $DEF_VP (vertical padding)'),
+              BaseText('MIN_BTN_HEIGHT = $MIN_BTN_HEIGHT'),
+              BaseText('DEF_BORDER_RADIUS = $DEF_BORDER_RADIUS'),
+              BaseText('DEF_ICON_SIZE = $DEF_ICON_SIZE'),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: DEF_HP),
+        MTListText.h3('Default Margins & Padding'),
+        const SizedBox(height: DEF_VP),
+        const MTCard(
+          padding: EdgeInsets.all(DEF_VP),
+          margin: DEF_MARGIN,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BaseText('defHP (Horizontal Padding) = $DEF_HP'),
+              BaseText('defVP (Vertical Padding) = $DEF_VP'),
+              SizedBox(height: P),
+              BaseText.medium('defPadding:'),
+              BaseText('  EdgeInsets.symmetric('),
+              BaseText('    horizontal: $DEF_HP,'),
+              BaseText('    vertical: $DEF_VP'),
+              BaseText('  )'),
+              SizedBox(height: P),
+              BaseText.medium('defMargin:'),
+              BaseText('  EdgeInsets.fromLTRB('),
+              BaseText('    $DEF_HP, // left'),
+              BaseText('    $DEF_VP, // top'),
+              BaseText('    $DEF_HP, // right'),
+              BaseText('    0       // bottom (no margin)'),
+              BaseText('  )'),
+            ],
+          ),
+        ),
+        const SizedBox(height: DEF_VP),
+        const MTCard(
+          padding: DEF_PADDING, // Demonstration of defPadding
+          margin: DEF_MARGIN, // Demonstration of defMargin
+          child: Center(
+            child: BaseText('This card uses defPadding and defMargin'),
+          ),
+        ),
+      ],
     );
   }
 }

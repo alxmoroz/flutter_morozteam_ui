@@ -11,12 +11,12 @@ Size screenSize(BuildContext context) => MediaQuery.sizeOf(context);
 
 /// Check if screen is small in landscape mode
 bool _smallLandscape(BuildContext context) =>
-    screenSize(context).height < constants.scrXSHeight && MediaQuery.orientationOf(context) == Orientation.landscape;
+    screenSize(context).height < SCR_XS_HEIGHT && MediaQuery.orientationOf(context) == Orientation.landscape;
 
 /// Check if screen is large
 bool isBigScreen(BuildContext context) {
   final size = screenSize(context);
-  return size.height > constants.scrSHeight && size.width > constants.scrMWidth;
+  return size.height > SCR_S_HEIGHT && size.width > SCR_M_WIDTH;
 }
 
 /// Check if vertical panels can be shown
@@ -43,22 +43,22 @@ class MTAdaptive extends StatelessWidget {
   final EdgeInsets? padding;
 
   Widget _constrained(BuildContext context) {
-    double W = constants.scrXXSWidth;
+    double W = SCR_XXS_WIDTH;
 
     switch (size) {
       case AdaptiveSize.xxs:
         break;
       case AdaptiveSize.xs:
-        W = constants.scrXSWidth;
+        W = SCR_XS_WIDTH;
         break;
       case AdaptiveSize.s:
-        W = constants.scrSWidth;
+        W = SCR_S_WIDTH;
         break;
       case AdaptiveSize.m:
-        W = constants.scrMWidth;
+        W = SCR_M_WIDTH;
         break;
       case AdaptiveSize.l:
-        W = constants.scrLWidth;
+        W = SCR_L_WIDTH;
         break;
     }
 

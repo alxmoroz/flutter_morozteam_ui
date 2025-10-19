@@ -29,7 +29,7 @@ class MTShadowed extends StatelessWidget {
 
   Widget _shadow(BuildContext context, bool top) {
     final mqPadding = MediaQuery.paddingOf(context);
-    final startColor = (shadowColor ?? context.uiConfig.b1Color).resolve(context).withValues(alpha: 0.5);
+    final startColor = (shadowColor ?? context.colorScheme.b1Color).resolve(context).withValues(alpha: 0.5);
     final endColor = startColor.withValues(alpha: 0);
 
     return Positioned(
@@ -61,7 +61,7 @@ class MTShadowed extends StatelessWidget {
           data: mq.copyWith(
             padding: mqPadding.copyWith(
               top: mqPadding.top + (topIndent ?? 0),
-              bottom: mqPadding.bottom + (bottomIndent ?? (bottomShadow ? constants.P6 : 0)),
+              bottom: mqPadding.bottom + (bottomIndent ?? (bottomShadow ? DEF_HP : 0)),
             ),
           ),
           child: child,

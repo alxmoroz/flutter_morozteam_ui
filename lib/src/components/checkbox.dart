@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../config/ui_theme.dart';
 import '../theme/resolved_color.dart';
 import '../theme/text.dart';
+import 'icons.dart';
 import 'list_tile.dart';
 
 /// Checkbox as list item
@@ -41,21 +42,22 @@ class MTCheckBoxTile extends StatelessWidget {
         leading: leading,
         middle: BaseText(
           title,
-          color: _disabled ? context.uiConfig.f3Color : titleColor,
+          color: _disabled ? context.colorScheme.f3Color : titleColor,
           maxLines: 2,
         ),
         subtitle: description != null && description!.isNotEmpty
             ? SmallText(
                 description!,
-                color: _disabled ? context.uiConfig.f3Color : null,
+                color: _disabled ? context.colorScheme.f3Color : null,
                 maxLines: 1,
               )
             : null,
-        trailing: Icon(
+        trailing: MTIcon(
           value ? Icons.check_box : Icons.check_box_outline_blank,
-          color: _disabled ? context.uiConfig.f3Color.resolve(context) : context.uiConfig.mainColor.resolve(context),
+          color:
+              _disabled ? context.colorScheme.f3Color.resolve(context) : context.colorScheme.mainColor.resolve(context),
         ),
-        color: color ?? context.uiConfig.b3Color,
+        color: color ?? context.colorScheme.b3Color,
         bottomDivider: bottomDivider,
         dividerIndent: dividerIndent,
         uf: uf,

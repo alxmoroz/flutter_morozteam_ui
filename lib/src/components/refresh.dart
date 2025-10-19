@@ -1,6 +1,7 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../theme/constants.dart';
 import '../utils/gesture.dart';
 
@@ -20,7 +21,7 @@ class MTRefresh extends StatelessWidget with GestureManaging {
     return RefreshIndicator(
       onRefresh: () => tapAction(true, onRefresh, fbType: FeedbackType.light),
       edgeOffset: MediaQuery.of(context).padding.top,
-      displacement: constants.P2,
+      displacement: DEF_VP,
       child: child,
     );
   }

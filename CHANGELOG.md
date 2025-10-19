@@ -1,11 +1,16 @@
 # Changelog
 
-## 0.1.0
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
 
 ### Added
 - Initial release
-- Core UI components and theme system
-- Flexible configuration with UIKitConfig
-- Global colors and constants accessors
-- Comprehensive example application
 
+## [0.1.0] - 2025-01-XX
+
+### Added
+- Initial release of MorozTeam UI Kit

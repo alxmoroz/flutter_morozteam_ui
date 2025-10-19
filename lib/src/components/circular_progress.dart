@@ -24,7 +24,7 @@ class MTCircularProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ci = CircularProgressIndicator(
-      color: (color ?? context.uiConfig.mainColor).resolve(context),
+      color: (color ?? context.colorScheme.mainColor).resolve(context),
       strokeWidth: strokeWidth,
       strokeCap: StrokeCap.round,
     );
@@ -32,8 +32,8 @@ class MTCircularProgress extends StatelessWidget {
     return unbound
         ? ci
         : SizedBox(
-            height: size ?? constants.P6,
-            width: size ?? constants.P6,
+            height: size ?? DEF_PROGRESS_SIZE,
+            width: size ?? DEF_PROGRESS_SIZE,
             child: ci,
           );
   }

@@ -29,14 +29,14 @@ class MTCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardColor = (color ?? context.uiConfig.b3Color).resolve(context);
-    final borderRadius = radius ?? constants.defBorderRadius;
-    final shadowColor = context.uiConfig.b1Color.resolve(context);
+    final cardColor = (color ?? context.colorScheme.b3Color).resolve(context);
+    final borderRadius = radius ?? DEF_BORDER_RADIUS;
+    final shadowColor = context.colorScheme.b1Color.resolve(context);
 
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: margin ?? EdgeInsets.zero,
-      elevation: elevation ?? constants.cardElevation,
+      elevation: elevation ?? cardElevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius),
         side: borderSide ?? BorderSide.none,

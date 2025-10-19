@@ -23,6 +23,7 @@ class MTWebViewDialog extends StatelessWidget {
   final bool safeArea;
 
   static Future<Uri?> show({
+    required BuildContext context,
     Uri? uri,
     String? filePath,
     String? js,
@@ -39,7 +40,7 @@ class MTWebViewDialog extends StatelessWidget {
       })
       ..clearCache()
       ..clearLocalStorage()
-      ..setBackgroundColor(bgColor.resolve(globalContext));
+      ..setBackgroundColor(bgColor.resolve(context));
 
     if (uri != null) {
       controller.loadRequest(uri);
@@ -48,7 +49,7 @@ class MTWebViewDialog extends StatelessWidget {
           onNavigationRequest: (request) {
             if (onUrlExit != null) {
               if (onUrlExit(request.url)) {
-                Navigator.of(globalContext).pop(Uri.parse(request.url));
+                Navigator.of(context).pop(Uri.parse(request.url));
                 return NavigationDecision.prevent;
               }
             }
@@ -65,13 +66,16 @@ class MTWebViewDialog extends StatelessWidget {
       controller.loadFile(filePath);
     }
 
-    return await showMTDialog<Uri?>(MTWebViewDialog._(controller, bgColor: bgColor, safeArea: safeArea));
+    return await showMTDialog<Uri?>(
+      MTWebViewDialog._(controller, bgColor: bgColor, safeArea: safeArea),
+      context: context,
+    );
   }
 
   Widget _inner(WebViewController controller) {
     return Stack(
       children: [
-        Container(color: bgColor, child: Center(child: MTCircularProgress(size: constants.P10))),
+        Container(color: bgColor, child: const Center(child: MTCircularProgress(size: P15))),
         WebViewWidget(
           gestureRecognizers: const {
             Factory<VerticalDragGestureRecognizer>(VerticalDragGestureRecognizer.new),
@@ -87,7 +91,7 @@ class MTWebViewDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(barColor: bgColor),
+      topBar: MTTopBar(color: bgColor),
       bgColor: bgColor,
       body: safeArea ? SafeArea(child: _inner(_controller)) : _inner(_controller),
     );

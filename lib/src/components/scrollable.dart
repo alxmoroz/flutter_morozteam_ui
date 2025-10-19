@@ -1,10 +1,10 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'shadowed.dart';
 
-/// Scrollable container with shadows
 class MTScrollable extends StatefulWidget {
   const MTScrollable({
     required this.scrollController,
@@ -26,26 +26,27 @@ class MTScrollable extends StatefulWidget {
   final Function(bool)? onScrolled;
 
   @override
-  State<StatefulWidget> createState() => _MTScrollableState();
+  State<StatefulWidget> createState() => _State();
 }
 
-class _MTScrollableState extends State<MTScrollable> {
+class _State extends State<MTScrollable> {
   bool _hasScrolled = false;
 
-  void _onScrolled() {
-    if (widget.onScrolled != null) {
-      widget.onScrolled!(_hasScrolled);
-    }
-  }
-
   void _listener() {
+    // Check that controller is attached to scroll widget
+    if (!widget.scrollController.hasClients) {
+      return;
+    }
+
     final triggerOffset = widget.scrollOffsetTop;
     final offset = widget.scrollController.offset;
 
     if ((!_hasScrolled && offset >= triggerOffset) || (_hasScrolled && offset <= triggerOffset)) {
       setState(() {
         _hasScrolled = !_hasScrolled;
-        _onScrolled();
+        if (widget.onScrolled != null) {
+          widget.onScrolled!(_hasScrolled);
+        }
       });
     }
   }

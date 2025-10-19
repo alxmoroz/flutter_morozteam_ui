@@ -25,7 +25,7 @@ class PageTitle extends StatelessWidget {
       children: [
         if (parentPageTitle != null) ...[
           SmallText(parentPageTitle!, color: color, maxLines: 1),
-          SizedBox(height: constants.P_3),
+          const SizedBox(height: P_2),
         ],
         H3(text, color: color, maxLines: 1),
       ],

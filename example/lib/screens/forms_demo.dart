@@ -14,41 +14,87 @@ class _FormsDemoState extends State<FormsDemo> {
   final _textController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _phoneController = TextEditingController();
   bool _checkbox1 = false;
   bool _checkbox2 = true;
   String? _dropdown = 'Option 1';
+
+  final List<PhoneCountry> _demoCountries = [
+    const PhoneCountry(
+      code: '7',
+      name: 'Russia',
+      mask: '(###) ###-##-##',
+      icon: Text('🇷🇺', style: TextStyle(fontSize: 24)),
+    ),
+    const PhoneCountry(
+      code: '1',
+      name: 'United States',
+      mask: '(###) ###-####',
+      icon: Text('🇺🇸', style: TextStyle(fontSize: 24)),
+    ),
+    const PhoneCountry(
+      code: '44',
+      name: 'United Kingdom',
+      mask: '#### ### ####',
+      icon: Text('🇬🇧', style: TextStyle(fontSize: 24)),
+    ),
+    const PhoneCountry(
+      code: '49',
+      name: 'Germany',
+      mask: '### ########',
+      icon: Text('🇩🇪', style: TextStyle(fontSize: 24)),
+    ),
+    const PhoneCountry(
+      code: '33',
+      name: 'France',
+      mask: '# ## ## ## ##',
+      icon: Text('🇫🇷', style: TextStyle(fontSize: 24)),
+    ),
+  ];
+
+  PhoneCountry _selectedCountry = const PhoneCountry(
+    code: '7',
+    name: 'Russia',
+    mask: '(###) ###-##-##',
+    icon: Text('🇷🇺', style: TextStyle(fontSize: 24)),
+  );
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const H2('Text Fields'),
-        SizedBox(height: constants.P2),
+        MTListText.h3('MTTextField'),
+        const SizedBox(height: DEF_VP),
         MTTextField(
           controller: _textController,
           label: 'Username',
           hint: 'Enter your username',
           helper: 'This is a helper text',
+          margin: DEF_MARGIN,
         ),
         MTTextField.email(
           controller: _emailController,
           label: 'Email',
           hint: 'example@email.com',
+          margin: DEF_MARGIN,
         ),
         MTTextField.password(
           controller: _passwordController,
           label: 'Password',
           hint: 'Enter password',
+          margin: DEF_MARGIN,
         ),
         const MTTextField(
           label: 'Message',
           hint: 'Enter your message',
           maxLines: 4,
+          margin: DEF_MARGIN,
         ),
-        SizedBox(height: constants.P3),
-        const H2('Checkboxes'),
-        SizedBox(height: constants.P2),
+        const SizedBox(height: DEF_HP),
+        MTListText.h3('MTCheckBoxTile'),
+        const SizedBox(height: DEF_VP),
         MTCard(
+          margin: DEF_MARGIN,
           child: Column(
             children: [
               MTCheckBoxTile(
@@ -67,19 +113,47 @@ class _FormsDemoState extends State<FormsDemo> {
             ],
           ),
         ),
-        SizedBox(height: constants.P3),
-        const H2('Dropdown'),
-        SizedBox(height: constants.P2),
+        const SizedBox(height: DEF_HP),
+        MTListText.h3('MTDropdown'),
+        const SizedBox(height: DEF_VP),
         MTDropdown<String>(
           label: 'Select option',
           value: _dropdown,
           items: const ['Option 1', 'Option 2', 'Option 3'],
           onChanged: (value) => setState(() => _dropdown = value),
+          margin: DEF_MARGIN,
         ),
-        SizedBox(height: constants.P3),
+        const SizedBox(height: DEF_HP),
         MTButton.main(
           titleText: 'Submit Form',
           onTap: () => _showMessage(context, 'Form submitted!'),
+          margin: DEF_MARGIN,
+        ),
+        const SizedBox(height: DEF_HP),
+        MTListText.h3('MTField'),
+        const SizedBox(height: DEF_VP),
+        const MTField(
+          _demoFieldData,
+          value: BaseText('John Doe'),
+          trailing: EditIcon(),
+          margin: DEF_MARGIN,
+        ),
+        const SizedBox(height: DEF_VP),
+        const MTField(
+          _demoFieldDataEmpty,
+          trailing: ChevronRightIcon(),
+          margin: DEF_MARGIN,
+        ),
+        const SizedBox(height: DEF_HP),
+        MTListText.h3('MTPhoneField'),
+        const SizedBox(height: DEF_VP),
+        MTPhoneField(
+          controller: _phoneController,
+          country: _selectedCountry,
+          countries: _demoCountries,
+          onChangeCountry: (country) => setState(() => _selectedCountry = country),
+          label: 'Phone Number',
+          selectorTitle: 'Select Country',
         ),
       ],
     );
@@ -100,3 +174,17 @@ class _FormsDemoState extends State<FormsDemo> {
     );
   }
 }
+
+// Demo data
+const _demoFieldData = MTFieldData(
+  1,
+  label: 'Name',
+  placeholder: 'Enter your name',
+  text: 'John Doe',
+);
+
+const _demoFieldDataEmpty = MTFieldData(
+  2,
+  label: 'Email',
+  placeholder: 'Enter your email',
+);

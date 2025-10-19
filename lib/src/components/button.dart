@@ -10,7 +10,6 @@ import '../theme/text.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
-import 'list_tile.dart';
 
 /// Button types
 enum MTButtonType {
@@ -211,27 +210,32 @@ class MTButton extends StatelessWidget with GestureManaging {
   Color _titleColor(BuildContext context) {
     Color tc = (titleColor ??
             (type.isMain
-                ? context.uiConfig.mainBtnTitleColor
+                ? context.colorScheme.mainBtnTitleColor
                 : [MTButtonType.danger, MTButtonType.safe].contains(type)
-                    ? context.uiConfig.b3Color
-                    : context.uiConfig.mainColor))
+                    ? context.colorScheme.b3Color
+                    : context.colorScheme.mainColor.resolve(context)))
         .resolve(context);
 
     return _enabled || type.isCustom ? tc : tc.withValues(alpha: 0.7);
   }
 
-  Size get _minSize => minSize ?? Size(constants.minBtnHeight, constants.minBtnHeight);
-  double get _radius => borderRadius ?? (type.isCard ? constants.defBorderRadius : _minSize.height / 2);
+  Size _minSize(BuildContext context) =>
+      minSize ??
+      (type.isText ? const Size(0, DEF_HP) : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
+  double _radius(BuildContext context) =>
+      borderRadius ?? (type.isCard ? context.sizing.defaultBorderRadius : _minSize(context).height / 2);
 
   ButtonStyle _style(BuildContext context) {
     Color btnColor = (color ??
             (type.isMain
-                ? context.uiConfig.mainColor
+                ? context.colorScheme.mainColor
                 : type.isDanger
-                    ? context.uiConfig.dangerColor
+                    ? context.colorScheme.dangerColor
                     : type.isSafe
-                        ? context.uiConfig.safeColor
-                        : context.uiConfig.b3Color))
+                        ? context.colorScheme.safeColor
+                        : type.isText
+                            ? Colors.transparent
+                            : context.colorScheme.b3Color))
         .resolve(context);
     if (!(_enabled || type.isCustom)) btnColor = btnColor.withValues(alpha: 0.42);
 
@@ -243,13 +247,13 @@ class MTButton extends StatelessWidget with GestureManaging {
       backgroundColor: btnColor,
       disabledForegroundColor: btnColor,
       disabledBackgroundColor: btnColor,
-      minimumSize: _minSize,
-      shape: RoundedRectangleBorder(borderRadius: borderRadiusGeometry ?? BorderRadius.circular(_radius)),
+      minimumSize: _minSize(context),
+      shape: RoundedRectangleBorder(borderRadius: borderRadiusGeometry ?? BorderRadius.circular(_radius(context))),
       side: borderSide ?? (type.isSecondary ? BorderSide(color: titleColor, width: 1) : BorderSide.none),
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
-      shadowColor: context.uiConfig.b1Color.resolve(context),
-      elevation: elevation ?? constants.buttonElevation,
+      shadowColor: context.colorScheme.b1Color.resolve(context),
+      elevation: elevation ?? context.sizing.buttonElevation,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
@@ -262,7 +266,7 @@ class MTButton extends StatelessWidget with GestureManaging {
       mainAxisAlignment: mainAxisAlignment,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (leading != null) ...[leading!, SizedBox(width: constants.P2)],
+        if (leading != null) ...[leading!, const SizedBox(width: DEF_VP)],
         middle ??
             (titleText != null
                 ? Flexible(
@@ -273,7 +277,7 @@ class MTButton extends StatelessWidget with GestureManaging {
                     maxLines: 1,
                   ))
                 : const SizedBox()),
-        if (trailing != null) ...[SizedBox(width: constants.P), trailing!],
+        if (trailing != null) ...[const SizedBox(width: P), trailing!],
       ],
     );
 
@@ -302,7 +306,7 @@ class MTButton extends StatelessWidget with GestureManaging {
               focusColor: Colors.transparent,
               child: CupertinoButton(
                 onPressed: _onPressed,
-                minimumSize: Size.zero,
+                minimumSize: _minSize(context),
                 padding: padding ?? EdgeInsets.zero,
                 color: color,
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 0)),
@@ -314,42 +318,22 @@ class MTButton extends StatelessWidget with GestureManaging {
 
   @override
   Widget build(BuildContext context) {
-    final btn = type == MTButtonType.text
-        ? MTListTile(
-            leading: leading,
-            middle: middle ??
-                (titleText != null
-                    ? BaseText(
-                        titleText!,
-                        color: _titleColor(context),
-                        maxLines: 1,
-                        align: titleTextAlign ?? TextAlign.center,
-                      )
-                    : null),
-            padding: padding ?? EdgeInsets.symmetric(vertical: constants.P),
-            margin: margin,
-            trailing: trailing,
-            onHover: onHover,
-            loading: loading,
-            onTap: _onPressed,
-          )
-        : Padding(
-            padding: margin ?? EdgeInsets.zero,
-            child: Stack(
-              alignment: Alignment.center,
-              fit: StackFit.passthrough,
-              children: [
-                _button(context),
-                if (loading == true)
-                  SizedBox(
-                    width: constants.P4,
-                    height: constants.P4,
-                    child: const CupertinoActivityIndicator(),
-                  ),
-              ],
+    final btn = Padding(
+      padding: margin ?? EdgeInsets.zero,
+      child: Stack(
+        alignment: Alignment.center,
+        fit: StackFit.passthrough,
+        children: [
+          _button(context),
+          if (loading == true)
+            const SizedBox(
+              width: DEF_LOADING_ICON_SIZE,
+              height: DEF_LOADING_ICON_SIZE,
+              child: CupertinoActivityIndicator(),
             ),
-          );
-
+        ],
+      ),
+    );
     return type == MTButtonType.icon || !constrained ? btn : MTAdaptive.xxs(child: btn);
   }
 }

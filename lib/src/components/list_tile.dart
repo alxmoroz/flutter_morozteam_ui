@@ -71,15 +71,15 @@ class MTListTile extends StatelessWidget with GestureManaging {
   final double? leadingSpacing;
 
   Widget get _divider => MTDivider(
-        indent: dividerIndent ?? padding?.left ?? constants.defHP,
-        endIndent: dividerEndIndent ?? padding?.right ?? constants.defHP,
+        indent: dividerIndent ?? padding?.left ?? DEF_HP,
+        endIndent: dividerEndIndent ?? padding?.right ?? DEF_HP,
       );
 
-  EdgeInsets get _defaultPadding => EdgeInsets.symmetric(horizontal: constants.defHP, vertical: verticalPadding ?? constants.defVP);
+  EdgeInsets get _defaultPadding => EdgeInsets.symmetric(horizontal: DEF_HP, vertical: verticalPadding ?? DEF_VP);
 
   @override
   Widget build(BuildContext context) {
-    final hoverColor = (splashColor ?? context.uiConfig.mainColor).resolve(context).withValues(alpha: 0.03);
+    final hoverColor = (splashColor ?? context.colorScheme.mainColor).resolve(context).withValues(alpha: 0.03);
 
     final hasMiddle = middle != null || titleText.isNotEmpty;
     final hasSubtitle = subtitle != null;
@@ -98,7 +98,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
               onHover: onHover,
               hoverColor: hoverColor,
               highlightColor: hoverColor,
-              splashColor: (splashColor ?? context.uiConfig.mainColor).resolve(context).withValues(alpha: 0.06),
+              splashColor: (splashColor ?? context.colorScheme.mainColor).resolve(context).withValues(alpha: 0.06),
               canRequestFocus: false,
               focusColor: Colors.transparent,
               child: Column(
@@ -111,8 +111,11 @@ class MTListTile extends StatelessWidget with GestureManaging {
                     child: Row(
                       crossAxisAlignment: crossAxisAlignment,
                       children: [
-                        SizedBox(height: minHeight ?? constants.defTappableIconSize),
-                        if (leading != null) ...[leading!, if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? constants.P2)],
+                        SizedBox(height: minHeight ?? DEF_TAPPABLE_ICON_SIZE),
+                        if (leading != null) ...[
+                          leading!,
+                          if (hasMiddle || hasSubtitle) SizedBox(width: leadingSpacing ?? DEF_VP)
+                        ],
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,7 +129,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
                                       align: titleTextAlign,
                                     ),
                               if (hasSubtitle) ...[
-                                if (hasMiddle) SizedBox(height: constants.P),
+                                if (hasMiddle) const SizedBox(height: DEF_VP / 2),
                                 subtitle!,
                               ],
                             ],
@@ -150,7 +153,7 @@ class MTListTile extends StatelessWidget with GestureManaging {
 
 /// Section title
 class MTSectionTitle extends MTListTile {
-  MTSectionTitle(
+  const MTSectionTitle(
     String text, {
     super.key,
     super.leading,
@@ -165,191 +168,119 @@ class MTSectionTitle extends MTListTile {
     super.onTap,
   }) : super(
           titleText: text,
-          verticalPadding: verticalPadding ?? constants.defVP / 2,
-          topMargin: topMargin ?? constants.defVP / 2,
-          leadingSpacing: leadingSpacing ?? constants.P,
+          verticalPadding: verticalPadding ?? DEF_VP / 2,
+          topMargin: topMargin ?? DEF_VP / 2,
+          leadingSpacing: leadingSpacing ?? P,
           minHeight: minHeight ?? 0,
         );
 }
 
 /// Text list item
 class MTListText extends MTListTile {
-  MTListText(
+  const MTListText(
     String text, {
     super.key,
     super.leading,
     super.trailing,
-    double? verticalPadding,
-    double? topMargin,
+    super.verticalPadding = 0,
+    super.topMargin = 6.0,
     super.titleTextColor,
     super.titleTextAlign,
     super.titleTextMaxLines,
-    double? leadingSpacing,
-    double? minHeight,
+    super.leadingSpacing = 6.0,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(
-          titleText: text,
-          verticalPadding: verticalPadding ?? 0,
-          topMargin: topMargin ?? constants.defVP / 2,
-          leadingSpacing: leadingSpacing ?? constants.P,
-          minHeight: minHeight ?? 0,
-        );
+  }) : super(titleText: text);
 
   MTListText.medium(
     String text, {
     super.key,
     super.leading,
     super.trailing,
-    double? verticalPadding,
-    double? topMargin,
-    Color? titleTextColor,
-    TextAlign? titleTextAlign,
-    int? titleTextMaxLines,
-    double? leadingSpacing,
-    double? minHeight,
+    super.verticalPadding = 0,
+    super.topMargin = 6.0,
+    super.titleTextColor,
+    super.titleTextAlign,
+    super.titleTextMaxLines,
+    super.leadingSpacing = 6.0,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(
-          middle: BaseText.medium(
-            text,
-            maxLines: titleTextMaxLines,
-            align: titleTextAlign,
-            color: titleTextColor,
-          ),
-          verticalPadding: verticalPadding ?? 0,
-          topMargin: topMargin ?? constants.defVP / 2,
-          leadingSpacing: leadingSpacing ?? constants.P,
-          minHeight: minHeight ?? 0,
-        );
+  }) : super(middle: BaseText.medium(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.h2(
     String text, {
     super.key,
     super.leading,
     super.trailing,
-    double? topMargin,
-    double? verticalPadding,
-    Color? titleTextColor,
-    TextAlign? titleTextAlign,
-    int? titleTextMaxLines,
-    double? leadingSpacing,
-    double? minHeight,
+    super.topMargin = 12.0,
+    super.verticalPadding = 0,
+    super.titleTextColor,
+    super.titleTextAlign,
+    super.titleTextMaxLines,
+    super.leadingSpacing = 6.0,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(
-          middle: H2(
-            text,
-            maxLines: titleTextMaxLines,
-            align: titleTextAlign,
-            color: titleTextColor,
-          ),
-          topMargin: topMargin ?? constants.defVP,
-          verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? constants.P,
-          minHeight: minHeight ?? 0,
-        );
+  }) : super(middle: H2(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.h3(
     String text, {
     super.key,
     super.leading,
     super.trailing,
-    double? topMargin,
-    double? verticalPadding,
-    Color? titleTextColor,
-    TextAlign? titleTextAlign,
-    int? titleTextMaxLines,
-    double? leadingSpacing,
-    double? minHeight,
+    super.topMargin = 12.0,
+    super.verticalPadding = 0,
+    super.titleTextColor,
+    super.titleTextAlign,
+    super.titleTextMaxLines,
+    super.leadingSpacing = 6.0,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(
-          middle: H3(
-            text,
-            maxLines: titleTextMaxLines,
-            align: titleTextAlign,
-            color: titleTextColor,
-          ),
-          topMargin: topMargin ?? constants.defVP,
-          verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? constants.P,
-          minHeight: minHeight ?? 0,
-        );
+  }) : super(middle: H3(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.small(
     String text, {
     super.key,
     super.leading,
     super.trailing,
-    double? topMargin,
-    double? verticalPadding,
-    Color? titleTextColor,
-    TextAlign? titleTextAlign,
-    int? titleTextMaxLines,
-    double? leadingSpacing,
-    double? minHeight,
+    super.topMargin = 6.0,
+    super.verticalPadding = 0,
+    super.titleTextColor,
+    super.titleTextAlign,
+    super.titleTextMaxLines,
+    super.leadingSpacing = 6.0,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(
-          middle: SmallText(
-            text,
-            maxLines: titleTextMaxLines,
-            align: titleTextAlign,
-            color: titleTextColor,
-          ),
-          topMargin: topMargin ?? constants.defVP / 2,
-          verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? constants.P,
-          minHeight: minHeight ?? 0,
-        );
+  }) : super(middle: SmallText(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.h1(
     String text, {
     super.key,
     super.leading,
     super.trailing,
-    double? topMargin,
-    double? verticalPadding,
-    Color? titleTextColor,
-    TextAlign? titleTextAlign,
-    int? titleTextMaxLines,
-    double? leadingSpacing,
-    double? minHeight,
+    super.topMargin = 12.0,
+    super.verticalPadding = 0,
+    super.titleTextColor,
+    super.titleTextAlign,
+    super.titleTextMaxLines,
+    super.leadingSpacing = 6.0,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(
-          middle: H1(
-            text,
-            maxLines: titleTextMaxLines,
-            align: titleTextAlign,
-            color: titleTextColor,
-          ),
-          topMargin: topMargin ?? constants.defVP,
-          verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? constants.P,
-          minHeight: minHeight ?? 0,
-        );
+  }) : super(middle: H1(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.h4(
     String text, {
     super.key,
     super.leading,
     super.trailing,
-    double? topMargin,
-    double? verticalPadding,
-    Color? titleTextColor,
-    TextAlign? titleTextAlign,
-    int? titleTextMaxLines,
-    double? leadingSpacing,
-    double? minHeight,
+    super.topMargin = 12.0,
+    super.verticalPadding = 0,
+    super.titleTextColor,
+    super.titleTextAlign,
+    super.titleTextMaxLines,
+    super.leadingSpacing = 6.0,
+    super.minHeight = 0,
     super.onTap,
-  }) : super(
-          middle: H4(
-            text,
-            maxLines: titleTextMaxLines,
-            align: titleTextAlign,
-            color: titleTextColor,
-          ),
-          topMargin: topMargin ?? constants.defVP,
-          verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? constants.P,
-          minHeight: minHeight ?? 0,
-        );
+  }) : super(middle: H4(text, maxLines: titleTextMaxLines, align: titleTextAlign, color: titleTextColor));
 
   MTListText.numbers(
     String text, {
@@ -371,9 +302,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? constants.defVP / 2,
+          topMargin: topMargin ?? DEF_VP / 2,
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? constants.P,
+          leadingSpacing: leadingSpacing ?? P,
           minHeight: minHeight ?? 0,
         );
 
@@ -397,9 +328,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? constants.defVP / 2,
+          topMargin: topMargin ?? DEF_VP / 2,
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? constants.P,
+          leadingSpacing: leadingSpacing ?? P,
           minHeight: minHeight ?? 0,
         );
 
@@ -423,9 +354,9 @@ class MTListText extends MTListTile {
             align: titleTextAlign,
             color: titleTextColor,
           ),
-          topMargin: topMargin ?? constants.defVP / 2,
+          topMargin: topMargin ?? DEF_VP / 2,
           verticalPadding: verticalPadding ?? 0,
-          leadingSpacing: leadingSpacing ?? constants.P,
+          leadingSpacing: leadingSpacing ?? P,
           minHeight: minHeight ?? 0,
         );
 }

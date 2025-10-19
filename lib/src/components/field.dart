@@ -55,12 +55,12 @@ class MTField extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       leading: leading != null
-          ? Container(width: constants.defTappableIconSize, alignment: Alignment.center, child: leading)
+          ? Container(width: DEF_TAPPABLE_ICON_SIZE, alignment: Alignment.center, child: leading)
           : null,
       middle: compact
           ? null
           : _hasValue && showLabel && fd.label.isNotEmpty
-              ? SmallText(fd.label, color: context.uiConfig.f3Color, maxLines: 1)
+              ? SmallText(fd.label, color: context.colorScheme.f3Color, maxLines: 1)
               : null,
       subtitle: compact
           ? null
@@ -76,7 +76,7 @@ class MTField extends StatelessWidget {
       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
       margin: margin,
       padding: padding,
-      color: color ?? context.uiConfig.b3Color,
+      color: color ?? context.colorScheme.b3Color,
       minHeight: minHeight,
       loading: fd.loading || loading,
       onTap: onTap,

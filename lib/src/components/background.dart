@@ -15,8 +15,9 @@ Decoration? backgroundDecoration(
   return BoxDecoration(
     gradient: LinearGradient(
       colors: [
-        (bg1Color ?? context.uiConfig.b2Color).resolve(context),
-        (bg2Color ?? (isBigScreen(context) ? context.uiConfig.b1Color : context.uiConfig.b2Color)).resolve(context),
+        (bg1Color ?? context.colorScheme.b2Color).resolve(context),
+        (bg2Color ?? (isBigScreen(context) ? context.colorScheme.b1Color : context.colorScheme.b2Color))
+            .resolve(context),
       ],
     ),
   );

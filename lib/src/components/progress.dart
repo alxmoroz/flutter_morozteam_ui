@@ -50,7 +50,7 @@ class MTProgress extends StatelessWidget {
               width: w,
               child: Container(
                 decoration: BoxDecoration(
-                  color: (color ?? context.uiConfig.mainColor).resolve(context),
+                  color: (color ?? context.colorScheme.mainColor).resolve(context),
                   borderRadius: BorderRadius.circular(size.maxHeight / 2),
                 ),
               ),

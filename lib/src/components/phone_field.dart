@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import '../config/ui_theme.dart';
 import '../theme/constants.dart';
+import '../theme/resolved_color.dart';
 import '../theme/text.dart';
 import 'button.dart';
 import 'icons.dart';
@@ -62,12 +63,12 @@ class _PhoneCountrySelectorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(constants.P3),
+      padding: const EdgeInsets.all(DEF_VP),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           H2(_title),
-          SizedBox(height: constants.P2),
+          const SizedBox(height: DEF_VP),
           Flexible(
             child: ListView.builder(
               shrinkWrap: true,
@@ -75,8 +76,8 @@ class _PhoneCountrySelectorDialog extends StatelessWidget {
               itemBuilder: (_, index) {
                 final country = _countries[index];
                 return MTListTile(
-                  color: context.uiConfig.b3Color,
-                  leading: country.icon ?? Icon(Icons.flag, color: context.uiConfig.mainColor),
+                  color: context.colorScheme.b3Color,
+                  leading: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
                   middle: BaseText('${country.name} ', maxLines: 1),
                   trailing: BaseText.f2('+${country.code}', maxLines: 1),
                   onTap: () => _selectCountry(context, country),
@@ -129,12 +130,12 @@ class MTPhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       leading: SizedBox(
-        width: constants.P8 * 2,
+        width: DEF_TAPPABLE_ICON_SIZE * 2,
         child: MTButton(
           type: MTButtonType.card,
-          middle: country.icon ?? Icon(Icons.flag, color: context.uiConfig.mainColor),
+          middle: country.icon ?? MTIcon(Icons.flag, color: context.colorScheme.mainColor.resolve(context)),
           trailing: const ChevronDownIcon(),
-          padding: EdgeInsets.symmetric(horizontal: constants.P2),
+          padding: const EdgeInsets.symmetric(horizontal: DEF_SMALL_PADDING),
           onTap: () => _showCountrySelector(context),
         ),
       ),

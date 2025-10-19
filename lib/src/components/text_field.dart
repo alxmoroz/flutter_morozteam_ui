@@ -22,17 +22,17 @@ InputDecoration tfDecoration(
   Color? fillColor,
   bool readOnly = false,
 }) {
-  final bRadius = BorderRadius.circular(constants.defBorderRadius);
+  final bRadius = BorderRadius.circular(DEF_BORDER_RADIUS);
   final OutlineInputBorder warningBorder = OutlineInputBorder(
-    borderSide: BorderSide(color: context.uiConfig.warningColor.resolve(context)),
+    borderSide: BorderSide(color: context.colorScheme.warningColor.resolve(context)),
     borderRadius: bRadius,
   );
   final OutlineInputBorder border = OutlineInputBorder(
-    borderSide: BorderSide(color: context.uiConfig.f3Color.resolve(context)),
+    borderSide: BorderSide(color: context.colorScheme.f3Color.resolve(context)),
     borderRadius: bRadius,
   );
   final OutlineInputBorder focusedBorder = OutlineInputBorder(
-    borderSide: BorderSide(width: 2, color: context.uiConfig.mainColor.resolve(context)),
+    borderSide: BorderSide(width: 2, color: context.colorScheme.mainColor.resolve(context)),
     borderRadius: bRadius,
   );
 
@@ -45,9 +45,9 @@ InputDecoration tfDecoration(
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 3,
     errorText: error,
-    errorStyle: SmallText('', color: context.uiConfig.warningColor).style(context),
+    errorStyle: SmallText('', color: context.colorScheme.warningColor.resolve(context)).style(context),
     errorMaxLines: 3,
-    contentPadding: contentPadding ?? EdgeInsets.all(constants.P2 + constants.P_2),
+    contentPadding: contentPadding ?? DEF_PADDING,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: border,
@@ -59,7 +59,7 @@ InputDecoration tfDecoration(
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     filled: true,
-    fillColor: (fillColor ?? context.uiConfig.b3Color).resolve(context),
+    fillColor: (fillColor ?? context.colorScheme.b3Color).resolve(context),
   );
 }
 
@@ -199,7 +199,7 @@ class MTTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? constants.defMargin,
+      padding: margin ?? DEF_MARGIN,
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -221,7 +221,7 @@ class MTTextField extends StatelessWidget {
                 contentPadding: contentPadding,
                 hintStyle: hintStyle,
               ),
-          cursorColor: (cursorColor ?? context.uiConfig.mainColor).resolve(context),
+          cursorColor: (cursorColor ?? context.colorScheme.mainColor).resolve(context),
           autofocus: autofocus,
           autofillHints: autofillHints,
           minLines: maxLines != null ? (minLines ?? 1) : null,

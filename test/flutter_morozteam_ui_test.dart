@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:morozteam_ui/morozteam_ui.dart';
 
 void main() {
-  test('UIKitConfig creates valid configuration', () {
-    const config = UIKitConfig(
+  test('UIColorScheme creates valid configuration', () {
+    const colorScheme = UIColorScheme(
       b0Color: Color(0xFF1A1A1A),
       b1Color: Color(0xFF2A2A2A),
       b2Color: Color(0xFF3A3A3A),
@@ -16,8 +16,7 @@ void main() {
       dangerColor: Color(0xFFFF3B30),
     );
 
-    expect(config.baseSpacing, 6.0);
-    expect(config.baseFontSize, 16.0);
-    expect(config.minButtonHeight, 48.0);
+    expect(colorScheme.b0Color, const Color(0xFF1A1A1A));
+    expect(colorScheme.mainColor, const Color(0xFF007AFF));
   });
 }

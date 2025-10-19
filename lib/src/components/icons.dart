@@ -21,7 +21,7 @@ class MTSvgIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconSize = size ?? constants.P5;
+    final iconSize = size ?? DEF_HP;
     return SvgPicture.asset(
       'assets/icons/$name.svg',
       width: iconSize,
@@ -50,8 +50,8 @@ class MTIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rColor = (color ?? context.uiConfig.mainColor).resolve(context);
-    final iconSize = size ?? constants.P4;
+    final rColor = (color ?? context.colorScheme.mainColor).resolve(context);
+    final iconSize = size ?? DEF_ICON_SIZE;
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -95,6 +95,16 @@ class CloseIcon extends MTIcon {
     super.size,
     super.circled,
   }) : super(CupertinoIcons.xmark);
+}
+
+/// Person no avatar icon
+class PersonNoAvatarIcon extends MTIcon {
+  const PersonNoAvatarIcon({
+    super.key,
+    super.color,
+    super.size,
+    super.circled,
+  }) : super(CupertinoIcons.person);
 }
 
 /// Back icon

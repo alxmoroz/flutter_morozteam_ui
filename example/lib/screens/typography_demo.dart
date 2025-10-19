@@ -10,31 +10,41 @@ class TypographyDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const H2('Headings'),
-        SizedBox(height: constants.P2),
-        const H1('Heading 1'),
-        const H2('Heading 2'),
-        const H3('Heading 3'),
-        const H4('Heading 4'),
-        SizedBox(height: constants.P3),
-        const H2('Text Styles'),
-        SizedBox(height: constants.P2),
-        MTListText('Base Text - Regular'),
-        MTListText.medium('Base Text - Medium'),
-        const MTListTile(middle: BaseText.bold('Base Text - Bold')),
-        const MTListTile(middle: SmallText('Small Text')),
-        const MTListTile(middle: NumbersText('123,456.78')),
-        const MTListTile(middle: LinkText('Link Text')),
-        SizedBox(height: constants.P3),
-        const H2('Text Colors'),
-        SizedBox(height: constants.P2),
-        MTListText('Default color (F1)'),
-        const MTListTile(middle: BaseText.f2('Secondary color (F2)')),
-        const MTListTile(middle: BaseText.f3('Tertiary color (F3)')),
-        SizedBox(height: constants.P3),
-        const H2('Color Palette'),
-        SizedBox(height: constants.P2),
-        _ColorPalette(),
+        MTListText.h1('H1 - Heading 1'),
+        MTListText.h2('H2 - Heading 2'),
+        MTListText.h3('H3 - Heading 3'),
+        MTListText.h4('H4 - Heading 4'),
+        const MTListText('BaseText - Regular'),
+        MTListText.medium('BaseText.medium'),
+        MTListText.small('SmallText'),
+        MTListText.numbers('NumbersText: 123,456.78'),
+        MTListText.link('LinkText'),
+        const SizedBox(height: DEF_HP),
+
+        // Section: Text Colors
+        MTListText.h3('Text Colors'),
+        const SizedBox(height: DEF_VP),
+        const MTListTile(
+          middle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BaseText('F1 - Default'),
+              SizedBox(height: P),
+              BaseText.f2('F2 - Secondary'),
+              SizedBox(height: P),
+              BaseText.f3('F3 - Tertiary'),
+            ],
+          ),
+        ),
+        const SizedBox(height: DEF_HP),
+
+        // Section: Color Palette
+        MTListText.h3('Color Palette'),
+        const SizedBox(height: DEF_VP),
+        Padding(
+          padding: DEF_MARGIN,
+          child: _ColorPalette(),
+        ),
       ],
     );
   }
@@ -43,29 +53,29 @@ class TypographyDemo extends StatelessWidget {
 class _ColorPalette extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final uiColors = context.uiConfig;
+    final c = context.colorScheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _ColorSection('Background', [
-          _ColorBox('B0', uiColors.b0Color),
-          _ColorBox('B1', uiColors.b1Color),
-          _ColorBox('B2', uiColors.b2Color),
-          _ColorBox('B3', uiColors.b3Color),
+          _ColorBox('B0', c.b0Color),
+          _ColorBox('B1', c.b1Color),
+          _ColorBox('B2', c.b2Color),
+          _ColorBox('B3', c.b3Color),
         ]),
-        SizedBox(height: constants.P2),
+        const SizedBox(height: DEF_VP),
         _ColorSection('Foreground', [
-          _ColorBox('F1', uiColors.f1Color),
-          _ColorBox('F2', uiColors.f2Color),
-          _ColorBox('F3', uiColors.f3Color),
+          _ColorBox('F1', c.f1Color),
+          _ColorBox('F2', c.f2Color),
+          _ColorBox('F3', c.f3Color),
         ]),
-        SizedBox(height: constants.P2),
+        const SizedBox(height: DEF_VP),
         _ColorSection('Accent', [
-          _ColorBox('Main', uiColors.mainColor),
-          _ColorBox('Danger', uiColors.dangerColor),
-          _ColorBox('Safe', uiColors.safeColor),
-          _ColorBox('Warning', uiColors.warningColor),
+          _ColorBox('Main', c.mainColor),
+          _ColorBox('Danger', c.dangerColor),
+          _ColorBox('Safe', c.safeColor),
+          _ColorBox('Warning', c.warningColor),
         ]),
       ],
     );
@@ -84,10 +94,10 @@ class _ColorSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BaseText.medium(title),
-        SizedBox(height: constants.P),
+        const SizedBox(height: P),
         Wrap(
-          spacing: constants.P,
-          runSpacing: constants.P,
+          spacing: P,
+          runSpacing: P,
           children: colors,
         ),
       ],
@@ -110,11 +120,11 @@ class _ColorBox extends StatelessWidget {
           height: 50,
           decoration: BoxDecoration(
             color: color.resolve(context),
-            borderRadius: BorderRadius.circular(constants.P),
-            border: Border.all(color: context.uiConfig.f3Color.resolve(context)),
+            borderRadius: BorderRadius.circular(P),
+            border: Border.all(color: context.colorScheme.f3Color.resolve(context)),
           ),
         ),
-        SizedBox(height: constants.P_2),
+        const SizedBox(height: P_2),
         SmallText(label),
       ],
     );

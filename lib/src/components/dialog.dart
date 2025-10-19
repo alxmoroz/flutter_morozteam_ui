@@ -13,29 +13,15 @@ import '../utils/material_wrapper.dart';
 import 'scrollable.dart';
 import 'toolbar.dart';
 
-// Global context for dialogs - will be set by the app
-BuildContext? _globalContext;
-
-void setGlobalContext(BuildContext context) {
-  _globalContext = context;
-}
-
-BuildContext get globalContext {
-  if (_globalContext == null) {
-    throw FlutterError(
-      'Global context not set. Call setGlobalContext() in your app initialization.',
-    );
-  }
-  return _globalContext!;
-}
+// Note: All dialog methods now require explicit context parameter
+// Global context has been removed to prevent memory leaks and improve testability
 
 BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
   final mq = MediaQuery.of(context);
   final big = isBigScreen(context);
   return BoxConstraints(
-    maxWidth: big ? min(mq.size.width - constants.P6, maxWidth ?? constants.scrSWidth) : double.infinity,
-    maxHeight:
-        big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - constants.P6 : double.infinity,
+    maxWidth: big ? min(mq.size.width - DEF_HP, maxWidth ?? SCR_S_WIDTH) : double.infinity,
+    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - DEF_HP : double.infinity,
   );
 }
 
@@ -62,14 +48,14 @@ class MTDialogPage<T> extends Page<T> {
       ? DialogRoute(
           context: context,
           useSafeArea: false,
-          barrierColor: UIThemeProvider.of(globalContext).defaultBarrierColor.resolve(context),
+          barrierColor: context.colorScheme.defaultBarrierColor.resolve(context),
           settings: this,
           builder: (_) => _constrainedDialog(context, child, maxWidth: maxWidth),
         )
       : ModalBottomSheetRoute(
           useSafeArea: true,
           constraints: _dialogConstrains(context, maxWidth),
-          modalBarrierColor: UIThemeProvider.of(globalContext).defaultBarrierColor.resolve(context),
+          modalBarrierColor: context.colorScheme.defaultBarrierColor.resolve(context),
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
           settings: this,
@@ -79,29 +65,31 @@ class MTDialogPage<T> extends Page<T> {
 
 Future<T?> showMTDialog<T>(
   Widget child, {
+  required BuildContext context,
   double? maxWidth,
   bool forceBottomSheet = false,
   Color? barrierColor,
   bool isDismissible = true,
 }) async {
-  return !forceBottomSheet && isBigScreen(globalContext)
+  final ctx = context;
+  return !forceBottomSheet && isBigScreen(ctx)
       ? await showDialog<T?>(
-          context: globalContext,
-          barrierColor: (barrierColor ?? UIThemeProvider.of(globalContext).defaultBarrierColor).resolve(globalContext),
+          context: ctx,
+          barrierColor: (barrierColor ?? ctx.colorScheme.defaultBarrierColor).resolve(ctx),
           barrierDismissible: isDismissible,
           useRootNavigator: false,
           useSafeArea: false,
-          builder: (_) => _constrainedDialog(globalContext, child, maxWidth: maxWidth),
+          builder: (_) => _constrainedDialog(ctx, child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
-          context: globalContext,
-          barrierColor: (barrierColor ?? UIThemeProvider.of(globalContext).defaultBarrierColor).resolve(globalContext),
+          context: ctx,
+          barrierColor: (barrierColor ?? ctx.colorScheme.defaultBarrierColor).resolve(ctx),
           isDismissible: isDismissible,
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
           useRootNavigator: false,
           useSafeArea: true,
-          constraints: _dialogConstrains(globalContext, maxWidth),
+          constraints: _dialogConstrains(ctx, maxWidth),
           builder: (_) => child,
         );
 }
@@ -146,7 +134,7 @@ class MTDialog extends StatelessWidget {
       final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
       final hasBottomBar = bottomBar != null;
       final needBottomPadding = forceBottomPadding || bottomBarHeight > 0 || (mqPaddingBottom == 0 && !big);
-      final minBottomPadding = needBottomPadding ? constants.defDialogBottomPadding : 0.0;
+      final minBottomPadding = needBottomPadding ? DEF_DIALOG_BOTTOM_PADDING : 0.0;
       final mqPadding = mq.padding.copyWith(bottom: max(mqPaddingBottom, minBottomPadding));
 
       return MediaQuery(
@@ -187,7 +175,7 @@ class MTDialog extends StatelessWidget {
     final mqPadding = mq.padding;
 
     final big = isBigScreen(context);
-    final radius = Radius.circular(constants.defBorderRadius);
+    const radius = Radius.circular(DEF_BORDER_RADIUS);
 
     return FocusDroppable(
       Padding(
@@ -195,7 +183,7 @@ class MTDialog extends StatelessWidget {
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: (bgColor ?? context.uiConfig.b2Color).resolve(context),
+            color: (bgColor ?? context.colorScheme.b2Color).resolve(context),
             borderRadius: borderRadius ??
                 BorderRadius.only(
                   topLeft: radius,
@@ -205,9 +193,9 @@ class MTDialog extends StatelessWidget {
                 ),
             boxShadow: [
               BoxShadow(
-                  blurRadius: constants.P,
-                  offset: Offset(0, big ? constants.P_2 : -constants.P_2),
-                  color: context.uiConfig.b0Color.resolve(context).withValues(alpha: 0.42))
+                  blurRadius: P,
+                  offset: Offset(0, big ? P_2 : -P_2),
+                  color: context.colorScheme.b0Color.resolve(context).withValues(alpha: 0.42))
             ],
           ),
           child: Stack(

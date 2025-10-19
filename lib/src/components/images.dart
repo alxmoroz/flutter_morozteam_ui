@@ -15,7 +15,27 @@ class MTSvgImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset('assets/images/$name.svg', width: width, height: height);
+    final dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+
+    return SvgPicture.asset(
+      // Try dark version first if in dark mode
+      dark ? 'assets/images/${name}_dark.svg' : 'assets/images/$name.svg',
+      width: width,
+      height: height,
+      // Fallback to light version if dark version doesn't exist
+      errorBuilder: (context, error, stackTrace) {
+        if (dark) {
+          // If dark version failed, try light version
+          return SvgPicture.asset(
+            'assets/images/$name.svg',
+            width: width,
+            height: height,
+          );
+        }
+        // If light version also failed, show empty
+        return const SizedBox.shrink();
+      },
+    );
   }
 }
 

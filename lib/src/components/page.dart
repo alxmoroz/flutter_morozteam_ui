@@ -45,8 +45,8 @@ class MTPage extends StatelessWidget {
     return material(Builder(builder: (ctx) {
       final mq = MediaQuery.of(ctx);
       final mqPadding = mq.padding.copyWith(
-        top: max(mq.padding.top, constants.defPageTopPadding),
-        bottom: max(max(mq.viewPadding.bottom, mq.padding.bottom), constants.defPageBottomPadding),
+        top: max(mq.padding.top, DEF_PAGE_TOP_PADDING),
+        bottom: max(max(mq.viewPadding.bottom, mq.padding.bottom), DEF_PAGE_BOTTOM_PADDING),
       );
 
       final hasKB = mq.viewInsets.bottom > 0;
@@ -105,7 +105,7 @@ class MTPage extends StatelessWidget {
 
     return FocusDroppable(
       Container(
-        decoration: BoxDecoration(color: context.uiConfig.b2Color.resolve(context)),
+        decoration: BoxDecoration(color: context.colorScheme.b2Color.resolve(context)),
         child: Stack(
           children: [
             hasLeftBar || hasRightBar
