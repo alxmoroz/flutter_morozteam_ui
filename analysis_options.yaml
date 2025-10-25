@@ -1,8 +1,8 @@
 include: package:flutter_lints/flutter.yaml
 
-exclude:
-  - "**/*.g.dart"
-  - "**/generated/**/*"
+formatter:
+  trailing_commas: preserve
+
 
 linter:
   rules:

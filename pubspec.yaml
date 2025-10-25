@@ -7,19 +7,19 @@ issue_tracker: https://github.com/MorozTeam/flutter_morozteam_ui/issues
 license: MIT
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.9.2 <4.0.0"
   flutter: ">=3.0.0"
 
 dependencies:
-  crypto: any
-  cupertino_icons: any
+  crypto: ^3.0.6
+  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
-  flutter_svg: any
-  webview_flutter: any
+  flutter_svg: ^2.2.1
+  webview_flutter: ^4.13.0
 
 dev_dependencies:
-  flutter_lints: any
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
 
