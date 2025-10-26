@@ -78,6 +78,8 @@ class _DialogsDemoState extends State<DialogsDemo> {
             ),
           ),
         ),
+        SizedBox(height: context.sizing.hPadding),
+
       ],
     );
   }

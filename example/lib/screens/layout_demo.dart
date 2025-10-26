@@ -375,8 +375,12 @@ class _ToolbarDemoPage extends StatelessWidget {
               ],
             ),
           ),
+
+          SizedBox(height: context.sizing.hPadding),
+
         ],
       ),
     );
   }
+
 }

@@ -33,10 +33,10 @@ class ScrollableBuilder extends BaseScrollableWidget {
     required this.builder,
   });
 
-  final Widget Function(BuildContext context, ScrollBehaviorMixin scrollBehavior) builder;
+  final Widget Function(BuildContext context, _BaseScrollableWidgetState scrollBehavior) builder;
 
   @override
   Widget buildScrollableContent(BuildContext context) {
-    return builder(context, this);
+    return builder(context, this as _BaseScrollableWidgetState);
   }
 }
