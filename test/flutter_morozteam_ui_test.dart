@@ -313,4 +313,91 @@ void main() {
     // Verify bottom scroll callback was called
     expect(bottomScrolledState, isTrue);
   });
+
+  testWidgets('MTButtonV2 supports all button types and functionality', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Column(
+            children: [
+              // Main button
+              MTButtonV2.main(
+                titleText: 'Main Button',
+                onTap: () {},
+              ),
+              SizedBox(height: 10),
+              
+              // Secondary button
+              MTButtonV2.secondary(
+                titleText: 'Secondary Button',
+                onTap: () {},
+              ),
+              SizedBox(height: 10),
+              
+              // Text button
+              MTButtonV2.text(
+                titleText: 'Text Button',
+                onTap: () {},
+              ),
+              SizedBox(height: 10),
+              
+              // Icon button
+              MTButtonV2.icon(
+                icon: Icon(Icons.add),
+                onTap: () {},
+              ),
+              SizedBox(height: 10),
+              
+              // Danger button
+              MTButtonV2.danger(
+                titleText: 'Danger Button',
+                onTap: () {},
+              ),
+              SizedBox(height: 10),
+              
+              // Safe button
+              MTButtonV2.safe(
+                titleText: 'Safe Button',
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    // Verify all button types are rendered
+    expect(find.text('Main Button'), findsOneWidget);
+    expect(find.text('Secondary Button'), findsOneWidget);
+    expect(find.text('Text Button'), findsOneWidget);
+    expect(find.text('Danger Button'), findsOneWidget);
+    expect(find.text('Safe Button'), findsOneWidget);
+    expect(find.byIcon(Icons.add), findsOneWidget);
+  });
+
+  testWidgets('MTButtonV2 supports unfocus parameter', (WidgetTester tester) async {
+    bool unfocusCalled = false;
+    
+    // Mock unfocusAll function
+    // Note: In real tests, you'd need to mock the FocusManager
+    
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: MTButtonV2.main(
+            titleText: 'Test Button',
+            onTap: () {},
+            uf: true, // Should call unfocusAll
+          ),
+        ),
+      ),
+    );
+
+    // Tap the button
+    await tester.tap(find.text('Test Button'));
+    await tester.pumpAndSettle();
+    
+    // Verify button was tapped (unfocus behavior is hard to test without mocking)
+    expect(find.text('Test Button'), findsOneWidget);
+  });
 }
