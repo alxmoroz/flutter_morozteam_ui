@@ -238,7 +238,6 @@ class LayoutDemo extends StatelessWidget {
                 child: MTScrollable(
                   scrollController: ScrollController(),
                   scrollOffsetTop: 50.0,
-                  bottomShadow: true,
                   bottomShadowOffset: 100.0,
                   onScrolled: (scrolled) {
                     if (kDebugMode) print('Scrolled: $scrolled');

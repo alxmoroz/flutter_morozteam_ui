@@ -10,7 +10,7 @@ import 'status_bar_tap_handler.dart';
 /// 
 /// Provides scrolling functionality with automatic shadow management:
 /// - Top shadow appears when scrolled past [scrollOffsetTop]
-/// - Bottom shadow appears when scrolled near the bottom (if [bottomShadow] is true)
+/// - Bottom shadow appears when scrolled near the bottom (if [bottomShadowOffset] > 0)
 /// - Status bar tap to scroll to top functionality
 /// 
 /// ## Example
@@ -19,7 +19,6 @@ import 'status_bar_tap_handler.dart';
 /// MTScrollable(
 ///   scrollController: myScrollController,
 ///   scrollOffsetTop: 50.0,
-///   bottomShadow: true,
 ///   bottomShadowOffset: 100.0, // Show shadow when 100px from bottom
 ///   onScrolled: (hasScrolled) => print('Scrolled: $hasScrolled'),
 ///   child: ListView(...),
@@ -33,7 +32,6 @@ class MTScrollable extends StatefulWidget {
     required this.scrollOffsetTop,
     this.topShadowPadding,
     this.topIndent,
-    this.bottomShadow = false,
     this.bottomShadowOffset = 0.0,
     this.onScrolled,
     super.key,
@@ -44,7 +42,6 @@ class MTScrollable extends StatefulWidget {
   final Widget child;
   final double? topShadowPadding;
   final double? topIndent;
-  final bool bottomShadow;
   final double bottomShadowOffset;
   final Function(bool)? onScrolled;
 
@@ -74,8 +71,8 @@ class _State extends State<MTScrollable> {
       });
     }
     
-    // Check bottom shadow
-    final shouldShowBottomShadow = widget.bottomShadow && 
+    // Check bottom shadow (only if bottomShadowOffset > 0)
+    final shouldShowBottomShadow = widget.bottomShadowOffset > 0 && 
         maxScrollExtent > 0 && 
         offset >= maxScrollExtent - widget.bottomShadowOffset;
     if (_hasScrolledToBottom != shouldShowBottomShadow) {

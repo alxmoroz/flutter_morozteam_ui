@@ -168,7 +168,6 @@ void main() {
           body: MTScrollable(
             scrollController: scrollController,
             scrollOffsetTop: 50.0,
-            bottomShadow: true,
             bottomShadowOffset: 100.0,
             child: ListView(
               children: List.generate(20, (index) => 
