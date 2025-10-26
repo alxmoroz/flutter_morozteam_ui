@@ -375,7 +375,97 @@ class _ToolbarDemoPage extends StatelessWidget {
               ],
             ),
           ),
+
+          SizedBox(height: context.sizing.hPadding),
+
+          MTListText.h2('Scrollable V2 Components'),
+          SizedBox(height: context.sizing.vPadding),
+
+          MTCard(
+            margin: context.sizing.defMargin,
+            child: Column(
+              children: [
+                const MTListText('MTScrollableV2 with factory methods'),
+                SizedBox(height: context.sizing.vPadding),
+                MTButton.secondary(
+                  titleText: 'Show ScrollableV2 Demo',
+                  onTap: () => _showScrollableV2Demo(context),
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(height: context.sizing.hPadding),
+
+          MTCard(
+            margin: context.sizing.defMargin,
+            child: Column(
+              children: [
+                const MTListText('MTPageV2 with new architecture'),
+                SizedBox(height: context.sizing.vPadding),
+                MTButton.secondary(
+                  titleText: 'Show PageV2 Demo',
+                  onTap: () => _showPageV2Demo(context),
+                ),
+              ],
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  void _showScrollableV2Demo(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(title: const Text('ScrollableV2 Demo')),
+          body: MTScrollableV2(
+            config: const ScrollBehaviorConfig(
+              scrollOffsetTop: 50.0,
+              bottomShadowOffset: 100.0,
+            ),
+            child: ListView(
+              children: List.generate(50, (index) => 
+                Container(
+                  height: 60,
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(child: Text('Item $index')),
+                )
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showPageV2Demo(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => MTPageV2(
+          navBar: const MTNavBar(pageTitle: 'PageV2 Demo'),
+          body: ListView(
+            children: List.generate(30, (index) => 
+              Container(
+                height: 50,
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.green.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(child: Text('PageV2 Item $index')),
+              )
+            ),
+          ),
+          bottomBar: const MTBottomBar(
+            middle: Text('PageV2 Bottom Bar'),
+          ),
+        ),
       ),
     );
   }

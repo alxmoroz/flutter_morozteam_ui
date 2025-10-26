@@ -76,6 +76,9 @@ export 'src/components/refresh.dart';
 // Scrolling & Refresh
 export 'src/components/scrollable.dart';
 export 'src/components/scrollable_centered.dart';
+export 'src/components/scrollable_builder.dart';
+export 'src/components/scrollable_v2.dart';
+export 'src/components/page_v2.dart';
 export 'src/components/shadowed.dart';
 export 'src/components/status_bar_tap_handler.dart';
 export 'src/components/scroll_behavior.dart';
