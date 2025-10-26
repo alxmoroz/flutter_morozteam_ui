@@ -65,6 +65,8 @@ class _State extends State<MTScrollable> {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    
     return MTShadowed(
       topShadow: _hasScrolled,
       bottomShadow: widget.bottomShadow,
@@ -72,12 +74,37 @@ class _State extends State<MTScrollable> {
       topIndent: widget.topIndent,
       child: PrimaryScrollController(
         controller: widget.scrollController,
-        child: NotificationListener<ScrollMetricsNotification>(
-          onNotification: (_) {
-            _listener();
-            return false;
-          },
-          child: widget.child,
+        child: Stack(
+          children: [
+            NotificationListener<ScrollMetricsNotification>(
+              onNotification: (_) {
+                _listener();
+                return false;
+              },
+              child: widget.child,
+            ),
+            // Add tap-to-scroll functionality for status bar area
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: mq.padding.top,
+              child: GestureDetector(
+                onTap: () {
+                  if (widget.scrollController.hasClients) {
+                    widget.scrollController.animateTo(
+                      0.0,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    );
+                  }
+                },
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

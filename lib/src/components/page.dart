@@ -102,6 +102,28 @@ class MTPage extends StatelessWidget {
                 ),
                 if (navBar != null) navBar!,
                 if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
+                // Add tap-to-scroll functionality for status bar area
+                if (scrollController != null)
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: mqPadding.top,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (scrollController!.hasClients) {
+                          scrollController!.animateTo(
+                            0.0,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                          );
+                        }
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
