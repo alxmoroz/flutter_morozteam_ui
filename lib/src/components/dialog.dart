@@ -8,35 +8,16 @@ import '../config/mt_theme.dart';
 import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
-import '../utils/material_wrapper.dart';
+import 'dialog_mixin.dart';
 import 'scrollable.dart';
 import 'toolbar.dart';
 
 // Note: All dialog methods now require explicit context parameter
 // Global context has been removed to prevent memory leaks and improve testability
 
-BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
-  final mq = MediaQuery.of(context);
-  final big = isBigScreen(context);
-  return BoxConstraints(
-    maxWidth: big ? min(mq.size.width - context.sizing.hPadding, maxWidth ?? context.breakpoints.sWidth) : double.infinity,
-    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - context.sizing.hPadding : double.infinity,
-  );
-}
+// Use DialogMixin instead of local functions
 
-Widget _constrainedDialog(BuildContext context, Widget child, {double? maxWidth}) {
-  return UnconstrainedBox(
-    child: ConstrainedBox(
-      constraints: _dialogConstrains(context, maxWidth),
-      child: SafeArea(
-        maintainBottomViewPadding: true,
-        child: material(child),
-      ),
-    ),
-  );
-}
-
-class MTDialogPage<T> extends Page<T> {
+class MTDialogPage<T> extends Page<T> with DialogMixin {
   const MTDialogPage({required this.child, super.name, super.arguments, this.maxWidth, super.key, super.restorationId});
 
   final Widget child;
@@ -49,11 +30,11 @@ class MTDialogPage<T> extends Page<T> {
           useSafeArea: false,
           barrierColor: context.colorScheme.defaultBarrierColor.resolve(context),
           settings: this,
-          builder: (_) => _constrainedDialog(context, child, maxWidth: maxWidth),
+          builder: (_) => constrainedDialog(context, child, maxWidth: maxWidth),
         )
       : ModalBottomSheetRoute(
           useSafeArea: true,
-          constraints: _dialogConstrains(context, maxWidth),
+          constraints: dialogConstraints(context, maxWidth: maxWidth),
           modalBarrierColor: context.colorScheme.defaultBarrierColor.resolve(context),
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
@@ -78,7 +59,7 @@ Future<T?> showMTDialog<T>(
           barrierDismissible: isDismissible,
           useRootNavigator: false,
           useSafeArea: false,
-          builder: (_) => _constrainedDialog(ctx, child, maxWidth: maxWidth),
+          builder: (_) => _constrainedDialogWithMixin(ctx, child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
           context: ctx,
@@ -88,10 +69,21 @@ Future<T?> showMTDialog<T>(
           isScrollControlled: true,
           useRootNavigator: false,
           useSafeArea: true,
-          constraints: _dialogConstrains(ctx, maxWidth),
+          constraints: _dialogConstraintsWithMixin(ctx, maxWidth),
           builder: (_) => child,
         );
 }
+
+// Helper functions to use DialogMixin
+Widget _constrainedDialogWithMixin(BuildContext context, Widget child, {double? maxWidth}) {
+  return _DialogHelper().constrainedDialog(context, child, maxWidth: maxWidth);
+}
+
+BoxConstraints _dialogConstraintsWithMixin(BuildContext context, double? maxWidth) {
+  return _DialogHelper().dialogConstraints(context, maxWidth: maxWidth);
+}
+
+class _DialogHelper with DialogMixin {}
 
 /// Dialog component with responsive behavior
 ///
@@ -132,7 +124,8 @@ class MTDialog extends StatelessWidget {
     this.bgColor,
     this.scrollController,
     this.scrollOffsetTop,
-    this.onScrolled,
+    this.onTopScrolled,
+    this.onBottomScrolled,
     this.borderRadius,
   });
 
@@ -149,49 +142,53 @@ class MTDialog extends StatelessWidget {
 
   final ScrollController? scrollController;
   final double? scrollOffsetTop;
-  final Function(bool)? onScrolled;
+  final Function(bool)? onTopScrolled;
+  final Function(bool)? onBottomScrolled;
 
   Widget get _center {
-    return Builder(builder: (context) {
-      final mq = MediaQuery.of(context);
-      final big = isBigScreen(context);
-      final mqPaddingBottom = max(mq.padding.bottom, big ? 0.0 : mq.viewPadding.bottom);
-      final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
-      final hasBottomBar = bottomBar != null;
-      final needBottomPadding = forceBottomPadding || bottomBarHeight > 0 || (mqPaddingBottom == 0 && !big);
-      final minBottomPadding = needBottomPadding ? context.sizing.dialogBottomPadding : 0.0;
-      final mqPadding = mq.padding.copyWith(bottom: max(mqPaddingBottom, minBottomPadding));
+    return Builder(
+      builder: (context) {
+        final mq = MediaQuery.of(context);
+        final big = isBigScreen(context);
+        final mqPaddingBottom = max(mq.padding.bottom, big ? 0.0 : mq.viewPadding.bottom);
+        final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
+        final hasBottomBar = bottomBar != null;
+        final needBottomPadding = forceBottomPadding || bottomBarHeight > 0 || (mqPaddingBottom == 0 && !big);
+        final minBottomPadding = needBottomPadding ? context.sizing.dialogBottomPadding : 0.0;
+        final mqPadding = mq.padding.copyWith(bottom: max(mqPaddingBottom, minBottomPadding));
 
-      return MediaQuery(
-        data: mq.copyWith(padding: mqPadding),
-        child: Stack(
-          children: [
-            MediaQuery(
-              data: mq.copyWith(
-                padding: mqPadding.copyWith(
-                  top: (topBar?.preferredSize.height ?? 0),
-                  bottom: mqPadding.bottom + bottomBarHeight,
+        return MediaQuery(
+          data: mq.copyWith(padding: mqPadding),
+          child: Stack(
+            children: [
+              MediaQuery(
+                data: mq.copyWith(
+                  padding: mqPadding.copyWith(
+                    top: (topBar?.preferredSize.height ?? 0),
+                    bottom: mqPadding.bottom + bottomBarHeight,
+                  ),
+                ),
+                child: SafeArea(
+                  bottom: false,
+                  child: scrollOffsetTop != null && scrollController != null
+                      ? MTScrollable(
+                          scrollController: scrollController!,
+                          topScrollOffset: scrollOffsetTop!,
+                          onTopScrolled: onTopScrolled,
+                          onBottomScrolled: onBottomScrolled,
+                          bottomScrollOffset: bottomBarHeight > 0 ? bottomBarHeight : 0.0,
+                          child: body,
+                        )
+                      : body,
                 ),
               ),
-              child: SafeArea(
-                bottom: false,
-                child: scrollOffsetTop != null && scrollController != null
-                    ? MTScrollable(
-                        scrollController: scrollController!,
-                        scrollOffsetTop: scrollOffsetTop!,
-                        onScrolled: onScrolled,
-                        bottomShadow: bottomBarHeight > 0,
-                        child: body,
-                      )
-                    : body,
-              ),
-            ),
-            if (topBar != null) topBar!,
-            if (hasBottomBar) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
-          ],
-        ),
-      );
-    });
+              if (topBar != null) topBar!,
+              if (hasBottomBar) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -209,7 +206,8 @@ class MTDialog extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: (bgColor ?? context.colorScheme.b2Color).resolve(context),
-            borderRadius: borderRadius ??
+            borderRadius:
+                borderRadius ??
                 BorderRadius.only(
                   topLeft: radius,
                   topRight: radius,
@@ -218,9 +216,10 @@ class MTDialog extends StatelessWidget {
                 ),
             boxShadow: [
               BoxShadow(
-                  blurRadius: context.sizing.smallSpacing,
-                  offset: Offset(0, big ? context.sizing.borderWidth : -context.sizing.borderWidth),
-                  color: context.colorScheme.b0Color.resolve(context).withValues(alpha: 0.42))
+                blurRadius: context.sizing.smallSpacing,
+                offset: Offset(0, big ? context.sizing.borderWidth : -context.sizing.borderWidth),
+                color: context.colorScheme.b0Color.resolve(context).withValues(alpha: 0.42),
+              ),
             ],
           ),
           child: Stack(

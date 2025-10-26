@@ -228,21 +228,58 @@ class LayoutDemo extends StatelessWidget {
         MTListText.h3('MTScrollable'),
         MTCard(
           margin: context.sizing.defMargin,
-          child: SizedBox(
-            height: 200,
-            child: MTScrollable(
-              scrollController: ScrollController(),
-              scrollOffsetTop: 50.0,
-              onScrolled: (scrolled) {
-                if (kDebugMode) print('Scrolled: $scrolled');
-              },
-              child: ListView.builder(
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return MTListTile(titleText: 'Item $index', verticalPadding: 4);
-                },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const MTListText('Dynamic shadows: top when scrolled down, bottom when near end'),
+              SizedBox(height: context.sizing.vPadding),
+              SizedBox(
+                height: 200,
+                child: MTScrollable(
+                  scrollController: ScrollController(),
+                  topScrollOffset: 50.0,
+                  bottomScrollOffset: 100.0,
+                  onTopScrolled: (scrolled) {
+                    if (kDebugMode) print('Top scrolled: $scrolled');
+                  },
+                  onBottomScrolled: (scrolledToBottom) {
+                    if (kDebugMode) print('Bottom scrolled: $scrolledToBottom');
+                  },
+                  child: ListView.builder(
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      return MTListTile(titleText: 'Item $index', verticalPadding: 4);
+                    },
+                  ),
+                ),
               ),
-            ),
+            ],
+          ),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
+        /// StatusBarTapHandler standalone demo
+        MTListText.h3('StatusBarTapHandler'),
+        MTCard(
+          margin: context.sizing.defMargin,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const MTListText('Tap the status bar area to scroll to top'),
+              SizedBox(height: context.sizing.vPadding),
+              SizedBox(
+                height: 200,
+                child: StatusBarTapHandler(
+                  scrollController: ScrollController(),
+                  child: ListView.builder(
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      return MTListTile(titleText: 'Item $index', verticalPadding: 4);
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         SizedBox(height: context.sizing.hPadding),
@@ -252,12 +289,12 @@ class LayoutDemo extends StatelessWidget {
         MTCard(
           margin: context.sizing.defMargin,
           padding: context.sizing.defPadding,
-          child: PageTitle('Main Title', parentPageTitle: 'Parent'),
+          child: const PageTitle('Main Title', parentPageTitle: 'Parent'),
         ),
         MTCard(
           margin: context.sizing.defMargin,
           padding: context.sizing.defPadding,
-          child: PageTitle('Simple Title'),
+          child: const PageTitle('Simple Title'),
         ),
         SizedBox(height: context.sizing.hPadding),
 
@@ -338,6 +375,8 @@ class _ToolbarDemoPage extends StatelessWidget {
               ],
             ),
           ),
+
+          SizedBox(height: context.sizing.hPadding),
         ],
       ),
     );

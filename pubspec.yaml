@@ -1,6 +1,6 @@
 name: morozteam_ui
 description: Universal UI kit for Flutter applications with flexible configuration system for colors, typography and spacing
-version: 0.1.0
+version: 0.2.0
 homepage: https://github.com/MorozTeam/flutter_morozteam_ui
 repository: https://github.com/MorozTeam/flutter_morozteam_ui
 issue_tracker: https://github.com/MorozTeam/flutter_morozteam_ui/issues
@@ -22,6 +22,3 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-
-# The following section is specific to Flutter packages.
-flutter:

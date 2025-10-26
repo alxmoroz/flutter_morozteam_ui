@@ -11,6 +11,7 @@ import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
 import 'background.dart';
 import 'scrollable.dart';
+import 'status_bar_tap_handler.dart';
 
 /// Base page widget with navigation bars and scrolling support
 ///
@@ -24,6 +25,8 @@ import 'scrollable.dart';
 ///   navBar: MTNavBar(pageTitle: 'Home'),
 ///   body: ListView(children: [...]),
 ///   bottomBar: MTBottomBar(middle: NavigationWidget()),
+///   onScrolled: (hasScrolled) => print('Top scrolled: $hasScrolled'),
+///   onBottomScrolled: (hasScrolledToBottom) => print('Bottom scrolled: $hasScrolledToBottom'),
 /// )
 /// ```
 ///
@@ -41,7 +44,8 @@ class MTPage extends StatelessWidget {
     this.rightBar,
     this.scrollController,
     this.scrollOffsetTop,
-    this.onScrolled,
+    this.onTopScrolled,
+    this.onBottomScrolled,
     this.bg1Color,
     this.bg2Color,
   });
@@ -56,60 +60,69 @@ class MTPage extends StatelessWidget {
 
   final ScrollController? scrollController;
   final double? scrollOffsetTop;
-  final Function(bool)? onScrolled;
+  final Function(bool)? onTopScrolled;
+  final Function(bool)? onBottomScrolled;
 
   Widget get _center {
-    return material(Builder(builder: (ctx) {
-      final mq = MediaQuery.of(ctx);
-      final mqPadding = mq.padding.copyWith(
-        top: max(mq.padding.top, ctx.sizing.pageTopPadding),
-        bottom: max(max(mq.viewPadding.bottom, mq.padding.bottom), ctx.sizing.pageBottomPadding),
-      );
+    return material(
+      Builder(
+        builder: (ctx) {
+          final mq = MediaQuery.of(ctx);
+          final mqPadding = mq.padding.copyWith(
+            top: max(mq.padding.top, ctx.sizing.pageTopPadding),
+            bottom: max(max(mq.viewPadding.bottom, mq.padding.bottom), ctx.sizing.pageBottomPadding),
+          );
 
-      final hasKB = mq.viewInsets.bottom > 0;
-      final big = isBigScreen(ctx);
-      final scrollable = scrollOffsetTop != null && scrollController != null;
-      final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
+          final hasKB = mq.viewInsets.bottom > 0;
+          final big = isBigScreen(ctx);
+          final scrollable = scrollOffsetTop != null && scrollController != null;
+          final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
 
-      return MTBackgroundWrapper(
-        PrimaryScrollController(
-          controller: scrollController ?? ScrollController(),
-          child: MediaQuery(
-            data: mq.copyWith(padding: mqPadding),
-            child: Stack(
-              children: [
-                MediaQuery(
-                  data: mq.copyWith(
-                    padding: mqPadding.copyWith(
-                      top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (navBar?.preferredSize.height ?? 0)),
-                      bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + bottomBarHeight,
-                    ),
-                  ),
-                  child: SafeArea(
-                    top: false,
-                    bottom: false,
-                    child: scrollable
-                        ? MTScrollable(
-                            scrollController: scrollController!,
-                            scrollOffsetTop: scrollOffsetTop!,
-                            onScrolled: onScrolled,
-                            bottomShadow: bottomBarHeight > 0,
-                            topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
-                            child: body,
-                          )
-                        : body,
+          return MTBackgroundWrapper(
+            PrimaryScrollController(
+              controller: scrollController ?? ScrollController(),
+              child: MediaQuery(
+                data: mq.copyWith(padding: mqPadding),
+                child: StatusBarTapHandler(
+                  scrollController: scrollController ?? ScrollController(),
+                  child: Stack(
+                    children: [
+                      MediaQuery(
+                        data: mq.copyWith(
+                          padding: mqPadding.copyWith(
+                            top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (navBar?.preferredSize.height ?? 0)),
+                            bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + bottomBarHeight,
+                          ),
+                        ),
+                        child: SafeArea(
+                          top: false,
+                          bottom: false,
+                          child: scrollable
+                              ? MTScrollable(
+                                  scrollController: scrollController!,
+                                  topScrollOffset: scrollOffsetTop!,
+                                  bottomScrollOffset: bottomBarHeight,
+                                  topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
+                                  onTopScrolled: onTopScrolled,
+                                  onBottomScrolled: onBottomScrolled,
+                                  child: body,
+                                )
+                              : body,
+                        ),
+                      ),
+                      if (navBar != null) navBar!,
+                      if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
+                    ],
                   ),
                 ),
-                if (navBar != null) navBar!,
-                if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
-              ],
+              ),
             ),
-          ),
-        ),
-        bg1Color: bg1Color,
-        bg2Color: bg2Color,
-      );
-    }));
+            bg1Color: bg1Color,
+            bg2Color: bg2Color,
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -137,7 +150,7 @@ class MTPage extends StatelessWidget {
                   )
                 : _center,
             if (hasLeftBar) leftBar!,
-            if (hasRightBar) Align(alignment: Alignment.centerRight, child: rightBar!)
+            if (hasRightBar) Align(alignment: Alignment.centerRight, child: rightBar!),
           ],
         ),
       ),

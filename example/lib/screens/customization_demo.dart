@@ -173,11 +173,11 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
               SizedBox(width: context.sizing.vPadding),
               Expanded(
                 child: Slider(
-                  value: color.red.toDouble(),
+                  value: (color.r * 255.0).roundToDouble(),
                   min: 0,
                   max: 255,
                   onChanged: (value) {
-                    onChanged(Color.fromARGB(255, value.toInt(), color.green, color.blue));
+                    onChanged(Color.fromARGB(255, value.toInt(), (color.g * 255.0).round(), (color.b * 255.0).round()));
                   },
                 ),
               ),
@@ -272,7 +272,7 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
           // Card preview
           MTCard(
             padding: context.sizing.defPadding,
-            child: MText.h4('Card with custom border radius', padding: EdgeInsets.symmetric(vertical: 40)),
+            child: MText.h4('Card with custom border radius', padding: const EdgeInsets.symmetric(vertical: 40)),
           ),
         ],
       ),
@@ -285,10 +285,10 @@ class _CustomizationDemoState extends State<CustomizationDemo> {
 final customTheme = buildMTTheme(
   context,
   colorScheme: MTColorScheme(
-    mainColor: Color(0x${_mainColor.value.toRadixString(16).padLeft(8, '0')}),
-    safeColor: Color(0x${_safeColor.value.toRadixString(16).padLeft(8, '0')}),
-    warningColor: Color(0x${_warningColor.value.toRadixString(16).padLeft(8, '0')}),
-    dangerColor: Color(0x${_dangerColor.value.toRadixString(16).padLeft(8, '0')}),
+    mainColor: Color(_mainColor.toARGB32()),
+    safeColor: Color(_safeColor.toARGB32()),
+    warningColor: Color(_warningColor.toARGB32()),
+    dangerColor: Color(_dangerColor.toARGB32()),
   ),
   typography: MTTypography(
     fontFamily: '$_fontFamily',

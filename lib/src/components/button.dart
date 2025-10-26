@@ -9,6 +9,7 @@ import '../theme/text.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
+import 'button_mixin.dart';
 
 /// Button types
 enum MTButtonType {
@@ -56,7 +57,7 @@ enum MTButtonType {
 /// See also:
 /// * [MTButtonType] for available button styles
 /// * [buildMTTheme] to customize button appearance
-class MTButton extends StatelessWidget with GestureManaging {
+class MTButton extends StatelessWidget with GestureManaging, ButtonMixin {
   const MTButton({
     super.key,
     this.titleText,
@@ -67,7 +68,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.middle,
     this.trailing,
     this.color,
-    this.titleColor,
+    this.customTitleColor,
     this.padding,
     this.margin,
     this.constrained = false,
@@ -99,13 +100,13 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.borderRadius,
     this.borderRadiusGeometry,
     this.mainAxisAlignment = MainAxisAlignment.center,
-  })  : type = MTButtonType.main,
-        titleColor = null,
-        color = null,
-        elevation = null,
-        borderSide = BorderSide.none,
-        onHover = null,
-        uf = true;
+  }) : type = MTButtonType.main,
+       customTitleColor = null,
+       color = null,
+       elevation = null,
+       borderSide = BorderSide.none,
+       onHover = null,
+       uf = true;
 
   /// Secondary button
   MTButton.secondary({
@@ -124,13 +125,13 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.borderRadius,
     this.borderRadiusGeometry,
     this.mainAxisAlignment = MainAxisAlignment.center,
-  })  : type = MTButtonType.secondary,
-        titleColor = null,
-        color = null,
-        elevation = null,
-        borderSide = null,
-        onHover = null,
-        uf = true;
+  }) : type = MTButtonType.secondary,
+       customTitleColor = null,
+       color = null,
+       elevation = null,
+       borderSide = null,
+       onHover = null,
+       uf = true;
 
   /// Danger button
   MTButton.danger({
@@ -149,13 +150,13 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.borderRadius,
     this.borderRadiusGeometry,
     this.mainAxisAlignment = MainAxisAlignment.center,
-  })  : type = MTButtonType.danger,
-        titleColor = null,
-        color = null,
-        elevation = null,
-        borderSide = BorderSide.none,
-        onHover = null,
-        uf = true;
+  }) : type = MTButtonType.danger,
+       customTitleColor = null,
+       color = null,
+       elevation = null,
+       borderSide = BorderSide.none,
+       onHover = null,
+       uf = true;
 
   /// Safe button
   MTButton.safe({
@@ -174,13 +175,13 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.borderRadius,
     this.borderRadiusGeometry,
     this.mainAxisAlignment = MainAxisAlignment.center,
-  })  : type = MTButtonType.safe,
-        titleColor = null,
-        color = null,
-        elevation = null,
-        borderSide = BorderSide.none,
-        onHover = null,
-        uf = true;
+  }) : type = MTButtonType.safe,
+       customTitleColor = null,
+       color = null,
+       elevation = null,
+       borderSide = BorderSide.none,
+       onHover = null,
+       uf = true;
 
   /// Icon button
   const MTButton.icon(
@@ -198,15 +199,15 @@ class MTButton extends StatelessWidget with GestureManaging {
     this.borderRadius,
     this.borderRadiusGeometry,
     this.mainAxisAlignment = MainAxisAlignment.center,
-  })  : type = MTButtonType.icon,
-        middle = icon,
-        titleText = null,
-        titleTextAlign = null,
-        leading = null,
-        trailing = null,
-        titleColor = null,
-        constrained = false,
-        borderSide = null;
+  }) : type = MTButtonType.icon,
+       middle = icon,
+       titleText = null,
+       titleTextAlign = null,
+       leading = null,
+       trailing = null,
+       customTitleColor = null,
+       constrained = false,
+       borderSide = null;
 
   final MTButtonType type;
   final TextAlign? titleTextAlign;
@@ -217,7 +218,7 @@ class MTButton extends StatelessWidget with GestureManaging {
   final Widget? middle;
   final Widget? trailing;
   final Color? color;
-  final Color? titleColor;
+  final Color? customTitleColor;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final bool constrained;
@@ -233,37 +234,35 @@ class MTButton extends StatelessWidget with GestureManaging {
   bool get _enabled => loading != true && onTap != null;
 
   Color _titleColor(BuildContext context) {
-    Color tc = (titleColor ??
-            (type.isMain
-                ? context.colorScheme.mainBtnTitleColor
-                : [MTButtonType.danger, MTButtonType.safe].contains(type)
+    Color tc =
+        (customTitleColor ??
+                (type.isMain
+                    ? context.colorScheme.mainBtnTitleColor
+                    : [MTButtonType.danger, MTButtonType.safe].contains(type)
                     ? context.colorScheme.b3Color
                     : context.colorScheme.mainColor.resolve(context)))
-        .resolve(context);
+            .resolve(context);
 
     return _enabled || type.isCustom ? tc : tc.withValues(alpha: 0.7);
   }
 
   Size _minSize(BuildContext context) =>
-      minSize ??
-      (type.isText
-          ? Size(0, context.sizing.hPadding)
-          : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
-  double _radius(BuildContext context) =>
-      borderRadius ?? (type.isCard ? context.sizing.defBorderRadius : _minSize(context).height / 2);
+      minSize ?? (type.isText ? Size(0, context.sizing.hPadding) : Size(context.sizing.minButtonHeight, context.sizing.minButtonHeight));
+  double _radius(BuildContext context) => borderRadius ?? (type.isCard ? context.sizing.defBorderRadius : _minSize(context).height / 2);
 
   ButtonStyle _style(BuildContext context) {
-    Color btnColor = (color ??
-            (type.isMain
-                ? context.colorScheme.mainColor
-                : type.isDanger
+    Color btnColor =
+        (color ??
+                (type.isMain
+                    ? context.colorScheme.mainColor
+                    : type.isDanger
                     ? context.colorScheme.dangerColor
                     : type.isSafe
-                        ? context.colorScheme.safeColor
-                        : type.isText
-                            ? Colors.transparent
-                            : context.colorScheme.b3Color))
-        .resolve(context);
+                    ? context.colorScheme.safeColor
+                    : type.isText
+                    ? Colors.transparent
+                    : context.colorScheme.b3Color))
+            .resolve(context);
     if (!(_enabled || type.isCustom)) btnColor = btnColor.withValues(alpha: 0.42);
 
     Color titleColor = _titleColor(context);
@@ -285,8 +284,7 @@ class MTButton extends StatelessWidget with GestureManaging {
     );
   }
 
-  Function()? get _onPressed =>
-      _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
+  Function()? get _onPressed => _enabled && onTap != null ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
 
   Widget _button(BuildContext context) {
     final child = Row(
@@ -310,12 +308,12 @@ class MTButton extends StatelessWidget with GestureManaging {
     );
 
     return [
-      MTButtonType.main,
-      MTButtonType.secondary,
-      MTButtonType.danger,
-      MTButtonType.safe,
-      MTButtonType.card,
-    ].contains(type)
+          MTButtonType.main,
+          MTButtonType.secondary,
+          MTButtonType.danger,
+          MTButtonType.safe,
+          MTButtonType.card,
+        ].contains(type)
         ? OutlinedButton(
             onPressed: _onPressed,
             onHover: onHover,

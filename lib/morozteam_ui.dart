@@ -45,8 +45,10 @@ export 'src/components/alert_dialog.dart';
 export 'src/components/avatar.dart';
 // Background
 export 'src/components/background.dart';
+export 'src/components/base_scrollable.dart';
 // Buttons & Interactive
 export 'src/components/button.dart';
+export 'src/components/button_mixin.dart';
 // Layout
 export 'src/components/card.dart';
 export 'src/components/checkbox.dart';
@@ -54,6 +56,7 @@ export 'src/components/circle.dart';
 export 'src/components/circular_progress.dart';
 export 'src/components/close_dialog_button.dart';
 export 'src/components/dialog.dart';
+export 'src/components/dialog_mixin.dart';
 export 'src/components/divider.dart';
 export 'src/components/dropdown.dart';
 export 'src/components/field.dart';
@@ -69,11 +72,13 @@ export 'src/components/page_title.dart';
 export 'src/components/phone_field.dart';
 export 'src/components/progress.dart';
 export 'src/components/refresh.dart';
+export 'src/components/scroll_behavior.dart';
 // Scrolling & Refresh
 export 'src/components/scrollable.dart';
 export 'src/components/scrollable_centered.dart';
 export 'src/components/shadowed.dart';
 export 'src/components/snackbar_dialog.dart';
+export 'src/components/status_bar_tap_handler.dart';
 // Form Components
 export 'src/components/text_field.dart';
 export 'src/components/toolbar.dart';
@@ -96,3 +101,4 @@ export 'src/utils/adaptive.dart';
 export 'src/utils/gesture.dart';
 export 'src/utils/material_wrapper.dart';
 export 'src/utils/md5.dart';
+export 'src/utils/sizing_extensions.dart';
