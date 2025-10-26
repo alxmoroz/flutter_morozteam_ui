@@ -11,6 +11,7 @@ import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
 import 'background.dart';
 import 'scrollable.dart';
+import 'status_bar_tap_handler.dart';
 
 /// Base page widget with navigation bars and scrolling support
 ///
@@ -76,55 +77,36 @@ class MTPage extends StatelessWidget {
           controller: scrollController ?? ScrollController(),
           child: MediaQuery(
             data: mq.copyWith(padding: mqPadding),
-            child: Stack(
-              children: [
-                MediaQuery(
-                  data: mq.copyWith(
-                    padding: mqPadding.copyWith(
-                      top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (navBar?.preferredSize.height ?? 0)),
-                      bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + bottomBarHeight,
-                    ),
-                  ),
-                  child: SafeArea(
-                    top: false,
-                    bottom: false,
-                    child: scrollable
-                        ? MTScrollable(
-                            scrollController: scrollController!,
-                            scrollOffsetTop: scrollOffsetTop!,
-                            onScrolled: onScrolled,
-                            bottomShadow: bottomBarHeight > 0,
-                            topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
-                            child: body,
-                          )
-                        : body,
-                  ),
-                ),
-                if (navBar != null) navBar!,
-                if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
-                // Add tap-to-scroll functionality for status bar area
-                if (scrollController != null)
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: mqPadding.top,
-                    child: GestureDetector(
-                      onTap: () {
-                        if (scrollController!.hasClients) {
-                          scrollController!.animateTo(
-                            0.0,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeOut,
-                          );
-                        }
-                      },
-                      child: Container(
-                        color: Colors.transparent,
+            child: StatusBarTapHandler(
+              scrollController: scrollController ?? ScrollController(),
+              child: Stack(
+                children: [
+                  MediaQuery(
+                    data: mq.copyWith(
+                      padding: mqPadding.copyWith(
+                        top: mqPadding.top + (big && scrollable ? scrollOffsetTop! : (navBar?.preferredSize.height ?? 0)),
+                        bottom: (hasKB ? 0 : mqPadding.bottom) + mq.viewInsets.bottom + bottomBarHeight,
                       ),
                     ),
+                    child: SafeArea(
+                      top: false,
+                      bottom: false,
+                      child: scrollable
+                          ? MTScrollable(
+                              scrollController: scrollController!,
+                              scrollOffsetTop: scrollOffsetTop!,
+                              onScrolled: onScrolled,
+                              bottomShadow: bottomBarHeight > 0,
+                              topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
+                              child: body,
+                            )
+                          : body,
+                    ),
                   ),
-              ],
+                  if (navBar != null) navBar!,
+                  if (bottomBar != null) Align(alignment: Alignment.bottomCenter, child: bottomBar!),
+                ],
+              ),
             ),
           ),
         ),

@@ -47,12 +47,19 @@ void main() {
     // Verify we're scrolled down
     expect(scrollController.offset, greaterThan(0));
     
-    // Find the status bar area (top padding area)
-    final statusBarArea = find.byType(GestureDetector).first;
-    expect(statusBarArea, findsOneWidget);
+    // Find the StatusBarTapHandler
+    final statusBarHandler = find.byType(StatusBarTapHandler);
+    expect(statusBarHandler, findsOneWidget);
+    
+    // Find the GestureDetector inside StatusBarTapHandler
+    final gestureDetector = find.descendant(
+      of: statusBarHandler,
+      matching: find.byType(GestureDetector),
+    );
+    expect(gestureDetector, findsOneWidget);
     
     // Tap on status bar area
-    await tester.tap(statusBarArea);
+    await tester.tap(gestureDetector);
     await tester.pumpAndSettle();
     
     // Verify we're back at the top
@@ -88,12 +95,64 @@ void main() {
     // Verify we're scrolled down
     expect(scrollController.offset, greaterThan(0));
     
-    // Find the status bar area (top padding area)
-    final statusBarArea = find.byType(GestureDetector).first;
-    expect(statusBarArea, findsOneWidget);
+    // Find the StatusBarTapHandler
+    final statusBarHandler = find.byType(StatusBarTapHandler);
+    expect(statusBarHandler, findsOneWidget);
+    
+    // Find the GestureDetector inside StatusBarTapHandler
+    final gestureDetector = find.descendant(
+      of: statusBarHandler,
+      matching: find.byType(GestureDetector),
+    );
+    expect(gestureDetector, findsOneWidget);
     
     // Tap on status bar area
-    await tester.tap(statusBarArea);
+    await tester.tap(gestureDetector);
+    await tester.pumpAndSettle();
+    
+    // Verify we're back at the top
+    expect(scrollController.offset, equals(0));
+  });
+
+  testWidgets('StatusBarTapHandler works independently', (WidgetTester tester) async {
+    final scrollController = ScrollController();
+    
+    await tester.pumpWidget(
+      MaterialApp(
+        home: StatusBarTapHandler(
+          scrollController: scrollController,
+          child: ListView(
+            children: List.generate(100, (index) => 
+              Container(
+                height: 50,
+                child: Text('Item $index'),
+              )
+            ),
+          ),
+        ),
+      ),
+    );
+
+    // Scroll down first
+    await tester.drag(find.byType(ListView), const Offset(0, -500));
+    await tester.pumpAndSettle();
+    
+    // Verify we're scrolled down
+    expect(scrollController.offset, greaterThan(0));
+    
+    // Find the StatusBarTapHandler
+    final statusBarHandler = find.byType(StatusBarTapHandler);
+    expect(statusBarHandler, findsOneWidget);
+    
+    // Find the GestureDetector inside StatusBarTapHandler
+    final gestureDetector = find.descendant(
+      of: statusBarHandler,
+      matching: find.byType(GestureDetector),
+    );
+    expect(gestureDetector, findsOneWidget);
+    
+    // Tap on status bar area
+    await tester.tap(gestureDetector);
     await tester.pumpAndSettle();
     
     // Verify we're back at the top

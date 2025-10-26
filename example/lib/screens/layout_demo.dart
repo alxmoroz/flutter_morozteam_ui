@@ -247,6 +247,32 @@ class LayoutDemo extends StatelessWidget {
         ),
         SizedBox(height: context.sizing.hPadding),
 
+        /// StatusBarTapHandler standalone demo
+        MTListText.h3('StatusBarTapHandler'),
+        MTCard(
+          margin: context.sizing.defMargin,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const MTListText('Tap the status bar area to scroll to top'),
+              SizedBox(height: context.sizing.vPadding),
+              SizedBox(
+                height: 200,
+                child: StatusBarTapHandler(
+                  scrollController: ScrollController(),
+                  child: ListView.builder(
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      return MTListTile(titleText: 'Item $index', verticalPadding: 4);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: context.sizing.hPadding),
+
         /// MTPageTitle standalone
         MTListText.h3('MTPageTitle'),
         MTCard(

@@ -7,7 +7,7 @@
 ///
 /// ## Features
 ///
-/// - 31 ready-to-use UI components
+/// - 32 ready-to-use UI components
 /// - Flexible theme system with customizable colors, typography, and spacing
 /// - Built-in light/dark mode support
 /// - Responsive design utilities
@@ -73,6 +73,7 @@ export 'src/components/refresh.dart';
 export 'src/components/scrollable.dart';
 export 'src/components/scrollable_centered.dart';
 export 'src/components/shadowed.dart';
+export 'src/components/status_bar_tap_handler.dart';
 export 'src/components/snackbar_dialog.dart';
 // Form Components
 export 'src/components/text_field.dart';
