@@ -228,21 +228,30 @@ class LayoutDemo extends StatelessWidget {
         MTListText.h3('MTScrollable'),
         MTCard(
           margin: context.sizing.defMargin,
-          child: SizedBox(
-            height: 200,
-            child: MTScrollable(
-              scrollController: ScrollController(),
-              scrollOffsetTop: 50.0,
-              onScrolled: (scrolled) {
-                if (kDebugMode) print('Scrolled: $scrolled');
-              },
-              child: ListView.builder(
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return MTListTile(titleText: 'Item $index', verticalPadding: 4);
-                },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const MTListText('Dynamic shadows: top when scrolled down, bottom when near end'),
+              SizedBox(height: context.sizing.vPadding),
+              SizedBox(
+                height: 200,
+                child: MTScrollable(
+                  scrollController: ScrollController(),
+                  scrollOffsetTop: 50.0,
+                  bottomShadow: true,
+                  bottomShadowOffset: 100.0,
+                  onScrolled: (scrolled) {
+                    if (kDebugMode) print('Scrolled: $scrolled');
+                  },
+                  child: ListView.builder(
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      return MTListTile(titleText: 'Item $index', verticalPadding: 4);
+                    },
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ),
         SizedBox(height: context.sizing.hPadding),

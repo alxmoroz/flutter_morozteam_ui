@@ -6,6 +6,26 @@ import 'package:flutter/material.dart';
 import 'shadowed.dart';
 import 'status_bar_tap_handler.dart';
 
+/// A scrollable widget with dynamic shadows and status bar tap handling.
+/// 
+/// Provides scrolling functionality with automatic shadow management:
+/// - Top shadow appears when scrolled past [scrollOffsetTop]
+/// - Bottom shadow appears when scrolled near the bottom (if [bottomShadow] is true)
+/// - Status bar tap to scroll to top functionality
+/// 
+/// ## Example
+/// 
+/// ```dart
+/// MTScrollable(
+///   scrollController: myScrollController,
+///   scrollOffsetTop: 50.0,
+///   bottomShadow: true,
+///   bottomShadowOffset: 100.0, // Show shadow when 100px from bottom
+///   onScrolled: (hasScrolled) => print('Scrolled: $hasScrolled'),
+///   child: ListView(...),
+/// )
+/// ```
+
 class MTScrollable extends StatefulWidget {
   const MTScrollable({
     required this.scrollController,
@@ -14,6 +34,7 @@ class MTScrollable extends StatefulWidget {
     this.topShadowPadding,
     this.topIndent,
     this.bottomShadow = false,
+    this.bottomShadowOffset = 0.0,
     this.onScrolled,
     super.key,
   });
@@ -24,6 +45,7 @@ class MTScrollable extends StatefulWidget {
   final double? topShadowPadding;
   final double? topIndent;
   final bool bottomShadow;
+  final double bottomShadowOffset;
   final Function(bool)? onScrolled;
 
   @override
@@ -32,6 +54,7 @@ class MTScrollable extends StatefulWidget {
 
 class _State extends State<MTScrollable> {
   bool _hasScrolled = false;
+  bool _hasScrolledToBottom = false;
 
   void _listener() {
     // Check that controller is attached to scroll widget
@@ -41,14 +64,29 @@ class _State extends State<MTScrollable> {
 
     final triggerOffset = widget.scrollOffsetTop;
     final offset = widget.scrollController.offset;
-
-    if ((!_hasScrolled && offset >= triggerOffset) || (_hasScrolled && offset <= triggerOffset)) {
+    final maxScrollExtent = widget.scrollController.position.maxScrollExtent;
+    
+    // Check top shadow
+    final shouldShowTopShadow = offset >= triggerOffset;
+    if (_hasScrolled != shouldShowTopShadow) {
       setState(() {
-        _hasScrolled = !_hasScrolled;
-        if (widget.onScrolled != null) {
-          widget.onScrolled!(_hasScrolled);
-        }
+        _hasScrolled = shouldShowTopShadow;
       });
+    }
+    
+    // Check bottom shadow
+    final shouldShowBottomShadow = widget.bottomShadow && 
+        maxScrollExtent > 0 && 
+        offset >= maxScrollExtent - widget.bottomShadowOffset;
+    if (_hasScrolledToBottom != shouldShowBottomShadow) {
+      setState(() {
+        _hasScrolledToBottom = shouldShowBottomShadow;
+      });
+    }
+    
+    // Call onScrolled callback
+    if (widget.onScrolled != null) {
+      widget.onScrolled!(_hasScrolled);
     }
   }
 
@@ -68,7 +106,7 @@ class _State extends State<MTScrollable> {
   Widget build(BuildContext context) {
     return MTShadowed(
       topShadow: _hasScrolled,
-      bottomShadow: widget.bottomShadow,
+      bottomShadow: _hasScrolledToBottom,
       topShadowPadding: widget.topShadowPadding,
       topIndent: widget.topIndent,
       child: PrimaryScrollController(

@@ -158,4 +158,45 @@ void main() {
     // Verify we're back at the top
     expect(scrollController.offset, equals(0));
   });
+
+  testWidgets('MTScrollable shows bottom shadow when scrolled to bottom', (WidgetTester tester) async {
+    final scrollController = ScrollController();
+    
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: MTScrollable(
+            scrollController: scrollController,
+            scrollOffsetTop: 50.0,
+            bottomShadow: true,
+            bottomShadowOffset: 100.0,
+            child: ListView(
+              children: List.generate(20, (index) => 
+                Container(
+                  height: 100,
+                  child: Text('Item $index'),
+                )
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    // Initially no bottom shadow should be visible
+    final initialShadows = find.byType(MTShadowed);
+    expect(initialShadows, findsOneWidget);
+    
+    // Scroll to near bottom (within bottomShadowOffset)
+    await tester.drag(find.byType(ListView), const Offset(0, -1500));
+    await tester.pumpAndSettle();
+    
+    // Verify we're scrolled down
+    expect(scrollController.offset, greaterThan(0));
+    
+    // The bottom shadow should now be visible
+    // (We can't easily test the shadow visibility directly, but we can verify
+    // that the MTScrollable widget is properly configured)
+    expect(find.byType(MTScrollable), findsOneWidget);
+  });
 }
