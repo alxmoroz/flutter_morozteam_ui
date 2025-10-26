@@ -16,8 +16,6 @@ class MTButtonV2 extends StatelessWidget with GestureManaging, ButtonMixin {
     this.titleText,
     this.titleTextAlign,
     this.icon,
-    this.leading,
-    this.trailing,
     this.onTap,
     this.onHover,
     this.loading = false,
@@ -33,7 +31,6 @@ class MTButtonV2 extends StatelessWidget with GestureManaging, ButtonMixin {
     this.elevation,
     this.constrained = false,
     this.uf = true,
-    this.mainAxisAlignment = MainAxisAlignment.center,
   });
 
   final MTButtonType type;
