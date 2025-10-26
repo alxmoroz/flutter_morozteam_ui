@@ -166,7 +166,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: MTScrollable(
+          body: MTScrollable.withShadows(
             scrollController: scrollController,
             scrollOffsetTop: 50.0,
             bottomShadowOffset: 100.0,
@@ -205,6 +205,66 @@ void main() {
     // (We can't easily test the shadow visibility directly, but we can verify
     // that the MTScrollable widget is properly configured)
     expect(find.byType(MTScrollable), findsOneWidget);
+  });
+
+  testWidgets('MTScrollable factory methods work correctly', (WidgetTester tester) async {
+    final scrollController = ScrollController();
+    
+    // Test topShadow factory
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MTScrollable.topShadow(
+          scrollController: scrollController,
+          scrollOffsetTop: 50.0,
+          child: ListView(
+            children: List.generate(10, (index) => 
+              Container(height: 100, child: Text('Item $index'))
+            ),
+          ),
+        ),
+      ),
+    );
+    
+    expect(find.byType(MTScrollable), findsOneWidget);
+    expect(find.byType(MTShadowed), findsOneWidget);
+    
+    // Test withShadows factory
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MTScrollable.withShadows(
+          scrollController: scrollController,
+          scrollOffsetTop: 50.0,
+          bottomShadowOffset: 100.0,
+          child: ListView(
+            children: List.generate(10, (index) => 
+              Container(height: 100, child: Text('Item $index'))
+            ),
+          ),
+        ),
+      ),
+    );
+    
+    expect(find.byType(MTScrollable), findsOneWidget);
+    expect(find.byType(MTShadowed), findsOneWidget);
+    
+    // Test forPage factory
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MTScrollable.forPage(
+          scrollController: scrollController,
+          scrollOffsetTop: 50.0,
+          bottomBarHeight: 80.0,
+          child: ListView(
+            children: List.generate(10, (index) => 
+              Container(height: 100, child: Text('Item $index'))
+            ),
+          ),
+        ),
+      ),
+    );
+    
+    expect(find.byType(MTScrollable), findsOneWidget);
+    expect(find.byType(MTShadowed), findsOneWidget);
   });
 
   testWidgets('MTPage calls both scroll callbacks', (WidgetTester tester) async {

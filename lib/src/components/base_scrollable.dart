@@ -12,11 +12,13 @@ abstract class BaseScrollableWidget extends StatefulWidget {
     this.scrollController,
     this.config = const ScrollBehaviorConfig(),
     this.onScrolled,
+    this.onBottomScrolled,
   });
 
   final ScrollController? scrollController;
   final ScrollBehaviorConfig config;
   final Function(bool)? onScrolled;
+  final Function(bool)? onBottomScrolled;
 
   @override
   State<BaseScrollableWidget> createState() => _BaseScrollableWidgetState();
@@ -27,7 +29,12 @@ class _BaseScrollableWidgetState extends State<BaseScrollableWidget>
   @override
   void initState() {
     super.initState();
-    initScrollBehavior(widget.scrollController, widget.config);
+    initScrollBehavior(
+      controller: widget.scrollController,
+      config: widget.config,
+      onScrolled: widget.onScrolled,
+      onBottomScrolled: widget.onBottomScrolled,
+    );
   }
 
   @override

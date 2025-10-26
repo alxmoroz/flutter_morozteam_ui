@@ -74,6 +74,8 @@ export 'src/components/scrollable.dart';
 export 'src/components/scrollable_centered.dart';
 export 'src/components/shadowed.dart';
 export 'src/components/status_bar_tap_handler.dart';
+export 'src/components/scroll_behavior.dart';
+export 'src/components/base_scrollable.dart';
 export 'src/components/snackbar_dialog.dart';
 // Form Components
 export 'src/components/text_field.dart';

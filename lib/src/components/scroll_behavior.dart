@@ -45,13 +45,22 @@ mixin ScrollBehaviorMixin<T extends StatefulWidget> on State<T> {
   ScrollBehaviorConfig? _config;
   bool _hasScrolled = false;
   bool _hasScrolledToBottom = false;
+  Function(bool)? _onScrolled;
+  Function(bool)? _onBottomScrolled;
 
   ScrollController get scrollController => _scrollController!;
   ScrollBehaviorConfig get config => _config!;
 
-  void initScrollBehavior(ScrollController? controller, ScrollBehaviorConfig config) {
+  void initScrollBehavior({
+    ScrollController? controller,
+    required ScrollBehaviorConfig config,
+    Function(bool)? onScrolled,
+    Function(bool)? onBottomScrolled,
+  }) {
     _scrollController = controller ?? ScrollController();
     _config = config;
+    _onScrolled = onScrolled;
+    _onBottomScrolled = onBottomScrolled;
     _scrollController!.addListener(_onScroll);
   }
 
@@ -75,6 +84,7 @@ mixin ScrollBehaviorMixin<T extends StatefulWidget> on State<T> {
       setState(() {
         _hasScrolled = shouldShowTopShadow;
       });
+      _onScrolled?.call(_hasScrolled);
     }
 
     // Check bottom shadow
@@ -85,6 +95,7 @@ mixin ScrollBehaviorMixin<T extends StatefulWidget> on State<T> {
       setState(() {
         _hasScrolledToBottom = shouldShowBottomShadow;
       });
+      _onBottomScrolled?.call(_hasScrolledToBottom);
     }
   }
 
