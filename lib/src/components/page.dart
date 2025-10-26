@@ -96,10 +96,10 @@ class MTPage extends StatelessWidget {
                       top: false,
                       bottom: false,
                       child: scrollable
-                          ? MTScrollable.forPage(
+                          ? MTScrollable(
                               scrollController: scrollController!,
                               scrollOffsetTop: scrollOffsetTop!,
-                              bottomBarHeight: bottomBarHeight,
+                              bottomShadowOffset: bottomBarHeight,
                               topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
                               onScrolled: onScrolled,
                               onBottomScrolled: onBottomScrolled,

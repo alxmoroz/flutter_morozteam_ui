@@ -360,6 +360,13 @@ void main() {
                 titleText: 'Safe Button',
                 onTap: () {},
               ),
+              SizedBox(height: 10),
+              
+              // Card button
+              MTButtonV2.card(
+                child: Text('Card Button'),
+                onTap: () {},
+              ),
             ],
           ),
         ),
@@ -372,6 +379,7 @@ void main() {
     expect(find.text('Text Button'), findsOneWidget);
     expect(find.text('Danger Button'), findsOneWidget);
     expect(find.text('Safe Button'), findsOneWidget);
+    expect(find.text('Card Button'), findsOneWidget);
     expect(find.byIcon(Icons.add), findsOneWidget);
   });
 

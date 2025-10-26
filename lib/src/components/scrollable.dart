@@ -94,7 +94,6 @@ extension MTScrollableFactory on MTScrollable {
     required Widget child,
     ScrollController? scrollController,
     double scrollOffsetTop = 50.0,
-    double bottomBarHeight = 0.0,
     double? topShadowPadding,
     Function(bool)? onScrolled,
     Function(bool)? onBottomScrolled,
@@ -102,7 +101,7 @@ extension MTScrollableFactory on MTScrollable {
     return MTScrollable(
       scrollController: scrollController,
       scrollOffsetTop: scrollOffsetTop,
-      bottomShadowOffset: bottomBarHeight,
+      bottomShadowOffset: 0.0, // Will be set by MTPage based on bottomBar height
       topShadowPadding: topShadowPadding,
       onScrolled: onScrolled,
       onBottomScrolled: onBottomScrolled,

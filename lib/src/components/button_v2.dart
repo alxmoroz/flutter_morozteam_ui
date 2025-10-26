@@ -37,8 +37,6 @@ class MTButtonV2 extends StatelessWidget with GestureManaging, ButtonMixin {
   final String? titleText;
   final TextAlign? titleTextAlign;
   final Widget? icon;
-  final Widget? leading;
-  final Widget? trailing;
   final VoidCallback? onTap;
   final Function(bool)? onHover;
   final bool loading;
@@ -54,7 +52,6 @@ class MTButtonV2 extends StatelessWidget with GestureManaging, ButtonMixin {
   final double? elevation;
   final bool constrained;
   final bool uf; // unfocus parameter
-  final MainAxisAlignment mainAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -102,13 +99,32 @@ class MTButtonV2 extends StatelessWidget with GestureManaging, ButtonMixin {
     final onPressed = isEnabled ? () => tapAction(uf, onTap!, fbType: FeedbackType.light) : null;
 
     // Use different button types based on MTButtonType
-    if ([MTButtonType.main, MTButtonType.secondary, MTButtonType.danger, MTButtonType.safe, MTButtonType.card].contains(type)) {
+    if ([MTButtonType.main, MTButtonType.secondary, MTButtonType.danger, MTButtonType.safe].contains(type)) {
       return OutlinedButton(
         onPressed: onPressed,
         onHover: onHover,
         style: style,
         clipBehavior: Clip.hardEdge,
         child: child,
+      );
+    } else if (type == MTButtonType.card) {
+      // Card buttons use custom styling
+      return material(
+        InkWell(
+          onTap: onPressed,
+          onHover: onHover,
+          borderRadius: borderRadiusGeometry ?? BorderRadius.circular(_getRadius(context)),
+          child: Container(
+            constraints: BoxConstraints(minSize: _getMinSize(context)),
+            padding: padding ?? EdgeInsets.zero,
+            decoration: BoxDecoration(
+              color: buttonColor(context, type, color, isEnabled),
+              borderRadius: borderRadiusGeometry ?? BorderRadius.circular(_getRadius(context)),
+              border: borderSide != null ? Border.fromBorderSide(borderSide!) : null,
+            ),
+            child: child,
+          ),
+        ),
       );
     } else {
       // Text and icon buttons use InkWell
@@ -191,8 +207,6 @@ extension MTButtonV2Factory on MTButtonV2 {
   static MTButtonV2 main({
     required String titleText,
     TextAlign? titleTextAlign,
-    Widget? leading,
-    Widget? trailing,
     VoidCallback? onTap,
     Function(bool)? onHover,
     bool loading = false,
@@ -208,14 +222,11 @@ extension MTButtonV2Factory on MTButtonV2 {
     double? elevation,
     bool constrained = true,
     bool uf = true,
-    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center,
   }) {
     return MTButtonV2(
       type: MTButtonType.main,
       titleText: titleText,
       titleTextAlign: titleTextAlign,
-      leading: leading,
-      trailing: trailing,
       onTap: onTap,
       onHover: onHover,
       loading: loading,
@@ -231,15 +242,12 @@ extension MTButtonV2Factory on MTButtonV2 {
       elevation: elevation,
       constrained: constrained,
       uf: uf,
-      mainAxisAlignment: mainAxisAlignment,
     );
   }
 
   static MTButtonV2 secondary({
     required String titleText,
     TextAlign? titleTextAlign,
-    Widget? leading,
-    Widget? trailing,
     VoidCallback? onTap,
     Function(bool)? onHover,
     bool loading = false,
@@ -255,14 +263,11 @@ extension MTButtonV2Factory on MTButtonV2 {
     double? elevation,
     bool constrained = true,
     bool uf = true,
-    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center,
   }) {
     return MTButtonV2(
       type: MTButtonType.secondary,
       titleText: titleText,
       titleTextAlign: titleTextAlign,
-      leading: leading,
-      trailing: trailing,
       onTap: onTap,
       onHover: onHover,
       loading: loading,
@@ -278,15 +283,12 @@ extension MTButtonV2Factory on MTButtonV2 {
       elevation: elevation,
       constrained: constrained,
       uf: uf,
-      mainAxisAlignment: mainAxisAlignment,
     );
   }
 
   static MTButtonV2 text({
     required String titleText,
     TextAlign? titleTextAlign,
-    Widget? leading,
-    Widget? trailing,
     VoidCallback? onTap,
     Function(bool)? onHover,
     bool loading = false,
@@ -299,14 +301,11 @@ extension MTButtonV2Factory on MTButtonV2 {
     BorderRadiusGeometry? borderRadiusGeometry,
     Size? minSize,
     bool uf = true,
-    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center,
   }) {
     return MTButtonV2(
       type: MTButtonType.text,
       titleText: titleText,
       titleTextAlign: titleTextAlign,
-      leading: leading,
-      trailing: trailing,
       onTap: onTap,
       onHover: onHover,
       loading: loading,
@@ -319,14 +318,11 @@ extension MTButtonV2Factory on MTButtonV2 {
       borderRadiusGeometry: borderRadiusGeometry,
       minSize: minSize,
       uf: uf,
-      mainAxisAlignment: mainAxisAlignment,
     );
   }
 
   static MTButtonV2 icon({
     required Widget icon,
-    Widget? leading,
-    Widget? trailing,
     VoidCallback? onTap,
     Function(bool)? onHover,
     bool loading = false,
@@ -338,13 +334,10 @@ extension MTButtonV2Factory on MTButtonV2 {
     BorderRadiusGeometry? borderRadiusGeometry,
     Size? minSize,
     bool uf = true,
-    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center,
   }) {
     return MTButtonV2(
       type: MTButtonType.icon,
       icon: icon,
-      leading: leading,
-      trailing: trailing,
       onTap: onTap,
       onHover: onHover,
       loading: loading,
@@ -356,15 +349,12 @@ extension MTButtonV2Factory on MTButtonV2 {
       borderRadiusGeometry: borderRadiusGeometry,
       minSize: minSize,
       uf: uf,
-      mainAxisAlignment: mainAxisAlignment,
     );
   }
 
   static MTButtonV2 danger({
     required String titleText,
     TextAlign? titleTextAlign,
-    Widget? leading,
-    Widget? trailing,
     VoidCallback? onTap,
     Function(bool)? onHover,
     bool loading = false,
@@ -380,14 +370,11 @@ extension MTButtonV2Factory on MTButtonV2 {
     double? elevation,
     bool constrained = true,
     bool uf = true,
-    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center,
   }) {
     return MTButtonV2(
       type: MTButtonType.danger,
       titleText: titleText,
       titleTextAlign: titleTextAlign,
-      leading: leading,
-      trailing: trailing,
       onTap: onTap,
       onHover: onHover,
       loading: loading,
@@ -403,15 +390,12 @@ extension MTButtonV2Factory on MTButtonV2 {
       elevation: elevation,
       constrained: constrained,
       uf: uf,
-      mainAxisAlignment: mainAxisAlignment,
     );
   }
 
   static MTButtonV2 safe({
     required String titleText,
     TextAlign? titleTextAlign,
-    Widget? leading,
-    Widget? trailing,
     VoidCallback? onTap,
     Function(bool)? onHover,
     bool loading = false,
@@ -427,14 +411,11 @@ extension MTButtonV2Factory on MTButtonV2 {
     double? elevation,
     bool constrained = true,
     bool uf = true,
-    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center,
   }) {
     return MTButtonV2(
       type: MTButtonType.safe,
       titleText: titleText,
       titleTextAlign: titleTextAlign,
-      leading: leading,
-      trailing: trailing,
       onTap: onTap,
       onHover: onHover,
       loading: loading,
@@ -450,7 +431,39 @@ extension MTButtonV2Factory on MTButtonV2 {
       elevation: elevation,
       constrained: constrained,
       uf: uf,
-      mainAxisAlignment: mainAxisAlignment,
+    );
+  }
+
+  static MTButtonV2 card({
+    required Widget child,
+    VoidCallback? onTap,
+    Function(bool)? onHover,
+    bool loading = false,
+    bool enabled = true,
+    Color? color,
+    EdgeInsets? padding,
+    EdgeInsets? margin,
+    double? borderRadius,
+    BorderRadiusGeometry? borderRadiusGeometry,
+    Size? minSize,
+    BorderSide? borderSide,
+    bool uf = true,
+  }) {
+    return MTButtonV2(
+      type: MTButtonType.card,
+      icon: child, // Use icon parameter for custom widget
+      onTap: onTap,
+      onHover: onHover,
+      loading: loading,
+      enabled: enabled,
+      color: color,
+      padding: padding,
+      margin: margin,
+      borderRadius: borderRadius,
+      borderRadiusGeometry: borderRadiusGeometry,
+      minSize: minSize,
+      borderSide: borderSide,
+      uf: uf,
     );
   }
 }
