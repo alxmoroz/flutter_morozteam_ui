@@ -161,6 +161,7 @@ void main() {
 
   testWidgets('MTScrollable shows bottom shadow when scrolled to bottom', (WidgetTester tester) async {
     final scrollController = ScrollController();
+    bool? bottomScrolledState;
     
     await tester.pumpWidget(
       MaterialApp(
@@ -169,6 +170,9 @@ void main() {
             scrollController: scrollController,
             scrollOffsetTop: 50.0,
             bottomShadowOffset: 100.0,
+            onBottomScrolled: (hasScrolledToBottom) {
+              bottomScrolledState = hasScrolledToBottom;
+            },
             child: ListView(
               children: List.generate(20, (index) => 
                 Container(
@@ -185,6 +189,7 @@ void main() {
     // Initially no bottom shadow should be visible
     final initialShadows = find.byType(MTShadowed);
     expect(initialShadows, findsOneWidget);
+    expect(bottomScrolledState, isNull);
     
     // Scroll to near bottom (within bottomShadowOffset)
     await tester.drag(find.byType(ListView), const Offset(0, -1500));
@@ -193,9 +198,59 @@ void main() {
     // Verify we're scrolled down
     expect(scrollController.offset, greaterThan(0));
     
+    // Verify bottom scroll callback was called
+    expect(bottomScrolledState, isTrue);
+    
     // The bottom shadow should now be visible
     // (We can't easily test the shadow visibility directly, but we can verify
     // that the MTScrollable widget is properly configured)
     expect(find.byType(MTScrollable), findsOneWidget);
+  });
+
+  testWidgets('MTPage calls both scroll callbacks', (WidgetTester tester) async {
+    final scrollController = ScrollController();
+    bool? topScrolledState;
+    bool? bottomScrolledState;
+    
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MTPage(
+          scrollController: scrollController,
+          scrollOffsetTop: 50.0,
+          onScrolled: (hasScrolled) {
+            topScrolledState = hasScrolled;
+          },
+          onBottomScrolled: (hasScrolledToBottom) {
+            bottomScrolledState = hasScrolledToBottom;
+          },
+          body: ListView(
+            children: List.generate(20, (index) => 
+              Container(
+                height: 100,
+                child: Text('Item $index'),
+              )
+            ),
+          ),
+        ),
+      ),
+    );
+
+    // Initially no scroll callbacks should be called
+    expect(topScrolledState, isNull);
+    expect(bottomScrolledState, isNull);
+    
+    // Scroll down to trigger top scroll
+    await tester.drag(find.byType(ListView), const Offset(0, -100));
+    await tester.pumpAndSettle();
+    
+    // Verify top scroll callback was called
+    expect(topScrolledState, isTrue);
+    
+    // Scroll to bottom to trigger bottom scroll
+    await tester.drag(find.byType(ListView), const Offset(0, -1500));
+    await tester.pumpAndSettle();
+    
+    // Verify bottom scroll callback was called
+    expect(bottomScrolledState, isTrue);
   });
 }

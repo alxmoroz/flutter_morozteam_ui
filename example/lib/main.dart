@@ -1,6 +1,7 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:morozteam_ui/morozteam_ui.dart';
 
@@ -82,6 +83,12 @@ class _DemoHomePageState extends State<DemoHomePage> {
       navBar: MTNavBar(leading: SizedBox(), pageTitle: _tabTitles[_selectedTab]),
       scrollController: _scrollController,
       scrollOffsetTop: 50.0, // Shadow trigger threshold
+      onScrolled: (hasScrolled) {
+        if (kDebugMode) print('Top scrolled: $hasScrolled');
+      },
+      onBottomScrolled: (hasScrolledToBottom) {
+        if (kDebugMode) print('Bottom scrolled: $hasScrolledToBottom');
+      },
       body: _pages[_selectedTab],
       bottomBar: MTBottomBar(
         middle: Row(

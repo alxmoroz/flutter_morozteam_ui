@@ -25,6 +25,8 @@ import 'status_bar_tap_handler.dart';
 ///   navBar: MTNavBar(pageTitle: 'Home'),
 ///   body: ListView(children: [...]),
 ///   bottomBar: MTBottomBar(middle: NavigationWidget()),
+///   onScrolled: (hasScrolled) => print('Top scrolled: $hasScrolled'),
+///   onBottomScrolled: (hasScrolledToBottom) => print('Bottom scrolled: $hasScrolledToBottom'),
 /// )
 /// ```
 ///
@@ -43,6 +45,7 @@ class MTPage extends StatelessWidget {
     this.scrollController,
     this.scrollOffsetTop,
     this.onScrolled,
+    this.onBottomScrolled,
     this.bg1Color,
     this.bg2Color,
   });
@@ -58,6 +61,7 @@ class MTPage extends StatelessWidget {
   final ScrollController? scrollController;
   final double? scrollOffsetTop;
   final Function(bool)? onScrolled;
+  final Function(bool)? onBottomScrolled;
 
   Widget get _center {
     return material(Builder(builder: (ctx) {
@@ -96,6 +100,7 @@ class MTPage extends StatelessWidget {
                               scrollController: scrollController!,
                               scrollOffsetTop: scrollOffsetTop!,
                               onScrolled: onScrolled,
+                              onBottomScrolled: onBottomScrolled,
                               bottomShadowOffset: bottomBarHeight,
                               topShadowPadding: mqPadding.top + (navBar?.preferredSize.height ?? 0),
                               child: body,

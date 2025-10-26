@@ -240,7 +240,10 @@ class LayoutDemo extends StatelessWidget {
                   scrollOffsetTop: 50.0,
                   bottomShadowOffset: 100.0,
                   onScrolled: (scrolled) {
-                    if (kDebugMode) print('Scrolled: $scrolled');
+                    if (kDebugMode) print('Top scrolled: $scrolled');
+                  },
+                  onBottomScrolled: (scrolledToBottom) {
+                    if (kDebugMode) print('Bottom scrolled: $scrolledToBottom');
                   },
                   child: ListView.builder(
                     itemCount: 20,
