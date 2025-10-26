@@ -8,11 +8,9 @@ import '../config/mt_theme.dart';
 import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
-import '../utils/material_wrapper.dart';
-import '../utils/sizing_extensions.dart';
+import 'dialog_mixin.dart';
 import 'scrollable.dart';
 import 'toolbar.dart';
-import 'dialog_mixin.dart';
 
 // Note: All dialog methods now require explicit context parameter
 // Global context has been removed to prevent memory leaks and improve testability
@@ -126,7 +124,8 @@ class MTDialog extends StatelessWidget {
     this.bgColor,
     this.scrollController,
     this.scrollOffsetTop,
-    this.onScrolled,
+    this.onTopScrolled,
+    this.onBottomScrolled,
     this.borderRadius,
   });
 
@@ -143,49 +142,53 @@ class MTDialog extends StatelessWidget {
 
   final ScrollController? scrollController;
   final double? scrollOffsetTop;
-  final Function(bool)? onScrolled;
+  final Function(bool)? onTopScrolled;
+  final Function(bool)? onBottomScrolled;
 
   Widget get _center {
-    return Builder(builder: (context) {
-      final mq = MediaQuery.of(context);
-      final big = isBigScreen(context);
-      final mqPaddingBottom = max(mq.padding.bottom, big ? 0.0 : mq.viewPadding.bottom);
-      final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
-      final hasBottomBar = bottomBar != null;
-      final needBottomPadding = forceBottomPadding || bottomBarHeight > 0 || (mqPaddingBottom == 0 && !big);
-      final minBottomPadding = needBottomPadding ? context.sizing.dialogBottomPadding : 0.0;
-      final mqPadding = mq.padding.copyWith(bottom: max(mqPaddingBottom, minBottomPadding));
+    return Builder(
+      builder: (context) {
+        final mq = MediaQuery.of(context);
+        final big = isBigScreen(context);
+        final mqPaddingBottom = max(mq.padding.bottom, big ? 0.0 : mq.viewPadding.bottom);
+        final bottomBarHeight = bottomBar?.preferredSize.height ?? 0;
+        final hasBottomBar = bottomBar != null;
+        final needBottomPadding = forceBottomPadding || bottomBarHeight > 0 || (mqPaddingBottom == 0 && !big);
+        final minBottomPadding = needBottomPadding ? context.sizing.dialogBottomPadding : 0.0;
+        final mqPadding = mq.padding.copyWith(bottom: max(mqPaddingBottom, minBottomPadding));
 
-      return MediaQuery(
-        data: mq.copyWith(padding: mqPadding),
-        child: Stack(
-          children: [
-            MediaQuery(
-              data: mq.copyWith(
-                padding: mqPadding.copyWith(
-                  top: (topBar?.preferredSize.height ?? 0),
-                  bottom: mqPadding.bottom + bottomBarHeight,
+        return MediaQuery(
+          data: mq.copyWith(padding: mqPadding),
+          child: Stack(
+            children: [
+              MediaQuery(
+                data: mq.copyWith(
+                  padding: mqPadding.copyWith(
+                    top: (topBar?.preferredSize.height ?? 0),
+                    bottom: mqPadding.bottom + bottomBarHeight,
+                  ),
+                ),
+                child: SafeArea(
+                  bottom: false,
+                  child: scrollOffsetTop != null && scrollController != null
+                      ? MTScrollable(
+                          scrollController: scrollController!,
+                          topScrollOffset: scrollOffsetTop!,
+                          onTopScrolled: onTopScrolled,
+                          onBottomScrolled: onBottomScrolled,
+                          bottomScrollOffset: bottomBarHeight > 0 ? bottomBarHeight : 0.0,
+                          child: body,
+                        )
+                      : body,
                 ),
               ),
-              child: SafeArea(
-                bottom: false,
-                child: scrollOffsetTop != null && scrollController != null
-                    ? MTScrollable(
-                        scrollController: scrollController!,
-                        scrollOffsetTop: scrollOffsetTop!,
-                        onScrolled: onScrolled,
-                        bottomShadow: bottomBarHeight > 0,
-                        child: body,
-                      )
-                    : body,
-              ),
-            ),
-            if (topBar != null) topBar!,
-            if (hasBottomBar) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
-          ],
-        ),
-      );
-    });
+              if (topBar != null) topBar!,
+              if (hasBottomBar) Positioned(left: 0, right: 0, bottom: 0, child: bottomBar!),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -203,7 +206,8 @@ class MTDialog extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: (bgColor ?? context.colorScheme.b2Color).resolve(context),
-            borderRadius: borderRadius ??
+            borderRadius:
+                borderRadius ??
                 BorderRadius.only(
                   topLeft: radius,
                   topRight: radius,
@@ -212,9 +216,10 @@ class MTDialog extends StatelessWidget {
                 ),
             boxShadow: [
               BoxShadow(
-                  blurRadius: context.sizing.smallSpacing,
-                  offset: Offset(0, big ? context.sizing.borderWidth : -context.sizing.borderWidth),
-                  color: context.colorScheme.b0Color.resolve(context).withValues(alpha: 0.42))
+                blurRadius: context.sizing.smallSpacing,
+                offset: Offset(0, big ? context.sizing.borderWidth : -context.sizing.borderWidth),
+                color: context.colorScheme.b0Color.resolve(context).withValues(alpha: 0.42),
+              ),
             ],
           ),
           child: Stack(

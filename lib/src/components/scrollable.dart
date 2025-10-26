@@ -1,56 +1,59 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import 'base_scrollable.dart';
 import 'scroll_behavior.dart';
 
 /// A scrollable widget with dynamic shadows and status bar tap handling.
-/// 
+///
 /// Refactored to use composition over inheritance for better maintainability.
-/// 
+///
 /// ## Example
-/// 
+///
 /// ```dart
 /// MTScrollable(
 ///   scrollController: myScrollController,
-///   scrollOffsetTop: 50.0,
-///   bottomShadowOffset: 100.0,
-///   onScrolled: (hasScrolled) => print('Top scrolled: $hasScrolled'),
+///   topScrollOffset: 50.0,
+///   bottomScrollOffset: 100.0,
+///   onTopScrolled: (hasScrolled) => print('Top scrolled: $hasScrolled'),
 ///   onBottomScrolled: (hasScrolledToBottom) => print('Bottom scrolled: $hasScrolledToBottom'),
 ///   child: ListView(...),
 /// )
 /// ```
 
-class MTScrollable extends BaseScrollableWidget {
+class MTScrollable extends MTScrollableBase {
   const MTScrollable({
     super.key,
     super.scrollController,
     required this.child,
-    required this.scrollOffsetTop,
+    required this.topScrollOffset,
     this.topShadowPadding,
     this.topIndent,
-    this.bottomShadowOffset = 0.0,
-    super.onScrolled,
+    this.bottomScrollOffset = 0.0,
+    super.onTopScrolled,
     super.onBottomScrolled,
   }) : super(
-          config: ScrollBehaviorConfig(
-            scrollOffsetTop: scrollOffsetTop,
-            bottomShadowOffset: bottomShadowOffset,
-            topShadowPadding: topShadowPadding,
-            topIndent: topIndent,
-          ),
-        );
+         config: const MTScrollConfig(),
+       );
 
   final Widget child;
-  final double scrollOffsetTop;
+  final double topScrollOffset;
   final double? topShadowPadding;
   final double? topIndent;
-  final double bottomShadowOffset;
+  final double bottomScrollOffset;
 
-  @override
   Widget buildScrollableContent(BuildContext context) {
     return child;
   }
+
+  @override
+  MTScrollConfig get config => MTScrollConfig(
+    topScrollOffset: topScrollOffset,
+    bottomScrollOffset: bottomScrollOffset,
+    topShadowPadding: topShadowPadding,
+    topIndent: topIndent,
+  );
 }
 
 /// Factory methods for common scroll configurations
@@ -59,13 +62,13 @@ extension MTScrollableFactory on MTScrollable {
   static MTScrollable topShadow({
     required Widget child,
     ScrollController? scrollController,
-    double scrollOffsetTop = 50.0,
-    Function(bool)? onScrolled,
+    double topScrollOffset = 50.0,
+    Function(bool)? onTopScrolled,
   }) {
     return MTScrollable(
       scrollController: scrollController,
-      scrollOffsetTop: scrollOffsetTop,
-      onScrolled: onScrolled,
+      topScrollOffset: topScrollOffset,
+      onTopScrolled: onTopScrolled,
       child: child,
     );
   }
@@ -74,16 +77,16 @@ extension MTScrollableFactory on MTScrollable {
   static MTScrollable withShadows({
     required Widget child,
     ScrollController? scrollController,
-    double scrollOffsetTop = 50.0,
-    double bottomShadowOffset = 100.0,
-    Function(bool)? onScrolled,
+    double topScrollOffset = 50.0,
+    double bottomScrollOffset = 100.0,
+    Function(bool)? onTopScrolled,
     Function(bool)? onBottomScrolled,
   }) {
     return MTScrollable(
       scrollController: scrollController,
-      scrollOffsetTop: scrollOffsetTop,
-      bottomShadowOffset: bottomShadowOffset,
-      onScrolled: onScrolled,
+      topScrollOffset: topScrollOffset,
+      bottomScrollOffset: bottomScrollOffset,
+      onTopScrolled: onTopScrolled,
       onBottomScrolled: onBottomScrolled,
       child: child,
     );
@@ -93,17 +96,17 @@ extension MTScrollableFactory on MTScrollable {
   static MTScrollable forPage({
     required Widget child,
     ScrollController? scrollController,
-    double scrollOffsetTop = 50.0,
+    double topScrollOffset = 50.0,
     double? topShadowPadding,
-    Function(bool)? onScrolled,
+    Function(bool)? onTopScrolled,
     Function(bool)? onBottomScrolled,
   }) {
     return MTScrollable(
       scrollController: scrollController,
-      scrollOffsetTop: scrollOffsetTop,
-      bottomShadowOffset: 0.0, // Will be set by MTPage based on bottomBar height
+      topScrollOffset: topScrollOffset,
+      bottomScrollOffset: 0.0, // Will be set by MTPage based on bottomBar height
       topShadowPadding: topShadowPadding,
-      onScrolled: onScrolled,
+      onTopScrolled: onTopScrolled,
       onBottomScrolled: onBottomScrolled,
       child: child,
     );

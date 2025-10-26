@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-01-20
+
+### Added
+
+- **Enhanced scrollable components** with automatic shadow behavior
+- **MTScrollConfig** - Configuration class for scroll behavior
+- **MTScrollMixin** - Mixin for adding scroll behavior to custom widgets
+- **MTScrollableBase** - Base class for scrollable widgets
+- **StatusBarTapHandler** - Tap status bar to scroll to top functionality
+- **Bottom scroll callbacks** - `onBottomScrolled` callback for bottom scroll detection
+- **Automatic shadow positioning** - Shadows appear automatically based on scroll offsets
+
+### Changed
+
+- **BREAKING**: `MTScrollable` API updated:
+  - `scrollOffsetTop` → `topScrollOffset`
+  - `bottomShadowOffset` → `bottomScrollOffset`
+  - `onScrolled` → `onTopScrolled`
+  - Removed `bottomShadow: bool` parameter (use `bottomScrollOffset > 0` instead)
+- **BREAKING**: `MTPage` API updated:
+  - `onScrolled` → `onTopScrolled`
+  - Added `onBottomScrolled` parameter
+- **BREAKING**: `MTDialog` API updated:
+  - Added `onBottomScrolled` parameter
+- **Enhanced scroll behavior** - More intuitive offset-based shadow triggers
+- **Improved naming consistency** - Clearer parameter names across all scrollable components
+
+### Technical Improvements
+
+- **DRY principle** - Common scroll logic extracted to mixins
+- **SOLID principles** - Better separation of concerns
+- **KISS principle** - Simplified API with automatic behavior
+- **YAGNI principle** - Removed unused ScrollableBuilder component
+- **Type safety** - Better type definitions and null safety
+- **Performance** - Optimized scroll listeners and shadow rendering
+
 ## [0.1.0] - 2025-10-20
 
 ### Added

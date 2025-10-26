@@ -1,38 +1,38 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
+import 'scroll_behavior.dart';
 import 'shadowed.dart';
 import 'status_bar_tap_handler.dart';
-import 'scroll_behavior.dart';
 
 /// Base scrollable widget that provides common scroll functionality
-abstract class BaseScrollableWidget extends StatefulWidget {
-  const BaseScrollableWidget({
+abstract class MTScrollableBase extends StatefulWidget {
+  const MTScrollableBase({
     super.key,
     this.scrollController,
-    this.config = const ScrollBehaviorConfig(),
-    this.onScrolled,
+    this.config = const MTScrollConfig(),
+    this.onTopScrolled,
     this.onBottomScrolled,
   });
 
   final ScrollController? scrollController;
-  final ScrollBehaviorConfig config;
-  final Function(bool)? onScrolled;
+  final MTScrollConfig config;
+  final Function(bool)? onTopScrolled;
   final Function(bool)? onBottomScrolled;
 
   @override
-  State<BaseScrollableWidget> createState() => _BaseScrollableWidgetState();
+  State<MTScrollableBase> createState() => _MTScrollableBaseState();
 }
 
-class _BaseScrollableWidgetState extends State<BaseScrollableWidget>
-    with ScrollBehaviorMixin {
+class _MTScrollableBaseState extends State<MTScrollableBase> with MTScrollMixin {
   @override
   void initState() {
     super.initState();
     initScrollBehavior(
       controller: widget.scrollController,
       config: widget.config,
-      onScrolled: widget.onScrolled,
+      onTopScrolled: widget.onTopScrolled,
       onBottomScrolled: widget.onBottomScrolled,
     );
   }
@@ -58,7 +58,9 @@ class _BaseScrollableWidgetState extends State<BaseScrollableWidget>
           animationCurve: config.animationCurve,
           child: NotificationListener<ScrollMetricsNotification>(
             onNotification: (_) {
-              _onScroll();
+              if (mounted) {
+                checkScrollPosition();
+              }
               return false;
             },
             child: buildScrollableContent(context),
@@ -69,5 +71,7 @@ class _BaseScrollableWidgetState extends State<BaseScrollableWidget>
   }
 
   /// Override this method to provide the scrollable content
-  Widget buildScrollableContent(BuildContext context);
+  Widget buildScrollableContent(BuildContext context) {
+    throw UnimplementedError('buildScrollableContent must be implemented by subclasses');
+  }
 }

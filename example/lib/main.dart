@@ -80,10 +80,10 @@ class _DemoHomePageState extends State<DemoHomePage> {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: MTNavBar(leading: SizedBox(), pageTitle: _tabTitles[_selectedTab]),
+      navBar: MTNavBar(leading: const SizedBox(), pageTitle: _tabTitles[_selectedTab]),
       scrollController: _scrollController,
       scrollOffsetTop: 50.0, // Shadow trigger threshold
-      onScrolled: (hasScrolled) {
+      onTopScrolled: (hasScrolled) {
         if (kDebugMode) print('Top scrolled: $hasScrolled');
       },
       onBottomScrolled: (hasScrolledToBottom) {

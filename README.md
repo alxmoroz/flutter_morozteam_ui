@@ -159,8 +159,14 @@ MaterialApp(
 - `MTImage` - Asset image component
 - `MTNetworkImage` - Network image with fallback
 
+### Scrollable Components
+- `MTScrollable` - Scrollable wrapper with automatic shadows and callbacks
+- `MTScrollableCentered` - Centered scrollable content
+- `StatusBarTapHandler` - Tap status bar to scroll to top
+
 ### Utility Components
-- `MTScrollable` - Scrollable wrapper with callbacks
+- `MTScrollConfig` - Scroll behavior configuration
+- `MTScrollMixin` - Scroll behavior mixin for custom widgets
 
 ## Customization
 
@@ -248,6 +254,39 @@ if (isBigScreen(context)) {
 if (canShowVerticalBars(context)) {
   // Show side navigation
 }
+```
+
+### Scrollable Components
+
+```dart
+// MTScrollable with automatic shadows and callbacks
+MTScrollable(
+  topScrollOffset: 50.0,        // Show top shadow when scrolled 50px
+  bottomScrollOffset: 100.0,    // Show bottom shadow when 100px from bottom
+  onTopScrolled: (hasScrolled) {
+    // Called when scroll position crosses topScrollOffset
+    print('Top scrolled: $hasScrolled');
+  },
+  onBottomScrolled: (hasScrolledToBottom) {
+    // Called when scroll position crosses bottomScrollOffset
+    print('Bottom scrolled: $hasScrolledToBottom');
+  },
+  child: ListView(
+    children: [
+      // Your scrollable content
+    ],
+  ),
+)
+
+// StatusBarTapHandler for tap-to-scroll functionality
+StatusBarTapHandler(
+  scrollController: scrollController,
+  child: ListView(
+    children: [
+      // Your content
+    ],
+  ),
+)
 ```
 
 ## Example App

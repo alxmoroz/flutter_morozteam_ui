@@ -237,9 +237,9 @@ class LayoutDemo extends StatelessWidget {
                 height: 200,
                 child: MTScrollable(
                   scrollController: ScrollController(),
-                  scrollOffsetTop: 50.0,
-                  bottomShadowOffset: 100.0,
-                  onScrolled: (scrolled) {
+                  topScrollOffset: 50.0,
+                  bottomScrollOffset: 100.0,
+                  onTopScrolled: (scrolled) {
                     if (kDebugMode) print('Top scrolled: $scrolled');
                   },
                   onBottomScrolled: (scrolledToBottom) {
@@ -289,12 +289,12 @@ class LayoutDemo extends StatelessWidget {
         MTCard(
           margin: context.sizing.defMargin,
           padding: context.sizing.defPadding,
-          child: PageTitle('Main Title', parentPageTitle: 'Parent'),
+          child: const PageTitle('Main Title', parentPageTitle: 'Parent'),
         ),
         MTCard(
           margin: context.sizing.defMargin,
           padding: context.sizing.defPadding,
-          child: PageTitle('Simple Title'),
+          child: const PageTitle('Simple Title'),
         ),
         SizedBox(height: context.sizing.hPadding),
 
@@ -377,10 +377,8 @@ class _ToolbarDemoPage extends StatelessWidget {
           ),
 
           SizedBox(height: context.sizing.hPadding),
-
         ],
       ),
     );
   }
-
 }

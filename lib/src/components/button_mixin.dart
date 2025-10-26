@@ -1,9 +1,10 @@
 // Copyright (c) 2025. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+
 import '../config/mt_theme.dart';
 import '../theme/resolved_color.dart';
-import '../utils/sizing_extensions.dart';
+import 'button.dart';
 
 /// Mixin for common button functionality
 mixin ButtonMixin {
@@ -80,9 +81,9 @@ mixin ButtonMixin {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius),
       ),
-      side: borderSide ?? (type == MTButtonType.secondary 
-          ? BorderSide(color: foregroundColor, width: 1) 
-          : BorderSide.none),
+      side:
+          borderSide ??
+          (type == MTButtonType.secondary ? BorderSide(color: foregroundColor, width: 1) : BorderSide.none),
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
       shadowColor: context.colorScheme.b1Color.resolve(context),

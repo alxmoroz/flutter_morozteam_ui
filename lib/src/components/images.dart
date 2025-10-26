@@ -59,12 +59,12 @@ class MTImage extends StatelessWidget {
       child: Image.asset(
         // Try dark version first if in dark mode
         dark ? 'assets/images/${imageName}_dark.png' : 'assets/images/$imageName.png',
-        errorBuilder: (_, __, ___) {
+        errorBuilder: (_, _, _) {
           // Fallback 1: If dark failed, try light version
           if (dark) {
             return Image.asset(
               'assets/images/$imageName.png',
-              errorBuilder: (_, __, ___) {
+              errorBuilder: (_, _, _) {
                 // Fallback 2: If light also failed, try fallbackName
                 if (fallbackName != null && fallbackName != imageName) {
                   return Image.asset('assets/images/$fallbackName.png');
@@ -124,13 +124,13 @@ class MTNetworkImage extends StatelessWidget {
     return Image.asset(
       dark ? 'assets/images/${fallbackName}_dark.png' : 'assets/images/$fallbackName.png',
       color: color,
-      errorBuilder: (_, __, ___) {
+      errorBuilder: (_, _, _) {
         // Try light version if dark fails
         if (dark) {
           return Image.asset(
             'assets/images/$fallbackName.png',
             color: color,
-            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+            errorBuilder: (_, _, _) => const SizedBox.shrink(),
           );
         }
         return const SizedBox.shrink();

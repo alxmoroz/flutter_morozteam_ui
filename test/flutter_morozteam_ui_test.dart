@@ -22,65 +22,18 @@ void main() {
 
   testWidgets('MTPage scrolls to top when status bar is tapped', (WidgetTester tester) async {
     final scrollController = ScrollController();
-    
+
     await tester.pumpWidget(
       MaterialApp(
         home: MTPage(
           scrollController: scrollController,
           scrollOffsetTop: 50.0,
           body: ListView(
-            children: List.generate(100, (index) => 
-              Container(
+            children: List.generate(
+              100,
+              (index) => SizedBox(
                 height: 50,
                 child: Text('Item $index'),
-              )
-            ),
-          ),
-        ),
-      ),
-    );
-
-    // Scroll down first
-    await tester.drag(find.byType(ListView), const Offset(0, -500));
-    await tester.pumpAndSettle();
-    
-    // Verify we're scrolled down
-    expect(scrollController.offset, greaterThan(0));
-    
-    // Find the StatusBarTapHandler
-    final statusBarHandler = find.byType(StatusBarTapHandler);
-    expect(statusBarHandler, findsOneWidget);
-    
-    // Find the GestureDetector inside StatusBarTapHandler
-    final gestureDetector = find.descendant(
-      of: statusBarHandler,
-      matching: find.byType(GestureDetector),
-    );
-    expect(gestureDetector, findsOneWidget);
-    
-    // Tap on status bar area
-    await tester.tap(gestureDetector);
-    await tester.pumpAndSettle();
-    
-    // Verify we're back at the top
-    expect(scrollController.offset, equals(0));
-  });
-
-  testWidgets('MTScrollable scrolls to top when status bar is tapped', (WidgetTester tester) async {
-    final scrollController = ScrollController();
-    
-    await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: MTScrollable(
-            scrollController: scrollController,
-            scrollOffsetTop: 50.0,
-            child: ListView(
-              children: List.generate(100, (index) => 
-                Container(
-                  height: 50,
-                  child: Text('Item $index'),
-                )
               ),
             ),
           ),
@@ -91,42 +44,46 @@ void main() {
     // Scroll down first
     await tester.drag(find.byType(ListView), const Offset(0, -500));
     await tester.pumpAndSettle();
-    
+
     // Verify we're scrolled down
     expect(scrollController.offset, greaterThan(0));
-    
+
     // Find the StatusBarTapHandler
     final statusBarHandler = find.byType(StatusBarTapHandler);
     expect(statusBarHandler, findsOneWidget);
-    
+
     // Find the GestureDetector inside StatusBarTapHandler
     final gestureDetector = find.descendant(
       of: statusBarHandler,
       matching: find.byType(GestureDetector),
     );
     expect(gestureDetector, findsOneWidget);
-    
+
     // Tap on status bar area
     await tester.tap(gestureDetector);
     await tester.pumpAndSettle();
-    
+
     // Verify we're back at the top
     expect(scrollController.offset, equals(0));
   });
 
-  testWidgets('StatusBarTapHandler works independently', (WidgetTester tester) async {
+  testWidgets('MTScrollable scrolls to top when status bar is tapped', (WidgetTester tester) async {
     final scrollController = ScrollController();
-    
+
     await tester.pumpWidget(
       MaterialApp(
-        home: StatusBarTapHandler(
-          scrollController: scrollController,
-          child: ListView(
-            children: List.generate(100, (index) => 
-              Container(
-                height: 50,
-                child: Text('Item $index'),
-              )
+        home: Scaffold(
+          body: MTScrollable(
+            scrollController: scrollController,
+            topScrollOffset: 50.0,
+            child: ListView(
+              children: List.generate(
+                100,
+                (index) => SizedBox(
+                  height: 50,
+                  child: Text('Item $index'),
+                ),
+              ),
             ),
           ),
         ),
@@ -136,25 +93,71 @@ void main() {
     // Scroll down first
     await tester.drag(find.byType(ListView), const Offset(0, -500));
     await tester.pumpAndSettle();
-    
+
     // Verify we're scrolled down
     expect(scrollController.offset, greaterThan(0));
-    
+
     // Find the StatusBarTapHandler
     final statusBarHandler = find.byType(StatusBarTapHandler);
     expect(statusBarHandler, findsOneWidget);
-    
+
     // Find the GestureDetector inside StatusBarTapHandler
     final gestureDetector = find.descendant(
       of: statusBarHandler,
       matching: find.byType(GestureDetector),
     );
     expect(gestureDetector, findsOneWidget);
-    
+
     // Tap on status bar area
     await tester.tap(gestureDetector);
     await tester.pumpAndSettle();
-    
+
+    // Verify we're back at the top
+    expect(scrollController.offset, equals(0));
+  });
+
+  testWidgets('StatusBarTapHandler works independently', (WidgetTester tester) async {
+    final scrollController = ScrollController();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: StatusBarTapHandler(
+          scrollController: scrollController,
+          child: ListView(
+            children: List.generate(
+              100,
+              (index) => SizedBox(
+                height: 50,
+                child: Text('Item $index'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    // Scroll down first
+    await tester.drag(find.byType(ListView), const Offset(0, -500));
+    await tester.pumpAndSettle();
+
+    // Verify we're scrolled down
+    expect(scrollController.offset, greaterThan(0));
+
+    // Find the StatusBarTapHandler
+    final statusBarHandler = find.byType(StatusBarTapHandler);
+    expect(statusBarHandler, findsOneWidget);
+
+    // Find the GestureDetector inside StatusBarTapHandler
+    final gestureDetector = find.descendant(
+      of: statusBarHandler,
+      matching: find.byType(GestureDetector),
+    );
+    expect(gestureDetector, findsOneWidget);
+
+    // Tap on status bar area
+    await tester.tap(gestureDetector);
+    await tester.pumpAndSettle();
+
     // Verify we're back at the top
     expect(scrollController.offset, equals(0));
   });
@@ -162,23 +165,24 @@ void main() {
   testWidgets('MTScrollable shows bottom shadow when scrolled to bottom', (WidgetTester tester) async {
     final scrollController = ScrollController();
     bool? bottomScrolledState;
-    
+
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: MTScrollable.withShadows(
+          body: MTScrollable(
             scrollController: scrollController,
-            scrollOffsetTop: 50.0,
-            bottomShadowOffset: 100.0,
+            topScrollOffset: 50.0,
+            bottomScrollOffset: 100.0,
             onBottomScrolled: (hasScrolledToBottom) {
               bottomScrolledState = hasScrolledToBottom;
             },
             child: ListView(
-              children: List.generate(20, (index) => 
-                Container(
+              children: List.generate(
+                20,
+                (index) => SizedBox(
                   height: 100,
                   child: Text('Item $index'),
-                )
+                ),
               ),
             ),
           ),
@@ -190,17 +194,17 @@ void main() {
     final initialShadows = find.byType(MTShadowed);
     expect(initialShadows, findsOneWidget);
     expect(bottomScrolledState, isNull);
-    
+
     // Scroll to near bottom (within bottomShadowOffset)
     await tester.drag(find.byType(ListView), const Offset(0, -1500));
     await tester.pumpAndSettle();
-    
+
     // Verify we're scrolled down
     expect(scrollController.offset, greaterThan(0));
-    
+
     // Verify bottom scroll callback was called
     expect(bottomScrolledState, isTrue);
-    
+
     // The bottom shadow should now be visible
     // (We can't easily test the shadow visibility directly, but we can verify
     // that the MTScrollable widget is properly configured)
@@ -209,60 +213,53 @@ void main() {
 
   testWidgets('MTScrollable factory methods work correctly', (WidgetTester tester) async {
     final scrollController = ScrollController();
-    
+
     // Test topShadow factory
     await tester.pumpWidget(
       MaterialApp(
-        home: MTScrollable.topShadow(
+        home: MTScrollable(
           scrollController: scrollController,
-          scrollOffsetTop: 50.0,
+          topScrollOffset: 50.0,
           child: ListView(
-            children: List.generate(10, (index) => 
-              Container(height: 100, child: Text('Item $index'))
-            ),
+            children: List.generate(10, (index) => SizedBox(height: 100, child: Text('Item $index'))),
           ),
         ),
       ),
     );
-    
+
     expect(find.byType(MTScrollable), findsOneWidget);
     expect(find.byType(MTShadowed), findsOneWidget);
-    
+
     // Test withShadows factory
     await tester.pumpWidget(
       MaterialApp(
-        home: MTScrollable.withShadows(
+        home: MTScrollable(
           scrollController: scrollController,
-          scrollOffsetTop: 50.0,
-          bottomShadowOffset: 100.0,
+          topScrollOffset: 50.0,
+          bottomScrollOffset: 100.0,
           child: ListView(
-            children: List.generate(10, (index) => 
-              Container(height: 100, child: Text('Item $index'))
-            ),
+            children: List.generate(10, (index) => SizedBox(height: 100, child: Text('Item $index'))),
           ),
         ),
       ),
     );
-    
+
     expect(find.byType(MTScrollable), findsOneWidget);
     expect(find.byType(MTShadowed), findsOneWidget);
-    
+
     // Test forPage factory
     await tester.pumpWidget(
       MaterialApp(
-        home: MTScrollable.forPage(
+        home: MTScrollable(
           scrollController: scrollController,
-          scrollOffsetTop: 50.0,
-          bottomBarHeight: 80.0,
+          topScrollOffset: 50.0,
           child: ListView(
-            children: List.generate(10, (index) => 
-              Container(height: 100, child: Text('Item $index'))
-            ),
+            children: List.generate(10, (index) => SizedBox(height: 100, child: Text('Item $index'))),
           ),
         ),
       ),
     );
-    
+
     expect(find.byType(MTScrollable), findsOneWidget);
     expect(find.byType(MTShadowed), findsOneWidget);
   });
@@ -271,24 +268,25 @@ void main() {
     final scrollController = ScrollController();
     bool? topScrolledState;
     bool? bottomScrolledState;
-    
+
     await tester.pumpWidget(
       MaterialApp(
         home: MTPage(
           scrollController: scrollController,
           scrollOffsetTop: 50.0,
-          onScrolled: (hasScrolled) {
+          onTopScrolled: (hasScrolled) {
             topScrolledState = hasScrolled;
           },
           onBottomScrolled: (hasScrolledToBottom) {
             bottomScrolledState = hasScrolledToBottom;
           },
           body: ListView(
-            children: List.generate(20, (index) => 
-              Container(
+            children: List.generate(
+              20,
+              (index) => SizedBox(
                 height: 100,
                 child: Text('Item $index'),
-              )
+              ),
             ),
           ),
         ),
@@ -298,73 +296,73 @@ void main() {
     // Initially no scroll callbacks should be called
     expect(topScrolledState, isNull);
     expect(bottomScrolledState, isNull);
-    
+
     // Scroll down to trigger top scroll
     await tester.drag(find.byType(ListView), const Offset(0, -100));
     await tester.pumpAndSettle();
-    
+
     // Verify top scroll callback was called
     expect(topScrolledState, isTrue);
-    
+
     // Scroll to bottom to trigger bottom scroll
     await tester.drag(find.byType(ListView), const Offset(0, -1500));
     await tester.pumpAndSettle();
-    
+
     // Verify bottom scroll callback was called
     expect(bottomScrolledState, isTrue);
   });
 
-  testWidgets('MTButtonV2 supports all button types and functionality', (WidgetTester tester) async {
+  testWidgets('MTButton supports all button types and functionality', (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: Column(
             children: [
               // Main button
-              MTButtonV2.main(
+              MTButton.main(
                 titleText: 'Main Button',
                 onTap: () {},
               ),
-              SizedBox(height: 10),
-              
+              const SizedBox(height: 10),
+
               // Secondary button
-              MTButtonV2.secondary(
+              MTButton.secondary(
                 titleText: 'Secondary Button',
                 onTap: () {},
               ),
-              SizedBox(height: 10),
-              
+              const SizedBox(height: 10),
+
               // Text button
-              MTButtonV2.text(
+              MTButton.secondary(
                 titleText: 'Text Button',
                 onTap: () {},
               ),
-              SizedBox(height: 10),
-              
+              const SizedBox(height: 10),
+
               // Icon button
-              MTButtonV2.icon(
-                icon: Icon(Icons.add),
+              MTButton.icon(
+                const Icon(Icons.add),
                 onTap: () {},
               ),
-              SizedBox(height: 10),
-              
+              const SizedBox(height: 10),
+
               // Danger button
-              MTButtonV2.danger(
+              MTButton.danger(
                 titleText: 'Danger Button',
                 onTap: () {},
               ),
-              SizedBox(height: 10),
-              
+              const SizedBox(height: 10),
+
               // Safe button
-              MTButtonV2.safe(
+              MTButton.safe(
                 titleText: 'Safe Button',
                 onTap: () {},
               ),
-              SizedBox(height: 10),
-              
+              const SizedBox(height: 10),
+
               // Card button
-              MTButtonV2.card(
-                child: Text('Card Button'),
+              MTButton.secondary(
+                titleText: 'Card Button',
                 onTap: () {},
               ),
             ],
@@ -383,19 +381,16 @@ void main() {
     expect(find.byIcon(Icons.add), findsOneWidget);
   });
 
-  testWidgets('MTButtonV2 supports unfocus parameter', (WidgetTester tester) async {
-    bool unfocusCalled = false;
-    
+  testWidgets('MTButton supports unfocus parameter', (WidgetTester tester) async {
     // Mock unfocusAll function
     // Note: In real tests, you'd need to mock the FocusManager
-    
+
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: MTButtonV2.main(
+          body: MTButton.main(
             titleText: 'Test Button',
             onTap: () {},
-            uf: true, // Should call unfocusAll
           ),
         ),
       ),
@@ -404,7 +399,7 @@ void main() {
     // Tap the button
     await tester.tap(find.text('Test Button'));
     await tester.pumpAndSettle();
-    
+
     // Verify button was tapped (unfocus behavior is hard to test without mocking)
     expect(find.text('Test Button'), findsOneWidget);
   });

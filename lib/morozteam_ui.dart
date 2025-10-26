@@ -45,6 +45,7 @@ export 'src/components/alert_dialog.dart';
 export 'src/components/avatar.dart';
 // Background
 export 'src/components/background.dart';
+export 'src/components/base_scrollable.dart';
 // Buttons & Interactive
 export 'src/components/button.dart';
 export 'src/components/button_mixin.dart';
@@ -71,15 +72,13 @@ export 'src/components/page_title.dart';
 export 'src/components/phone_field.dart';
 export 'src/components/progress.dart';
 export 'src/components/refresh.dart';
+export 'src/components/scroll_behavior.dart';
 // Scrolling & Refresh
 export 'src/components/scrollable.dart';
 export 'src/components/scrollable_centered.dart';
-export 'src/components/scrollable_builder.dart';
 export 'src/components/shadowed.dart';
-export 'src/components/status_bar_tap_handler.dart';
-export 'src/components/scroll_behavior.dart';
-export 'src/components/base_scrollable.dart';
 export 'src/components/snackbar_dialog.dart';
+export 'src/components/status_bar_tap_handler.dart';
 // Form Components
 export 'src/components/text_field.dart';
 export 'src/components/toolbar.dart';
