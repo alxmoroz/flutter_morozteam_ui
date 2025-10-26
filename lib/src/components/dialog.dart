@@ -9,34 +9,17 @@ import '../theme/resolved_color.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
+import '../utils/sizing_extensions.dart';
 import 'scrollable.dart';
 import 'toolbar.dart';
+import 'dialog_mixin.dart';
 
 // Note: All dialog methods now require explicit context parameter
 // Global context has been removed to prevent memory leaks and improve testability
 
-BoxConstraints _dialogConstrains(BuildContext context, double? maxWidth) {
-  final mq = MediaQuery.of(context);
-  final big = isBigScreen(context);
-  return BoxConstraints(
-    maxWidth: big ? min(mq.size.width - context.sizing.hPadding, maxWidth ?? context.breakpoints.sWidth) : double.infinity,
-    maxHeight: big ? mq.size.height - (max(mq.padding.vertical, mq.viewPadding.vertical)) - context.sizing.hPadding : double.infinity,
-  );
-}
+// Use DialogMixin instead of local functions
 
-Widget _constrainedDialog(BuildContext context, Widget child, {double? maxWidth}) {
-  return UnconstrainedBox(
-    child: ConstrainedBox(
-      constraints: _dialogConstrains(context, maxWidth),
-      child: SafeArea(
-        maintainBottomViewPadding: true,
-        child: material(child),
-      ),
-    ),
-  );
-}
-
-class MTDialogPage<T> extends Page<T> {
+class MTDialogPage<T> extends Page<T> with DialogMixin {
   const MTDialogPage({required this.child, super.name, super.arguments, this.maxWidth, super.key, super.restorationId});
 
   final Widget child;
@@ -49,11 +32,11 @@ class MTDialogPage<T> extends Page<T> {
           useSafeArea: false,
           barrierColor: context.colorScheme.defaultBarrierColor.resolve(context),
           settings: this,
-          builder: (_) => _constrainedDialog(context, child, maxWidth: maxWidth),
+          builder: (_) => constrainedDialog(context, child, maxWidth: maxWidth),
         )
       : ModalBottomSheetRoute(
           useSafeArea: true,
-          constraints: _dialogConstrains(context, maxWidth),
+          constraints: dialogConstraints(context, maxWidth: maxWidth),
           modalBarrierColor: context.colorScheme.defaultBarrierColor.resolve(context),
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
@@ -78,7 +61,7 @@ Future<T?> showMTDialog<T>(
           barrierDismissible: isDismissible,
           useRootNavigator: false,
           useSafeArea: false,
-          builder: (_) => _constrainedDialog(ctx, child, maxWidth: maxWidth),
+          builder: (_) => _constrainedDialogWithMixin(ctx, child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
           context: ctx,
@@ -88,10 +71,21 @@ Future<T?> showMTDialog<T>(
           isScrollControlled: true,
           useRootNavigator: false,
           useSafeArea: true,
-          constraints: _dialogConstrains(ctx, maxWidth),
+          constraints: _dialogConstraintsWithMixin(ctx, maxWidth),
           builder: (_) => child,
         );
 }
+
+// Helper functions to use DialogMixin
+Widget _constrainedDialogWithMixin(BuildContext context, Widget child, {double? maxWidth}) {
+  return _DialogHelper().constrainedDialog(context, child, maxWidth: maxWidth);
+}
+
+BoxConstraints _dialogConstraintsWithMixin(BuildContext context, double? maxWidth) {
+  return _DialogHelper().dialogConstraints(context, maxWidth: maxWidth);
+}
+
+class _DialogHelper with DialogMixin {}
 
 /// Dialog component with responsive behavior
 ///

@@ -80,14 +80,6 @@ class _DialogsDemoState extends State<DialogsDemo> {
         ),
         SizedBox(height: context.sizing.hPadding),
 
-        // MTDialogV2
-        MTListText.h3('MTDialogV2'),
-        MTButton.secondary(
-          titleText: 'Show MTDialogV2',
-          onTap: () => _showDialogV2(context),
-          margin: context.sizing.defMargin,
-        ),
-        SizedBox(height: context.sizing.hPadding),
       ],
     );
   }
@@ -115,39 +107,6 @@ class _DialogsDemoState extends State<DialogsDemo> {
       onTap: () {
         showMTSnackbar('Snackbar tapped!', context: context);
       },
-    );
-  }
-
-  void _showDialogV2(BuildContext context) async {
-    await showMTDialog(
-      MTDialogV2(
-        title: 'Dialog V2',
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const MTListText('This is a simplified dialog using MTDialogV2 component.'),
-            SizedBox(height: context.sizing.vPadding),
-            const MTListText('Features:'),
-            const MTListText('• Simplified API'),
-            const MTListText('• Built-in responsive design'),
-            const MTListText('• Automatic constraints'),
-            const MTListText('• Mixin-based architecture'),
-          ],
-        ),
-        actions: [
-          MTButtonV2(
-            type: MTButtonType.text,
-            titleText: 'Cancel',
-            onTap: () => Navigator.of(context).pop(),
-          ),
-          MTButtonV2(
-            type: MTButtonType.main,
-            titleText: 'OK',
-            onTap: () => Navigator.of(context).pop(),
-          ),
-        ],
-      ),
-      context: context,
     );
   }
 

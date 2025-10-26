@@ -39,50 +39,6 @@ class ButtonsDemo extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: context.sizing.hPadding),
-        MTListText.h3('Button V2 Components'),
-        SizedBox(height: context.sizing.vPadding),
-        MTButtonV2(
-          type: MTButtonType.main,
-          titleText: 'MTButtonV2.main',
-          onTap: () {},
-        ),
-        SizedBox(height: context.sizing.vPadding),
-        MTButtonV2(
-          type: MTButtonType.secondary,
-          titleText: 'MTButtonV2.secondary',
-          onTap: () {},
-        ),
-        SizedBox(height: context.sizing.vPadding),
-        MTButtonV2(
-          type: MTButtonType.danger,
-          titleText: 'MTButtonV2.danger',
-          onTap: () {},
-        ),
-        SizedBox(height: context.sizing.vPadding),
-        MTButtonV2(
-          type: MTButtonType.safe,
-          titleText: 'MTButtonV2.safe',
-          onTap: () {},
-        ),
-        SizedBox(height: context.sizing.vPadding),
-        MTButtonV2(
-          type: MTButtonType.text,
-          titleText: 'MTButtonV2.text',
-          onTap: () {},
-        ),
-        SizedBox(height: context.sizing.vPadding),
-        MTButtonV2(
-          type: MTButtonType.card,
-          titleText: 'MTButtonV2.card',
-          onTap: () {},
-        ),
-        SizedBox(height: context.sizing.vPadding),
-        MTButtonV2(
-          type: MTButtonType.icon,
-          icon: const PlusIcon(),
-          onTap: () {},
-        ),
       ],
     );
   }

@@ -9,6 +9,8 @@ import '../theme/text.dart';
 import '../utils/adaptive.dart';
 import '../utils/gesture.dart';
 import '../utils/material_wrapper.dart';
+import '../utils/sizing_extensions.dart';
+import 'button_mixin.dart';
 
 /// Button types
 enum MTButtonType {
@@ -56,7 +58,7 @@ enum MTButtonType {
 /// See also:
 /// * [MTButtonType] for available button styles
 /// * [buildMTTheme] to customize button appearance
-class MTButton extends StatelessWidget with GestureManaging {
+class MTButton extends StatelessWidget with GestureManaging, ButtonMixin {
   const MTButton({
     super.key,
     this.titleText,

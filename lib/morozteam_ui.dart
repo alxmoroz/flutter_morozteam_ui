@@ -7,7 +7,7 @@
 ///
 /// ## Features
 ///
-/// - 32 ready-to-use UI components
+/// - 31 ready-to-use UI components
 /// - Flexible theme system with customizable colors, typography, and spacing
 /// - Built-in light/dark mode support
 /// - Responsive design utilities
@@ -47,7 +47,6 @@ export 'src/components/avatar.dart';
 export 'src/components/background.dart';
 // Buttons & Interactive
 export 'src/components/button.dart';
-export 'src/components/button_v2.dart';
 export 'src/components/button_mixin.dart';
 // Layout
 export 'src/components/card.dart';
@@ -56,7 +55,6 @@ export 'src/components/circle.dart';
 export 'src/components/circular_progress.dart';
 export 'src/components/close_dialog_button.dart';
 export 'src/components/dialog.dart';
-export 'src/components/dialog_v2.dart';
 export 'src/components/dialog_mixin.dart';
 export 'src/components/divider.dart';
 export 'src/components/dropdown.dart';
@@ -77,8 +75,6 @@ export 'src/components/refresh.dart';
 export 'src/components/scrollable.dart';
 export 'src/components/scrollable_centered.dart';
 export 'src/components/scrollable_builder.dart';
-export 'src/components/scrollable_v2.dart';
-export 'src/components/page_v2.dart';
 export 'src/components/shadowed.dart';
 export 'src/components/status_bar_tap_handler.dart';
 export 'src/components/scroll_behavior.dart';
